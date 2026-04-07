@@ -8,8 +8,8 @@ import SectionHeader from "@/components/SectionHeader";
 import HorizontalScroll from "@/components/HorizontalScroll";
 import TagRow from "@/components/TagRow";
 import CreateToolCard from "@/components/CreateToolCard";
-
 import CreatorCard from "@/components/CreatorCard";
+import StoryCard from "@/components/StoryCard";
 
 import char1 from "@/assets/char1.jpg";
 import char2 from "@/assets/char2.jpg";
@@ -72,6 +72,14 @@ const createTools = [
   { title: "Create Template Babe", color: "bg-gradient-to-br from-green-500 to-green-700", icon: <Camera className="w-6 h-6 text-primary-foreground" /> },
 ];
 
+const stories = [
+  { title: "Summer Adventures", description: "The rating logic is working correctly. The story on this creator's profile simply has no ratings yet, so the rating badge doesn't appear", imageUrl: char1, episodes: 1, scenes: 6 },
+  { title: "Dark Desires", description: "A thrilling journey through the shadows of the city where nothing is as it seems...", imageUrl: char3, episodes: 3, scenes: 12 },
+  { title: "Campus Life", description: "Follow the wild adventures of college students navigating love, drama and late-night study sessions...", imageUrl: char5, episodes: 2, scenes: 8 },
+  { title: "Midnight Whispers", description: "Secrets unfold under the moonlight as two strangers meet at a mysterious masquerade ball...", imageUrl: char2, episodes: 1, scenes: 4 },
+  { title: "Island Escape", description: "Stranded on a tropical paradise with a beautiful stranger, every day brings new temptation...", imageUrl: char6, episodes: 4, scenes: 18 },
+];
+
 const Index = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -116,6 +124,16 @@ const Index = () => {
                 ))}
               </HorizontalScroll>
             </div>
+          </section>
+
+          {/* Stories */}
+          <section>
+            <SectionHeader title="Featured Stories" />
+            <HorizontalScroll>
+              {stories.map((s) => (
+                <StoryCard key={s.title} {...s} />
+              ))}
+            </HorizontalScroll>
           </section>
 
           {/* Start Creating */}
