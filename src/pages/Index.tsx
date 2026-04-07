@@ -9,6 +9,8 @@ import HorizontalScroll from "@/components/HorizontalScroll";
 import TagRow from "@/components/TagRow";
 import CreateToolCard from "@/components/CreateToolCard";
 
+import CreatorCard from "@/components/CreatorCard";
+
 import char1 from "@/assets/char1.jpg";
 import char2 from "@/assets/char2.jpg";
 import char3 from "@/assets/char3.jpg";
@@ -19,6 +21,15 @@ import model1 from "@/assets/model1.jpg";
 import model2 from "@/assets/model2.jpg";
 import model3 from "@/assets/model3.jpg";
 import model4 from "@/assets/model4.jpg";
+import creator1 from "@/assets/creator1.jpg";
+
+const topCreators = [
+  { name: "Big Daddy", avatarUrl: creator1, verified: true },
+  { name: "Big Daddy", avatarUrl: creator1, verified: false },
+  { name: "Big Daddy", avatarUrl: creator1, verified: false },
+  { name: "Big Daddy", avatarUrl: creator1, verified: false },
+  { name: "Big Daddy", avatarUrl: creator1, verified: false },
+];
 
 const characters = [
   { name: "Lumi", description: "Hi there, I'm your pocket fairy", messageCount: 0, imageUrl: char1 },
@@ -123,6 +134,16 @@ const Index = () => {
             <HorizontalScroll>
               {blackBeauties.map((m) => (
                 <ModelCard key={m.name} {...m} />
+              ))}
+            </HorizontalScroll>
+          </section>
+
+          {/* TOP Creators */}
+          <section>
+            <SectionHeader title="TOP Creators" />
+            <HorizontalScroll>
+              {topCreators.map((c, i) => (
+                <CreatorCard key={i} {...c} />
               ))}
             </HorizontalScroll>
           </section>
