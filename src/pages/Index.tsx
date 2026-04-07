@@ -126,6 +126,16 @@ const Index = () => {
             </div>
           </section>
 
+          {/* Stories */}
+          <section>
+            <SectionHeader title="Featured Stories" />
+            <HorizontalScroll>
+              {stories.map((s) => (
+                <StoryCard key={s.title} {...s} />
+              ))}
+            </HorizontalScroll>
+          </section>
+
           {/* Start Creating */}
           <section>
             <SectionHeader title="Start Creating" />
