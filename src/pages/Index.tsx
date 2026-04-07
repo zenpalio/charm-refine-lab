@@ -8,8 +8,8 @@ import SectionHeader from "@/components/SectionHeader";
 import HorizontalScroll from "@/components/HorizontalScroll";
 import TagRow from "@/components/TagRow";
 import CreateToolCard from "@/components/CreateToolCard";
-
 import CreatorCard from "@/components/CreatorCard";
+import StoryCard from "@/components/StoryCard";
 
 import char1 from "@/assets/char1.jpg";
 import char2 from "@/assets/char2.jpg";
