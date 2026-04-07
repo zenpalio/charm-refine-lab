@@ -112,7 +112,7 @@ const Index = () => {
             <div className="mt-4">
               <HorizontalScroll>
                 {trendingContent.map((c, i) => (
-                  <ContentCard key={i} {...c} rank={i + 1} />
+                  <ContentCard key={i} {...c} />
                 ))}
               </HorizontalScroll>
             </div>
