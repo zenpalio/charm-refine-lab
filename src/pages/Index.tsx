@@ -143,7 +143,7 @@ const Index = () => {
             <SectionHeader title="TOP Creators" />
             <HorizontalScroll>
               {topCreators.map((c, i) => (
-                <CreatorCard key={i} {...c} />
+                <CreatorCard key={i} {...c} rank={i + 1} />
               ))}
             </HorizontalScroll>
           </section>
