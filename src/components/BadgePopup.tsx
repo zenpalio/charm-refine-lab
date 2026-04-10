@@ -22,8 +22,8 @@ const tierGlowColors: Record<BadgeTier, string> = {
   master: "213, 100%, 60%",
   legend: "43, 96%, 58%",
   elite: "213, 100%, 50%",
-  mythic: "281, 85%, 62%",
-  grandmaster: "0, 82%, 58%",
+  mythic: "0, 82%, 58%",
+  grandmaster: "281, 85%, 62%",
   immortal: "48, 96%, 70%",
 };
 
@@ -32,8 +32,8 @@ const tierAccentColors: Record<BadgeTier, string> = {
   master: "hsl(213 100% 60%)",
   legend: "hsl(43 96% 58%)",
   elite: "hsl(213 100% 50%)",
-  mythic: "hsl(281 85% 62%)",
-  grandmaster: "hsl(0 82% 58%)",
+  mythic: "hsl(0 82% 58%)",
+  grandmaster: "hsl(281 85% 62%)",
   immortal: "hsl(48 96% 70%)",
 };
 
