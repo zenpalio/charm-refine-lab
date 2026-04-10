@@ -57,6 +57,7 @@ const mockCreators = Array.from({ length: 30 }, (_, i) => {
 const Creators = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortBy>("aura");
   const [filterBy, setFilterBy] = useState<FilterBy>("all");
 
@@ -80,21 +81,29 @@ const Creators = () => {
           <button onClick={() => navigate(-1)} className="p-2 rounded-full hover:bg-secondary transition-colors">
             <ArrowLeft className="w-5 h-5 text-foreground" />
           </button>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-1">
             <Crown className="w-5 h-5 text-primary" />
             <h1 className="text-xl font-bold text-foreground">Top Creators</h1>
           </div>
-        </div>
 
-        {/* Search */}
-        <div className="relative mb-5">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            placeholder="Search creators..."
-            className="w-full bg-card border border-border rounded-xl pl-10 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-          />
+          {/* Search icon / expandable input */}
+          {searchOpen ? (
+            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
+              <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <input
+                autoFocus
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                onBlur={() => { if (!search) setSearchOpen(false); }}
+                placeholder="Search..."
+                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-32"
+              />
+            </div>
+          ) : (
+            <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
+              <Search className="w-5 h-5 text-muted-foreground" />
+            </button>
+          )}
         </div>
 
         {/* Filters */}
