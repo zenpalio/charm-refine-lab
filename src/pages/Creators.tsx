@@ -324,7 +324,6 @@ const Creators = () => {
                   </div>
                 )}
               </>
-            )}
 
           </div>
         )}
