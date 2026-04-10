@@ -166,15 +166,15 @@ const Profile = () => {
             {/* Animated glow ring for high tiers */}
             {isHighTier(previewTier) && (
               <div
-                className="absolute -inset-1 rounded-full blur-md opacity-60 motion-safe:animate-pulse"
+                className="absolute -inset-1 rounded-full blur-md opacity-40 motion-safe:animate-pulse"
                 style={{ backgroundColor: tierBorderColors[previewTier] }}
               />
             )}
             {/* Rotating conic gradient ring for Immortal */}
             {previewTier === "immortal" && (
-              <div className="absolute -inset-[3px] rounded-full immortal-ring" style={{
+              <div className="absolute -inset-[2px] rounded-full immortal-ring" style={{
                 background: 'conic-gradient(from 0deg, hsl(48 96% 70%), hsl(38 100% 50%), hsl(280 80% 60%), hsl(200 100% 70%), hsl(48 96% 70%))',
-                padding: '3px',
+                padding: '2px',
               }}>
                 <div className="w-full h-full rounded-full bg-background" />
               </div>
@@ -184,19 +184,10 @@ const Profile = () => {
               <div
                 className="absolute inset-0 rounded-full transition-all duration-500"
                 style={{
-                  border: `3px solid ${tierBorderColors[previewTier]}`,
+                  border: `2px solid ${tierBorderColors[previewTier]}90`,
                   boxShadow: isHighTier(previewTier)
-                    ? `0 0 20px ${tierBorderColors[previewTier]}80, inset 0 0 12px ${tierBorderColors[previewTier]}30`
+                    ? `0 0 12px ${tierBorderColors[previewTier]}40`
                     : 'none',
-                }}
-              />
-            )}
-            {/* Second inner ring for high tiers (non-immortal) */}
-            {isHighTier(previewTier) && previewTier !== "immortal" && (
-              <div
-                className="absolute inset-[3px] rounded-full transition-all duration-500"
-                style={{
-                  border: `1px solid ${tierBorderColors[previewTier]}60`,
                 }}
               />
             )}
