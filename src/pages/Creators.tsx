@@ -458,15 +458,21 @@ const Creators = () => {
               {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "{search}"
             </p>
           )}
-          {(searchActive ? filtered : filtered.slice(3)).map((creator, idx) => (
-            <CreatorRow
-              key={creator.id}
-              creator={creator}
-              rank={searchActive ? idx + 1 : idx + 4}
-              creationType={creationType}
-              sortBy={sortBy}
-            />
-          ))}
+          {searchActive ? (
+            filtered.map((creator) => (
+              <SearchResultCard key={creator.id} creator={creator} />
+            ))
+          ) : (
+            filtered.slice(3).map((creator, idx) => (
+              <CreatorRow
+                key={creator.id}
+                creator={creator}
+                rank={idx + 4}
+                creationType={creationType}
+                sortBy={sortBy}
+              />
+            ))
+          )}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
           )}
