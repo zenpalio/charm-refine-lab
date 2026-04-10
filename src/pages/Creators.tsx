@@ -221,11 +221,9 @@ const Creators = () => {
           )}
         </div>
 
-        {/* Filters — hidden during active search */}
-        {!searchActive && (
+        {/* Filters — hidden during search */}
+        {!searchActive && !search && (
           <div className="flex items-center gap-2 mb-6 flex-wrap">
-            {/* Sort dropdown — hidden when search is open with text */}
-            {!(searchOpen && search) && (
               <>
                 {/* Sort dropdown with popover */}
                 <div className="relative">
