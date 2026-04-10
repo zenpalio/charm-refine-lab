@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Search, ArrowLeft, Crown, Sparkles, ChevronDown, Zap, Image, Video, BookOpen, Users, Heart } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
 import { useNavigate } from "react-router-dom";
+import TierRingCanvas from "@/components/TierRingCanvas";
 import { type BadgeTier } from "@/components/BadgeCard";
 import creator1 from "@/assets/creator1_new.jpg";
 import creator2 from "@/assets/creators/creator2.jpg";
