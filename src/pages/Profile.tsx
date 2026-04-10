@@ -10,22 +10,29 @@ import badgeMythic from "@/assets/badge-mythic.png";
 import badgeGrandmaster from "@/assets/badge-grandmaster.png";
 import badgeImmortal from "@/assets/badge-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
+import frameNewbie from "@/assets/frames/frame-newbie.png";
+import frameMaster from "@/assets/frames/frame-master.png";
+import frameLegend from "@/assets/frames/frame-legend.png";
+import frameElite from "@/assets/frames/frame-elite.png";
+import frameGrandmaster from "@/assets/frames/frame-grandmaster.png";
+import frameMythic from "@/assets/frames/frame-mythic.png";
+import frameImmortal from "@/assets/frames/frame-immortal.png";
 
 const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "grandmaster", "mythic", "immortal"];
 
 const tierBadgeImages: Record<BadgeTier, string> = {
   newbie: badgeNewbie, master: badgeMaster, legend: badgeLegend,
-  elite: badgeElite, mythic: badgeMythic, grandmaster: badgeGrandmaster, immortal: badgeImmortal,
+  elite: badgeElite, grandmaster: badgeGrandmaster, mythic: badgeMythic, immortal: badgeImmortal,
 };
 
-const tierRingColors: Record<BadgeTier, string> = {
-  newbie: "ring-[hsl(0,0%,60%)]",
-  master: "ring-[hsl(340,50%,65%)]",
-  legend: "ring-[hsl(40,80%,55%)]",
-  elite: "ring-[hsl(213,100%,50%)]",
-  grandmaster: "ring-[hsl(300,60%,55%)]",
-  mythic: "ring-[hsl(0,70%,50%)]",
-  immortal: "ring-[hsl(0,0%,85%)]",
+const tierProfileFrames: Record<BadgeTier, string> = {
+  newbie: frameNewbie,
+  master: frameMaster,
+  legend: frameLegend,
+  elite: frameElite,
+  grandmaster: frameGrandmaster,
+  mythic: frameMythic,
+  immortal: frameImmortal,
 };
 
 const tierLabels: Record<BadgeTier, string> = {
@@ -123,8 +130,6 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
-
-        {/* Tier Switcher */}
         <div className="flex items-center justify-center gap-1.5 mb-4 flex-wrap">
           {allTiers.map((tier) => (
             <button
@@ -141,13 +146,17 @@ const Profile = () => {
           ))}
         </div>
 
-        {/* Avatar + Name */}
         <div className="relative flex flex-col items-center mb-6">
-          <div className="relative mb-3">
-            <div className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-4 ${tierRingColors[previewTier]}`}>
+          <div className="relative mb-3 w-24 h-24 sm:w-32 sm:h-32">
+            <div className="absolute inset-[10px] sm:inset-[12px] rounded-full overflow-hidden">
               <img src={creator1} alt="Profile" className="w-full h-full object-cover" />
             </div>
-            <div className="absolute -bottom-2 -right-2 w-10 h-10 sm:w-12 sm:h-12">
+            <img
+              src={tierProfileFrames[previewTier]}
+              alt={`${previewTier} profile frame`}
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-lg"
+            />
+            <div className="absolute -bottom-1 -right-1 w-10 h-10 sm:w-14 sm:h-14">
               <img
                 src={tierBadgeImages[previewTier]}
                 alt={`${previewTier} badge`}
@@ -171,7 +180,6 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Stats bar */}
         <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
           {statItems.map((stat) => (
             <div
@@ -187,7 +195,6 @@ const Profile = () => {
           ))}
         </div>
 
-        {/* Badge categories */}
         <div>
           {badgeCategories.map((cat, i) => (
             <BadgeCategory key={i} {...cat} />
