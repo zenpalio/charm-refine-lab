@@ -407,7 +407,7 @@ const Creators = () => {
                       ) : sortBy === "followers" ? (
                         <Users className="w-3.5 h-3.5" style={{ color: `hsl(${glowHsl})` }} />
                       ) : (
-                        <AuraIcon className="w-3.5 h-3.5" style={{ color: `hsl(${glowHsl})` }} />
+                        <AuraIcon className="w-3.5 h-3.5 text-purple-500" />
                       )}
                       <span className="text-[11px] font-black text-foreground">
                         {sortBy === "likes"
@@ -548,7 +548,7 @@ const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) =>
         ) : sortBy === "followers" ? (
           <Users className="w-3.5 h-3.5 text-primary" />
         ) : (
-          <AuraIcon className="w-3.5 h-3.5 text-primary" />
+          <AuraIcon className="w-3.5 h-3.5 text-purple-500" />
         )}
         <span className="text-xs font-bold text-foreground">
           {sortBy === "likes"
