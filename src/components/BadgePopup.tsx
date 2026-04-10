@@ -1,7 +1,7 @@
 import { X, Sparkles, Star, Zap } from "lucide-react";
 import { type BadgeTier, type BadgeImageSet, imageSets } from "./BadgeCard";
 import { Button } from "./ui/button";
-import AuraIcon from "./AuraIcon";
+
 
 interface BadgePopupProps {
   name: string;
@@ -207,7 +207,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
                 boxShadow: unlocked ? `0 0 20px hsl(${glowHsl} / 0.15)` : "none",
               }}
             >
-              <AuraIcon className="w-5 h-5" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }} />
+              <Zap className="w-5 h-5" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }} />
             </div>
             <div className="flex flex-col items-start">
               <span className="text-foreground font-extrabold text-xl leading-tight tracking-tight">+{tokens ?? aura}</span>
