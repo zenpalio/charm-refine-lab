@@ -294,7 +294,7 @@ const Creators = () => {
         {/* Remaining Creators List */}
         <div className="space-y-2">
           {filtered.slice(3).map((creator, idx) => (
-            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} />
+            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} creationType={creationType} />
           ))}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
@@ -308,6 +308,7 @@ const Creators = () => {
 interface CreatorRowProps {
   creator: typeof mockCreators[0];
   rank: number;
+  creationType: CreationType;
 }
 
 const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
