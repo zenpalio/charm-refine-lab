@@ -556,10 +556,6 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
     ctx.fill();
   }
 }
-    ctx.fillStyle = fg;
-    ctx.fill();
-  }
-}
 
 // ─── GRANDMASTER: Fire flames ───
 function drawGrandmaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRadius: number, time: number, particles: Particle[]) {
