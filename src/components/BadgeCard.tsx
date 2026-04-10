@@ -51,6 +51,7 @@ interface BadgeCardProps {
   aura: number;
   tier: BadgeTier;
   unlocked: boolean;
+  claimed?: boolean;
   imageSet?: BadgeImageSet;
   onClick?: () => void;
 }
