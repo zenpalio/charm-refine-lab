@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Settings, Info, Globe, Users, Trophy } from "lucide-react";
 import BadgeCategory from "@/components/BadgeCategory";
 import { type BadgeTier } from "@/components/BadgeCard";
@@ -37,7 +37,7 @@ const statItems = [
   { icon: Users, label: "CHARACTERS", value: "#56" },
 ];
 
-const tabs = ["Badges", "Characters", "Following"] as const;
+
 
 const badgeCategories = [
   {
@@ -113,7 +113,6 @@ const badgeCategories = [
 ];
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("Badges");
 
   // Derive highest unlocked tier from Total Aura category
   const totalAuraCategory = badgeCategories[0];
@@ -174,46 +173,12 @@ const Profile = () => {
             ))}
           </div>
 
-          {/* Tabs */}
-          <div className="flex items-center gap-4 sm:gap-6 border-b border-border mb-6 overflow-x-auto scrollbar-hide">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`pb-3 text-sm font-semibold transition-colors relative ${
-                  activeTab === tab
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {tab}
-                {activeTab === tab && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                )}
-              </button>
+          {/* Badge categories */}
+          <div>
+            {badgeCategories.map((cat, i) => (
+              <BadgeCategory key={i} {...cat} />
             ))}
           </div>
-
-          {/* Tab content */}
-          {activeTab === "Badges" && (
-            <div>
-              {badgeCategories.map((cat, i) => (
-                <BadgeCategory key={i} {...cat} />
-              ))}
-            </div>
-          )}
-
-          {activeTab === "Characters" && (
-            <div className="text-center text-muted-foreground py-12">
-              <p className="text-sm">Your characters will appear here</p>
-            </div>
-          )}
-
-          {activeTab === "Following" && (
-            <div className="text-center text-muted-foreground py-12">
-              <p className="text-sm">Creators you follow will appear here</p>
-            </div>
-          )}
         </div>
     </div>
   );
