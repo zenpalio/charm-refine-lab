@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ArrowLeft, Crown, ChevronDown, Zap } from "lucide-react";
+import { Search, ArrowLeft, Crown, ChevronDown, Zap, Image, Video, BookOpen, Users } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
@@ -48,8 +48,25 @@ const tierGlowColors: Record<BadgeTier, string> = {
 
 const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
 
-type SortBy = "followers" | "aura";
+type CreationType = "all" | "characters" | "images" | "videos" | "stories";
+type SortBy = "aura" | "likes" | "date";
 type FilterBy = "trending" | "newest" | "all";
+
+const creationTypeLabels: Record<CreationType, string> = {
+  all: "All Creations",
+  characters: "Characters",
+  images: "Images",
+  videos: "Videos",
+  stories: "Stories",
+};
+
+const creationTypeIcons: Record<CreationType, React.ReactNode> = {
+  all: <Users className="w-4 h-4" />,
+  characters: <Users className="w-4 h-4" />,
+  images: <Image className="w-4 h-4" />,
+  videos: <Video className="w-4 h-4" />,
+  stories: <BookOpen className="w-4 h-4" />,
+};
 
 const mockCreators = Array.from({ length: 30 }, (_, i) => {
   const tiers: BadgeTier[] = ["immortal", "mythic", "grandmaster", "elite", "legend", "master", "newbie"];
@@ -69,10 +86,17 @@ const mockCreators = Array.from({ length: 30 }, (_, i) => {
     avatarUrl: avatars[i % avatars.length],
     tier,
     followers: Math.floor(50000 / (i + 1)) + Math.floor(Math.random() * 500),
+    likes: Math.floor(80000 / (i + 1)) + Math.floor(Math.random() * 2000),
     aura: Math.floor(100000 / (i + 1)) + Math.floor(Math.random() * 1000),
     trending: i < 10,
     joinedDaysAgo: Math.floor(Math.random() * 365) + 1,
-    streak: Math.floor(Math.random() * 30) + 1,
+    topCreationType: (["characters", "images", "videos", "stories"] as const)[i % 4],
+    creations: {
+      characters: Math.floor(Math.random() * 50) + 1,
+      images: Math.floor(Math.random() * 200) + 5,
+      videos: Math.floor(Math.random() * 30),
+      stories: Math.floor(Math.random() * 40) + 2,
+    },
   };
 });
 
@@ -82,16 +106,23 @@ const Creators = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortBy>("aura");
   const [filterBy, setFilterBy] = useState<FilterBy>("all");
+  const [creationType, setCreationType] = useState<CreationType>("all");
+
+  const sortOptions: SortBy[] = ["aura", "likes", "date"];
+  const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", date: "Newest" };
+  const creationOptions: CreationType[] = ["all", "characters", "images", "videos", "stories"];
 
   const filtered = useMemo(() => {
     let list = [...mockCreators];
     if (search) list = list.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
+    if (creationType !== "all") list = list.filter(c => c.creations[creationType] > 0);
     if (filterBy === "trending") list = list.filter(c => c.trending);
     if (filterBy === "newest") list = list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
-    if (sortBy === "followers") list.sort((a, b) => b.followers - a.followers);
+    if (sortBy === "likes") list.sort((a, b) => b.likes - a.likes);
+    else if (sortBy === "date") list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
     else list.sort((a, b) => b.aura - a.aura);
     return list;
-  }, [search, sortBy, filterBy]);
+  }, [search, sortBy, filterBy, creationType]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -108,14 +139,33 @@ const Creators = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-6 flex-wrap">
+          {/* Sort dropdown */}
           <button
-            onClick={() => setSortBy(sortBy === "aura" ? "followers" : "aura")}
+            onClick={() => {
+              const idx = sortOptions.indexOf(sortBy);
+              setSortBy(sortOptions[(idx + 1) % sortOptions.length]);
+            }}
             className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
           >
-            {sortBy === "aura" ? "Most Aura" : "Most Liked"}
+            {sortLabels[sortBy]}
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </button>
+
+          {/* Creation type dropdown */}
+          <button
+            onClick={() => {
+              const idx = creationOptions.indexOf(creationType);
+              setCreationType(creationOptions[(idx + 1) % creationOptions.length]);
+            }}
+            className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+          >
+            {creationTypeIcons[creationType]}
+            {creationTypeLabels[creationType]}
+            <ChevronDown className="w-4 h-4 text-muted-foreground" />
+          </button>
+
+          {/* Time filter */}
           <button
             onClick={() => setFilterBy(filterBy === "all" ? "trending" : filterBy === "trending" ? "newest" : "all")}
             className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
@@ -123,6 +173,7 @@ const Creators = () => {
             {filterBy === "all" ? "All time" : filterBy === "trending" ? "Trending" : "Newest"}
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </button>
+
           <div className="flex-1" />
           {searchOpen ? (
             <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
@@ -243,7 +294,7 @@ const Creators = () => {
         {/* Remaining Creators List */}
         <div className="space-y-2">
           {filtered.slice(3).map((creator, idx) => (
-            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} />
+            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} creationType={creationType} />
           ))}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
@@ -257,9 +308,10 @@ const Creators = () => {
 interface CreatorRowProps {
   creator: typeof mockCreators[0];
   rank: number;
+  creationType: CreationType;
 }
 
-const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
+const CreatorRow = ({ creator, rank, creationType }: CreatorRowProps) => {
   const borderColor = tierBorderColors[creator.tier];
   const glowHsl = tierGlowColors[creator.tier];
   const highTier = isHighTier(creator.tier);
@@ -296,7 +348,9 @@ const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
         </div>
         <p className="text-[11px] text-muted-foreground">
           {creator.followers.toLocaleString()} followers
-          
+          {creationType !== "all" && (
+            <span className="text-muted-foreground ml-1">· {creator.creations[creationType]} {creationType}</span>
+          )}
         </p>
       </div>
 
