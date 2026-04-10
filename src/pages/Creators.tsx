@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ArrowLeft, Sparkles, ChevronDown, Zap, Image, Video, BookOpen, Users, Heart } from "lucide-react";
+import { Search, ArrowLeft, Crown, Sparkles, ChevronDown, Zap, Image, Video, BookOpen, Users, Heart } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
