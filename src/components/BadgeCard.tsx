@@ -88,12 +88,8 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, imageSet = "aur
   return (
     <div className="flex flex-col items-center gap-2 min-w-[116px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-28 h-28 rounded-[1.75rem] bg-card border p-2 flex items-center justify-center transition-transform duration-300 ${
-          unlocked
-            ? isClaimable
-              ? "hover:scale-[1.05] border-primary shadow-[0_0_16px_hsl(var(--primary)/0.4)] animate-pulse"
-              : "hover:scale-[1.03] border-border/30"
-            : "opacity-45 grayscale border-border/30"
+        className={`relative w-28 h-28 rounded-[1.75rem] bg-card border border-border/30 p-2 flex items-center justify-center transition-transform duration-300 ${
+          unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
         }`}
       >
         <img
@@ -110,7 +106,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, imageSet = "aur
         )}
 
         {isClaimable && (
-          <div className="absolute -top-1.5 -right-1.5 z-20 bg-primary text-primary-foreground text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg">
+          <div className="absolute -top-1.5 -right-1.5 z-20 bg-primary text-primary-foreground text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg animate-pulse">
             NEW
           </div>
         )}
