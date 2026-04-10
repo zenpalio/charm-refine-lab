@@ -6,16 +6,45 @@ import badgeElite from "@/assets/badge-elite.png";
 import badgeMythic from "@/assets/badge-mythic.png";
 import badgeGrandmaster from "@/assets/badge-grandmaster.png";
 import badgeImmortal from "@/assets/badge-immortal.png";
-import badgeSimpleNewbie from "@/assets/badge-simple-newbie.png";
-import badgeSimpleMaster from "@/assets/badge-simple-master.png";
-import badgeSimpleLegend from "@/assets/badge-simple-legend.png";
-import badgeSimpleElite from "@/assets/badge-simple-elite.png";
-import badgeSimpleMythic from "@/assets/badge-simple-mythic.png";
-import badgeSimpleGrandmaster from "@/assets/badge-simple-grandmaster.png";
-import badgeSimpleImmortal from "@/assets/badge-simple-immortal.png";
+
+// Characters
+import charNewbie from "@/assets/badges/char-newbie.png";
+import charMaster from "@/assets/badges/char-master.png";
+import charLegend from "@/assets/badges/char-legend.png";
+import charElite from "@/assets/badges/char-elite.png";
+import charMythic from "@/assets/badges/char-mythic.png";
+import charGrandmaster from "@/assets/badges/char-grandmaster.png";
+import charImmortal from "@/assets/badges/char-immortal.png";
+
+// Social
+import socialNewbie from "@/assets/badges/social-newbie.png";
+import socialMaster from "@/assets/badges/social-master.png";
+import socialLegend from "@/assets/badges/social-legend.png";
+import socialElite from "@/assets/badges/social-elite.png";
+import socialMythic from "@/assets/badges/social-mythic.png";
+import socialGrandmaster from "@/assets/badges/social-grandmaster.png";
+import socialImmortal from "@/assets/badges/social-immortal.png";
+
+// Messaging
+import msgNewbie from "@/assets/badges/msg-newbie.png";
+import msgMaster from "@/assets/badges/msg-master.png";
+import msgLegend from "@/assets/badges/msg-legend.png";
+import msgElite from "@/assets/badges/msg-elite.png";
+import msgMythic from "@/assets/badges/msg-mythic.png";
+import msgGrandmaster from "@/assets/badges/msg-grandmaster.png";
+import msgImmortal from "@/assets/badges/msg-immortal.png";
+
+// Content Creation
+import contentNewbie from "@/assets/badges/content-newbie.png";
+import contentMaster from "@/assets/badges/content-master.png";
+import contentLegend from "@/assets/badges/content-legend.png";
+import contentElite from "@/assets/badges/content-elite.png";
+import contentMythic from "@/assets/badges/content-mythic.png";
+import contentGrandmaster from "@/assets/badges/content-grandmaster.png";
+import contentImmortal from "@/assets/badges/content-immortal.png";
 
 export type BadgeTier = "newbie" | "master" | "legend" | "mythic" | "elite" | "grandmaster" | "immortal";
-export type BadgeImageSet = "cool" | "simple";
+export type BadgeImageSet = "aura" | "characters" | "social" | "messaging" | "content";
 
 interface BadgeCardProps {
   name: string;
@@ -26,30 +55,33 @@ interface BadgeCardProps {
   onClick?: () => void;
 }
 
-const coolImages: Record<BadgeTier, string> = {
-  newbie: badgeNewbie,
-  master: badgeMaster,
-  legend: badgeLegend,
-  elite: badgeElite,
-  mythic: badgeMythic,
-  grandmaster: badgeGrandmaster,
-  immortal: badgeImmortal,
+const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
+  aura: {
+    newbie: badgeNewbie, master: badgeMaster, legend: badgeLegend,
+    elite: badgeElite, mythic: badgeMythic, grandmaster: badgeGrandmaster, immortal: badgeImmortal,
+  },
+  characters: {
+    newbie: charNewbie, master: charMaster, legend: charLegend,
+    elite: charElite, mythic: charMythic, grandmaster: charGrandmaster, immortal: charImmortal,
+  },
+  social: {
+    newbie: socialNewbie, master: socialMaster, legend: socialLegend,
+    elite: socialElite, mythic: socialMythic, grandmaster: socialGrandmaster, immortal: socialImmortal,
+  },
+  messaging: {
+    newbie: msgNewbie, master: msgMaster, legend: msgLegend,
+    elite: msgElite, mythic: msgMythic, grandmaster: msgGrandmaster, immortal: msgImmortal,
+  },
+  content: {
+    newbie: contentNewbie, master: contentMaster, legend: contentLegend,
+    elite: contentElite, mythic: contentMythic, grandmaster: contentGrandmaster, immortal: contentImmortal,
+  },
 };
 
-const simpleImages: Record<BadgeTier, string> = {
-  newbie: badgeSimpleNewbie,
-  master: badgeSimpleMaster,
-  legend: badgeSimpleLegend,
-  elite: badgeSimpleElite,
-  mythic: badgeSimpleMythic,
-  grandmaster: badgeSimpleGrandmaster,
-  immortal: badgeSimpleImmortal,
-};
+export { imageSets };
 
-export const tierImageSets = { cool: coolImages, simple: simpleImages };
-
-const BadgeCard = ({ name, aura, tier, unlocked, imageSet = "cool", onClick }: BadgeCardProps) => {
-  const images = imageSet === "simple" ? simpleImages : coolImages;
+const BadgeCard = ({ name, aura, tier, unlocked, imageSet = "aura", onClick }: BadgeCardProps) => {
+  const images = imageSets[imageSet];
   return (
     <div className="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer" onClick={onClick}>
       <div
