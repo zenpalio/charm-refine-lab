@@ -126,32 +126,48 @@ const Creators = () => {
 
   return (
     <div className="min-h-screen bg-background relative">
-      {/* Decorative background */}
-      <div className="absolute top-0 left-0 right-0 h-[420px] overflow-hidden pointer-events-none">
+      {/* Decorative luxury background */}
+      <div className="absolute top-0 left-0 right-0 h-[500px] overflow-hidden pointer-events-none">
+        {/* Primary deep blue glow — centered, dramatic */}
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse 80% 50% at 50% 0%, hsl(213 100% 50% / 0.08) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse 90% 60% at 50% -10%, hsl(213 100% 50% / 0.14) 0%, transparent 70%)",
           }}
         />
+        {/* Gold accent — top right, luxury feel */}
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse 60% 40% at 30% 10%, hsl(281 85% 62% / 0.06) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse 40% 50% at 80% -5%, hsl(40 80% 55% / 0.08) 0%, transparent 60%)",
           }}
         />
+        {/* Subtle warm accent — left side */}
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse 50% 35% at 70% 5%, hsl(43 96% 58% / 0.06) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse 35% 45% at 15% 5%, hsl(30 60% 50% / 0.05) 0%, transparent 55%)",
           }}
         />
-        {/* Subtle grid pattern */}
+        {/* Noise/grain texture for depth */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.035]"
           style={{
-            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+        {/* Horizontal gold line accent */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 top-0 w-[200px] h-[1px]"
+          style={{
+            background: "linear-gradient(90deg, transparent, hsl(40 80% 55% / 0.3), transparent)",
+          }}
+        />
+        {/* Bottom fade to background */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-32"
+          style={{
+            background: "linear-gradient(to top, hsl(var(--background)), transparent)",
           }}
         />
       </div>
