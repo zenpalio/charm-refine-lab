@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Info } from "lucide-react";
-import BadgeCard, { type BadgeTier } from "./BadgeCard";
+import BadgeCard, { type BadgeTier, type BadgeImageSet } from "./BadgeCard";
 import BadgePopup from "./BadgePopup";
 import HorizontalScroll from "./HorizontalScroll";
 
@@ -16,9 +16,10 @@ interface BadgeCategoryProps {
   subtitle: string;
   badges: Badge[];
   progress: number;
+  imageSet?: BadgeImageSet;
 }
 
-const BadgeCategory = ({ title, subtitle, badges, progress }: BadgeCategoryProps) => {
+const BadgeCategory = ({ title, subtitle, badges, progress, imageSet = "cool" }: BadgeCategoryProps) => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
 
   return (
@@ -43,7 +44,7 @@ const BadgeCategory = ({ title, subtitle, badges, progress }: BadgeCategoryProps
       <p className="text-xs text-muted-foreground mb-4">{subtitle}</p>
       <HorizontalScroll>
         {badges.map((badge, i) => (
-          <BadgeCard key={i} {...badge} onClick={() => setSelectedBadge(badge)} />
+          <BadgeCard key={i} {...badge} imageSet={imageSet} onClick={() => setSelectedBadge(badge)} />
         ))}
       </HorizontalScroll>
 
