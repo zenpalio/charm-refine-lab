@@ -89,11 +89,11 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
 
           {/* Avatar + Name */}
           <div className="relative flex flex-col items-center mb-6">
-            <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-primary/30 mb-3">
+            <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-4 ring-primary/30 mb-3">
               <img src={creator1} alt="Profile" className="w-full h-full object-cover" />
             </div>
             <div className="flex items-center gap-2">
@@ -114,23 +114,23 @@ const Profile = () => {
           </div>
 
           {/* Stats bar */}
-          <div className="grid grid-cols-3 gap-3 mb-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
             {statItems.map((stat) => (
               <div
                 key={stat.label}
-                className="flex flex-col items-center gap-1 bg-card rounded-xl p-4 border border-border/30"
+                className="flex flex-col items-center gap-0.5 sm:gap-1 bg-card rounded-xl p-2.5 sm:p-4 border border-border/30"
               >
                 <stat.icon className="w-5 h-5 text-muted-foreground mb-1" />
                 <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
                   {stat.label}
                 </span>
-                <span className="text-foreground font-bold text-lg">{stat.value}</span>
+                <span className="text-foreground font-bold text-base sm:text-lg">{stat.value}</span>
               </div>
             ))}
           </div>
 
           {/* Tabs */}
-          <div className="flex items-center gap-6 border-b border-border mb-6">
+          <div className="flex items-center gap-4 sm:gap-6 border-b border-border mb-6 overflow-x-auto scrollbar-hide">
             {tabs.map((tab) => (
               <button
                 key={tab}
