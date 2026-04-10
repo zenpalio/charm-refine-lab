@@ -139,14 +139,33 @@ const Creators = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-6 flex-wrap">
+          {/* Sort dropdown */}
           <button
-            onClick={() => setSortBy(sortBy === "aura" ? "followers" : "aura")}
+            onClick={() => {
+              const idx = sortOptions.indexOf(sortBy);
+              setSortBy(sortOptions[(idx + 1) % sortOptions.length]);
+            }}
             className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
           >
-            {sortBy === "aura" ? "Most Aura" : "Most Liked"}
+            {sortLabels[sortBy]}
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </button>
+
+          {/* Creation type dropdown */}
+          <button
+            onClick={() => {
+              const idx = creationOptions.indexOf(creationType);
+              setCreationType(creationOptions[(idx + 1) % creationOptions.length]);
+            }}
+            className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+          >
+            {creationTypeIcons[creationType]}
+            {creationTypeLabels[creationType]}
+            <ChevronDown className="w-4 h-4 text-muted-foreground" />
+          </button>
+
+          {/* Time filter */}
           <button
             onClick={() => setFilterBy(filterBy === "all" ? "trending" : filterBy === "trending" ? "newest" : "all")}
             className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
@@ -154,6 +173,7 @@ const Creators = () => {
             {filterBy === "all" ? "All time" : filterBy === "trending" ? "Trending" : "Newest"}
             <ChevronDown className="w-4 h-4 text-muted-foreground" />
           </button>
+
           <div className="flex-1" />
           {searchOpen ? (
             <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
