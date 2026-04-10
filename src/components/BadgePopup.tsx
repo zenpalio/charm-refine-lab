@@ -35,15 +35,6 @@ const tierAccentColors: Record<BadgeTier, string> = {
   immortal: "hsl(48 96% 70%)",
 };
 
-const tierEmojis: Record<BadgeTier, string> = {
-  newbie: "🌱",
-  master: "⚔️",
-  legend: "👑",
-  elite: "💎",
-  mythic: "🔮",
-  grandmaster: "🏆",
-  immortal: "✨",
-};
 
 const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", onClose, onClaim }: BadgePopupProps) => {
   const tierImages = imageSets[imageSet];
