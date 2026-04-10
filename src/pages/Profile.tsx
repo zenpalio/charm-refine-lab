@@ -57,9 +57,9 @@ const tierBadgeGlowColors: Record<BadgeTier, string> = {
 };
 
 const statItems = [
-  { icon: Users, label: "FOLLOWERS", value: "#1,438", rank: true, iconClass: "w-4 h-4 text-primary mb-0.5" },
-  { icon: AuraIcon, label: "AURA", value: "#892", rank: true, iconClass: "w-5 h-5 text-purple-500 mb-0.5" },
-  { icon: Heart, label: "MOST LIKED", value: "#2,105", rank: true, iconClass: "w-4 h-4 text-red-500 fill-red-500 mb-0.5" },
+  { icon: Users, label: "FOLLOWERS", rank: "#1,438", count: "12.4K", iconClass: "w-4 h-4 text-primary mb-0.5" },
+  { icon: AuraIcon, label: "AURA", rank: "#892", count: "1,340", iconClass: "w-5 h-5 text-purple-500 mb-0.5" },
+  { icon: Heart, label: "MOST LIKED", rank: "#2,105", count: "8.2K", iconClass: "w-4 h-4 text-red-500 fill-red-500 mb-0.5" },
 ];
 
 const badgeCategories = [
@@ -234,13 +234,14 @@ const Profile = () => {
             {statItems.map((stat) => (
               <div
                 key={stat.label}
-                className="flex flex-col items-center gap-0.5 sm:gap-1 bg-card rounded-xl p-2.5 sm:p-4 border border-border/30"
+                className="flex flex-col items-center gap-1 bg-card rounded-xl p-3 sm:p-4 border border-border/30"
               >
                 <stat.icon className={stat.iconClass} />
                 <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
                   {stat.label}
                 </span>
-                <span className="text-foreground font-bold text-base sm:text-lg">{stat.value}</span>
+                <span className="text-foreground font-bold text-lg sm:text-xl leading-tight">{stat.count}</span>
+                <span className="text-[10px] text-muted-foreground/60 font-medium">Rank {stat.rank}</span>
               </div>
             ))}
           </div>
