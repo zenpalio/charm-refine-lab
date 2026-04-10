@@ -49,6 +49,7 @@ export type BadgeImageSet = "aura" | "characters" | "social" | "messaging" | "co
 interface BadgeCardProps {
   name: string;
   aura: number;
+  tokens?: number;
   tier: BadgeTier;
   unlocked: boolean;
   claimed?: boolean;
@@ -113,7 +114,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
         )}
       </div>
       <p className="text-xs font-semibold text-foreground capitalize">{name}</p>
-      <p className="text-[10px] text-muted-foreground">{aura} aura</p>
+      <p className="text-[10px] text-muted-foreground">{aura.toLocaleString()} aura</p>
     </div>
   );
 };
