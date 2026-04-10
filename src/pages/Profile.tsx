@@ -23,14 +23,14 @@ const tierRingColors: Record<BadgeTier, string> = {
   master: "ring-[hsl(340,50%,65%)]",
   legend: "ring-[hsl(40,80%,55%)]",
   elite: "ring-[hsl(213,100%,50%)]",
-  mythic: "ring-[hsl(300,60%,55%)]",
-  grandmaster: "ring-[hsl(0,70%,50%)]",
+  grandmaster: "ring-[hsl(300,60%,55%)]",
+  mythic: "ring-[hsl(0,70%,50%)]",
   immortal: "ring-[hsl(0,0%,85%)]",
 };
 
 const tierLabels: Record<BadgeTier, string> = {
   newbie: "Newbie", master: "Master", legend: "Legend",
-  elite: "Elite", mythic: "Mythic", grandmaster: "GM", immortal: "Immortal",
+  elite: "Elite", grandmaster: "GM", mythic: "Mythic", immortal: "Immortal",
 };
 
 const statItems = [
