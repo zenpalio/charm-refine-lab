@@ -458,15 +458,21 @@ const Creators = () => {
               {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "{search}"
             </p>
           )}
-          {(searchActive ? filtered : filtered.slice(3)).map((creator, idx) => (
-            <CreatorRow
-              key={creator.id}
-              creator={creator}
-              rank={searchActive ? idx + 1 : idx + 4}
-              creationType={creationType}
-              sortBy={sortBy}
-            />
-          ))}
+          {searchActive ? (
+            filtered.map((creator) => (
+              <SearchResultCard key={creator.id} creator={creator} />
+            ))
+          ) : (
+            filtered.slice(3).map((creator, idx) => (
+              <CreatorRow
+                key={creator.id}
+                creator={creator}
+                rank={idx + 4}
+                creationType={creationType}
+                sortBy={sortBy}
+              />
+            ))
+          )}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
           )}
@@ -551,6 +557,33 @@ const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) =>
             ? creator.followers.toLocaleString()
             : creator.aura.toLocaleString()}
         </span>
+      </div>
+    </div>
+  );
+};
+
+const SearchResultCard = ({ creator }: { creator: typeof mockCreators[0] }) => {
+  const borderColor = tierBorderColors[creator.tier];
+
+  return (
+    <div className="flex items-center gap-4 bg-card rounded-xl border border-border/50 px-5 py-4 hover:bg-accent/50 transition-all duration-200 cursor-pointer group hover:border-border">
+      {/* Avatar — larger for search */}
+      <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1.5px solid ${borderColor}80` }}>
+        <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+      </div>
+
+      {/* Info */}
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-semibold text-foreground truncate">{creator.name}</p>
+        <p className="text-[11px] text-muted-foreground mt-0.5">
+          {creator.followers.toLocaleString()} followers · {creator.aura.toLocaleString()} aura
+        </p>
+      </div>
+
+      {/* Likes */}
+      <div className="flex items-center gap-1.5 text-muted-foreground">
+        <Heart className="w-3.5 h-3.5" />
+        <span className="text-xs font-medium">{creator.likes.toLocaleString()}</span>
       </div>
     </div>
   );
