@@ -174,7 +174,7 @@ const Profile = () => {
         </div>
 
         <div className="relative flex flex-col items-center mb-6">
-          <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40">
+          <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>
             {/* Canvas-based ring effects for all tiers */}
             <TierRingCanvas tier={previewTier} />
             {/* Avatar */}
