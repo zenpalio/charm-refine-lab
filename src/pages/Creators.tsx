@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ArrowLeft, Crown, ChevronDown, Zap, Image, Video, BookOpen, Users, Heart } from "lucide-react";
+import { Search, ArrowLeft, Crown, Sparkles, ChevronDown, Zap, Image, Video, BookOpen, Users, Heart } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
@@ -181,7 +181,7 @@ const Creators = () => {
 
       <div className="max-w-2xl mx-auto px-4 py-6 relative z-10">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-2 mb-4">
           <button
             onClick={() => {
               if (searchOpen || searchActive) {
@@ -192,9 +192,9 @@ const Creators = () => {
                 navigate(-1);
               }
             }}
-            className="p-2 rounded-full hover:bg-secondary transition-colors"
+            className="p-1.5 rounded-full hover:bg-secondary transition-colors"
           >
-            <ArrowLeft className="w-5 h-5 text-foreground" />
+            <ArrowLeft className="w-4 h-4 text-foreground" />
           </button>
 
           {searchOpen || searchActive ? (
@@ -222,9 +222,9 @@ const Creators = () => {
             </div>
           ) : (
             <>
-              <div className="flex items-center gap-2 flex-1">
-                <Crown className="w-5 h-5 text-primary" />
-                <h1 className="text-xl font-bold text-foreground">Creators</h1>
+              <div className="flex items-center gap-1.5 flex-1">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <h1 className="text-base font-bold text-foreground">Creators</h1>
               </div>
               <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
                 <Search className="w-5 h-5 text-muted-foreground" />
