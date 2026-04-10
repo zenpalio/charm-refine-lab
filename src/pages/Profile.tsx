@@ -10,13 +10,6 @@ import charMythic from "@/assets/badges/char-mythic.png";
 import charGrandmaster from "@/assets/badges/char-grandmaster.png";
 import charImmortal from "@/assets/badges/char-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
-import frameNewbie from "@/assets/frames/frame-newbie.png";
-import frameMaster from "@/assets/frames/frame-master.png";
-import frameLegend from "@/assets/frames/frame-legend.png";
-import frameElite from "@/assets/frames/frame-elite.png";
-import frameGrandmaster from "@/assets/frames/frame-grandmaster.png";
-import frameMythic from "@/assets/frames/frame-mythic.png";
-import frameImmortal from "@/assets/frames/frame-immortal.png";
 
 const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "grandmaster", "mythic", "immortal"];
 
@@ -30,15 +23,17 @@ const tierBadgeImages: Record<BadgeTier, string> = {
   immortal: charImmortal,
 };
 
-const tierProfileFrames: Record<BadgeTier, string> = {
-  newbie: frameNewbie,
-  master: frameMaster,
-  legend: frameLegend,
-  elite: frameElite,
-  grandmaster: frameGrandmaster,
-  mythic: frameMythic,
-  immortal: frameImmortal,
+const tierBorderColors: Record<BadgeTier, string> = {
+  newbie: "hsl(25 45% 52%)",
+  master: "hsl(213 100% 60%)",
+  legend: "hsl(43 96% 58%)",
+  elite: "hsl(213 100% 50%)",
+  grandmaster: "hsl(0 82% 58%)",
+  mythic: "hsl(281 85% 62%)",
+  immortal: "hsl(48 96% 70%)",
 };
+
+const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
 
 const tierLabels: Record<BadgeTier, string> = {
   newbie: "Newbie",
@@ -168,16 +163,39 @@ const Profile = () => {
 
         <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-24 h-24 sm:w-32 sm:h-32">
-            <div className="absolute inset-[10px] sm:inset-[12px] rounded-full overflow-hidden">
+            {/* Animated glow ring for high tiers */}
+            {isHighTier(previewTier) && (
+              <div
+                className="absolute -inset-1 rounded-full blur-md opacity-60 motion-safe:animate-pulse"
+                style={{ backgroundColor: tierBorderColors[previewTier] }}
+              />
+            )}
+            {/* Border ring */}
+            <div
+              className="absolute inset-0 rounded-full transition-all duration-500"
+              style={{
+                border: `3px solid ${tierBorderColors[previewTier]}`,
+                boxShadow: isHighTier(previewTier)
+                  ? `0 0 20px ${tierBorderColors[previewTier]}80, inset 0 0 12px ${tierBorderColors[previewTier]}30`
+                  : 'none',
+              }}
+            />
+            {/* Second inner ring for high tiers */}
+            {isHighTier(previewTier) && (
+              <div
+                className="absolute inset-[3px] rounded-full transition-all duration-500"
+                style={{
+                  border: `1px solid ${tierBorderColors[previewTier]}60`,
+                }}
+              />
+            )}
+            {/* Avatar */}
+            <div className="absolute inset-[6px] rounded-full overflow-hidden">
               <img src={creator1} alt="Profile" className="w-full h-full object-cover" />
             </div>
-            <img
-              src={tierProfileFrames[previewTier]}
-              alt={`${previewTier} profile frame`}
-              className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-lg"
-            />
+            {/* Badge overlay */}
             <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16">
-              {["elite", "grandmaster", "mythic", "immortal"].includes(previewTier) && (
+              {isHighTier(previewTier) && (
                 <div
                   className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
                   style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
@@ -187,7 +205,7 @@ const Profile = () => {
                 src={tierBadgeImages[previewTier]}
                 alt={`${previewTier} badge`}
                 className="relative z-10 w-full h-full object-contain"
-                style={["elite", "grandmaster", "mythic", "immortal"].includes(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
+                style={isHighTier(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
               />
             </div>
           </div>
