@@ -70,76 +70,11 @@
   100% { transform: rotate(360deg); }
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-@keyframes border-pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-/* Tier avatar border rings */
-.tier-ring {
-  position: absolute;
-  inset: -3px;
-  border-radius: 9999px;
-  overflow: hidden;
-}
-
-.tier-ring::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-}
-
-.tier-ring::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 9999px;
-  background: hsl(var(--background));
-}
-
-/* Newbie - simple bronze, no animation */
-.tier-ring-newbie::before {
-  background: conic-gradient(from 0deg, hsl(25 45% 42%), hsl(25 45% 58%), hsl(25 45% 42%));
-}
-
-/* Master - slow shimmer blue */
-.tier-ring-master::before {
-  background: conic-gradient(from 0deg, hsl(213 80% 35%), hsl(213 100% 65%), hsl(213 80% 35%), hsl(213 100% 65%), hsl(213 80% 35%));
-  animation: spin-gradient 8s linear infinite;
-}
-
-/* Legend - gentle golden pulse */
-.tier-ring-legend::before {
-  background: conic-gradient(from 0deg, hsl(43 70% 40%), hsl(43 96% 62%), hsl(43 70% 40%), hsl(43 96% 62%), hsl(43 70% 40%));
-  animation: spin-gradient 6s linear infinite;
-}
-
-/* Elite - rotating blue energy */
-.tier-ring-elite::before {
-  background: conic-gradient(from 0deg, hsl(213 100% 20%), hsl(213 100% 60%), hsl(220 100% 70%), hsl(200 100% 50%), hsl(213 100% 20%));
-  animation: spin-gradient 4s linear infinite;
-}
-
-/* Mythic - rotating purple vortex */
-.tier-ring-mythic::before {
-  background: conic-gradient(from 0deg, hsl(281 60% 25%), hsl(281 85% 62%), hsl(300 80% 70%), hsl(260 90% 55%), hsl(281 60% 25%));
-  animation: spin-gradient 3.5s linear infinite;
-}
-
-/* Grandmaster - rotating fire ring */
-.tier-ring-grandmaster::before {
-  background: conic-gradient(from 0deg, hsl(0 60% 30%), hsl(0 82% 58%), hsl(20 100% 55%), hsl(40 100% 50%), hsl(0 82% 58%), hsl(0 60% 30%));
+.immortal-ring {
   animation: spin-gradient 3s linear infinite;
 }
 
-/* Immortal - multi-color divine ring */
-.tier-ring-immortal::before {
-  background: conic-gradient(from 0deg, hsl(48 96% 70%), hsl(38 100% 50%), hsl(280 80% 60%), hsl(200 100% 70%), hsl(48 96% 70%));
-  animation: spin-gradient 2.5s linear infinite;
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
