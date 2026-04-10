@@ -215,7 +215,7 @@ const Creators = () => {
         )}
 
         {/* Filters — hidden during active search */}
-        {!searchActive && (
+        {!searchActive && !search && (
           <div className="flex items-center gap-2 mb-6 flex-wrap">
             {/* Sort dropdown with popover */}
             <div className="relative">
@@ -339,7 +339,7 @@ const Creators = () => {
         )}
 
         {/* Top 3 Podium - Enhanced */}
-        {!searchActive && filtered.length >= 3 && (
+        {!searchActive && !search && filtered.length >= 3 && (
           <div className="relative mb-8 pt-2">
             {/* Ambient glow behind podium */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -458,7 +458,7 @@ const Creators = () => {
               {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "{search}"
             </p>
           )}
-          {searchActive ? (
+          {searchActive || search ? (
             filtered.map((creator) => (
               <SearchResultCard key={creator.id} creator={creator} />
             ))
