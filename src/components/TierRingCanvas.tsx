@@ -20,21 +20,17 @@ interface Particle {
 
 const DPR = typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1;
 
-function createParticles(count: number, baseRadius: number, config: Partial<Particle> = {}): Particle[] {
+function createParticles(count: number, baseRadius: number, hue = 0, sizeMin = 1, sizeMax = 2, speedMin = 0.15, speedMax = 0.35): Particle[] {
   return Array.from({ length: count }, () => ({
     angle: Math.random() * Math.PI * 2,
     radius: baseRadius + (Math.random() - 0.5) * 6,
-    speed: 0.15 + Math.random() * 0.35,
-    size: 1 + Math.random() * 2,
+    speed: speedMin + Math.random() * (speedMax - speedMin),
+    size: sizeMin + Math.random() * (sizeMax - sizeMin),
     opacity: 0.4 + Math.random() * 0.5,
-    hue: 0,
+    hue,
     life: Math.random() * 80,
     maxLife: 60 + Math.random() * 80,
     drift: (Math.random() - 0.5) * 0.3,
-    ...config,
-    // Randomize these after spread
-    angle: Math.random() * Math.PI * 2,
-    life: Math.random() * 80,
   }));
 }
 
