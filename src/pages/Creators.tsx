@@ -49,7 +49,7 @@ const tierGlowColors: Record<BadgeTier, string> = {
 const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
 
 type CreationType = "all" | "characters" | "images" | "videos" | "stories";
-type SortBy = "aura" | "likes" | "date";
+type SortBy = "aura" | "likes" | "followers";
 type FilterBy = "trending" | "newest" | "all";
 
 const creationTypeLabels: Record<CreationType, string> = {
