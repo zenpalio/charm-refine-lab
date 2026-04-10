@@ -410,7 +410,7 @@ const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
         drawNewbie(ctx, cx, cy, baseRadius, time);
         break;
       case "master":
-        if (particlesRef.current.length === 0) particlesRef.current = createParticles(20, baseRadius, { hue: 210, size: 0.8 + Math.random() * 1.5, speed: 0.1 + Math.random() * 0.2 });
+        if (particlesRef.current.length === 0) particlesRef.current = createParticles(20, baseRadius, 210, 0.8, 2.3, 0.1, 0.3);
         drawMaster(ctx, cx, cy, baseRadius, time, particlesRef.current);
         break;
       case "legend":
@@ -420,15 +420,15 @@ const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
         drawElite(ctx, cx, cy, baseRadius, time);
         break;
       case "mythic":
-        if (particlesRef.current.length === 0) particlesRef.current = createParticles(35, baseRadius, { hue: 280, size: 1.5 + Math.random() * 2.5, speed: 0.08 + Math.random() * 0.2 });
+        if (particlesRef.current.length === 0) particlesRef.current = createParticles(35, baseRadius, 280, 1.5, 4, 0.08, 0.28);
         drawMythic(ctx, cx, cy, baseRadius, time, particlesRef.current);
         break;
       case "grandmaster":
-        if (particlesRef.current.length === 0) particlesRef.current = createParticles(50, baseRadius, { hue: 10, size: 1.5 + Math.random() * 3, speed: 0.2 + Math.random() * 0.4 });
+        if (particlesRef.current.length === 0) particlesRef.current = createParticles(50, baseRadius, 10, 1.5, 4.5, 0.2, 0.6);
         drawGrandmaster(ctx, cx, cy, baseRadius, time, particlesRef.current);
         break;
       case "immortal":
-        if (particlesRef.current.length === 0) particlesRef.current = createParticles(40, baseRadius, { hue: 40 + Math.random() * 20, size: 0.8 + Math.random() * 2, speed: 0.15 + Math.random() * 0.35 });
+        if (particlesRef.current.length === 0) particlesRef.current = createParticles(40, baseRadius, 45, 0.8, 2.8, 0.15, 0.5);
         drawImmortal(ctx, cx, cy, baseRadius, time, particlesRef.current);
         break;
     }
