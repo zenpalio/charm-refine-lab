@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ArrowLeft, Sparkles, Crown, ChevronDown, Flame, Zap, TrendingUp } from "lucide-react";
+import { Search, ArrowLeft, Sparkles, Crown, ChevronDown, Flame, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
 import creator1 from "@/assets/creator1.jpg";
