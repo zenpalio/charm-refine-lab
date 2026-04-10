@@ -90,8 +90,10 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
           {...selectedBadge}
           claimed={selectedBadge.claimed || claimedTiers.has(selectedBadge.tier)}
           imageSet={imageSet}
+          currentAura={aura ?? 0}
           onClose={() => setSelectedBadge(null)}
           onClaim={handleClaim}
+        />
         />
       )}
     </div>
