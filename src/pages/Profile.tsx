@@ -40,6 +40,16 @@ const tierLabels: Record<BadgeTier, string> = {
   elite: "Elite", grandmaster: "GM", mythic: "Mythic", immortal: "Immortal",
 };
 
+const tierBadgeGlowColors: Record<BadgeTier, string> = {
+  newbie: "hsl(25 45% 52%)",
+  master: "hsl(213 100% 60%)",
+  legend: "hsl(43 96% 58%)",
+  elite: "hsl(213 100% 50%)",
+  grandmaster: "hsl(281 85% 62%)",
+  mythic: "hsl(0 82% 58%)",
+  immortal: "hsl(0 0% 88%)",
+};
+
 const statItems = [
   { icon: Trophy, label: "AURA", value: "1,340" },
   { icon: Globe, label: "WORLD RANK", value: "#1,438" },
@@ -156,11 +166,16 @@ const Profile = () => {
               alt={`${previewTier} profile frame`}
               className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-lg"
             />
-            <div className="absolute -bottom-1 -right-1 w-10 h-10 sm:w-14 sm:h-14">
+            <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16">
+              <div
+                className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
+                style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
+              />
               <img
                 src={tierBadgeImages[previewTier]}
                 alt={`${previewTier} badge`}
-                className="w-full h-full object-contain drop-shadow-lg"
+                className="relative z-10 w-full h-full object-contain"
+                style={{ filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` }}
               />
             </div>
           </div>
