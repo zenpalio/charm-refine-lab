@@ -224,7 +224,6 @@ const Creators = () => {
         {/* Filters — hidden during search */}
         {!searchActive && !search && (
           <div className="flex items-center gap-2 mb-6 flex-wrap">
-              <>
                 {/* Sort dropdown with popover */}
                 <div className="relative">
                   <button
@@ -323,7 +322,6 @@ const Creators = () => {
                     )}
                   </div>
                 )}
-              </>
 
           </div>
         )}
