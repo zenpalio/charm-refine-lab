@@ -217,103 +217,108 @@ const Creators = () => {
         {/* Filters — hidden during active search */}
         {!searchActive && (
           <div className="flex items-center gap-2 mb-6 flex-wrap">
-            {/* Sort dropdown with popover */}
-            <div className="relative">
-              <button
-                onClick={() => setSortOpen(!sortOpen)}
-                className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
-              >
-                {sortLabels[sortBy]}
-                <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${sortOpen ? "rotate-180" : ""}`} />
-              </button>
-              {sortOpen && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setSortOpen(false)} />
-                  <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
-                    {(["likes", "followers", "aura"] as SortBy[]).map((option) => (
-                      <button
-                        key={option}
-                        onClick={() => { setSortBy(option); setSortOpen(false); }}
-                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 ${
-                          sortBy === option
-                            ? "bg-primary/10 text-primary"
-                            : "text-foreground hover:bg-accent/50"
-                        }`}
-                      >
-                        {sortLabels[option]}
-                      </button>
-                    ))}
+            {/* Sort dropdown — hidden when search is open with text */}
+            {!(searchOpen && search) && (
+              <>
+                {/* Sort dropdown with popover */}
+                <div className="relative">
+                  <button
+                    onClick={() => setSortOpen(!sortOpen)}
+                    className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+                  >
+                    {sortLabels[sortBy]}
+                    <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${sortOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {sortOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setSortOpen(false)} />
+                      <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
+                        {(["likes", "followers", "aura"] as SortBy[]).map((option) => (
+                          <button
+                            key={option}
+                            onClick={() => { setSortBy(option); setSortOpen(false); }}
+                            className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 ${
+                              sortBy === option
+                                ? "bg-primary/10 text-primary"
+                                : "text-foreground hover:bg-accent/50"
+                            }`}
+                          >
+                            {sortLabels[option]}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                {/* Creation type dropdown — only when "Most Liked" */}
+                {showExtraFilters && (
+                  <div className="relative">
+                    <button
+                      onClick={() => setCreationOpen(!creationOpen)}
+                      className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
+                    >
+                      {creationTypeIcons[creationType]}
+                      {creationTypeLabels[creationType]}
+                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${creationOpen ? "rotate-180" : ""}`} />
+                    </button>
+                    {creationOpen && (
+                      <>
+                        <div className="fixed inset-0 z-40" onClick={() => setCreationOpen(false)} />
+                        <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
+                          {creationOptions.map((option) => (
+                            <button
+                              key={option}
+                              onClick={() => { setCreationType(option); setCreationOpen(false); }}
+                              className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 ${
+                                creationType === option
+                                  ? "bg-primary/10 text-primary"
+                                  : "text-foreground hover:bg-accent/50"
+                              }`}
+                            >
+                              {creationTypeIcons[option]}
+                              {creationTypeLabels[option]}
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
-                </>
-              )}
-            </div>
-
-            {/* Creation type dropdown — only when "Most Liked" */}
-            {showExtraFilters && (
-              <div className="relative">
-                <button
-                  onClick={() => setCreationOpen(!creationOpen)}
-                  className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
-                >
-                  {creationTypeIcons[creationType]}
-                  {creationTypeLabels[creationType]}
-                  <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${creationOpen ? "rotate-180" : ""}`} />
-                </button>
-                {creationOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setCreationOpen(false)} />
-                    <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
-                      {creationOptions.map((option) => (
-                        <button
-                          key={option}
-                          onClick={() => { setCreationType(option); setCreationOpen(false); }}
-                          className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 ${
-                            creationType === option
-                              ? "bg-primary/10 text-primary"
-                              : "text-foreground hover:bg-accent/50"
-                          }`}
-                        >
-                          {creationTypeIcons[option]}
-                          {creationTypeLabels[option]}
-                        </button>
-                      ))}
-                    </div>
-                  </>
                 )}
-              </div>
-            )}
 
-            {/* Time filter — only when "Most Liked" */}
-            {showExtraFilters && (
-              <div className="relative">
-                <button
-                  onClick={() => setTimeOpen(!timeOpen)}
-                  className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
-                >
-                  {filterLabels[filterBy]}
-                  <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${timeOpen ? "rotate-180" : ""}`} />
-                </button>
-                {timeOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setTimeOpen(false)} />
-                    <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
-                      {filterOptions.map((option) => (
-                        <button
-                          key={option}
-                          onClick={() => { setFilterBy(option); setTimeOpen(false); }}
-                          className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
-                            filterBy === option
-                              ? "bg-primary/10 text-primary"
-                              : "text-foreground hover:bg-accent/50"
-                          }`}
-                        >
-                          {filterLabels[option]}
-                        </button>
-                      ))}
-                    </div>
-                  </>
+                {/* Time filter — only when "Most Liked" */}
+                {showExtraFilters && (
+                  <div className="relative">
+                    <button
+                      onClick={() => setTimeOpen(!timeOpen)}
+                      className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
+                    >
+                      {filterLabels[filterBy]}
+                      <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${timeOpen ? "rotate-180" : ""}`} />
+                    </button>
+                    {timeOpen && (
+                      <>
+                        <div className="fixed inset-0 z-40" onClick={() => setTimeOpen(false)} />
+                        <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
+                          {filterOptions.map((option) => (
+                            <button
+                              key={option}
+                              onClick={() => { setFilterBy(option); setTimeOpen(false); }}
+                              className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
+                                filterBy === option
+                                  ? "bg-primary/10 text-primary"
+                                  : "text-foreground hover:bg-accent/50"
+                              }`}
+                            >
+                              {filterLabels[option]}
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 )}
-              </div>
+              </>
             )}
 
             <div className="flex-1" />
