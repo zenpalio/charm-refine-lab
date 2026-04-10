@@ -12,15 +12,6 @@ interface BadgePopupProps {
   onClaim?: () => void;
 }
 
-const tierAuraRewards: Record<BadgeTier, number> = {
-  newbie: 10,
-  master: 40,
-  legend: 100,
-  elite: 250,
-  grandmaster: 500,
-  mythic: 1000,
-  immortal: 2500,
-};
 
 const tierGlowColors: Record<BadgeTier, string> = {
   newbie: "168, 85%, 45%",
@@ -120,7 +111,7 @@ const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "au
         {/* Aura reward */}
         <div className="flex items-center gap-2 mb-5 px-4 py-2 rounded-xl bg-secondary/60">
           <Coins className="w-5 h-5" style={{ color: accent }} />
-          <span className="text-foreground font-bold text-lg">+{tierAuraRewards[tier]}</span>
+          <span className="text-foreground font-bold text-lg">+{aura}</span>
           <span className="text-muted-foreground text-sm">tokens</span>
         </div>
 
@@ -146,7 +137,7 @@ const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "au
         ) : (
           <div className="px-6 py-2.5 bg-secondary rounded-full">
             <span className="text-muted-foreground text-sm font-medium">
-              {aura - (tierAuraRewards[tier] || 0)} aura remaining
+              {aura} aura remaining
             </span>
           </div>
         )}
