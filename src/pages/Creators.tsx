@@ -322,7 +322,7 @@ const Creators = () => {
         </div>
 
         {/* Top 3 Podium - Enhanced */}
-        {filtered.length >= 3 && (
+        {!searchActive && filtered.length >= 3 && (
           <div className="relative mb-8 pt-2">
             {/* Ambient glow behind podium */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -434,10 +434,21 @@ const Creators = () => {
         )}
 
 
-        {/* Remaining Creators List */}
+        {/* Creator List */}
         <div className="space-y-2">
-          {filtered.slice(3).map((creator, idx) => (
-            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} creationType={creationType} sortBy={sortBy} />
+          {searchActive && search && (
+            <p className="text-xs text-muted-foreground mb-3">
+              {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "{search}"
+            </p>
+          )}
+          {(searchActive ? filtered : filtered.slice(3)).map((creator, idx) => (
+            <CreatorRow
+              key={creator.id}
+              creator={creator}
+              rank={searchActive ? idx + 1 : idx + 4}
+              creationType={creationType}
+              sortBy={sortBy}
+            />
           ))}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
