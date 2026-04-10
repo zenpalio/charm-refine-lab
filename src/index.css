@@ -97,3 +97,8 @@
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: inherit; }
+  50% { box-shadow: 0 0 14px currentColor, 0 0 28px currentColor; filter: brightness(1.15); }
+}
