@@ -378,10 +378,13 @@ const Creators = () => {
                       }}
                     >
                       <div
-                          className="rounded-full overflow-hidden"
-                          style={{ width: avatarPx, height: avatarPx, border: `1.5px solid ${borderColor}` }}
+                          className="relative rounded-full overflow-visible"
+                          style={{ width: avatarPx, height: avatarPx }}
                         >
-                          <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+                          <TierRingCanvas tier={creator.tier} />
+                          <div className="absolute inset-[3px] rounded-full overflow-hidden z-[1]">
+                            <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+                          </div>
                         </div>
                       
                     </div>
@@ -512,11 +515,11 @@ const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) =>
       </span>
 
       {/* Avatar */}
-      <div className="relative flex-shrink-0">
-          <div className="w-11 h-11 rounded-full overflow-hidden" style={{ border: `1.5px solid ${borderColor}80` }}>
+      <div className="relative flex-shrink-0 w-11 h-11" style={{ overflow: 'visible' }}>
+          <TierRingCanvas tier={creator.tier} />
+          <div className="absolute inset-[2px] rounded-full overflow-hidden z-[1]">
             <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
           </div>
-        
       </div>
 
       {/* Info */}
@@ -569,8 +572,11 @@ const SearchResultCard = ({ creator }: { creator: typeof mockCreators[0] }) => {
   return (
     <div className="flex items-center gap-4 bg-card rounded-xl border border-border/50 px-5 py-4 hover:bg-accent/50 transition-all duration-200 cursor-pointer group hover:border-border">
       {/* Avatar — larger for search */}
-      <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0" style={{ border: `1.5px solid ${borderColor}80` }}>
-        <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+      <div className="relative w-14 h-14 flex-shrink-0" style={{ overflow: 'visible' }}>
+        <TierRingCanvas tier={creator.tier} />
+        <div className="absolute inset-[2px] rounded-full overflow-hidden z-[1]">
+          <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+        </div>
       </div>
 
       {/* Info */}
