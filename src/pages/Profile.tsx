@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Settings, Info, Globe, Users, Trophy } from "lucide-react";
+import { Settings, Info, Globe, Users, Trophy, Heart } from "lucide-react";
 import BadgeCategory from "@/components/BadgeCategory";
 import { type BadgeTier } from "@/components/BadgeCard";
 import charNewbie from "@/assets/badges/char-newbie.png";
@@ -56,9 +56,9 @@ const tierBadgeGlowColors: Record<BadgeTier, string> = {
 };
 
 const statItems = [
+  { icon: Users, label: "FOLLOWERS", value: "2,593" },
   { icon: Trophy, label: "AURA", value: "1,340" },
-  { icon: Globe, label: "WORLD RANK", value: "#1,438" },
-  { icon: Users, label: "CHARACTERS", value: "#56" },
+  { icon: Heart, label: "MOST LIKED", value: "4,821" },
 ];
 
 const badgeCategories = [
