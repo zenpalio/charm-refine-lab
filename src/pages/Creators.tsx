@@ -86,10 +86,17 @@ const mockCreators = Array.from({ length: 30 }, (_, i) => {
     avatarUrl: avatars[i % avatars.length],
     tier,
     followers: Math.floor(50000 / (i + 1)) + Math.floor(Math.random() * 500),
+    likes: Math.floor(80000 / (i + 1)) + Math.floor(Math.random() * 2000),
     aura: Math.floor(100000 / (i + 1)) + Math.floor(Math.random() * 1000),
     trending: i < 10,
     joinedDaysAgo: Math.floor(Math.random() * 365) + 1,
-    streak: Math.floor(Math.random() * 30) + 1,
+    topCreationType: (["characters", "images", "videos", "stories"] as const)[i % 4],
+    creations: {
+      characters: Math.floor(Math.random() * 50) + 1,
+      images: Math.floor(Math.random() * 200) + 5,
+      videos: Math.floor(Math.random() * 30),
+      stories: Math.floor(Math.random() * 40) + 2,
+    },
   };
 });
 
