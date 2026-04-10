@@ -129,10 +129,59 @@ const Creators = () => {
           </button>
         </div>
 
-        {/* Creators List */}
+        {/* Top 3 Podium */}
+        {filtered.length >= 3 && (
+          <div className="flex items-end justify-center gap-3 mb-8 pt-4">
+            {[filtered[1], filtered[0], filtered[2]].map((creator, i) => {
+              const podiumRank = [2, 1, 3][i];
+              const isFirst = podiumRank === 1;
+              const avatarSize = isFirst ? "w-20 h-20" : "w-14 h-14";
+              const podiumHeight = isFirst ? "h-24" : podiumRank === 2 ? "h-16" : "h-12";
+              const borderColor = tierBorderColors[creator.tier];
+              const highTier = isHighTier(creator.tier);
+              const isImmortalTier = creator.tier === "immortal";
+              const medalColor = podiumRank === 1 ? "text-yellow-400" : podiumRank === 2 ? "text-gray-300" : "text-amber-600";
+              const medalBg = podiumRank === 1 ? "bg-yellow-400/20" : podiumRank === 2 ? "bg-gray-300/20" : "bg-amber-600/20";
+
+              return (
+                <div key={creator.id} className="flex flex-col items-center gap-2 cursor-pointer group" style={{ marginTop: isFirst ? 0 : "20px" }}>
+                  {isFirst && <Crown className="w-6 h-6 text-yellow-400 animate-pulse" />}
+
+                  <div className="relative">
+                    {isImmortalTier ? (
+                      <div className={`relative ${avatarSize}`}>
+                        <div className="absolute inset-[-3px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
+                        <div className="absolute inset-0 rounded-full bg-card" style={{ margin: "2px" }} />
+                        <img src={creator.avatarUrl} alt={creator.name} className="absolute inset-0 w-full h-full rounded-full object-cover" style={{ margin: "3px", width: "calc(100% - 6px)", height: "calc(100% - 6px)" }} loading="lazy" />
+                      </div>
+                    ) : (
+                      <div className={`${avatarSize} rounded-full overflow-hidden`} style={{ boxShadow: highTier ? `0 0 12px ${borderColor}50` : "none", border: `3px solid ${borderColor}` }}>
+                        <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+                      </div>
+                    )}
+                    <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-5 h-5 object-contain" />
+                  </div>
+
+                  <p className={`font-semibold text-foreground truncate max-w-[100px] ${isFirst ? "text-sm" : "text-xs"}`}>{creator.name}</p>
+
+                  <div className="flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-primary" />
+                    <span className="text-[11px] font-bold text-foreground">{creator.aura.toLocaleString()}</span>
+                  </div>
+
+                  <div className={`${podiumHeight} w-20 rounded-t-xl flex items-center justify-center ${medalBg} border border-border/50`}>
+                    <span className={`text-2xl font-black ${medalColor}`}>{podiumRank}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Remaining Creators List */}
         <div className="space-y-2">
-          {filtered.map((creator, idx) => (
-            <CreatorRow key={creator.id} creator={creator} rank={idx + 1} />
+          {filtered.slice(3).map((creator, idx) => (
+            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} />
           ))}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
