@@ -12,6 +12,7 @@ import creator7 from "@/assets/creators/creator7.jpg";
 import creator8 from "@/assets/creators/creator8.jpg";
 import creator9 from "@/assets/creators/creator9.jpg";
 import creator10 from "@/assets/creators/creator10.jpg";
+import charNewbie from "@/assets/badges/char-newbie.png";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
 import charElite from "@/assets/badges/char-elite.png";
@@ -50,10 +51,11 @@ const mockCreators = Array.from({ length: 30 }, (_, i) => {
     "Orion Blaze", "Pearl Dusk", "Quinn Fire", "Roxy Night", "Storm Vale",
     "Uma Glow", "Vera Light", "Wren Sky", "Xena Rise", "Yuki Dawn",
   ];
+  const avatars = [creator1, creator2, creator3, creator4, creator5, creator6, creator7, creator8, creator9, creator10];
   return {
     id: i + 1,
     name: names[i],
-    avatarUrl: creator1,
+    avatarUrl: avatars[i % avatars.length],
     tier,
     followers: Math.floor(50000 / (i + 1)) + Math.floor(Math.random() * 500),
     aura: Math.floor(100000 / (i + 1)) + Math.floor(Math.random() * 1000),
