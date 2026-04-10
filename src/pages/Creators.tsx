@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ArrowLeft, TrendingUp, Calendar, Users, Sparkles, Crown, ChevronDown } from "lucide-react";
+import { Search, ArrowLeft, Sparkles, Crown, ChevronDown, Flame, Zap, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
 import creator1 from "@/assets/creator1.jpg";
@@ -35,6 +35,16 @@ const tierBorderColors: Record<BadgeTier, string> = {
   immortal: "hsl(48 96% 70%)",
 };
 
+const tierGlowColors: Record<BadgeTier, string> = {
+  newbie: "25 45% 52%",
+  master: "213 100% 60%",
+  legend: "43 96% 58%",
+  elite: "213 100% 50%",
+  grandmaster: "0 82% 58%",
+  mythic: "281 85% 62%",
+  immortal: "48 96% 70%",
+};
+
 const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
 
 type SortBy = "followers" | "aura";
@@ -61,6 +71,7 @@ const mockCreators = Array.from({ length: 30 }, (_, i) => {
     aura: Math.floor(100000 / (i + 1)) + Math.floor(Math.random() * 1000),
     trending: i < 10,
     joinedDaysAgo: Math.floor(Math.random() * 365) + 1,
+    streak: Math.floor(Math.random() * 30) + 1,
   };
 });
 
@@ -73,9 +84,7 @@ const Creators = () => {
 
   const filtered = useMemo(() => {
     let list = [...mockCreators];
-    if (search) {
-      list = list.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
-    }
+    if (search) list = list.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
     if (filterBy === "trending") list = list.filter(c => c.trending);
     if (filterBy === "newest") list = list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
     if (sortBy === "followers") list.sort((a, b) => b.followers - a.followers);
@@ -99,31 +108,21 @@ const Creators = () => {
 
         {/* Filters */}
         <div className="flex items-center gap-2 mb-6">
-          {/* Sort dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setSortBy(sortBy === "aura" ? "followers" : "aura")}
-              className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
-            >
-              {sortBy === "aura" ? "Most Aura" : "Most Liked"}
-              <ChevronDown className="w-4 h-4 text-muted-foreground" />
-            </button>
-          </div>
-
-          {/* Time filter dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setFilterBy(filterBy === "all" ? "trending" : filterBy === "trending" ? "newest" : "all")}
-              className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
-            >
-              {filterBy === "all" ? "All time" : filterBy === "trending" ? "Trending" : "Newest"}
-              <ChevronDown className="w-4 h-4 text-muted-foreground" />
-            </button>
-          </div>
-
+          <button
+            onClick={() => setSortBy(sortBy === "aura" ? "followers" : "aura")}
+            className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+          >
+            {sortBy === "aura" ? "Most Aura" : "Most Liked"}
+            <ChevronDown className="w-4 h-4 text-muted-foreground" />
+          </button>
+          <button
+            onClick={() => setFilterBy(filterBy === "all" ? "trending" : filterBy === "trending" ? "newest" : "all")}
+            className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+          >
+            {filterBy === "all" ? "All time" : filterBy === "trending" ? "Trending" : "Newest"}
+            <ChevronDown className="w-4 h-4 text-muted-foreground" />
+          </button>
           <div className="flex-1" />
-
-          {/* Search icon */}
           {searchOpen ? (
             <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
               <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
@@ -143,54 +142,111 @@ const Creators = () => {
           )}
         </div>
 
-        {/* Top 3 Podium */}
+        {/* Top 3 Podium - Enhanced */}
         {filtered.length >= 3 && (
-          <div className="flex items-end justify-center gap-3 mb-8 pt-4">
-            {[filtered[1], filtered[0], filtered[2]].map((creator, i) => {
-              const podiumRank = [2, 1, 3][i];
-              const isFirst = podiumRank === 1;
-              const avatarSize = isFirst ? "w-20 h-20" : "w-14 h-14";
-              const podiumHeight = isFirst ? "h-24" : podiumRank === 2 ? "h-16" : "h-12";
-              const borderColor = tierBorderColors[creator.tier];
-              const highTier = isHighTier(creator.tier);
-              const isImmortalTier = creator.tier === "immortal";
-              const medalColor = podiumRank === 1 ? "text-yellow-400" : podiumRank === 2 ? "text-gray-300" : "text-amber-600";
-              const medalBg = "bg-card border border-border/50";
+          <div className="relative mb-8 pt-2">
+            {/* Ambient glow behind podium */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-48 h-48 rounded-full bg-primary/10 blur-[80px]" />
+            </div>
 
-              return (
-                <div key={creator.id} className="flex flex-col items-center gap-2 cursor-pointer group" style={{ marginTop: isFirst ? 0 : "20px" }}>
-                  {isFirst && <Crown className="w-6 h-6 text-yellow-400 animate-pulse" />}
+            <div className="flex items-end justify-center gap-2 relative z-10">
+              {[filtered[1], filtered[0], filtered[2]].map((creator, i) => {
+                const podiumRank = [2, 1, 3][i];
+                const isFirst = podiumRank === 1;
+                const avatarSize = isFirst ? "w-22 h-22" : "w-16 h-16";
+                const avatarPx = isFirst ? 88 : 64;
+                const borderColor = tierBorderColors[creator.tier];
+                const glowHsl = tierGlowColors[creator.tier];
+                const highTier = isHighTier(creator.tier);
+                const isImmortalTier = creator.tier === "immortal";
 
-                  <div className="relative">
-                    {isImmortalTier ? (
-                      <div className={`relative ${avatarSize}`}>
-                        <div className="absolute inset-[-2px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
-                        <div className="absolute inset-0 rounded-full bg-card" style={{ margin: "2px" }} />
-                        <img src={creator.avatarUrl} alt={creator.name} className="absolute inset-0 w-full h-full rounded-full object-cover" style={{ margin: "3px", width: "calc(100% - 6px)", height: "calc(100% - 6px)" }} loading="lazy" />
-                      </div>
-                    ) : (
-                      <div className={`${avatarSize} rounded-full overflow-hidden`} style={{ boxShadow: highTier ? `0 0 8px ${borderColor}30` : "none", border: `2px solid ${borderColor}80` }}>
-                        <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+                return (
+                  <div
+                    key={creator.id}
+                    className="flex flex-col items-center gap-1.5 cursor-pointer group"
+                    style={{ marginTop: isFirst ? 0 : "28px" }}
+                  >
+                    {/* Crown for #1 */}
+                    {isFirst && (
+                      <div className="relative">
+                        <Crown className="w-7 h-7 text-yellow-400 animate-bounce" style={{ animationDuration: "2s" }} />
                       </div>
                     )}
-                    <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-5 h-5 object-contain" />
-                  </div>
 
-                  <p className={`font-semibold text-foreground truncate max-w-[100px] ${isFirst ? "text-sm" : "text-xs"}`}>{creator.name}</p>
+                    {/* Avatar with glow */}
+                    <div
+                      className="relative group-hover:scale-110 transition-transform duration-300"
+                      style={{
+                        filter: highTier ? `drop-shadow(0 0 ${isFirst ? 12 : 8}px hsl(${glowHsl} / 0.4))` : "none",
+                      }}
+                    >
+                      {isImmortalTier ? (
+                        <div className="relative" style={{ width: avatarPx, height: avatarPx }}>
+                          <div className="absolute inset-[-2px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
+                          <div className="absolute inset-0 rounded-full bg-background" style={{ margin: "2px" }} />
+                          <img src={creator.avatarUrl} alt={creator.name} className="absolute inset-0 rounded-full object-cover" style={{ margin: "3px", width: `calc(100% - 6px)`, height: `calc(100% - 6px)` }} loading="lazy" />
+                        </div>
+                      ) : (
+                        <div
+                          className="rounded-full overflow-hidden"
+                          style={{ width: avatarPx, height: avatarPx, border: `1.5px solid ${borderColor}` }}
+                        >
+                          <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
+                        </div>
+                      )}
+                      <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-5 h-5 object-contain" />
+                    </div>
 
-                  <div className="flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-primary" />
-                    <span className="text-[11px] font-bold text-foreground">{creator.aura.toLocaleString()}</span>
-                  </div>
+                    {/* Name */}
+                    <p className={`font-bold text-foreground truncate max-w-[100px] ${isFirst ? "text-sm" : "text-xs"}`}>
+                      {creator.name}
+                    </p>
 
-                  <div className={`${podiumHeight} w-20 rounded-t-xl flex items-center justify-center ${medalBg}`}>
-                    <span className={`text-2xl font-black ${medalColor}`}>{podiumRank}</span>
+                    {/* Aura with fire for top 3 */}
+                    <div className="flex items-center gap-1">
+                      <Flame className={`w-3.5 h-3.5 ${podiumRank === 1 ? "text-orange-400" : podiumRank === 2 ? "text-orange-300" : "text-orange-200"}`} />
+                      <span className="text-[11px] font-black text-foreground">{creator.aura.toLocaleString()}</span>
+                    </div>
+
+                    {/* Podium block - gradient */}
+                    <div
+                      className="rounded-t-2xl flex flex-col items-center justify-center gap-1 border border-border/30"
+                      style={{
+                        width: isFirst ? 90 : 76,
+                        height: isFirst ? 100 : podiumRank === 2 ? 68 : 52,
+                        background: podiumRank === 1
+                          ? "linear-gradient(180deg, hsl(43 96% 58% / 0.15) 0%, hsl(var(--card)) 100%)"
+                          : podiumRank === 2
+                          ? "linear-gradient(180deg, hsl(0 0% 70% / 0.1) 0%, hsl(var(--card)) 100%)"
+                          : "linear-gradient(180deg, hsl(25 70% 45% / 0.1) 0%, hsl(var(--card)) 100%)",
+                      }}
+                    >
+                      <span className={`text-3xl font-black ${
+                        podiumRank === 1 ? "text-yellow-400" : podiumRank === 2 ? "text-gray-300" : "text-amber-600"
+                      }`}>
+                        {podiumRank}
+                      </span>
+                      {isFirst && (
+                        <div className="flex items-center gap-0.5">
+                          <Zap className="w-3 h-3 text-yellow-400" />
+                          <span className="text-[9px] font-bold text-yellow-400/80">HOT</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
+
+        {/* Streak banner */}
+        <div className="flex items-center gap-2 mb-4 px-3 py-2.5 bg-gradient-to-r from-orange-500/10 via-red-500/10 to-purple-500/10 rounded-xl border border-orange-500/20">
+          <Flame className="w-4 h-4 text-orange-400" />
+          <span className="text-xs font-bold text-foreground">🔥 {filtered.filter(c => c.streak > 20).length} creators on a hot streak!</span>
+          <TrendingUp className="w-3.5 h-3.5 text-green-400 ml-auto" />
+        </div>
 
         {/* Remaining Creators List */}
         <div className="space-y-2">
@@ -213,69 +269,62 @@ interface CreatorRowProps {
 
 const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
   const borderColor = tierBorderColors[creator.tier];
+  const glowHsl = tierGlowColors[creator.tier];
   const highTier = isHighTier(creator.tier);
   const isImmortal = creator.tier === "immortal";
+  const isHotStreak = creator.streak > 20;
 
-  const rankColor = rank <= 3
-    ? rank === 1 ? "text-yellow-400" : rank === 2 ? "text-gray-300" : "text-amber-600"
-    : "text-muted-foreground";
+  const rankColor = rank <= 10 ? "text-foreground" : "text-muted-foreground";
 
   return (
-    <div className="flex items-center gap-3 bg-card rounded-xl border border-border/50 px-4 py-3 hover:bg-accent/50 transition-colors cursor-pointer group">
+    <div
+      className="flex items-center gap-3 bg-card rounded-xl border border-border/50 px-4 py-3 hover:bg-accent/50 transition-all duration-200 cursor-pointer group hover:scale-[1.01] hover:border-border"
+      style={{
+        boxShadow: highTier ? `inset 0 0 30px hsl(${glowHsl} / 0.03)` : "none",
+      }}
+    >
       {/* Rank */}
       <span className={`text-lg font-black w-8 text-center ${rankColor}`}>
         {rank}
       </span>
 
-      {/* Avatar with tier border */}
+      {/* Avatar */}
       <div className="relative flex-shrink-0">
         {isImmortal ? (
-          <div className="relative w-12 h-12">
-            <div
-              className="absolute inset-[-1.5px] rounded-full immortal-ring"
-              style={{
-                background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))",
-              }}
-            />
+          <div className="relative w-11 h-11">
+            <div className="absolute inset-[-1.5px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
             <div className="absolute inset-0 rounded-full bg-card" style={{ margin: "1.5px" }} />
-            <img
-              src={creator.avatarUrl}
-              alt={creator.name}
-              className="absolute inset-0 w-full h-full rounded-full object-cover"
-              style={{ margin: "2px", width: "calc(100% - 4px)", height: "calc(100% - 4px)" }}
-              loading="lazy"
-            />
+            <img src={creator.avatarUrl} alt={creator.name} className="absolute inset-0 w-full h-full rounded-full object-cover" style={{ margin: "2px", width: "calc(100% - 4px)", height: "calc(100% - 4px)" }} loading="lazy" />
           </div>
         ) : (
-          <div
-            className="w-12 h-12 rounded-full overflow-hidden"
-            style={{
-              boxShadow: highTier ? `0 0 6px ${borderColor}30` : "none",
-              border: `1.5px solid ${borderColor}80`,
-            }}
-          >
+          <div className="w-11 h-11 rounded-full overflow-hidden" style={{ border: `1.5px solid ${borderColor}80` }}>
             <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
           </div>
         )}
-
-        {/* Badge icon */}
-        <img
-          src={tierBadgeImages[creator.tier]}
-          alt={creator.tier}
-          className="absolute -bottom-1 -right-1 w-5 h-5 object-contain"
-        />
+        <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-4.5 h-4.5 object-contain" />
       </div>
 
       {/* Info */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-foreground truncate">{creator.name}</p>
+        <div className="flex items-center gap-1.5">
+          <p className="text-sm font-semibold text-foreground truncate">{creator.name}</p>
+          {isHotStreak && <Flame className="w-3 h-3 text-orange-400 flex-shrink-0" />}
+        </div>
         <p className="text-[11px] text-muted-foreground">
           {creator.followers.toLocaleString()} followers
+          {isHotStreak && <span className="text-orange-400/80 ml-1">· {creator.streak}d streak</span>}
         </p>
       </div>
 
-      {/* Aura */}
-      <div className="flex items-center gap-1.5 bg-secondary/60 rounded-lg px-3 py-1.5">
+      {/* Aura pill */}
+      <div
+        className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
+        style={{
+          background: highTier
+            ? `linear-gradient(135deg, hsl(${glowHsl} / 0.12), hsl(${glowHsl} / 0.05))`
+            : "hsl(var(--secondary) / 0.6)",
+        }}
+      >
         <Sparkles className="w-3.5 h-3.5 text-primary" />
         <span className="text-xs font-bold text-foreground">{creator.aura.toLocaleString()}</span>
       </div>
