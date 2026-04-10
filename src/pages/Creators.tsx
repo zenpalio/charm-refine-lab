@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ArrowLeft, Sparkles, Crown, ChevronDown, Flame, Zap } from "lucide-react";
+import { Search, ArrowLeft, Sparkles, Crown, ChevronDown, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
 import creator1 from "@/assets/creator1.jpg";
@@ -194,9 +194,15 @@ const Creators = () => {
                       {creator.name}
                     </p>
 
-                    {/* Aura with fire for top 3 */}
-                    <div className="flex items-center gap-1">
-                      <Flame className={`w-3.5 h-3.5 ${podiumRank === 1 ? "text-orange-400" : podiumRank === 2 ? "text-orange-300" : "text-orange-200"}`} />
+                    {/* Aura score with glow */}
+                    <div
+                      className="flex items-center gap-1.5 px-3 py-1 rounded-full"
+                      style={{
+                        background: `linear-gradient(135deg, hsl(${glowHsl} / 0.2), hsl(${glowHsl} / 0.05))`,
+                        boxShadow: `0 0 12px hsl(${glowHsl} / 0.15)`,
+                      }}
+                    >
+                      <Sparkles className={`w-3.5 h-3.5`} style={{ color: `hsl(${glowHsl})` }} />
                       <span className="text-[11px] font-black text-foreground">{creator.aura.toLocaleString()}</span>
                     </div>
 
