@@ -154,8 +154,7 @@ const Creators = () => {
               {[filtered[1], filtered[0], filtered[2]].map((creator, i) => {
                 const podiumRank = [2, 1, 3][i];
                 const isFirst = podiumRank === 1;
-                const avatarSize = isFirst ? "w-22 h-22" : "w-16 h-16";
-                const avatarPx = isFirst ? 88 : 64;
+                const avatarPx = isFirst ? 104 : 76;
                 const borderColor = tierBorderColors[creator.tier];
                 const glowHsl = tierGlowColors[creator.tier];
                 const highTier = isHighTier(creator.tier);
@@ -170,7 +169,7 @@ const Creators = () => {
                     {/* Crown for #1 */}
                     {isFirst && (
                       <div className="relative">
-                        <Crown className="w-7 h-7 text-yellow-400 animate-bounce" style={{ animationDuration: "2s" }} />
+                        <Crown className="w-8 h-8 text-yellow-400 animate-bounce" style={{ animationDuration: "2s" }} />
                       </div>
                     )}
 
@@ -195,11 +194,11 @@ const Creators = () => {
                           <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
                         </div>
                       )}
-                      <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-5 h-5 object-contain" />
+                      <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-6 h-6 object-contain" />
                     </div>
 
                     {/* Name */}
-                    <p className={`font-bold text-foreground truncate max-w-[100px] ${isFirst ? "text-sm" : "text-xs"}`}>
+                    <p className={`font-bold text-foreground truncate max-w-[110px] ${isFirst ? "text-base" : "text-sm"}`}>
                       {creator.name}
                     </p>
 
@@ -213,8 +212,8 @@ const Creators = () => {
                     <div
                       className="rounded-t-2xl flex flex-col items-center justify-center gap-1 border border-border/30"
                       style={{
-                        width: isFirst ? 90 : 76,
-                        height: isFirst ? 100 : podiumRank === 2 ? 68 : 52,
+                        width: isFirst ? 106 : 86,
+                        height: isFirst ? 110 : podiumRank === 2 ? 76 : 58,
                         background: podiumRank === 1
                           ? "linear-gradient(180deg, hsl(43 96% 58% / 0.15) 0%, hsl(var(--card)) 100%)"
                           : podiumRank === 2
