@@ -49,7 +49,7 @@ const BadgeCategory = ({ title, subtitle, badges, progress, imageSet = "aura" }:
       </HorizontalScroll>
 
       {selectedBadge && (
-        <BadgePopup {...selectedBadge} onClose={() => setSelectedBadge(null)} />
+        <BadgePopup {...selectedBadge} imageSet={imageSet} onClose={() => setSelectedBadge(null)} />
       )}
     </div>
   );

@@ -1,30 +1,14 @@
 import { X, Coins } from "lucide-react";
-import { type BadgeTier } from "./BadgeCard";
-import badgeNewbie from "@/assets/badge-newbie.png";
-import badgeMaster from "@/assets/badge-master.png";
-import badgeLegend from "@/assets/badge-legend.png";
-import badgeElite from "@/assets/badge-elite.png";
-import badgeMythic from "@/assets/badge-mythic.png";
-import badgeGrandmaster from "@/assets/badge-grandmaster.png";
-import badgeImmortal from "@/assets/badge-immortal.png";
+import { type BadgeTier, type BadgeImageSet, imageSets } from "./BadgeCard";
 
 interface BadgePopupProps {
   name: string;
   aura: number;
   tier: BadgeTier;
   unlocked: boolean;
+  imageSet?: BadgeImageSet;
   onClose: () => void;
 }
-
-const tierImages: Record<BadgeTier, string> = {
-  newbie: badgeNewbie,
-  master: badgeMaster,
-  legend: badgeLegend,
-  elite: badgeElite,
-  mythic: badgeMythic,
-  grandmaster: badgeGrandmaster,
-  immortal: badgeImmortal,
-};
 
 const tierAuraRewards: Record<BadgeTier, number> = {
   newbie: 10,
@@ -36,7 +20,8 @@ const tierAuraRewards: Record<BadgeTier, number> = {
   immortal: 2500,
 };
 
-const BadgePopup = ({ name, aura, tier, unlocked, onClose }: BadgePopupProps) => {
+const BadgePopup = ({ name, aura, tier, unlocked, imageSet = "aura", onClose }: BadgePopupProps) => {
+  const tierImages = imageSets[imageSet];
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm" onClick={onClose}>
       <div
