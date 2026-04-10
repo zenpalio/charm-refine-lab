@@ -211,9 +211,9 @@ function drawElite(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRa
   }
 }
 
-// ─── MYTHIC: Purple swirling magical mist ───
+// ─── MYTHIC: Purple swirling magical mist + spell effects ───
 function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRadius: number, time: number, particles: Particle[]) {
-  // Purple ring
+  // Purple ring with swirl
   const steps = 64;
   for (let i = 0; i < steps; i++) {
     const a0 = (i / steps) * Math.PI * 2;
@@ -228,15 +228,76 @@ function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
 
   // Swirling mist glow
   const breathe = 0.5 + 0.5 * Math.sin(time * 0.9);
-  const glowR = baseRadius + (10 + breathe * 8) * DPR;
+  const glowR = baseRadius + (12 + breathe * 10) * DPR;
   const grad = ctx.createRadialGradient(cx, cy, baseRadius - 4, cx, cy, glowR);
-  grad.addColorStop(0, `hsla(280, 70%, 55%, ${0.08 + breathe * 0.06})`);
-  grad.addColorStop(0.5, `hsla(270, 60%, 45%, ${0.04 + breathe * 0.03})`);
+  grad.addColorStop(0, `hsla(280, 70%, 55%, ${0.1 + breathe * 0.07})`);
+  grad.addColorStop(0.5, `hsla(270, 60%, 45%, ${0.05 + breathe * 0.03})`);
   grad.addColorStop(1, `hsla(285, 50%, 40%, 0)`);
   ctx.beginPath();
   ctx.arc(cx, cy, glowR, 0, Math.PI * 2);
   ctx.fillStyle = grad;
   ctx.fill();
+
+  // Spell runes — rotating arcane symbols (circles with crosses/lines)
+  const runeCount = 6;
+  const runeOrbitR = baseRadius + 6 * DPR;
+  for (let r = 0; r < runeCount; r++) {
+    const runeAngle = (r / runeCount) * Math.PI * 2 + time * 0.3;
+    const runeFlicker = 0.3 + 0.7 * Math.abs(Math.sin(time * 1.5 + r * 2.1));
+    const rx = cx + Math.cos(runeAngle) * runeOrbitR;
+    const ry = cy + Math.sin(runeAngle) * runeOrbitR;
+    const runeSize = (2.5 + Math.sin(time * 2 + r) * 0.8) * DPR;
+
+    // Rune glow
+    ctx.beginPath();
+    ctx.arc(rx, ry, runeSize * 3, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(275, 70%, 65%, ${runeFlicker * 0.08})`;
+    ctx.fill();
+
+    // Rune circle
+    ctx.beginPath();
+    ctx.arc(rx, ry, runeSize, 0, Math.PI * 2);
+    ctx.strokeStyle = `hsla(280, 80%, 75%, ${runeFlicker * 0.6})`;
+    ctx.lineWidth = 0.8 * DPR;
+    ctx.stroke();
+
+    // Inner cross/star mark
+    const rot = time * 0.8 + r * 1.05;
+    for (let l = 0; l < 3; l++) {
+      const la = rot + (l / 3) * Math.PI;
+      ctx.beginPath();
+      ctx.moveTo(rx + Math.cos(la) * runeSize * 0.7, ry + Math.sin(la) * runeSize * 0.7);
+      ctx.lineTo(rx - Math.cos(la) * runeSize * 0.7, ry - Math.sin(la) * runeSize * 0.7);
+      ctx.strokeStyle = `hsla(285, 70%, 80%, ${runeFlicker * 0.45})`;
+      ctx.lineWidth = 0.5 * DPR;
+      ctx.stroke();
+    }
+  }
+
+  // Spell arcs — curved energy trails orbiting at different speeds
+  for (let arc = 0; arc < 3; arc++) {
+    const arcSpeed = 0.4 + arc * 0.2;
+    const arcOffset = arc * 2.1;
+    const arcR = baseRadius + (2 + arc * 2) * DPR;
+    const arcStart = time * arcSpeed + arcOffset;
+    const arcLen = 0.6 + Math.sin(time * 0.7 + arc) * 0.3;
+    const arcAlpha = 0.15 + 0.15 * Math.sin(time * 1.2 + arc * 1.5);
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, arcR, arcStart, arcStart + arcLen);
+    ctx.strokeStyle = `hsla(${270 + arc * 10}, 80%, 70%, ${arcAlpha})`;
+    ctx.lineWidth = (1.5 + Math.sin(time * 2 + arc) * 0.5) * DPR;
+    ctx.stroke();
+
+    // Bright leading edge
+    const leadAngle = arcStart + arcLen;
+    const leadX = cx + Math.cos(leadAngle) * arcR;
+    const leadY = cy + Math.sin(leadAngle) * arcR;
+    ctx.beginPath();
+    ctx.arc(leadX, leadY, 2 * DPR, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(280, 80%, 85%, ${arcAlpha * 2})`;
+    ctx.fill();
+  }
 
   // Mist particles — slow, wispy, rotating
   for (const p of particles) {
@@ -254,7 +315,7 @@ function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
     const py = cy + Math.sin(p.angle) * (p.radius + wobble);
     const s = p.size * DPR * (1 + Math.sin(time + p.angle) * 0.3);
 
-    // Misty halo — large, soft
+    // Misty halo
     ctx.beginPath();
     ctx.arc(px, py, s * 4, 0, Math.PI * 2);
     ctx.fillStyle = `hsla(280, 60%, 60%, ${p.opacity * fade * 0.06})`;
@@ -265,6 +326,26 @@ function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
     ctx.arc(px, py, s, 0, Math.PI * 2);
     ctx.fillStyle = `hsla(${275 + Math.sin(p.angle) * 10}, 65%, 70%, ${p.opacity * fade * 0.5})`;
     ctx.fill();
+  }
+
+  // Occasional spell burst — purple energy flash
+  for (let b = 0; b < 2; b++) {
+    const burstPhase = time * 0.35 + b * 1.8;
+    const burstActive = Math.sin(burstPhase) > 0.9;
+    if (burstActive) {
+      const burstAngle = (burstPhase * 0.6 + b) % (Math.PI * 2);
+      const bx = cx + Math.cos(burstAngle) * baseRadius;
+      const by = cy + Math.sin(burstAngle) * baseRadius;
+      const burstIntensity = (Math.sin(burstPhase) - 0.9) / 0.1;
+      const bg = ctx.createRadialGradient(bx, by, 0, bx, by, 10 * DPR);
+      bg.addColorStop(0, `hsla(280, 80%, 85%, ${burstIntensity * 0.5})`);
+      bg.addColorStop(0.5, `hsla(275, 70%, 65%, ${burstIntensity * 0.2})`);
+      bg.addColorStop(1, `hsla(285, 60%, 50%, 0)`);
+      ctx.beginPath();
+      ctx.arc(bx, by, 10 * DPR, 0, Math.PI * 2);
+      ctx.fillStyle = bg;
+      ctx.fill();
+    }
   }
 }
 
