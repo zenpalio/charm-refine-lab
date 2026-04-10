@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Settings, Info, Globe, Users, Trophy, ChevronLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import Sidebar from "@/components/Sidebar";
+import { Settings, Info, Globe, Users, Trophy } from "lucide-react";
 import BadgeCategory from "@/components/BadgeCategory";
 import creator1 from "@/assets/creator1.jpg";
 
