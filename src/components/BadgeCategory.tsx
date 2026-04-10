@@ -9,6 +9,7 @@ interface Badge {
   aura: number;
   tier: BadgeTier;
   unlocked: boolean;
+  claimed?: boolean;
 }
 
 interface BadgeCategoryProps {
