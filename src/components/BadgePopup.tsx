@@ -123,7 +123,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
           )}
           {!unlocked && (
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/50 text-muted-foreground">
-              🔒 Locked
+              <Lock className="w-3 h-3" /> Locked
             </span>
           )}
         </div>
@@ -233,7 +233,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
           </Button>
         ) : unlocked ? (
           <Button variant="secondary" size="lg" className="w-full rounded-xl" disabled>
-            ✅ Collected
+            <Check className="w-4 h-4" /> Collected
           </Button>
         ) : (
           <div className="w-full space-y-2">
