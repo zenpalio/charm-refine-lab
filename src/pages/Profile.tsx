@@ -1,7 +1,35 @@
 import { useState } from "react";
 import { Settings, Info, Globe, Users, Trophy } from "lucide-react";
 import BadgeCategory from "@/components/BadgeCategory";
+import { type BadgeTier } from "@/components/BadgeCard";
+import badgeNewbie from "@/assets/badge-newbie.png";
+import badgeMaster from "@/assets/badge-master.png";
+import badgeLegend from "@/assets/badge-legend.png";
+import badgeElite from "@/assets/badge-elite.png";
+import badgeMythic from "@/assets/badge-mythic.png";
+import badgeGrandmaster from "@/assets/badge-grandmaster.png";
+import badgeImmortal from "@/assets/badge-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
+
+const tierBadgeImages: Record<BadgeTier, string> = {
+  newbie: badgeNewbie,
+  master: badgeMaster,
+  legend: badgeLegend,
+  elite: badgeElite,
+  mythic: badgeMythic,
+  grandmaster: badgeGrandmaster,
+  immortal: badgeImmortal,
+};
+
+const tierRingColors: Record<BadgeTier, string> = {
+  newbie: "ring-[hsl(0,0%,60%)]",
+  master: "ring-[hsl(340,50%,65%)]",
+  legend: "ring-[hsl(40,80%,55%)]",
+  elite: "ring-[hsl(213,100%,50%)]",
+  mythic: "ring-[hsl(300,60%,55%)]",
+  grandmaster: "ring-[hsl(0,70%,50%)]",
+  immortal: "ring-[hsl(0,0%,85%)]",
+};
 
 const statItems = [
   { icon: Trophy, label: "AURA", value: "1,340" },
