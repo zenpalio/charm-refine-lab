@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Settings, Info, Globe, Users, Heart } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
+import TierRingCanvas from "@/components/TierRingCanvas";
 import BadgeCategory from "@/components/BadgeCategory";
 import { type BadgeTier } from "@/components/BadgeCard";
 import charNewbie from "@/assets/badges/char-newbie.png";
@@ -174,24 +175,14 @@ const Profile = () => {
 
         <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-24 h-24 sm:w-32 sm:h-32">
-            {/* Animated glow ring for high tiers */}
-            {isHighTier(previewTier) && (
+            {/* Canvas-based ring effects */}
+            <TierRingCanvas tier={previewTier} size={128} />
+            {/* Animated glow ring for high tiers (non-immortal) */}
+            {isHighTier(previewTier) && previewTier !== "immortal" && (
               <div
                 className="absolute -inset-1 rounded-full blur-md opacity-40 motion-safe:animate-pulse"
                 style={{ backgroundColor: tierBorderColors[previewTier] }}
               />
-            )}
-            {/* Rotating conic gradient ring for Immortal */}
-            {previewTier === "immortal" && (
-              <>
-                <div className="absolute -inset-[5px] rounded-full immortal-outer-glow opacity-60" />
-                <div className="absolute -inset-[3px] rounded-full immortal-ring" style={{
-                  background: 'conic-gradient(from 0deg, hsl(0 100% 65%), hsl(30 100% 60%), hsl(60 100% 65%), hsl(120 80% 55%), hsl(200 100% 60%), hsl(270 90% 65%), hsl(330 100% 65%), hsl(0 100% 65%))',
-                  padding: '3px',
-                }}>
-                  <div className="w-full h-full rounded-full bg-background" />
-                </div>
-              </>
             )}
             {/* Border ring (non-immortal) */}
             {previewTier !== "immortal" && (
@@ -206,11 +197,11 @@ const Profile = () => {
               />
             )}
             {/* Avatar */}
-            <div className="absolute inset-[4px] rounded-full overflow-hidden">
+            <div className="absolute inset-[4px] rounded-full overflow-hidden z-[1]">
               <img src={profileAvatar} alt="Profile" className="w-full h-full object-cover" />
             </div>
             {/* Badge overlay */}
-            <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16">
+            <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16 z-[2]">
               {isHighTier(previewTier) && (
                 <div
                   className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
