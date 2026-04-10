@@ -68,6 +68,7 @@ const badgeCategories = [
     subtitle: "Earn More Aura And Claim Free Tokens",
     progress: 45,
     imageSet: "characters" as const,
+    tooltip: "Create characters, post content, and engage with the community to earn more aura",
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true, claimed: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true, claimed: true },
@@ -83,6 +84,7 @@ const badgeCategories = [
     subtitle: "Create & Collect Characters To Earn Aura",
     progress: 60,
     imageSet: "aura" as const,
+    tooltip: "Create new characters, customize them, and get likes from other users",
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
@@ -98,6 +100,7 @@ const badgeCategories = [
     subtitle: "Grow Your Network To Earn Aura",
     progress: 30,
     imageSet: "aura" as const,
+    tooltip: "Follow creators, get followers, and share content to grow your social presence",
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
@@ -113,6 +116,7 @@ const badgeCategories = [
     subtitle: "Chat & Connect To Earn Aura",
     progress: 15,
     imageSet: "aura" as const,
+    tooltip: "Send messages, start conversations, and connect with other creators daily",
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
@@ -128,6 +132,7 @@ const badgeCategories = [
     subtitle: "Create Images, Videos & Stories To Earn Aura",
     progress: 50,
     imageSet: "aura" as const,
+    tooltip: "Generate images, create videos, and write stories to boost your content aura",
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true, isNew: true },
