@@ -687,22 +687,35 @@ function drawGrandmaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, 
 }
 
 // ─── Main Component ───
-const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
+const TierRingCanvas = ({ tier }: { tier: BadgeTier }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const rafRef = useRef<number>(0);
-
-  const canvasSize = size + 40;
-  const baseRadius = (size / 2 + 2) * DPR;
+  const sizeRef = useRef({ w: 0, h: 0 });
 
   const animate = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const parent = canvas.parentElement;
+    if (!parent) return;
+
+    const rect = parent.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+
+    // Resize canvas if container changed
+    if (sizeRef.current.w !== w || sizeRef.current.h !== h) {
+      sizeRef.current = { w, h };
+      canvas.width = w * DPR;
+      canvas.height = h * DPR;
+    }
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const cx = (canvasSize * DPR) / 2;
-    const cy = (canvasSize * DPR) / 2;
+    const cx = (w * DPR) / 2;
+    const cy = (h * DPR) / 2;
+    const baseRadius = (Math.min(w, h) / 2 - 2) * DPR;
     const time = performance.now() / 1000;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -736,10 +749,11 @@ const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
     }
 
     rafRef.current = requestAnimationFrame(animate);
-  }, [tier, canvasSize, baseRadius]);
+  }, [tier]);
 
   useEffect(() => {
     particlesRef.current = [];
+    sizeRef.current = { w: 0, h: 0 };
     rafRef.current = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafRef.current);
   }, [animate]);
@@ -747,12 +761,8 @@ const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
   return (
     <canvas
       ref={canvasRef}
-      width={canvasSize * DPR}
-      height={canvasSize * DPR}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{
-        zIndex: 2,
-      }}
+      style={{ zIndex: 2 }}
     />
   );
 };
