@@ -212,8 +212,8 @@ const Creators = () => {
                     <div
                       className="rounded-t-2xl flex flex-col items-center justify-center gap-1 border border-border/30"
                       style={{
-                        width: isFirst ? 90 : 76,
-                        height: isFirst ? 100 : podiumRank === 2 ? 68 : 52,
+                        width: isFirst ? 106 : 86,
+                        height: isFirst ? 110 : podiumRank === 2 ? 76 : 58,
                         background: podiumRank === 1
                           ? "linear-gradient(180deg, hsl(43 96% 58% / 0.15) 0%, hsl(var(--card)) 100%)"
                           : podiumRank === 2
