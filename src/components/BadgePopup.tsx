@@ -188,23 +188,44 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
 
         {/* Token reward */}
         <div
-          className="flex items-center gap-2.5 mb-5 px-4 py-2.5 rounded-xl border w-full"
+          className="relative mb-5 px-5 py-4 rounded-2xl border w-full overflow-hidden"
           style={{
             background: unlocked
-              ? `linear-gradient(135deg, hsl(${glowHsl} / 0.08), hsl(${glowHsl} / 0.02))`
-              : "hsl(var(--secondary) / 0.4)",
-            borderColor: unlocked ? `hsl(${glowHsl} / 0.15)` : "hsl(var(--border) / 0.2)",
+              ? `linear-gradient(135deg, hsl(${glowHsl} / 0.12), hsl(${glowHsl} / 0.03))`
+              : "hsl(var(--secondary) / 0.3)",
+            borderColor: unlocked ? `hsl(${glowHsl} / 0.2)` : "hsl(var(--border) / 0.15)",
           }}
         >
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-            style={{ background: unlocked ? `hsl(${glowHsl} / 0.12)` : "hsl(var(--secondary))" }}
-          >
-            <AuraIcon className="w-4 h-4" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }} />
-          </div>
-          <div className="flex flex-col items-start">
-            <span className="text-foreground font-bold text-base leading-tight">+{tokens ?? aura}</span>
-            <span className="text-[9px] text-muted-foreground uppercase tracking-wider font-medium">tokens</span>
+          {/* Shimmer effect for unlocked */}
+          {unlocked && (
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `linear-gradient(105deg, transparent 40%, hsl(${glowHsl} / 0.08) 45%, hsl(${glowHsl} / 0.15) 50%, hsl(${glowHsl} / 0.08) 55%, transparent 60%)`,
+                backgroundSize: "200% 100%",
+                animation: "shimmer 3s ease-in-out infinite",
+              }}
+            />
+          )}
+          <div className="relative flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{
+                background: unlocked
+                  ? `linear-gradient(135deg, hsl(${glowHsl} / 0.2), hsl(${glowHsl} / 0.08))`
+                  : "hsl(var(--secondary))",
+                boxShadow: unlocked ? `0 0 20px hsl(${glowHsl} / 0.15)` : "none",
+              }}
+            >
+              <AuraIcon className="w-5 h-5" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }} />
+            </div>
+            <div className="flex flex-col items-start">
+              <span className="text-foreground font-extrabold text-xl leading-tight tracking-tight">+{tokens ?? aura}</span>
+              <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">token reward</span>
+            </div>
+            {unlocked && (
+              <Sparkles className="ml-auto w-4 h-4 animate-pulse" style={{ color: accent, opacity: 0.5 }} />
+            )}
           </div>
         </div>
 
