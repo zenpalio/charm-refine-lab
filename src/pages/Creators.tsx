@@ -106,16 +106,23 @@ const Creators = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortBy>("aura");
   const [filterBy, setFilterBy] = useState<FilterBy>("all");
+  const [creationType, setCreationType] = useState<CreationType>("all");
+
+  const sortOptions: SortBy[] = ["aura", "likes", "date"];
+  const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", date: "Newest" };
+  const creationOptions: CreationType[] = ["all", "characters", "images", "videos", "stories"];
 
   const filtered = useMemo(() => {
     let list = [...mockCreators];
     if (search) list = list.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
+    if (creationType !== "all") list = list.filter(c => c.creations[creationType] > 0);
     if (filterBy === "trending") list = list.filter(c => c.trending);
     if (filterBy === "newest") list = list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
-    if (sortBy === "followers") list.sort((a, b) => b.followers - a.followers);
+    if (sortBy === "likes") list.sort((a, b) => b.likes - a.likes);
+    else if (sortBy === "date") list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
     else list.sort((a, b) => b.aura - a.aura);
     return list;
-  }, [search, sortBy, filterBy]);
+  }, [search, sortBy, filterBy, creationType]);
 
   return (
     <div className="min-h-screen bg-background">
