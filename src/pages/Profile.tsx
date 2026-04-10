@@ -70,28 +70,11 @@ const badgeCategories = [
 ];
 
 const Profile = () => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("Badges");
-  const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
-
-      <main
-        className={`flex-1 transition-all duration-300 ${
-          sidebarCollapsed ? "ml-[68px]" : "ml-[240px]"
-        }`}
-      >
-        <div className="max-w-2xl mx-auto px-4 py-6">
-          {/* Back button */}
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors mb-6"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            <span className="text-sm">Back</span>
-          </button>
+    <div className="min-h-screen bg-background">
+      <div className="max-w-2xl mx-auto px-4 py-6">
 
           {/* Avatar + Name */}
           <div className="relative flex flex-col items-center mb-6">
