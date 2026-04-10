@@ -234,7 +234,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
               />
             </div>
             <p className="text-[10px] text-muted-foreground font-medium">
-              {aura} more tokens needed
+              {aura.toLocaleString()} aura needed
             </p>
           </div>
         )}
