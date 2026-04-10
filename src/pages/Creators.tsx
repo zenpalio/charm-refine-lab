@@ -107,10 +107,13 @@ const Creators = () => {
   const [sortBy, setSortBy] = useState<SortBy>("aura");
   const [sortOpen, setSortOpen] = useState(false);
   const [creationOpen, setCreationOpen] = useState(false);
+  const [timeOpen, setTimeOpen] = useState(false);
   const [filterBy, setFilterBy] = useState<FilterBy>("all");
   const [creationType, setCreationType] = useState<CreationType>("all");
 
   const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", followers: "Most Followers" };
+  const filterLabels: Record<FilterBy, string> = { all: "All time", year: "Year", month: "Month", week: "Week", today: "Today" };
+  const filterOptions: FilterBy[] = ["all", "year", "month", "week", "today"];
   const creationOptions: CreationType[] = ["all", "characters", "images", "videos", "stories"];
 
   const showExtraFilters = sortBy === "likes";
@@ -119,8 +122,8 @@ const Creators = () => {
     let list = [...mockCreators];
     if (search) list = list.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
     if (showExtraFilters && creationType !== "all") list = list.filter(c => c.creations[creationType] > 0);
-    if (showExtraFilters && filterBy === "trending") list = list.filter(c => c.trending);
-    if (showExtraFilters && filterBy === "newest") list = list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
+    // Time filter is mock — in real app would filter by date range
+    // For now just keeps the state for UI purposes
     if (sortBy === "likes") list.sort((a, b) => b.likes - a.likes);
     else if (sortBy === "followers") list.sort((a, b) => b.followers - a.followers);
     else list.sort((a, b) => b.aura - a.aura);
