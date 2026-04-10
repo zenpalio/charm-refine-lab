@@ -222,8 +222,25 @@ const Profile = () => {
               />
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-foreground">A5AP YODA</span>
+        <div className="flex items-center gap-2">
+            {(() => {
+              const totalAura = badgeCategories[0];
+              const unlockedTiers = totalAura.badges.filter(b => b.unlocked);
+              const highest = unlockedTiers[unlockedTiers.length - 1];
+              const color = highest ? tierBorderColors[highest.tier] : undefined;
+              return (
+                <>
+                  {highest && (
+                    <span className="text-sm font-bold uppercase tracking-wide" style={{ color }}>
+                      {tierLabels[highest.tier]}
+                    </span>
+                  )}
+                  <span className="text-lg font-bold" style={{ color: color || 'var(--foreground)' }}>
+                    A5AP YODA
+                  </span>
+                </>
+              );
+            })()}
           </div>
 
         </div>
