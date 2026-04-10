@@ -18,19 +18,12 @@ const tierImages: Record<string, string> = {
   mythic: badgeMythic,
 };
 
-const tierGlow: Record<string, string> = {
-  newbie: "shadow-[0_0_20px_hsl(0,0%,60%,0.2)]",
-  master: "shadow-[0_0_20px_hsl(340,60%,55%,0.3)]",
-  legend: "shadow-[0_0_20px_hsl(40,80%,50%,0.4)]",
-  mythic: "shadow-[0_0_25px_hsl(300,70%,55%,0.5)]",
-};
-
 const BadgeCard = ({ name, aura, tier, unlocked }: BadgeCardProps) => {
   return (
     <div className="flex flex-col items-center gap-2 min-w-[100px]">
       <div
-        className={`relative w-20 h-20 rounded-2xl bg-secondary/50 flex items-center justify-center transition-transform hover:scale-110 ${
-          unlocked ? tierGlow[tier] : "opacity-40 grayscale"
+        className={`relative w-20 h-20 rounded-2xl bg-card flex items-center justify-center transition-transform hover:scale-110 border border-border/30 ${
+          !unlocked ? "opacity-40 grayscale" : ""
         }`}
       >
         <img
