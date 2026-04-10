@@ -23,14 +23,14 @@ const DPR = typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2)
 function createImmortalParticles(count: number, baseRadius: number): Particle[] {
   return Array.from({ length: count }, () => ({
     angle: Math.random() * Math.PI * 2,
-    radius: baseRadius + (Math.random() - 0.5) * 8,
-    speed: 0.3 + Math.random() * 0.6,
-    size: 1 + Math.random() * 2.5,
-    opacity: 0.4 + Math.random() * 0.6,
-    hue: Math.random() * 360,
+    radius: baseRadius + (Math.random() - 0.5) * 6,
+    speed: 0.15 + Math.random() * 0.35,
+    size: 0.8 + Math.random() * 2,
+    opacity: 0.3 + Math.random() * 0.5,
+    hue: 40 + Math.random() * 20, // warm white-gold range
     life: Math.random() * 100,
-    maxLife: 60 + Math.random() * 80,
-    drift: (Math.random() - 0.5) * 0.3,
+    maxLife: 80 + Math.random() * 100,
+    drift: (Math.random() - 0.5) * 0.2,
   }));
 }
 
@@ -42,55 +42,62 @@ function drawImmortal(
   time: number,
   particles: Particle[]
 ) {
-  // Spinning rainbow ring
-  const steps = 128;
-  const ringWidth = 3 * DPR;
+  // Soft divine light ring — warm white with subtle gold
+  const ringWidth = 2.5 * DPR;
+  const steps = 64;
   for (let i = 0; i < steps; i++) {
     const a0 = (i / steps) * Math.PI * 2;
     const a1 = ((i + 1.5) / steps) * Math.PI * 2;
-    const hue = ((i / steps) * 360 + time * 60) % 360;
+    // Flowing brightness wave
+    const wave = 0.5 + 0.5 * Math.sin(time * 1.2 + a0 * 2);
+    const lightness = 82 + wave * 12; // 82-94% — very bright, ethereal
+    const alpha = 0.5 + wave * 0.4;
     ctx.beginPath();
     ctx.arc(cx, cy, baseRadius, a0, a1);
-    ctx.strokeStyle = `hsla(${hue}, 100%, 65%, 0.9)`;
-    ctx.lineWidth = ringWidth;
+    ctx.strokeStyle = `hsla(45, 30%, ${lightness}%, ${alpha})`;
+    ctx.lineWidth = ringWidth + wave * 1.5 * DPR;
     ctx.stroke();
   }
 
-  // Outer glow
-  const glowHue = (time * 40) % 360;
-  const gradient = ctx.createRadialGradient(cx, cy, baseRadius - 4, cx, cy, baseRadius + 18 * DPR);
-  gradient.addColorStop(0, `hsla(${glowHue}, 100%, 70%, 0.15)`);
-  gradient.addColorStop(0.5, `hsla(${(glowHue + 120) % 360}, 100%, 60%, 0.08)`);
-  gradient.addColorStop(1, `hsla(${(glowHue + 240) % 360}, 80%, 50%, 0)`);
+  // Ethereal outer glow — soft warm light breathing
+  const breathe = 0.5 + 0.5 * Math.sin(time * 0.8);
+  const glowRadius = baseRadius + (12 + breathe * 8) * DPR;
+  const gradient = ctx.createRadialGradient(cx, cy, baseRadius - 2, cx, cy, glowRadius);
+  gradient.addColorStop(0, `hsla(45, 40%, 90%, ${0.12 + breathe * 0.08})`);
+  gradient.addColorStop(0.4, `hsla(40, 25%, 85%, ${0.06 + breathe * 0.04})`);
+  gradient.addColorStop(1, `hsla(40, 20%, 80%, 0)`);
   ctx.beginPath();
-  ctx.arc(cx, cy, baseRadius + 16 * DPR, 0, Math.PI * 2);
+  ctx.arc(cx, cy, glowRadius, 0, Math.PI * 2);
   ctx.fillStyle = gradient;
   ctx.fill();
 
-  // Sparkle particles
+  // Floating light motes — gentle, divine energy
   for (const p of particles) {
-    p.angle += p.speed * 0.015;
+    p.angle += p.speed * 0.008;
     p.life += 1;
-    p.hue = (p.hue + 1.5) % 360;
     if (p.life > p.maxLife) {
       p.life = 0;
-      p.opacity = 0.4 + Math.random() * 0.6;
+      p.opacity = 0.3 + Math.random() * 0.5;
+      p.radius = baseRadius + (Math.random() - 0.5) * 6;
     }
     const lifeFrac = p.life / p.maxLife;
-    const fade = lifeFrac < 0.1 ? lifeFrac / 0.1 : lifeFrac > 0.8 ? (1 - lifeFrac) / 0.2 : 1;
-    const px = cx + Math.cos(p.angle) * (p.radius + Math.sin(time * 2 + p.angle) * 3);
-    const py = cy + Math.sin(p.angle) * (p.radius + Math.sin(time * 2 + p.angle) * 3);
-    const s = p.size * DPR * (0.8 + Math.sin(time * 4 + p.angle * 3) * 0.3);
+    const fade = lifeFrac < 0.15 ? lifeFrac / 0.15 : lifeFrac > 0.75 ? (1 - lifeFrac) / 0.25 : 1;
+    const wobble = Math.sin(time * 1.5 + p.angle * 4) * 4;
+    const px = cx + Math.cos(p.angle) * (p.radius + wobble);
+    const py = cy + Math.sin(p.angle) * (p.radius + wobble);
+    const pulse = 0.8 + Math.sin(time * 3 + p.angle * 5) * 0.2;
+    const s = p.size * DPR * pulse;
 
+    // Soft glow halo
     ctx.beginPath();
-    ctx.arc(px, py, s, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(${p.hue}, 100%, 75%, ${p.opacity * fade})`;
+    ctx.arc(px, py, s * 3, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(45, 30%, 92%, ${p.opacity * fade * 0.1})`;
     ctx.fill();
 
-    // Tiny glow around particle
+    // Bright core
     ctx.beginPath();
-    ctx.arc(px, py, s * 2.5, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(${p.hue}, 100%, 70%, ${p.opacity * fade * 0.15})`;
+    ctx.arc(px, py, s, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${p.hue}, 20%, 94%, ${p.opacity * fade * 0.7})`;
     ctx.fill();
   }
 }
