@@ -67,6 +67,7 @@ const badgeCategories = [
     title: "Total Aura",
     subtitle: "Earn More Aura And Claim Free Tokens",
     progress: 45,
+    aura: 1340,
     imageSet: "characters" as const,
     tooltip: "Create characters, post content, and engage with the community to earn more aura",
     badges: [
