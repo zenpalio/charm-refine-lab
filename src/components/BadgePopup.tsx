@@ -1,5 +1,6 @@
-import { X, Coins, Sparkles, Star, Zap } from "lucide-react";
+import { X, Sparkles, Star, Zap } from "lucide-react";
 import { type BadgeTier, type BadgeImageSet, imageSets } from "./BadgeCard";
+import { Button } from "./ui/button";
 import AuraIcon from "./AuraIcon";
 
 interface BadgePopupProps {
@@ -53,210 +54,193 @@ const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "au
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/85 backdrop-blur-md" onClick={onClose}>
       <div
-        className="relative w-[340px] sm:w-[400px] bg-card rounded-3xl border border-border/20 p-8 pt-6 flex flex-col items-center text-center overflow-hidden animate-in zoom-in-90 fade-in duration-500"
+        className="relative w-[320px] sm:w-[380px] bg-card rounded-2xl border border-border/20 p-6 flex flex-col items-center text-center overflow-hidden animate-in zoom-in-90 fade-in duration-500"
         onClick={(e) => e.stopPropagation()}
         style={{
           boxShadow: unlocked
-            ? `0 0 80px hsl(${glowHsl} / 0.3), 0 0 160px hsl(${glowHsl} / 0.12), inset 0 1px 0 hsl(${glowHsl} / 0.15)`
+            ? `0 0 60px hsl(${glowHsl} / 0.25), 0 0 120px hsl(${glowHsl} / 0.1)`
             : "0 25px 50px hsl(0 0% 0% / 0.3)",
         }}
       >
-        {/* Animated radial burst background */}
+        {/* Background effects */}
         {unlocked && (
           <>
             <div
-              className="absolute -top-32 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full blur-[100px] pointer-events-none animate-pulse"
-              style={{ backgroundColor: accent, opacity: 0.2 }}
-            />
-            <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full blur-[60px] pointer-events-none"
+              className="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full blur-[80px] pointer-events-none animate-pulse"
               style={{ backgroundColor: accent, opacity: 0.15, animationDuration: "3s" }}
             />
             {/* Floating particles */}
-            {[...Array(6)].map((_, i) => (
+            {[...Array(5)].map((_, i) => (
               <div
                 key={i}
                 className="absolute w-1 h-1 rounded-full pointer-events-none animate-bounce"
                 style={{
                   backgroundColor: accent,
-                  opacity: 0.4 + (i * 0.1),
-                  left: `${15 + (i * 13)}%`,
-                  top: `${10 + ((i * 17) % 60)}%`,
-                  animationDelay: `${i * 0.3}s`,
-                  animationDuration: `${2 + (i * 0.4)}s`,
+                  opacity: 0.3 + (i * 0.1),
+                  left: `${18 + (i * 16)}%`,
+                  top: `${12 + ((i * 19) % 55)}%`,
+                  animationDelay: `${i * 0.4}s`,
+                  animationDuration: `${2.5 + (i * 0.3)}s`,
                 }}
               />
             ))}
           </>
         )}
 
-        {/* Decorative top accent line */}
+        {/* Top accent line */}
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-24 rounded-full"
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-[2px] w-20 rounded-full"
           style={{
             background: unlocked
               ? `linear-gradient(90deg, transparent, ${accent}, transparent)`
-              : "linear-gradient(90deg, transparent, hsl(var(--muted-foreground) / 0.3), transparent)",
+              : "linear-gradient(90deg, transparent, hsl(var(--muted-foreground) / 0.2), transparent)",
           }}
         />
 
         {/* Close */}
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={onClose}
-          className="absolute top-3 right-3 p-1.5 text-muted-foreground hover:text-foreground transition-colors z-10 rounded-full hover:bg-secondary"
+          className="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full"
         >
           <X className="w-4 h-4" />
-        </button>
+        </Button>
 
-        {/* Status chips row */}
-        <div className="flex items-center gap-2 mb-5 mt-1">
+        {/* Status chip */}
+        <div className="mb-4 mt-0.5">
           {isClaimable && (
-            <div
-              className="flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider animate-pulse"
+            <span
+              className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider animate-pulse"
               style={{
-                backgroundColor: `hsl(${glowHsl} / 0.15)`,
+                backgroundColor: `hsl(${glowHsl} / 0.12)`,
                 color: accent,
-                border: `1px solid hsl(${glowHsl} / 0.3)`,
+                border: `1px solid hsl(${glowHsl} / 0.25)`,
               }}
             >
               <Zap className="w-3 h-3" />
-              Ready to claim
-            </div>
+              Ready
+            </span>
           )}
           {unlocked && claimed && (
-            <div className="flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary text-muted-foreground">
-              <Star className="w-3 h-3" />
-              Collected
-            </div>
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary text-muted-foreground">
+              <Star className="w-3 h-3" /> Collected
+            </span>
           )}
           {!unlocked && (
-            <div className="flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/60 text-muted-foreground">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/50 text-muted-foreground">
               🔒 Locked
-            </div>
+            </span>
           )}
         </div>
 
-        {/* Badge image with enhanced effects */}
-        <div className={`relative w-36 h-36 mb-5 ${!unlocked ? "grayscale opacity-40" : ""}`}>
-          {/* Rotating ring effect for claimable */}
+        {/* Badge image */}
+        <div className={`relative w-32 h-32 mb-4 ${!unlocked ? "grayscale opacity-40" : ""}`}>
           {isClaimable && (
             <div
               className="absolute -inset-3 rounded-full"
               style={{
-                background: `conic-gradient(from 0deg, transparent, hsl(${glowHsl} / 0.4), transparent, hsl(${glowHsl} / 0.2), transparent)`,
+                background: `conic-gradient(from 0deg, transparent, hsl(${glowHsl} / 0.35), transparent, hsl(${glowHsl} / 0.15), transparent)`,
                 animation: "spin 4s linear infinite",
               }}
             />
           )}
-          {/* Glow behind badge */}
           {unlocked && (
             <div
               className="absolute inset-2 rounded-full blur-2xl animate-pulse"
-              style={{ backgroundColor: accent, opacity: isClaimable ? 0.5 : 0.25, animationDuration: "2s" }}
+              style={{ backgroundColor: accent, opacity: isClaimable ? 0.4 : 0.2, animationDuration: "2.5s" }}
             />
           )}
           <img
             src={tierImages[tier]}
             alt={`${name} badge`}
-            className="relative z-10 w-full h-full object-contain transition-transform duration-500"
+            className="relative z-10 w-full h-full object-contain"
             style={{
-              filter: unlocked ? `drop-shadow(0 0 20px hsl(${glowHsl} / 0.5))` : undefined,
+              filter: unlocked ? `drop-shadow(0 0 16px hsl(${glowHsl} / 0.45))` : undefined,
               animation: isClaimable ? "bounce 2s ease-in-out infinite" : undefined,
             }}
           />
-          {/* Sparkle accents around badge */}
           {isClaimable && (
             <>
-              <Sparkles className="absolute -top-1 -right-1 w-4 h-4 animate-ping z-20" style={{ color: accent, animationDuration: "2s" }} />
+              <Sparkles className="absolute -top-1 -right-1 w-3.5 h-3.5 animate-ping z-20" style={{ color: accent, animationDuration: "2s" }} />
               <Sparkles className="absolute -bottom-1 -left-1 w-3 h-3 animate-ping z-20" style={{ color: accent, animationDuration: "2.5s", animationDelay: "0.5s" }} />
-              <Star className="absolute top-0 -left-2 w-3 h-3 animate-pulse z-20" style={{ color: accent, animationDelay: "1s" }} />
             </>
           )}
         </div>
 
-        {/* Tier emoji + name */}
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-2xl">{emoji}</span>
-          <h2 className="text-xl font-black text-foreground uppercase tracking-wide">
+        {/* Name with emoji */}
+        <div className="flex items-center gap-1.5 mb-0.5">
+          <span className="text-lg">{emoji}</span>
+          <h2 className="text-lg font-bold text-foreground tracking-tight">
             {name}
           </h2>
-          <span className="text-2xl">{emoji}</span>
         </div>
 
         {/* Subtitle */}
-        <p className="text-sm mb-4" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }}>
+        <p className="text-xs text-muted-foreground mb-4">
           {isClaimable
-            ? "Your badge is ready! Claim your reward"
+            ? "Claim your reward"
             : unlocked
-              ? "You've earned this badge"
-              : `Reach ${aura} tokens to unlock`}
+              ? "Badge earned"
+              : `${aura} tokens to unlock`}
         </p>
 
-        {/* Token reward card */}
+        {/* Token reward */}
         <div
-          className="flex items-center gap-3 mb-5 px-5 py-3 rounded-2xl border"
+          className="flex items-center gap-2.5 mb-5 px-4 py-2.5 rounded-xl border w-full"
           style={{
             background: unlocked
-              ? `linear-gradient(135deg, hsl(${glowHsl} / 0.1), hsl(${glowHsl} / 0.03))`
-              : "hsl(var(--secondary) / 0.5)",
-            borderColor: unlocked ? `hsl(${glowHsl} / 0.2)` : "hsl(var(--border) / 0.3)",
+              ? `linear-gradient(135deg, hsl(${glowHsl} / 0.08), hsl(${glowHsl} / 0.02))`
+              : "hsl(var(--secondary) / 0.4)",
+            borderColor: unlocked ? `hsl(${glowHsl} / 0.15)` : "hsl(var(--border) / 0.2)",
           }}
         >
           <div
-            className="w-9 h-9 rounded-xl flex items-center justify-center"
-            style={{
-              background: unlocked ? `hsl(${glowHsl} / 0.15)` : "hsl(var(--secondary))",
-            }}
+            className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+            style={{ background: unlocked ? `hsl(${glowHsl} / 0.12)` : "hsl(var(--secondary))" }}
           >
-            <AuraIcon className="w-5 h-5" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }} />
+            <AuraIcon className="w-4 h-4" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }} />
           </div>
           <div className="flex flex-col items-start">
-            <span className="text-foreground font-black text-lg leading-tight">+{aura}</span>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">Token Reward</span>
+            <span className="text-foreground font-bold text-base leading-tight">+{aura}</span>
+            <span className="text-[9px] text-muted-foreground uppercase tracking-wider font-medium">tokens</span>
           </div>
         </div>
 
-        {/* Action button */}
+        {/* Action */}
         {isClaimable ? (
-          <button
+          <Button
             onClick={onClaim}
-            className="w-full px-8 py-3.5 font-bold text-sm rounded-2xl transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
-            style={{
-              background: `linear-gradient(135deg, ${accent}, hsl(${glowHsl} / 0.8))`,
-              color: "hsl(0 0% 5%)",
-              boxShadow: `0 4px 20px hsl(${glowHsl} / 0.4), 0 0 40px hsl(${glowHsl} / 0.15)`,
-            }}
+            size="lg"
+            className="w-full rounded-xl font-bold gap-2 hover:scale-[1.02] active:scale-95 transition-transform"
           >
             <Sparkles className="w-4 h-4" />
             Claim Tokens
-            <Sparkles className="w-4 h-4" />
-          </button>
+          </Button>
         ) : unlocked ? (
-          <div className="w-full px-6 py-3 bg-secondary/60 rounded-2xl flex items-center justify-center gap-2">
-            <span className="text-muted-foreground text-sm font-semibold flex items-center gap-1.5">
-              ✅ Collected
-            </span>
-          </div>
+          <Button variant="secondary" size="lg" className="w-full rounded-xl" disabled>
+            ✅ Collected
+          </Button>
         ) : (
-          <div className="w-full px-6 py-3 bg-secondary/40 rounded-2xl flex flex-col items-center gap-1.5">
-            <div className="w-full h-2 rounded-full bg-secondary overflow-hidden">
+          <div className="w-full space-y-1.5">
+            <div className="w-full h-1.5 rounded-full bg-secondary overflow-hidden">
               <div
                 className="h-full rounded-full transition-all"
                 style={{
                   width: "30%",
-                  background: `linear-gradient(90deg, ${accent}, hsl(${glowHsl} / 0.6))`,
+                  background: `linear-gradient(90deg, ${accent}, hsl(${glowHsl} / 0.5))`,
                 }}
               />
             </div>
-            <span className="text-muted-foreground text-[11px] font-medium">
+            <p className="text-[10px] text-muted-foreground font-medium">
               {aura} more tokens needed
-            </span>
+            </p>
           </div>
         )}
 
-        {/* Footer info */}
+        {/* Date */}
         {unlocked && (
-          <p className="text-[10px] text-muted-foreground/60 mt-4 uppercase tracking-widest">
+          <p className="text-[9px] text-muted-foreground/50 mt-3 uppercase tracking-widest">
             {new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
           </p>
         )}
