@@ -6,6 +6,7 @@ import AuraIcon from "./AuraIcon";
 interface BadgePopupProps {
   name: string;
   aura: number;
+  tokens?: number;
   tier: BadgeTier;
   unlocked: boolean;
   claimed?: boolean;
@@ -44,7 +45,7 @@ const tierEmojis: Record<BadgeTier, string> = {
   immortal: "✨",
 };
 
-const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "aura", onClose, onClaim }: BadgePopupProps) => {
+const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", onClose, onClaim }: BadgePopupProps) => {
   const tierImages = imageSets[imageSet];
   const glowHsl = tierGlowColors[tier];
   const accent = tierAccentColors[tier];
@@ -179,10 +180,10 @@ const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "au
         {/* Subtitle */}
         <p className="text-xs text-muted-foreground mb-4">
           {isClaimable
-            ? "Claim your reward"
+            ? "Claim your token reward"
             : unlocked
               ? "Badge earned"
-              : `${aura} tokens to unlock`}
+              : `Reach ${aura.toLocaleString()} aura to unlock`}
         </p>
 
         {/* Token reward */}
@@ -202,7 +203,7 @@ const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "au
             <AuraIcon className="w-4 h-4" style={{ color: unlocked ? accent : "hsl(var(--muted-foreground))" }} />
           </div>
           <div className="flex flex-col items-start">
-            <span className="text-foreground font-bold text-base leading-tight">+{aura}</span>
+            <span className="text-foreground font-bold text-base leading-tight">+{tokens ?? aura}</span>
             <span className="text-[9px] text-muted-foreground uppercase tracking-wider font-medium">tokens</span>
           </div>
         </div>
@@ -233,7 +234,7 @@ const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "au
               />
             </div>
             <p className="text-[10px] text-muted-foreground font-medium">
-              {aura} more tokens needed
+              {aura.toLocaleString()} aura needed
             </p>
           </div>
         )}

@@ -9,6 +9,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 interface Badge {
   name: string;
   aura: number;
+  tokens?: number;
   tier: BadgeTier;
   unlocked: boolean;
   claimed?: boolean;
