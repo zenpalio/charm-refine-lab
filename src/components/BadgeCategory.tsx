@@ -94,7 +94,6 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
           onClose={() => setSelectedBadge(null)}
           onClaim={handleClaim}
         />
-        />
       )}
     </div>
   );
