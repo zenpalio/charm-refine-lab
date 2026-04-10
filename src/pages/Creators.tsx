@@ -203,7 +203,7 @@ const Creators = () => {
                         boxShadow: `0 0 12px hsl(${glowHsl} / 0.15)`,
                       }}
                     >
-                      <Sparkles className={`w-3.5 h-3.5`} style={{ color: `hsl(${glowHsl})` }} />
+                      <AuraIcon className={`w-3.5 h-3.5`} style={{ color: `hsl(${glowHsl})` }} />
                       <span className="text-[11px] font-black text-foreground">{creator.aura.toLocaleString()}</span>
                     </div>
 
@@ -309,7 +309,7 @@ const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
             : "hsl(var(--secondary) / 0.6)",
         }}
       >
-        <Sparkles className="w-3.5 h-3.5 text-primary" />
+        <AuraIcon className="w-3.5 h-3.5 text-primary" />
         <span className="text-xs font-bold text-foreground">{creator.aura.toLocaleString()}</span>
       </div>
     </div>
