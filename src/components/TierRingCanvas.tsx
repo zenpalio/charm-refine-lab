@@ -761,8 +761,8 @@ const TierRingCanvas = ({ tier }: { tier: BadgeTier }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 2 }}
+      className="absolute pointer-events-none"
+      style={{ zIndex: 2, inset: '-20%', width: '140%', height: '140%' }}
     />
   );
 };
