@@ -352,16 +352,16 @@ function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
 // ─── IMMORTAL: Golden Celestial Storm — double ring, lightning, gold & white ───
 function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRadius: number, time: number, particles: Particle[]) {
   // === Layer 1: Outer pulsing shockwave rings (gold) ===
-  for (let w = 0; w < 3; w++) {
-    const waveCycle = (time * 0.5 + w * 1.1) % 2.5;
-    if (waveCycle > 1.8) continue;
-    const waveProgress = waveCycle / 1.8;
-    const waveR = baseRadius + 8 * DPR + waveProgress * 28 * DPR;
-    const waveAlpha = (1 - waveProgress) * 0.25;
+  for (let w = 0; w < 6; w++) {
+    const waveCycle = (time * 0.6 + w * 0.7) % 2.2;
+    if (waveCycle > 1.6) continue;
+    const waveProgress = waveCycle / 1.6;
+    const waveR = baseRadius + 6 * DPR + waveProgress * 32 * DPR;
+    const waveAlpha = (1 - waveProgress) * 0.22;
     ctx.beginPath();
     ctx.arc(cx, cy, waveR, 0, Math.PI * 2);
-    ctx.strokeStyle = `hsla(43, 90%, 60%, ${waveAlpha})`;
-    ctx.lineWidth = (2 - waveProgress * 1.5) * DPR;
+    ctx.strokeStyle = `hsla(43, 90%, ${55 + waveProgress * 15}%, ${waveAlpha})`;
+    ctx.lineWidth = (2.5 - waveProgress * 2) * DPR;
     ctx.stroke();
   }
 
