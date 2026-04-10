@@ -67,6 +67,7 @@ const badgeCategories = [
     title: "Total Aura",
     subtitle: "Earn More Aura And Claim Free Tokens",
     progress: 45,
+    aura: 1340,
     imageSet: "characters" as const,
     tooltip: "Create characters, post content, and engage with the community to earn more aura",
     badges: [
@@ -83,6 +84,7 @@ const badgeCategories = [
     title: "Characters",
     subtitle: "Create & Collect Characters To Earn Aura",
     progress: 60,
+    aura: 820,
     imageSet: "aura" as const,
     tooltip: "Create new characters, customize them, and get likes from other users",
     badges: [
@@ -99,6 +101,7 @@ const badgeCategories = [
     title: "Social",
     subtitle: "Grow Your Network To Earn Aura",
     progress: 30,
+    aura: 210,
     imageSet: "aura" as const,
     tooltip: "Follow creators, get followers, and share content to grow your social presence",
     badges: [
@@ -115,6 +118,7 @@ const badgeCategories = [
     title: "Messaging",
     subtitle: "Chat & Connect To Earn Aura",
     progress: 15,
+    aura: 95,
     imageSet: "aura" as const,
     tooltip: "Send messages, start conversations, and connect with other creators daily",
     badges: [
@@ -131,6 +135,7 @@ const badgeCategories = [
     title: "Content Creation",
     subtitle: "Create Images, Videos & Stories To Earn Aura",
     progress: 50,
+    aura: 540,
     imageSet: "aura" as const,
     tooltip: "Generate images, create videos, and write stories to boost your content aura",
     badges: [
