@@ -180,20 +180,12 @@ const Creators = () => {
                         filter: highTier ? `drop-shadow(0 0 ${isFirst ? 12 : 8}px hsl(${glowHsl} / 0.4))` : "none",
                       }}
                     >
-                      {isImmortalTier ? (
-                        <div className="relative" style={{ width: avatarPx, height: avatarPx }}>
-                          <div className="absolute inset-[-2px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
-                          <div className="absolute inset-0 rounded-full bg-background" style={{ margin: "2px" }} />
-                          <img src={creator.avatarUrl} alt={creator.name} className="absolute inset-0 rounded-full object-cover" style={{ margin: "3px", width: `calc(100% - 6px)`, height: `calc(100% - 6px)` }} loading="lazy" />
-                        </div>
-                      ) : (
-                        <div
+                      <div
                           className="rounded-full overflow-hidden"
                           style={{ width: avatarPx, height: avatarPx, border: `1.5px solid ${borderColor}` }}
                         >
                           <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
                         </div>
-                      )}
                       <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-6 h-6 object-contain" />
                     </div>
 
