@@ -50,7 +50,7 @@ const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immo
 
 type CreationType = "all" | "characters" | "images" | "videos" | "stories";
 type SortBy = "aura" | "likes" | "followers";
-type FilterBy = "trending" | "newest" | "all";
+type FilterBy = "all" | "year" | "month" | "week" | "today";
 
 const creationTypeLabels: Record<CreationType, string> = {
   all: "All Creations",
@@ -107,10 +107,13 @@ const Creators = () => {
   const [sortBy, setSortBy] = useState<SortBy>("aura");
   const [sortOpen, setSortOpen] = useState(false);
   const [creationOpen, setCreationOpen] = useState(false);
+  const [timeOpen, setTimeOpen] = useState(false);
   const [filterBy, setFilterBy] = useState<FilterBy>("all");
   const [creationType, setCreationType] = useState<CreationType>("all");
 
   const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", followers: "Most Followers" };
+  const filterLabels: Record<FilterBy, string> = { all: "All time", year: "Year", month: "Month", week: "Week", today: "Today" };
+  const filterOptions: FilterBy[] = ["all", "year", "month", "week", "today"];
   const creationOptions: CreationType[] = ["all", "characters", "images", "videos", "stories"];
 
   const showExtraFilters = sortBy === "likes";
@@ -119,8 +122,8 @@ const Creators = () => {
     let list = [...mockCreators];
     if (search) list = list.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
     if (showExtraFilters && creationType !== "all") list = list.filter(c => c.creations[creationType] > 0);
-    if (showExtraFilters && filterBy === "trending") list = list.filter(c => c.trending);
-    if (showExtraFilters && filterBy === "newest") list = list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
+    // Time filter is mock — in real app would filter by date range
+    // For now just keeps the state for UI purposes
     if (sortBy === "likes") list.sort((a, b) => b.likes - a.likes);
     else if (sortBy === "followers") list.sort((a, b) => b.followers - a.followers);
     else list.sort((a, b) => b.aura - a.aura);
@@ -257,13 +260,35 @@ const Creators = () => {
 
           {/* Time filter — only when "Most Liked" */}
           {showExtraFilters && (
-            <button
-              onClick={() => setFilterBy(filterBy === "all" ? "trending" : filterBy === "trending" ? "newest" : "all")}
-              className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
-            >
-              {filterBy === "all" ? "All time" : filterBy === "trending" ? "Trending" : "Newest"}
-              <ChevronDown className="w-4 h-4 text-muted-foreground" />
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setTimeOpen(!timeOpen)}
+                className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
+              >
+                {filterLabels[filterBy]}
+                <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${timeOpen ? "rotate-180" : ""}`} />
+              </button>
+              {timeOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setTimeOpen(false)} />
+                  <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
+                    {filterOptions.map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => { setFilterBy(option); setTimeOpen(false); }}
+                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
+                          filterBy === option
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-accent/50"
+                        }`}
+                      >
+                        {filterLabels[option]}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           )}
 
           <div className="flex-1" />
