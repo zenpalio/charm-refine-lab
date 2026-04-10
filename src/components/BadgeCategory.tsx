@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Info } from "lucide-react";
 import BadgeCard, { type BadgeTier, type BadgeImageSet } from "./BadgeCard";
 import BadgePopup from "./BadgePopup";
+import AuraIcon from "./AuraIcon";
 import HorizontalScroll from "./HorizontalScroll";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
@@ -21,9 +22,10 @@ interface BadgeCategoryProps {
   progress: number;
   imageSet?: BadgeImageSet;
   tooltip?: string;
+  aura?: number;
 }
 
-const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura", tooltip }: BadgeCategoryProps) => {
+const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura", tooltip, aura }: BadgeCategoryProps) => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
   const [claimedTiers, setClaimedTiers] = useState<Set<BadgeTier>>(new Set());
 
@@ -57,14 +59,22 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
             </Tooltip>
           </TooltipProvider>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-28 h-2.5 rounded-full bg-secondary overflow-hidden">
-            <div
-              className="h-full rounded-full bg-primary transition-all"
-              style={{ width: `${progress}%` }}
-            />
+        <div className="flex items-center gap-3">
+          {aura !== undefined && (
+            <div className="flex items-center gap-1">
+              <AuraIcon className="w-3.5 h-3.5 text-purple-500" />
+              <span className="text-[11px] font-bold text-foreground">{aura.toLocaleString()}</span>
+            </div>
+          )}
+          <div className="flex items-center gap-2">
+            <div className="w-20 h-2 rounded-full bg-secondary overflow-hidden">
+              <div
+                className="h-full rounded-full bg-primary transition-all"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <span className="text-[10px] text-muted-foreground font-medium min-w-[28px]">{progress}%</span>
           </div>
-          <span className="text-[10px] text-muted-foreground font-medium min-w-[28px]">{progress}%</span>
         </div>
       </div>
       <p className="text-xs text-muted-foreground mb-4">{subtitle}</p>
