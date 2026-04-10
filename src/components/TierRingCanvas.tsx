@@ -476,6 +476,7 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
 
 // ─── GRANDMASTER: Fire flames ───
 function drawGrandmaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRadius: number, time: number, particles: Particle[]) {
+  // Flickering fire ring
   const steps = 80;
   const ringWidth = 2.5 * DPR;
   for (let i = 0; i < steps; i++) {
@@ -492,16 +493,49 @@ function drawGrandmaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, 
     ctx.stroke();
   }
 
+  // Inner ember glow — bigger
   const pulse = 0.5 + 0.5 * Math.sin(time * 2.5);
-  const glowGrad = ctx.createRadialGradient(cx, cy, baseRadius - 4, cx, cy, baseRadius + (10 + pulse * 6) * DPR);
-  glowGrad.addColorStop(0, `hsla(10, 100%, 55%, ${0.1 + pulse * 0.06})`);
-  glowGrad.addColorStop(0.5, `hsla(20, 100%, 45%, ${0.05 + pulse * 0.03})`);
+  const glowGrad = ctx.createRadialGradient(cx, cy, baseRadius - 4, cx, cy, baseRadius + (14 + pulse * 8) * DPR);
+  glowGrad.addColorStop(0, `hsla(10, 100%, 55%, ${0.12 + pulse * 0.08})`);
+  glowGrad.addColorStop(0.4, `hsla(20, 100%, 45%, ${0.06 + pulse * 0.04})`);
   glowGrad.addColorStop(1, `hsla(0, 80%, 40%, 0)`);
   ctx.beginPath();
-  ctx.arc(cx, cy, baseRadius + 16 * DPR, 0, Math.PI * 2);
+  ctx.arc(cx, cy, baseRadius + 22 * DPR, 0, Math.PI * 2);
   ctx.fillStyle = glowGrad;
   ctx.fill();
 
+  // Flame tongues — licking outward from the ring
+  const flameCount = 16;
+  for (let f = 0; f < flameCount; f++) {
+    const baseAngle = (f / flameCount) * Math.PI * 2;
+    const flameSpeed = Math.sin(time * 6 + f * 2.3) * 0.5 + Math.sin(time * 10 + f * 3.7) * 0.3;
+    const flameHeight = (8 + flameSpeed * 10 + Math.abs(Math.sin(time * 4 + f * 1.1)) * 8) * DPR;
+    const flameWidth = 0.06 + Math.abs(flameSpeed) * 0.03;
+    const flameAlpha = 0.3 + Math.abs(flameSpeed) * 0.5;
+
+    const tipX = cx + Math.cos(baseAngle) * (baseRadius + flameHeight);
+    const tipY = cy + Math.sin(baseAngle) * (baseRadius + flameHeight);
+    const lx = cx + Math.cos(baseAngle - flameWidth) * baseRadius;
+    const ly = cy + Math.sin(baseAngle - flameWidth) * baseRadius;
+    const rx = cx + Math.cos(baseAngle + flameWidth) * baseRadius;
+    const ry = cy + Math.sin(baseAngle + flameWidth) * baseRadius;
+
+    const flameGrad = ctx.createLinearGradient(
+      cx + Math.cos(baseAngle) * baseRadius, cy + Math.sin(baseAngle) * baseRadius,
+      tipX, tipY
+    );
+    flameGrad.addColorStop(0, `hsla(45, 100%, 65%, ${flameAlpha * 0.7})`);
+    flameGrad.addColorStop(0.4, `hsla(25, 100%, 55%, ${flameAlpha * 0.5})`);
+    flameGrad.addColorStop(1, `hsla(5, 100%, 45%, ${flameAlpha * 0.1})`);
+
+    ctx.beginPath();
+    ctx.moveTo(lx, ly);
+    ctx.quadraticCurveTo(tipX, tipY, rx, ry);
+    ctx.fillStyle = flameGrad;
+    ctx.fill();
+  }
+
+  // Fire ember particles
   for (const p of particles) {
     p.angle += p.speed * 0.012;
     p.life += 1;
@@ -513,9 +547,9 @@ function drawGrandmaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, 
       p.size = 1.5 + Math.random() * 3;
     }
     const lifeFrac = p.life / p.maxLife;
-    const fade = lifeFrac < 0.1 ? lifeFrac / 0.1 : lifeFrac > 0.6 ? (1 - lifeFrac) / 0.4 : 1;
-    const riseOffset = lifeFrac * 10 * DPR;
-    const flameWobble = Math.sin(time * 6 + p.angle * 8) * 3;
+    const fade = lifeFrac < 0.1 ? lifeFrac / 0.1 : lifeFrac > 0.5 ? (1 - lifeFrac) / 0.5 : 1;
+    const riseOffset = lifeFrac * 14 * DPR;
+    const flameWobble = Math.sin(time * 7 + p.angle * 8) * 4;
     const px = cx + Math.cos(p.angle) * (p.radius + riseOffset + flameWobble);
     const py = cy + Math.sin(p.angle) * (p.radius + riseOffset + flameWobble);
     const ageHue = p.hue - lifeFrac * 15;
@@ -523,8 +557,8 @@ function drawGrandmaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, 
     const s = p.size * DPR * (1 - lifeFrac * 0.4);
 
     ctx.beginPath();
-    ctx.arc(px, py, s * 2.5, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(${ageHue}, 100%, ${ageLightness}%, ${p.opacity * fade * 0.12})`;
+    ctx.arc(px, py, s * 3, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${ageHue}, 100%, ${ageLightness}%, ${p.opacity * fade * 0.1})`;
     ctx.fill();
 
     ctx.beginPath();
