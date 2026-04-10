@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { Settings, Info, Globe, Users, Trophy } from "lucide-react";
 import BadgeCategory from "@/components/BadgeCategory";
 import { type BadgeTier } from "@/components/BadgeCard";
@@ -37,7 +37,7 @@ const statItems = [
   { icon: Users, label: "CHARACTERS", value: "#56" },
 ];
 
-const tabs = ["Badges", "Characters", "Following"] as const;
+
 
 const badgeCategories = [
   {
