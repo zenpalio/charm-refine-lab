@@ -751,7 +751,7 @@ const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
       height={canvasSize * DPR}
       className="absolute inset-0 w-full h-full pointer-events-none"
       style={{
-        zIndex: 0,
+        zIndex: 2,
       }}
     />
   );
