@@ -10,7 +10,7 @@ import charElite from "@/assets/badges/char-elite.png";
 import charMythic from "@/assets/badges/char-mythic.png";
 import charGrandmaster from "@/assets/badges/char-grandmaster.png";
 import charImmortal from "@/assets/badges/char-immortal.png";
-import creator1 from "@/assets/creator1.jpg";
+import profileAvatar from "@/assets/profile-avatar.svg";
 
 const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "grandmaster", "mythic", "immortal"];
 
@@ -194,7 +194,7 @@ const Profile = () => {
             )}
             {/* Avatar */}
             <div className="absolute inset-[4px] rounded-full overflow-hidden">
-              <img src={creator1} alt="Profile" className="w-full h-full object-cover" />
+              <img src={profileAvatar} alt="Profile" className="w-full h-full object-cover" />
             </div>
             {/* Badge overlay */}
             <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16">
