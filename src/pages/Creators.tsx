@@ -105,24 +105,26 @@ const Creators = () => {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [sortBy, setSortBy] = useState<SortBy>("aura");
+  const [sortOpen, setSortOpen] = useState(false);
   const [filterBy, setFilterBy] = useState<FilterBy>("all");
   const [creationType, setCreationType] = useState<CreationType>("all");
 
-  const sortOptions: SortBy[] = ["aura", "likes", "date"];
-  const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", date: "Newest" };
+  const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", followers: "Most Followers" };
   const creationOptions: CreationType[] = ["all", "characters", "images", "videos", "stories"];
+
+  const showExtraFilters = sortBy === "likes";
 
   const filtered = useMemo(() => {
     let list = [...mockCreators];
     if (search) list = list.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
-    if (creationType !== "all") list = list.filter(c => c.creations[creationType] > 0);
-    if (filterBy === "trending") list = list.filter(c => c.trending);
-    if (filterBy === "newest") list = list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
+    if (showExtraFilters && creationType !== "all") list = list.filter(c => c.creations[creationType] > 0);
+    if (showExtraFilters && filterBy === "trending") list = list.filter(c => c.trending);
+    if (showExtraFilters && filterBy === "newest") list = list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
     if (sortBy === "likes") list.sort((a, b) => b.likes - a.likes);
-    else if (sortBy === "date") list.sort((a, b) => a.joinedDaysAgo - b.joinedDaysAgo);
+    else if (sortBy === "followers") list.sort((a, b) => b.followers - a.followers);
     else list.sort((a, b) => b.aura - a.aura);
     return list;
-  }, [search, sortBy, filterBy, creationType]);
+  }, [search, sortBy, filterBy, creationType, showExtraFilters]);
 
   return (
     <div className="min-h-screen bg-background relative">
