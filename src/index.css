@@ -71,7 +71,26 @@
 }
 
 .immortal-ring {
-  animation: spin-gradient 3s linear infinite;
+  animation: spin-gradient 2s linear infinite;
+}
+
+.immortal-outer-glow {
+  animation: immortal-glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes immortal-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 15px 4px rgba(255, 200, 50, 0.4),
+      0 0 30px 8px rgba(200, 100, 255, 0.25),
+      0 0 50px 12px rgba(100, 200, 255, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 20px 6px rgba(100, 200, 255, 0.4),
+      0 0 35px 10px rgba(255, 100, 150, 0.25),
+      0 0 55px 14px rgba(255, 200, 50, 0.15);
+  }
 }
 
 @keyframes shimmer {
