@@ -349,36 +349,52 @@ function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
   }
 }
 
-// ─── IMMORTAL: Celestial Storm — electric plasma, shockwaves, energy vortex ───
+// ─── IMMORTAL: Golden Celestial Storm — double ring, lightning, gold & white ───
 function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRadius: number, time: number, particles: Particle[]) {
-  // === Layer 1: Outer pulsing shockwave rings ===
+  // === Layer 1: Outer pulsing shockwave rings (gold) ===
   for (let w = 0; w < 3; w++) {
     const waveCycle = (time * 0.5 + w * 1.1) % 2.5;
     if (waveCycle > 1.8) continue;
     const waveProgress = waveCycle / 1.8;
-    const waveR = baseRadius + waveProgress * 30 * DPR;
+    const waveR = baseRadius + 8 * DPR + waveProgress * 28 * DPR;
     const waveAlpha = (1 - waveProgress) * 0.25;
     ctx.beginPath();
     ctx.arc(cx, cy, waveR, 0, Math.PI * 2);
-    ctx.strokeStyle = `hsla(200, 100%, 70%, ${waveAlpha})`;
+    ctx.strokeStyle = `hsla(43, 90%, 60%, ${waveAlpha})`;
     ctx.lineWidth = (2 - waveProgress * 1.5) * DPR;
     ctx.stroke();
   }
 
-  // === Layer 2: Outer energy glow (outside ring only) ===
+  // === Layer 2: Outer gold glow (outside ring only) ===
   const pulse = 0.5 + 0.5 * Math.sin(time * 1.8);
-  const glowR = baseRadius + (16 + pulse * 10) * DPR;
+  const glowR = baseRadius + (18 + pulse * 10) * DPR;
   const glowGrad = ctx.createRadialGradient(cx, cy, baseRadius, cx, cy, glowR);
-  glowGrad.addColorStop(0, `hsla(205, 100%, 60%, ${0.12 + pulse * 0.08})`);
-  glowGrad.addColorStop(0.5, `hsla(195, 90%, 50%, ${0.05 + pulse * 0.03})`);
-  glowGrad.addColorStop(1, `hsla(210, 80%, 40%, 0)`);
+  glowGrad.addColorStop(0, `hsla(43, 100%, 55%, ${0.14 + pulse * 0.08})`);
+  glowGrad.addColorStop(0.5, `hsla(38, 85%, 45%, ${0.06 + pulse * 0.03})`);
+  glowGrad.addColorStop(1, `hsla(35, 70%, 35%, 0)`);
   ctx.beginPath();
   ctx.arc(cx, cy, glowR, 0, Math.PI * 2);
   ctx.arc(cx, cy, baseRadius - 1, 0, Math.PI * 2, true);
   ctx.fillStyle = glowGrad;
   ctx.fill();
 
-  // === Layer 3: Primary plasma ring — electric blue with cyan hot spots ===
+  // === Layer 3: OUTER ring — white/bright gold ===
+  const outerRingR = baseRadius + 6 * DPR;
+  const stepsOuter = 80;
+  for (let i = 0; i < stepsOuter; i++) {
+    const a0 = (i / stepsOuter) * Math.PI * 2;
+    const a1 = ((i + 1.5) / stepsOuter) * Math.PI * 2;
+    const wave = 0.5 + 0.5 * Math.sin(time * 1.8 - a0 * 3 + 1);
+    const lightness = 85 + wave * 14;
+    const alpha = 0.35 + wave * 0.4;
+    ctx.beginPath();
+    ctx.arc(cx, cy, outerRingR, a0, a1);
+    ctx.strokeStyle = `hsla(45, 30%, ${lightness}%, ${alpha})`;
+    ctx.lineWidth = (1.5 + wave * 1) * DPR;
+    ctx.stroke();
+  }
+
+  // === Layer 4: INNER ring — rich gold with plasma flow ===
   const steps = 96;
   for (let i = 0; i < steps; i++) {
     const a0 = (i / steps) * Math.PI * 2;
@@ -386,9 +402,9 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
     const plasma1 = 0.5 + 0.5 * Math.sin(time * 3 + a0 * 4);
     const plasma2 = 0.5 + 0.5 * Math.sin(time * 2.2 - a0 * 6 + 2);
     const combined = plasma1 * 0.6 + plasma2 * 0.4;
-    const hue = 195 + combined * 25; // cyan to blue shift
-    const lightness = 50 + combined * 30;
-    const alpha = 0.5 + combined * 0.45;
+    const hue = 38 + combined * 12;
+    const lightness = 48 + combined * 28;
+    const alpha = 0.55 + combined * 0.4;
     ctx.beginPath();
     ctx.arc(cx, cy, baseRadius, a0, a1);
     ctx.strokeStyle = `hsla(${hue}, 100%, ${lightness}%, ${alpha})`;
@@ -396,32 +412,30 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
     ctx.stroke();
   }
 
-  // === Layer 4: Spinning energy vortex arcs ===
+  // === Layer 5: Spinning energy vortex arcs (gold) ===
   for (let v = 0; v < 4; v++) {
     const vortexSpeed = 0.8 + v * 0.3;
     const vortexStart = time * vortexSpeed + v * 1.57;
     const vortexLen = 0.8 + Math.sin(time * 1.5 + v) * 0.4;
-    const vortexR = baseRadius + (3 + v * 2) * DPR;
+    const vortexR = baseRadius + (1 + v * 2.5) * DPR;
     const vortexAlpha = 0.2 + 0.2 * Math.sin(time * 2 + v * 1.3);
 
     ctx.beginPath();
     ctx.arc(cx, cy, vortexR, vortexStart, vortexStart + vortexLen);
-    const vHue = 190 + v * 10;
-    ctx.strokeStyle = `hsla(${vHue}, 100%, 65%, ${vortexAlpha})`;
+    ctx.strokeStyle = `hsla(${42 + v * 5}, 90%, 65%, ${vortexAlpha})`;
     ctx.lineWidth = (2 - v * 0.3) * DPR;
     ctx.stroke();
 
-    // Leading spark
     const leadA = vortexStart + vortexLen;
     const lx = cx + Math.cos(leadA) * vortexR;
     const ly = cy + Math.sin(leadA) * vortexR;
     ctx.beginPath();
     ctx.arc(lx, ly, 2.5 * DPR, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(190, 100%, 85%, ${vortexAlpha * 1.5})`;
+    ctx.fillStyle = `hsla(45, 100%, 85%, ${vortexAlpha * 1.5})`;
     ctx.fill();
   }
 
-  // === Layer 5: Plasma lightning bolts — intense, frequent ===
+  // === Layer 6: Gold lightning bolts with white cores ===
   const boltCount = 6;
   for (let b = 0; b < boltCount; b++) {
     const boltCycle = time * 0.9 + b * 1.05;
@@ -437,24 +451,24 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
 
     ctx.beginPath();
     ctx.moveTo(cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR);
-
     for (let s = 1; s <= segments; s++) {
       const t = s / segments;
       const r = startR + t * strikeLen;
       const jag = (Math.sin(Math.floor(boltCycle * 40) * 17 + s * 11 + b * 7) * 0.5) * 10 * DPR;
       const perpAngle = boltAngle + Math.PI / 2;
-      const px = cx + Math.cos(boltAngle) * r + Math.cos(perpAngle) * jag;
-      const py = cy + Math.sin(boltAngle) * r + Math.sin(perpAngle) * jag;
-      ctx.lineTo(px, py);
+      ctx.lineTo(
+        cx + Math.cos(boltAngle) * r + Math.cos(perpAngle) * jag,
+        cy + Math.sin(boltAngle) * r + Math.sin(perpAngle) * jag
+      );
     }
 
-    // Bright cyan-white bolt
-    ctx.strokeStyle = `hsla(195, 100%, 90%, ${boltAlpha * 0.95})`;
+    // White-gold bolt core
+    ctx.strokeStyle = `hsla(48, 60%, 92%, ${boltAlpha * 0.95})`;
     ctx.lineWidth = 2 * DPR;
     ctx.stroke();
 
-    // Wide glow
-    ctx.strokeStyle = `hsla(205, 100%, 65%, ${boltAlpha * 0.3})`;
+    // Gold glow
+    ctx.strokeStyle = `hsla(43, 100%, 55%, ${boltAlpha * 0.3})`;
     ctx.lineWidth = 6 * DPR;
     ctx.stroke();
 
@@ -462,23 +476,20 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
     const ox = cx + Math.cos(boltAngle) * startR;
     const oy = cy + Math.sin(boltAngle) * startR;
     const fg = ctx.createRadialGradient(ox, oy, 0, ox, oy, 10 * DPR);
-    fg.addColorStop(0, `hsla(195, 100%, 95%, ${boltAlpha * 0.8})`);
-    fg.addColorStop(1, `hsla(210, 80%, 60%, 0)`);
+    fg.addColorStop(0, `hsla(45, 80%, 90%, ${boltAlpha * 0.8})`);
+    fg.addColorStop(1, `hsla(40, 70%, 50%, 0)`);
     ctx.beginPath();
     ctx.arc(ox, oy, 10 * DPR, 0, Math.PI * 2);
     ctx.fillStyle = fg;
     ctx.fill();
 
-    // Branch bolt (fork)
+    // Fork
     if (b % 2 === 0) {
-      const forkAt = 0.5;
-      const forkR = startR + forkAt * strikeLen;
+      const forkR = startR + 0.5 * strikeLen;
       const forkAngle = boltAngle + (Math.sin(boltCycle * 3) > 0 ? 0.4 : -0.4);
       const forkLen = strikeLen * 0.5;
       ctx.beginPath();
-      const forkStartX = cx + Math.cos(boltAngle) * forkR;
-      const forkStartY = cy + Math.sin(boltAngle) * forkR;
-      ctx.moveTo(forkStartX, forkStartY);
+      ctx.moveTo(cx + Math.cos(boltAngle) * forkR, cy + Math.sin(boltAngle) * forkR);
       for (let s = 1; s <= 4; s++) {
         const t = s / 4;
         const r = forkR + t * forkLen;
@@ -489,13 +500,13 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
           cy + Math.sin(forkAngle) * r + Math.sin(perpA) * jag
         );
       }
-      ctx.strokeStyle = `hsla(200, 100%, 85%, ${boltAlpha * 0.6})`;
+      ctx.strokeStyle = `hsla(45, 80%, 80%, ${boltAlpha * 0.6})`;
       ctx.lineWidth = 1.2 * DPR;
       ctx.stroke();
     }
   }
 
-  // === Layer 6: Electric energy particles ===
+  // === Layer 7: Gold/white energy particles ===
   for (const p of particles) {
     p.angle += p.speed * 0.015;
     p.life += 1;
@@ -512,38 +523,21 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
     const sparkle = 0.6 + Math.sin(time * 8 + p.angle * 10) * 0.4;
     const s = p.size * DPR * sparkle;
 
-    // Glow halo
     ctx.beginPath();
     ctx.arc(px, py, s * 3, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(200, 100%, 70%, ${p.opacity * fade * 0.08})`;
+    ctx.fillStyle = `hsla(43, 90%, 60%, ${p.opacity * fade * 0.08})`;
     ctx.fill();
 
-    // Bright core
     ctx.beginPath();
     ctx.arc(px, py, s, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(195, 100%, 85%, ${p.opacity * fade * 0.8})`;
+    const isWhite = Math.sin(p.angle * 3) > 0;
+    ctx.fillStyle = isWhite
+      ? `hsla(45, 20%, 95%, ${p.opacity * fade * 0.8})`
+      : `hsla(43, 100%, 65%, ${p.opacity * fade * 0.8})`;
     ctx.fill();
   }
 
-  // === Layer 7: Orbital energy ring (tilted) ===
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(time * 0.25);
-  ctx.scale(1, 0.3);
-  const orbitR = baseRadius + 14 * DPR;
-  for (let i = 0; i < 100; i++) {
-    const oa0 = (i / 100) * Math.PI * 2;
-    const oa1 = ((i + 1.5) / 100) * Math.PI * 2;
-    const shimmer = 0.5 + 0.5 * Math.sin(time * 2 + oa0 * 4);
-    ctx.beginPath();
-    ctx.arc(0, 0, orbitR, oa0, oa1);
-    ctx.strokeStyle = `hsla(200, 100%, ${65 + shimmer * 20}%, ${0.15 + shimmer * 0.2})`;
-    ctx.lineWidth = (1.5 + shimmer * 1.5) * DPR;
-    ctx.stroke();
-  }
-  ctx.restore();
-
-  // === Layer 8: Bright plasma flares ===
+  // === Layer 8: Gold plasma flares ===
   for (let f = 0; f < 4; f++) {
     const flarePhase = time * 0.6 + f * 1.6;
     const flareActive = Math.sin(flarePhase) > 0.88;
@@ -553,9 +547,9 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
     const fy = cy + Math.sin(flareAngle) * baseRadius;
     const intensity = (Math.sin(flarePhase) - 0.88) / 0.12;
     const fg = ctx.createRadialGradient(fx, fy, 0, fx, fy, 14 * DPR);
-    fg.addColorStop(0, `hsla(195, 100%, 95%, ${intensity * 0.7})`);
-    fg.addColorStop(0.4, `hsla(205, 100%, 70%, ${intensity * 0.25})`);
-    fg.addColorStop(1, `hsla(210, 80%, 50%, 0)`);
+    fg.addColorStop(0, `hsla(45, 70%, 92%, ${intensity * 0.7})`);
+    fg.addColorStop(0.4, `hsla(43, 100%, 60%, ${intensity * 0.25})`);
+    fg.addColorStop(1, `hsla(38, 80%, 45%, 0)`);
     ctx.beginPath();
     ctx.arc(fx, fy, 14 * DPR, 0, Math.PI * 2);
     ctx.fillStyle = fg;
