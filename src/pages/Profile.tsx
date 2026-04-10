@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Settings, Info, Globe, Users, Trophy } from "lucide-react";
 import BadgeCategory from "@/components/BadgeCategory";
 import { type BadgeTier } from "@/components/BadgeCard";
-import badgeNewbie from "@/assets/badge-newbie.png";
-import badgeMaster from "@/assets/badge-master.png";
-import badgeLegend from "@/assets/badge-legend.png";
-import badgeElite from "@/assets/badge-elite.png";
-import badgeMythic from "@/assets/badge-mythic.png";
-import badgeGrandmaster from "@/assets/badge-grandmaster.png";
-import badgeImmortal from "@/assets/badge-immortal.png";
+import charNewbie from "@/assets/badges/char-newbie.png";
+import charMaster from "@/assets/badges/char-master.png";
+import charLegend from "@/assets/badges/char-legend.png";
+import charElite from "@/assets/badges/char-elite.png";
+import charMythic from "@/assets/badges/char-mythic.png";
+import charGrandmaster from "@/assets/badges/char-grandmaster.png";
+import charImmortal from "@/assets/badges/char-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
 import frameNewbie from "@/assets/frames/frame-newbie.png";
 import frameMaster from "@/assets/frames/frame-master.png";
@@ -21,8 +21,8 @@ import frameImmortal from "@/assets/frames/frame-immortal.png";
 const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "grandmaster", "mythic", "immortal"];
 
 const tierBadgeImages: Record<BadgeTier, string> = {
-  newbie: badgeNewbie, master: badgeMaster, legend: badgeLegend,
-  elite: badgeElite, grandmaster: badgeGrandmaster, mythic: badgeMythic, immortal: badgeImmortal,
+  newbie: charNewbie, master: charMaster, legend: charLegend,
+  elite: charElite, grandmaster: charGrandmaster, mythic: charMythic, immortal: charImmortal,
 };
 
 const tierProfileFrames: Record<BadgeTier, string> = {
@@ -51,7 +51,7 @@ const badgeCategories = [
     title: "Total Aura",
     subtitle: "Earn More Aura And Claim Free Tokens",
     progress: 45,
-    imageSet: "aura" as const,
+    imageSet: "characters" as const,
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
@@ -66,7 +66,7 @@ const badgeCategories = [
     title: "Characters",
     subtitle: "Create & Collect Characters To Earn Aura",
     progress: 60,
-    imageSet: "characters" as const,
+    imageSet: "aura" as const,
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
