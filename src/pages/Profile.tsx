@@ -215,11 +215,6 @@ const Profile = () => {
             <span className="text-lg font-bold text-foreground">A5AP YODA</span>
           </div>
 
-          <div className="absolute top-0 left-0">
-            <button className="p-2 text-muted-foreground hover:text-foreground transition-colors">
-              <Info className="w-5 h-5" />
-            </button>
-          </div>
           <div className="absolute top-0 right-0">
             <button className="p-2 text-muted-foreground hover:text-foreground transition-colors">
               <Settings className="w-5 h-5" />
