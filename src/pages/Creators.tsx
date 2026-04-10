@@ -48,8 +48,25 @@ const tierGlowColors: Record<BadgeTier, string> = {
 
 const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
 
-type SortBy = "followers" | "aura";
+type CreationType = "all" | "characters" | "images" | "videos" | "stories";
+type SortBy = "aura" | "likes" | "date";
 type FilterBy = "trending" | "newest" | "all";
+
+const creationTypeLabels: Record<CreationType, string> = {
+  all: "All Creations",
+  characters: "Characters",
+  images: "Images",
+  videos: "Videos",
+  stories: "Stories",
+};
+
+const creationTypeIcons: Record<CreationType, React.ReactNode> = {
+  all: <Users className="w-4 h-4" />,
+  characters: <Users className="w-4 h-4" />,
+  images: <Image className="w-4 h-4" />,
+  videos: <Video className="w-4 h-4" />,
+  stories: <BookOpen className="w-4 h-4" />,
+};
 
 const mockCreators = Array.from({ length: 30 }, (_, i) => {
   const tiers: BadgeTier[] = ["immortal", "mythic", "grandmaster", "elite", "legend", "master", "newbie"];
