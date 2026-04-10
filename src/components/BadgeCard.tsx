@@ -1,4 +1,4 @@
-import { Lock } from "lucide-react";
+import { Lock, Check } from "lucide-react";
 import badgeNewbie from "@/assets/badge-newbie.png";
 import badgeMaster from "@/assets/badge-master.png";
 import badgeLegend from "@/assets/badge-legend.png";
@@ -115,7 +115,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
 
         {unlocked && claimed && !showNew && (
           <div className="absolute -top-1.5 -right-1.5 z-20 text-[9px] font-bold px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border/30">
-            ✓
+            <Check className="w-3 h-3" />
           </div>
         )}
       </div>
