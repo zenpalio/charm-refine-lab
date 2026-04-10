@@ -23,15 +23,17 @@ const tierBadgeImages: Record<BadgeTier, string> = {
   immortal: charImmortal,
 };
 
-const tierProfileFrames: Record<BadgeTier, string> = {
-  newbie: frameNewbie,
-  master: frameMaster,
-  legend: frameLegend,
-  elite: frameElite,
-  grandmaster: frameGrandmaster,
-  mythic: frameMythic,
-  immortal: frameImmortal,
+const tierBorderColors: Record<BadgeTier, string> = {
+  newbie: "hsl(25 45% 52%)",
+  master: "hsl(213 100% 60%)",
+  legend: "hsl(43 96% 58%)",
+  elite: "hsl(213 100% 50%)",
+  grandmaster: "hsl(0 82% 58%)",
+  mythic: "hsl(281 85% 62%)",
+  immortal: "hsl(48 96% 70%)",
 };
+
+const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
 
 const tierLabels: Record<BadgeTier, string> = {
   newbie: "Newbie",
