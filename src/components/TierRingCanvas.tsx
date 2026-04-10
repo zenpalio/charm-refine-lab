@@ -349,245 +349,216 @@ function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
   }
 }
 
-// ─── IMMORTAL: Transcendent divine radiance ───
+// ─── IMMORTAL: Celestial Storm — electric plasma, shockwaves, energy vortex ───
 function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRadius: number, time: number, particles: Particle[]) {
-  // === Layer 1: Deep outer aura — large, breathing divine presence ===
-  const breathe = 0.5 + 0.5 * Math.sin(time * 0.6);
-  const deepGlowR = baseRadius + (28 + breathe * 14) * DPR;
-  const deepGrad = ctx.createRadialGradient(cx, cy, baseRadius * 0.7, cx, cy, deepGlowR);
-  deepGrad.addColorStop(0, `hsla(42, 50%, 88%, ${0.06 + breathe * 0.04})`);
-  deepGrad.addColorStop(0.3, `hsla(38, 35%, 80%, ${0.04 + breathe * 0.03})`);
-  deepGrad.addColorStop(0.6, `hsla(45, 25%, 75%, ${0.02 + breathe * 0.015})`);
-  deepGrad.addColorStop(1, `hsla(40, 20%, 70%, 0)`);
-  ctx.beginPath();
-  ctx.arc(cx, cy, deepGlowR, 0, Math.PI * 2);
-  ctx.fillStyle = deepGrad;
-  ctx.fill();
-
-  // === Layer 2: Rotating light rays emanating outward ===
-  const rayCount = 12;
-  for (let r = 0; r < rayCount; r++) {
-    const rayAngle = (r / rayCount) * Math.PI * 2 + time * 0.15;
-    const rayIntensity = 0.4 + 0.6 * Math.abs(Math.sin(time * 0.7 + r * 1.1));
-    const rayLen = (16 + rayIntensity * 10) * DPR;
-    const innerR = baseRadius - 2 * DPR;
-    const outerR = baseRadius + rayLen;
-
-    const spread = 0.04 + rayIntensity * 0.02;
-    const x1 = cx + Math.cos(rayAngle - spread) * innerR;
-    const y1 = cy + Math.sin(rayAngle - spread) * innerR;
-    const x2 = cx + Math.cos(rayAngle + spread) * innerR;
-    const y2 = cy + Math.sin(rayAngle + spread) * innerR;
-    const x3 = cx + Math.cos(rayAngle) * outerR;
-    const y3 = cy + Math.sin(rayAngle) * outerR;
-
-    const rayGrad = ctx.createLinearGradient(
-      cx + Math.cos(rayAngle) * innerR, cy + Math.sin(rayAngle) * innerR,
-      x3, y3
-    );
-    rayGrad.addColorStop(0, `hsla(45, 40%, 92%, ${rayIntensity * 0.2})`);
-    rayGrad.addColorStop(1, `hsla(42, 30%, 85%, 0)`);
-
+  // === Layer 1: Outer pulsing shockwave rings ===
+  for (let w = 0; w < 3; w++) {
+    const waveCycle = (time * 0.5 + w * 1.1) % 2.5;
+    if (waveCycle > 1.8) continue;
+    const waveProgress = waveCycle / 1.8;
+    const waveR = baseRadius + waveProgress * 30 * DPR;
+    const waveAlpha = (1 - waveProgress) * 0.25;
     ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x3, y3);
-    ctx.lineTo(x2, y2);
-    ctx.closePath();
-    ctx.fillStyle = rayGrad;
-    ctx.fill();
+    ctx.arc(cx, cy, waveR, 0, Math.PI * 2);
+    ctx.strokeStyle = `hsla(200, 100%, 70%, ${waveAlpha})`;
+    ctx.lineWidth = (2 - waveProgress * 1.5) * DPR;
+    ctx.stroke();
   }
 
-  // === Layer 3: Primary ring — flowing brightness with double wave ===
+  // === Layer 2: Outer energy glow (outside ring only) ===
+  const pulse = 0.5 + 0.5 * Math.sin(time * 1.8);
+  const glowR = baseRadius + (16 + pulse * 10) * DPR;
+  const glowGrad = ctx.createRadialGradient(cx, cy, baseRadius, cx, cy, glowR);
+  glowGrad.addColorStop(0, `hsla(205, 100%, 60%, ${0.12 + pulse * 0.08})`);
+  glowGrad.addColorStop(0.5, `hsla(195, 90%, 50%, ${0.05 + pulse * 0.03})`);
+  glowGrad.addColorStop(1, `hsla(210, 80%, 40%, 0)`);
+  ctx.beginPath();
+  ctx.arc(cx, cy, glowR, 0, Math.PI * 2);
+  ctx.arc(cx, cy, baseRadius - 1, 0, Math.PI * 2, true);
+  ctx.fillStyle = glowGrad;
+  ctx.fill();
+
+  // === Layer 3: Primary plasma ring — electric blue with cyan hot spots ===
   const steps = 96;
-  const ringWidth = 3 * DPR;
   for (let i = 0; i < steps; i++) {
     const a0 = (i / steps) * Math.PI * 2;
     const a1 = ((i + 1.5) / steps) * Math.PI * 2;
-    const wave1 = 0.5 + 0.5 * Math.sin(time * 1.4 + a0 * 2);
-    const wave2 = 0.5 + 0.5 * Math.sin(time * 0.9 - a0 * 3 + 1.5);
-    const combined = wave1 * 0.6 + wave2 * 0.4;
-    const lightness = 80 + combined * 16;
+    const plasma1 = 0.5 + 0.5 * Math.sin(time * 3 + a0 * 4);
+    const plasma2 = 0.5 + 0.5 * Math.sin(time * 2.2 - a0 * 6 + 2);
+    const combined = plasma1 * 0.6 + plasma2 * 0.4;
+    const hue = 195 + combined * 25; // cyan to blue shift
+    const lightness = 50 + combined * 30;
     const alpha = 0.5 + combined * 0.45;
     ctx.beginPath();
     ctx.arc(cx, cy, baseRadius, a0, a1);
-    ctx.strokeStyle = `hsla(45, 35%, ${lightness}%, ${alpha})`;
-    ctx.lineWidth = ringWidth + combined * 2 * DPR;
+    ctx.strokeStyle = `hsla(${hue}, 100%, ${lightness}%, ${alpha})`;
+    ctx.lineWidth = (3 + combined * 2) * DPR;
     ctx.stroke();
   }
 
-  // === Layer 4: Inner shimmer ring (second thinner ring inside) ===
-  const innerRing = baseRadius - 4 * DPR;
-  for (let i = 0; i < 48; i++) {
-    const a0 = (i / 48) * Math.PI * 2;
-    const a1 = ((i + 1.5) / 48) * Math.PI * 2;
-    const shimmer = 0.5 + 0.5 * Math.sin(time * 2 + a0 * 4);
+  // === Layer 4: Spinning energy vortex arcs ===
+  for (let v = 0; v < 4; v++) {
+    const vortexSpeed = 0.8 + v * 0.3;
+    const vortexStart = time * vortexSpeed + v * 1.57;
+    const vortexLen = 0.8 + Math.sin(time * 1.5 + v) * 0.4;
+    const vortexR = baseRadius + (3 + v * 2) * DPR;
+    const vortexAlpha = 0.2 + 0.2 * Math.sin(time * 2 + v * 1.3);
+
     ctx.beginPath();
-    ctx.arc(cx, cy, innerRing, a0, a1);
-    ctx.strokeStyle = `hsla(48, 25%, 90%, ${shimmer * 0.2})`;
-    ctx.lineWidth = 1 * DPR;
+    ctx.arc(cx, cy, vortexR, vortexStart, vortexStart + vortexLen);
+    const vHue = 190 + v * 10;
+    ctx.strokeStyle = `hsla(${vHue}, 100%, 65%, ${vortexAlpha})`;
+    ctx.lineWidth = (2 - v * 0.3) * DPR;
     ctx.stroke();
-  }
 
-  // === Layer 5: Bright glow halo ===
-  const glowRadius = baseRadius + (14 + breathe * 8) * DPR;
-  const gradient = ctx.createRadialGradient(cx, cy, baseRadius - 3, cx, cy, glowRadius);
-  gradient.addColorStop(0, `hsla(45, 50%, 92%, ${0.15 + breathe * 0.1})`);
-  gradient.addColorStop(0.35, `hsla(42, 35%, 88%, ${0.08 + breathe * 0.05})`);
-  gradient.addColorStop(1, `hsla(40, 25%, 82%, 0)`);
-  ctx.beginPath();
-  ctx.arc(cx, cy, glowRadius, 0, Math.PI * 2);
-  ctx.fillStyle = gradient;
-  ctx.fill();
-
-  // === Layer 5b: Jupiter-style orbital ring ===
-  ctx.save();
-  ctx.translate(cx, cy);
-  const orbitTilt = 0.28; // flattening factor for perspective
-  const orbitRadius = baseRadius + 14 * DPR;
-  const orbitRotation = time * 0.2; // slow rotation
-  ctx.rotate(orbitRotation);
-  ctx.scale(1, orbitTilt);
-  
-  // Ring segments with varying brightness
-  const orbitSteps = 120;
-  for (let i = 0; i < orbitSteps; i++) {
-    const oa0 = (i / orbitSteps) * Math.PI * 2;
-    const oa1 = ((i + 1.5) / orbitSteps) * Math.PI * 2;
-    const shimmer = 0.5 + 0.5 * Math.sin(time * 1.0 + oa0 * 3);
-    const alpha = 0.15 + shimmer * 0.25;
-    const lightness = 78 + shimmer * 14;
+    // Leading spark
+    const leadA = vortexStart + vortexLen;
+    const lx = cx + Math.cos(leadA) * vortexR;
+    const ly = cy + Math.sin(leadA) * vortexR;
     ctx.beginPath();
-    ctx.arc(0, 0, orbitRadius, oa0, oa1);
-    ctx.strokeStyle = `hsla(42, 30%, ${lightness}%, ${alpha})`;
-    ctx.lineWidth = (1.5 + shimmer * 1) * DPR;
-    ctx.stroke();
-  }
-  
-  // Second thinner outer orbit
-  const orbit2R = orbitRadius + 4 * DPR;
-  for (let i = 0; i < 60; i++) {
-    const oa0 = (i / 60) * Math.PI * 2;
-    const oa1 = ((i + 1.5) / 60) * Math.PI * 2;
-    const shimmer = 0.5 + 0.5 * Math.sin(time * 0.8 - oa0 * 2);
-    ctx.beginPath();
-    ctx.arc(0, 0, orbit2R, oa0, oa1);
-    ctx.strokeStyle = `hsla(45, 25%, 85%, ${shimmer * 0.12})`;
-    ctx.lineWidth = 0.8 * DPR;
-    ctx.stroke();
-  }
-  ctx.restore();
-
-  for (const p of particles) {
-    p.angle += p.speed * 0.009;
-    p.life += 1;
-    if (p.life > p.maxLife) {
-      p.life = 0;
-      p.opacity = 0.4 + Math.random() * 0.5;
-      p.radius = baseRadius + (Math.random() - 0.5) * 10;
-    }
-    const lifeFrac = p.life / p.maxLife;
-    const fade = lifeFrac < 0.15 ? lifeFrac / 0.15 : lifeFrac > 0.7 ? (1 - lifeFrac) / 0.3 : 1;
-    const wobble = Math.sin(time * 1.2 + p.angle * 3) * 5;
-    const vertDrift = Math.cos(time * 0.8 + p.angle * 2) * 3;
-    const px = cx + Math.cos(p.angle) * (p.radius + wobble);
-    const py = cy + Math.sin(p.angle) * (p.radius + wobble + vertDrift);
-    const pulse = 0.7 + Math.sin(time * 3.5 + p.angle * 6) * 0.3;
-    const s = p.size * DPR * pulse;
-
-    // Large soft halo
-    ctx.beginPath();
-    ctx.arc(px, py, s * 4, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(45, 35%, 92%, ${p.opacity * fade * 0.08})`;
-    ctx.fill();
-
-    // Medium glow
-    ctx.beginPath();
-    ctx.arc(px, py, s * 2, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(43, 30%, 94%, ${p.opacity * fade * 0.15})`;
-    ctx.fill();
-
-    // Bright white-gold core
-    ctx.beginPath();
-    ctx.arc(px, py, s, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(48, 20%, 97%, ${p.opacity * fade * 0.85})`;
+    ctx.arc(lx, ly, 2.5 * DPR, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(190, 100%, 85%, ${vortexAlpha * 1.5})`;
     ctx.fill();
   }
 
-  // === Layer 7: Occasional bright flare bursts at random points ===
-  for (let f = 0; f < 3; f++) {
-    const flarePhase = time * 0.4 + f * 2.1;
-    const flareActive = Math.sin(flarePhase) > 0.85;
-    if (flareActive) {
-      const flareAngle = (flarePhase * 0.7 + f) % (Math.PI * 2);
-      const fx = cx + Math.cos(flareAngle) * baseRadius;
-      const fy = cy + Math.sin(flareAngle) * baseRadius;
-      const flareIntensity = (Math.sin(flarePhase) - 0.85) / 0.15;
-      const fg = ctx.createRadialGradient(fx, fy, 0, fx, fy, 12 * DPR);
-      fg.addColorStop(0, `hsla(45, 40%, 98%, ${flareIntensity * 0.6})`);
-      fg.addColorStop(0.4, `hsla(42, 35%, 90%, ${flareIntensity * 0.2})`);
-      fg.addColorStop(1, `hsla(40, 25%, 85%, 0)`);
-      ctx.beginPath();
-      ctx.arc(fx, fy, 12 * DPR, 0, Math.PI * 2);
-      ctx.fillStyle = fg;
-      ctx.fill();
-    }
-  }
-
-  // === Layer 8: Lightning strikes — divine energy bolts ===
-  const boltCount = 4;
+  // === Layer 5: Plasma lightning bolts — intense, frequent ===
+  const boltCount = 6;
   for (let b = 0; b < boltCount; b++) {
-    // Each bolt has its own timing cycle — visible briefly then fades
-    const boltCycle = time * 0.6 + b * 1.7;
-    const boltPhase = boltCycle % 3; // 3-second cycle per bolt
-    const isActive = boltPhase < 0.15; // visible for 0.15s (~flash)
+    const boltCycle = time * 0.9 + b * 1.05;
+    const boltPhase = boltCycle % 2;
+    const isActive = boltPhase < 0.2;
     if (!isActive) continue;
 
-    const boltAlpha = 1 - boltPhase / 0.15; // fade out during the flash
-    const boltAngle = ((Math.floor(boltCycle / 3) * 2.39 + b * 1.57) % 1) * Math.PI * 2;
-
-    // Start from ring, strike outward
+    const boltAlpha = 1 - boltPhase / 0.2;
+    const boltAngle = ((Math.floor(boltCycle / 2) * 2.39 + b * 1.05) % 1) * Math.PI * 2;
     const startR = baseRadius;
-    const strikeLen = (18 + Math.sin(boltCycle * 7) * 8) * DPR;
-    const segments = 6;
+    const strikeLen = (16 + Math.sin(boltCycle * 9) * 12) * DPR;
+    const segments = 7;
 
     ctx.beginPath();
-    let prevX = cx + Math.cos(boltAngle) * startR;
-    let prevY = cy + Math.sin(boltAngle) * startR;
-    ctx.moveTo(prevX, prevY);
+    ctx.moveTo(cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR);
 
     for (let s = 1; s <= segments; s++) {
       const t = s / segments;
       const r = startR + t * strikeLen;
-      // Jagged lateral offset for lightning look
-      const jag = (Math.sin(Math.floor(boltCycle * 30) * 13 + s * 7 + b * 11) * 0.5 + 0.5 - 0.5) * 8 * DPR;
+      const jag = (Math.sin(Math.floor(boltCycle * 40) * 17 + s * 11 + b * 7) * 0.5) * 10 * DPR;
       const perpAngle = boltAngle + Math.PI / 2;
       const px = cx + Math.cos(boltAngle) * r + Math.cos(perpAngle) * jag;
       const py = cy + Math.sin(boltAngle) * r + Math.sin(perpAngle) * jag;
       ctx.lineTo(px, py);
-      prevX = px;
-      prevY = py;
     }
 
-    // Bright white-gold bolt
-    ctx.strokeStyle = `hsla(45, 30%, 95%, ${boltAlpha * 0.9})`;
+    // Bright cyan-white bolt
+    ctx.strokeStyle = `hsla(195, 100%, 90%, ${boltAlpha * 0.95})`;
     ctx.lineWidth = 2 * DPR;
     ctx.stroke();
 
-    // Softer glow stroke
-    ctx.strokeStyle = `hsla(42, 40%, 85%, ${boltAlpha * 0.35})`;
-    ctx.lineWidth = 5 * DPR;
+    // Wide glow
+    ctx.strokeStyle = `hsla(205, 100%, 65%, ${boltAlpha * 0.3})`;
+    ctx.lineWidth = 6 * DPR;
     ctx.stroke();
 
-    // Flash at strike origin
-    const originGlow = ctx.createRadialGradient(
-      cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR, 0,
-      cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR, 10 * DPR
-    );
-    originGlow.addColorStop(0, `hsla(45, 50%, 98%, ${boltAlpha * 0.7})`);
-    originGlow.addColorStop(1, `hsla(42, 30%, 90%, 0)`);
+    // Flash at origin
+    const ox = cx + Math.cos(boltAngle) * startR;
+    const oy = cy + Math.sin(boltAngle) * startR;
+    const fg = ctx.createRadialGradient(ox, oy, 0, ox, oy, 10 * DPR);
+    fg.addColorStop(0, `hsla(195, 100%, 95%, ${boltAlpha * 0.8})`);
+    fg.addColorStop(1, `hsla(210, 80%, 60%, 0)`);
     ctx.beginPath();
-    ctx.arc(cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR, 10 * DPR, 0, Math.PI * 2);
-    ctx.fillStyle = originGlow;
+    ctx.arc(ox, oy, 10 * DPR, 0, Math.PI * 2);
+    ctx.fillStyle = fg;
+    ctx.fill();
+
+    // Branch bolt (fork)
+    if (b % 2 === 0) {
+      const forkAt = 0.5;
+      const forkR = startR + forkAt * strikeLen;
+      const forkAngle = boltAngle + (Math.sin(boltCycle * 3) > 0 ? 0.4 : -0.4);
+      const forkLen = strikeLen * 0.5;
+      ctx.beginPath();
+      const forkStartX = cx + Math.cos(boltAngle) * forkR;
+      const forkStartY = cy + Math.sin(boltAngle) * forkR;
+      ctx.moveTo(forkStartX, forkStartY);
+      for (let s = 1; s <= 4; s++) {
+        const t = s / 4;
+        const r = forkR + t * forkLen;
+        const jag = (Math.sin(boltCycle * 50 + s * 19) * 0.5) * 6 * DPR;
+        const perpA = forkAngle + Math.PI / 2;
+        ctx.lineTo(
+          cx + Math.cos(forkAngle) * r + Math.cos(perpA) * jag,
+          cy + Math.sin(forkAngle) * r + Math.sin(perpA) * jag
+        );
+      }
+      ctx.strokeStyle = `hsla(200, 100%, 85%, ${boltAlpha * 0.6})`;
+      ctx.lineWidth = 1.2 * DPR;
+      ctx.stroke();
+    }
+  }
+
+  // === Layer 6: Electric energy particles ===
+  for (const p of particles) {
+    p.angle += p.speed * 0.015;
+    p.life += 1;
+    if (p.life > p.maxLife) {
+      p.life = 0;
+      p.opacity = 0.5 + Math.random() * 0.5;
+      p.radius = baseRadius + 2 + Math.random() * 12;
+    }
+    const lifeFrac = p.life / p.maxLife;
+    const fade = lifeFrac < 0.15 ? lifeFrac / 0.15 : lifeFrac > 0.6 ? (1 - lifeFrac) / 0.4 : 1;
+    const drift = Math.sin(time * 4 + p.angle * 5) * 5;
+    const px = cx + Math.cos(p.angle) * (p.radius + drift);
+    const py = cy + Math.sin(p.angle) * (p.radius + drift);
+    const sparkle = 0.6 + Math.sin(time * 8 + p.angle * 10) * 0.4;
+    const s = p.size * DPR * sparkle;
+
+    // Glow halo
+    ctx.beginPath();
+    ctx.arc(px, py, s * 3, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(200, 100%, 70%, ${p.opacity * fade * 0.08})`;
+    ctx.fill();
+
+    // Bright core
+    ctx.beginPath();
+    ctx.arc(px, py, s, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(195, 100%, 85%, ${p.opacity * fade * 0.8})`;
+    ctx.fill();
+  }
+
+  // === Layer 7: Orbital energy ring (tilted) ===
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(time * 0.25);
+  ctx.scale(1, 0.3);
+  const orbitR = baseRadius + 14 * DPR;
+  for (let i = 0; i < 100; i++) {
+    const oa0 = (i / 100) * Math.PI * 2;
+    const oa1 = ((i + 1.5) / 100) * Math.PI * 2;
+    const shimmer = 0.5 + 0.5 * Math.sin(time * 2 + oa0 * 4);
+    ctx.beginPath();
+    ctx.arc(0, 0, orbitR, oa0, oa1);
+    ctx.strokeStyle = `hsla(200, 100%, ${65 + shimmer * 20}%, ${0.15 + shimmer * 0.2})`;
+    ctx.lineWidth = (1.5 + shimmer * 1.5) * DPR;
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // === Layer 8: Bright plasma flares ===
+  for (let f = 0; f < 4; f++) {
+    const flarePhase = time * 0.6 + f * 1.6;
+    const flareActive = Math.sin(flarePhase) > 0.88;
+    if (!flareActive) continue;
+    const flareAngle = (flarePhase * 0.8 + f) % (Math.PI * 2);
+    const fx = cx + Math.cos(flareAngle) * baseRadius;
+    const fy = cy + Math.sin(flareAngle) * baseRadius;
+    const intensity = (Math.sin(flarePhase) - 0.88) / 0.12;
+    const fg = ctx.createRadialGradient(fx, fy, 0, fx, fy, 14 * DPR);
+    fg.addColorStop(0, `hsla(195, 100%, 95%, ${intensity * 0.7})`);
+    fg.addColorStop(0.4, `hsla(205, 100%, 70%, ${intensity * 0.25})`);
+    fg.addColorStop(1, `hsla(210, 80%, 50%, 0)`);
+    ctx.beginPath();
+    ctx.arc(fx, fy, 14 * DPR, 0, Math.PI * 2);
+    ctx.fillStyle = fg;
     ctx.fill();
   }
 }
