@@ -311,7 +311,7 @@ interface CreatorRowProps {
   creationType: CreationType;
 }
 
-const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
+const CreatorRow = ({ creator, rank, creationType }: CreatorRowProps) => {
   const borderColor = tierBorderColors[creator.tier];
   const glowHsl = tierGlowColors[creator.tier];
   const highTier = isHighTier(creator.tier);
@@ -348,7 +348,9 @@ const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
         </div>
         <p className="text-[11px] text-muted-foreground">
           {creator.followers.toLocaleString()} followers
-          
+          {creationType !== "all" && (
+            <span className="text-muted-foreground ml-1">· {creator.creations[creationType]} {creationType}</span>
+          )}
         </p>
       </div>
 
