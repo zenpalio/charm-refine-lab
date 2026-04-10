@@ -19,7 +19,7 @@ interface BadgeCategoryProps {
   imageSet?: BadgeImageSet;
 }
 
-const BadgeCategory = ({ title, subtitle, badges, progress, imageSet = "cool" }: BadgeCategoryProps) => {
+const BadgeCategory = ({ title, subtitle, badges, progress, imageSet = "aura" }: BadgeCategoryProps) => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
 
   return (
