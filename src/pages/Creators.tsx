@@ -260,13 +260,35 @@ const Creators = () => {
 
           {/* Time filter — only when "Most Liked" */}
           {showExtraFilters && (
-            <button
-              onClick={() => setFilterBy(filterBy === "all" ? "trending" : filterBy === "trending" ? "newest" : "all")}
-              className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
-            >
-              {filterBy === "all" ? "All time" : filterBy === "trending" ? "Trending" : "Newest"}
-              <ChevronDown className="w-4 h-4 text-muted-foreground" />
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setTimeOpen(!timeOpen)}
+                className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors animate-in fade-in slide-in-from-left-2 duration-200"
+              >
+                {filterLabels[filterBy]}
+                <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${timeOpen ? "rotate-180" : ""}`} />
+              </button>
+              {timeOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setTimeOpen(false)} />
+                  <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
+                    {filterOptions.map((option) => (
+                      <button
+                        key={option}
+                        onClick={() => { setFilterBy(option); setTimeOpen(false); }}
+                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
+                          filterBy === option
+                            ? "bg-primary/10 text-primary"
+                            : "text-foreground hover:bg-accent/50"
+                        }`}
+                      >
+                        {filterLabels[option]}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           )}
 
           <div className="flex-1" />
