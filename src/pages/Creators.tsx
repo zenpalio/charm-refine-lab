@@ -299,11 +299,20 @@ const Creators = () => {
               <input
                 autoFocus
                 value={search}
-                onChange={e => setSearch(e.target.value)}
-                onBlur={() => { if (!search) setSearchOpen(false); }}
+                onChange={e => { setSearch(e.target.value); if (!e.target.value) setSearchActive(false); }}
+                onKeyDown={e => { if (e.key === "Enter" && search.trim()) setSearchActive(true); }}
+                onBlur={() => { if (!search) { setSearchOpen(false); setSearchActive(false); } }}
                 placeholder="Search..."
                 className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-32"
               />
+              {searchActive && (
+                <button
+                  onClick={() => { setSearch(""); setSearchActive(false); setSearchOpen(false); }}
+                  className="text-muted-foreground hover:text-foreground text-xs"
+                >
+                  ✕
+                </button>
+              )}
             </div>
           ) : (
             <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
