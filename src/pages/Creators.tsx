@@ -104,6 +104,7 @@ const Creators = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
   const [sortBy, setSortBy] = useState<SortBy>("aura");
   const [sortOpen, setSortOpen] = useState(false);
   const [creationOpen, setCreationOpen] = useState(false);
