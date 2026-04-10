@@ -1,6 +1,15 @@
 import { X, Coins } from "lucide-react";
 import { type BadgeTier, type BadgeImageSet, imageSets } from "./BadgeCard";
 
+interface BadgePopupProps {
+  name: string;
+  aura: number;
+  tier: BadgeTier;
+  unlocked: boolean;
+  imageSet?: BadgeImageSet;
+  onClose: () => void;
+}
+
 const tierAuraRewards: Record<BadgeTier, number> = {
   newbie: 10,
   master: 40,
