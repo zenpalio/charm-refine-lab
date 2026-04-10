@@ -102,7 +102,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
         />
 
         {!unlocked && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[1.75rem] bg-background/35">
+          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[1.25rem] sm:rounded-[1.75rem] bg-background/35">
             <Lock className="w-5 h-5 text-muted-foreground" />
           </div>
         )}
