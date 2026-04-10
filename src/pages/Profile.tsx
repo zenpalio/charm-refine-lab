@@ -177,15 +177,17 @@ const Profile = () => {
               className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-lg"
             />
             <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16">
-              <div
-                className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
-                style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
-              />
+              {["elite", "grandmaster", "mythic", "immortal"].includes(previewTier) && (
+                <div
+                  className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
+                  style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
+                />
+              )}
               <img
                 src={tierBadgeImages[previewTier]}
                 alt={`${previewTier} badge`}
                 className="relative z-10 w-full h-full object-contain"
-                style={{ filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` }}
+                style={["elite", "grandmaster", "mythic", "immortal"].includes(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
               />
             </div>
           </div>
