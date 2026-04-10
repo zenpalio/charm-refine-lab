@@ -151,7 +151,7 @@ function drawElite(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRa
   ctx.stroke();
 
   // Electric glow
-  const pulse = 0.5 + 0.5 * Math.sin(time * 3);
+  const pulse = 0.5 + 0.5 * Math.sin(time * 1.5);
   const glowR = baseRadius + (8 + pulse * 5) * DPR;
   const grad = ctx.createRadialGradient(cx, cy, baseRadius - 2, cx, cy, glowR);
   grad.addColorStop(0, `hsla(213, 100%, 60%, ${0.08 + pulse * 0.05})`);
@@ -163,12 +163,12 @@ function drawElite(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRa
 
   // Lightning arcs — 3 arcs that flicker and jump
   const arcCount = 3;
-  const seed = Math.floor(time * 8); // changes 8x per second for crackle
+  const seed = Math.floor(time * 3); // changes 3x per second
   for (let a = 0; a < arcCount; a++) {
     const arcStart = ((seed * 0.37 + a * 2.1) % 1) * Math.PI * 2;
     const arcLen = 0.3 + ((seed * 0.13 + a) % 1) * 0.5; // radians
     const segments = 8;
-    const intensity = 0.5 + 0.5 * Math.sin(time * 12 + a * 4);
+    const intensity = 0.5 + 0.5 * Math.sin(time * 5 + a * 4);
 
     ctx.beginPath();
     for (let s = 0; s <= segments; s++) {
@@ -193,10 +193,10 @@ function drawElite(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRa
   }
 
   // Occasional bright flash spots
-  const flashSeed = Math.floor(time * 5);
+  const flashSeed = Math.floor(time * 2);
   for (let f = 0; f < 2; f++) {
     const fAngle = ((flashSeed * 0.7 + f * 3.3) % 1) * Math.PI * 2;
-    const flash = Math.max(0, Math.sin(time * 15 + f * 7));
+    const flash = Math.max(0, Math.sin(time * 6 + f * 7));
     if (flash > 0.7) {
       const fx = cx + Math.cos(fAngle) * baseRadius;
       const fy = cy + Math.sin(fAngle) * baseRadius;
