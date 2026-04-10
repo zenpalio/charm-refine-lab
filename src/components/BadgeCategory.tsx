@@ -25,11 +25,14 @@ const BadgeCategory = ({ title, subtitle, badges, progress }: BadgeCategoryProps
           <Info className="w-4 h-4" />
         </button>
       </div>
-      <div className="w-28 h-2 rounded-full bg-secondary overflow-hidden">
-        <div
-          className="h-full rounded-full bg-primary transition-all"
-          style={{ width: `${progress}%` }}
-        />
+      <div className="flex items-center gap-2">
+        <div className="w-28 h-2.5 rounded-full bg-secondary overflow-hidden">
+          <div
+            className="h-full rounded-full bg-primary transition-all"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <span className="text-[10px] text-muted-foreground font-medium min-w-[28px]">{progress}%</span>
       </div>
     </div>
     <p className="text-xs text-muted-foreground mb-4">{subtitle}</p>
