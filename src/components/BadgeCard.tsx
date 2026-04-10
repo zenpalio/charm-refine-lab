@@ -112,6 +112,12 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
             NEW
           </div>
         )}
+
+        {unlocked && claimed && !showNew && (
+          <div className="absolute -top-1.5 -right-1.5 z-20 text-[9px] font-bold px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border/30">
+            ✓
+          </div>
+        )}
       </div>
       <p className="text-xs font-semibold text-foreground capitalize">{name}</p>
       <p className="text-[10px] text-muted-foreground">{aura.toLocaleString()} aura</p>
