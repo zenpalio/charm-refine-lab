@@ -6,8 +6,10 @@ interface BadgePopupProps {
   aura: number;
   tier: BadgeTier;
   unlocked: boolean;
+  claimed?: boolean;
   imageSet?: BadgeImageSet;
   onClose: () => void;
+  onClaim?: () => void;
 }
 
 const tierAuraRewards: Record<BadgeTier, number> = {
@@ -20,7 +22,7 @@ const tierAuraRewards: Record<BadgeTier, number> = {
   immortal: 2500,
 };
 
-const BadgePopup = ({ name, aura, tier, unlocked, imageSet = "aura", onClose }: BadgePopupProps) => {
+const BadgePopup = ({ name, aura, tier, unlocked, claimed = true, imageSet = "aura", onClose, onClaim }: BadgePopupProps) => {
   const tierImages = imageSets[imageSet];
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm" onClick={onClose}>
@@ -47,12 +49,20 @@ const BadgePopup = ({ name, aura, tier, unlocked, imageSet = "aura", onClose }: 
 
         {/* Title */}
         <h2 className="text-xl font-bold text-foreground mb-1">
-          {unlocked ? "New Badge Acquired!" : "Badge Locked"}
+          {unlocked && !claimed
+            ? "Badge Ready to Claim!"
+            : unlocked
+              ? "Badge Claimed!"
+              : "Badge Locked"}
         </h2>
 
         {/* Tier name */}
         <p className={`text-base font-semibold mb-3 ${unlocked ? "text-primary" : "text-muted-foreground"}`}>
-          {unlocked ? `You're now ${name}` : `Reach ${aura} aura to unlock`}
+          {unlocked && !claimed
+            ? `Claim your ${name} badge`
+            : unlocked
+              ? `You're now ${name}`
+              : `Reach ${aura} aura to unlock`}
         </p>
 
         {/* Aura reward */}
@@ -62,10 +72,19 @@ const BadgePopup = ({ name, aura, tier, unlocked, imageSet = "aura", onClose }: 
         </div>
 
         {/* Action */}
-        {unlocked ? (
-          <button className="px-8 py-2.5 bg-primary text-primary-foreground font-semibold text-sm rounded-full hover:bg-primary/90 transition-colors">
-            Claim Tokens
+        {unlocked && !claimed ? (
+          <button
+            onClick={onClaim}
+            className="px-8 py-2.5 bg-primary text-primary-foreground font-semibold text-sm rounded-full hover:bg-primary/90 transition-colors animate-pulse"
+          >
+            🎉 Claim Tokens
           </button>
+        ) : unlocked ? (
+          <div className="px-6 py-2 bg-secondary rounded-full">
+            <span className="text-muted-foreground text-sm font-medium flex items-center gap-1.5">
+              ✅ Claimed
+            </span>
+          </div>
         ) : (
           <div className="px-6 py-2 bg-secondary rounded-full">
             <span className="text-muted-foreground text-sm font-medium">

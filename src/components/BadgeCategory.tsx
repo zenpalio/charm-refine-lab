@@ -9,6 +9,7 @@ interface Badge {
   aura: number;
   tier: BadgeTier;
   unlocked: boolean;
+  claimed?: boolean;
 }
 
 interface BadgeCategoryProps {
@@ -19,8 +20,21 @@ interface BadgeCategoryProps {
   imageSet?: BadgeImageSet;
 }
 
-const BadgeCategory = ({ title, subtitle, badges, progress, imageSet = "aura" }: BadgeCategoryProps) => {
+const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura" }: BadgeCategoryProps) => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
+  const [claimedTiers, setClaimedTiers] = useState<Set<BadgeTier>>(new Set());
+
+  const badges = initialBadges.map((b) => ({
+    ...b,
+    claimed: b.claimed || claimedTiers.has(b.tier),
+  }));
+
+  const handleClaim = () => {
+    if (selectedBadge) {
+      setClaimedTiers((prev) => new Set(prev).add(selectedBadge.tier));
+      setSelectedBadge({ ...selectedBadge, claimed: true });
+    }
+  };
 
   return (
     <div className="mb-8">
@@ -49,7 +63,13 @@ const BadgeCategory = ({ title, subtitle, badges, progress, imageSet = "aura" }:
       </HorizontalScroll>
 
       {selectedBadge && (
-        <BadgePopup {...selectedBadge} imageSet={imageSet} onClose={() => setSelectedBadge(null)} />
+        <BadgePopup
+          {...selectedBadge}
+          claimed={selectedBadge.claimed || claimedTiers.has(selectedBadge.tier)}
+          imageSet={imageSet}
+          onClose={() => setSelectedBadge(null)}
+          onClaim={handleClaim}
+        />
       )}
     </div>
   );
