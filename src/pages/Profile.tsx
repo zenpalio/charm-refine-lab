@@ -217,19 +217,22 @@ const Profile = () => {
 
         </div>
 
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
-          {statItems.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center gap-0.5 sm:gap-1 bg-card rounded-xl p-2.5 sm:p-4 border border-border/30"
-            >
-              <stat.icon className="w-5 h-5 text-muted-foreground mb-1" />
-              <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
-                {stat.label}
-              </span>
-              <span className="text-foreground font-bold text-base sm:text-lg">{stat.value}</span>
-            </div>
-          ))}
+        <div className="mb-6">
+          <p className="text-[11px] text-muted-foreground uppercase tracking-wider font-medium mb-2 px-1">Ranking</p>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            {statItems.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex flex-col items-center gap-0.5 sm:gap-1 bg-card rounded-xl p-2.5 sm:p-4 border border-border/30"
+              >
+                <stat.icon className="w-4 h-4 text-muted-foreground mb-0.5" />
+                <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
+                  {stat.label}
+                </span>
+                <span className="text-foreground font-bold text-base sm:text-lg">{stat.value}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div>
