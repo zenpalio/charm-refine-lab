@@ -50,7 +50,7 @@ const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immo
 
 type CreationType = "all" | "characters" | "images" | "videos" | "stories";
 type SortBy = "aura" | "likes" | "followers";
-type FilterBy = "trending" | "newest" | "all";
+type FilterBy = "all" | "year" | "month" | "week" | "today";
 
 const creationTypeLabels: Record<CreationType, string> = {
   all: "All Creations",
