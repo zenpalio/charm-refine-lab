@@ -130,7 +130,7 @@ const badgeCategories = [
     imageSet: "aura" as const,
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
-      { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
+      { name: "Master", aura: 500, tier: "master" as const, unlocked: true, isNew: true },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: false },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
       { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },

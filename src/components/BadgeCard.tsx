@@ -52,6 +52,7 @@ interface BadgeCardProps {
   tier: BadgeTier;
   unlocked: boolean;
   claimed?: boolean;
+  isNew?: boolean;
   imageSet?: BadgeImageSet;
   onClick?: () => void;
 }
