@@ -187,7 +187,7 @@ const Creators = () => {
                         >
                           <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
                         </div>
-                      <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-6 h-6 object-contain" />
+                      
                     </div>
 
                     {/* Name */}
