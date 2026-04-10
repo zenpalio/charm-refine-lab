@@ -68,8 +68,8 @@ function drawMaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
   // Orbiting sparkle dots
   const sparkleCount = 8;
   for (let i = 0; i < sparkleCount; i++) {
-    const baseAngle = (i / sparkleCount) * Math.PI * 2 + time * 0.8;
-    const twinkle = 0.4 + 0.6 * Math.abs(Math.sin(time * 3 + i * 1.7));
+    const baseAngle = (i / sparkleCount) * Math.PI * 2 + time * 0.3;
+    const twinkle = 0.4 + 0.6 * Math.abs(Math.sin(time * 1.2 + i * 1.7));
     const px = cx + Math.cos(baseAngle) * baseRadius;
     const py = cy + Math.sin(baseAngle) * baseRadius;
     const s = (1.5 + twinkle * 1.5) * DPR;
@@ -89,7 +89,7 @@ function drawMaster(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
 
   // Subtle floating silver motes
   for (const p of particles) {
-    p.angle += p.speed * 0.006;
+    p.angle += p.speed * 0.003;
     p.life += 1;
     if (p.life > p.maxLife) { p.life = 0; p.opacity = 0.3 + Math.random() * 0.4; }
     const lifeFrac = p.life / p.maxLife;
@@ -112,7 +112,7 @@ function drawLegend(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
     const a0 = (i / steps) * Math.PI * 2;
     const a1 = ((i + 1.5) / steps) * Math.PI * 2;
     // Shimmer wave — a bright band sweeps around
-    const wavePos = (time * 0.6) % 1; // 0-1 position of the wave
+    const wavePos = (time * 0.25) % 1; // slower sweep
     const segPos = i / steps;
     const dist = Math.abs(segPos - wavePos);
     const wrapDist = Math.min(dist, 1 - dist);
@@ -129,7 +129,7 @@ function drawLegend(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
   }
 
   // Warm golden glow at the wave point
-  const waveAngle = (time * 0.6 % 1) * Math.PI * 2;
+  const waveAngle = (time * 0.25 % 1) * Math.PI * 2;
   const glowX = cx + Math.cos(waveAngle) * baseRadius;
   const glowY = cy + Math.sin(waveAngle) * baseRadius;
   const spotGrad = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, 20 * DPR);
