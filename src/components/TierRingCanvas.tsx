@@ -268,59 +268,151 @@ function drawMythic(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseR
   }
 }
 
-// ─── IMMORTAL: Divine goddess light ───
+// ─── IMMORTAL: Transcendent divine radiance ───
 function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, baseRadius: number, time: number, particles: Particle[]) {
-  const ringWidth = 2.5 * DPR;
-  const steps = 64;
+  // === Layer 1: Deep outer aura — large, breathing divine presence ===
+  const breathe = 0.5 + 0.5 * Math.sin(time * 0.6);
+  const deepGlowR = baseRadius + (28 + breathe * 14) * DPR;
+  const deepGrad = ctx.createRadialGradient(cx, cy, baseRadius * 0.7, cx, cy, deepGlowR);
+  deepGrad.addColorStop(0, `hsla(42, 50%, 88%, ${0.06 + breathe * 0.04})`);
+  deepGrad.addColorStop(0.3, `hsla(38, 35%, 80%, ${0.04 + breathe * 0.03})`);
+  deepGrad.addColorStop(0.6, `hsla(45, 25%, 75%, ${0.02 + breathe * 0.015})`);
+  deepGrad.addColorStop(1, `hsla(40, 20%, 70%, 0)`);
+  ctx.beginPath();
+  ctx.arc(cx, cy, deepGlowR, 0, Math.PI * 2);
+  ctx.fillStyle = deepGrad;
+  ctx.fill();
+
+  // === Layer 2: Rotating light rays emanating outward ===
+  const rayCount = 12;
+  for (let r = 0; r < rayCount; r++) {
+    const rayAngle = (r / rayCount) * Math.PI * 2 + time * 0.15;
+    const rayIntensity = 0.4 + 0.6 * Math.abs(Math.sin(time * 0.7 + r * 1.1));
+    const rayLen = (16 + rayIntensity * 10) * DPR;
+    const innerR = baseRadius - 2 * DPR;
+    const outerR = baseRadius + rayLen;
+
+    const spread = 0.04 + rayIntensity * 0.02;
+    const x1 = cx + Math.cos(rayAngle - spread) * innerR;
+    const y1 = cy + Math.sin(rayAngle - spread) * innerR;
+    const x2 = cx + Math.cos(rayAngle + spread) * innerR;
+    const y2 = cy + Math.sin(rayAngle + spread) * innerR;
+    const x3 = cx + Math.cos(rayAngle) * outerR;
+    const y3 = cy + Math.sin(rayAngle) * outerR;
+
+    const rayGrad = ctx.createLinearGradient(
+      cx + Math.cos(rayAngle) * innerR, cy + Math.sin(rayAngle) * innerR,
+      x3, y3
+    );
+    rayGrad.addColorStop(0, `hsla(45, 40%, 92%, ${rayIntensity * 0.2})`);
+    rayGrad.addColorStop(1, `hsla(42, 30%, 85%, 0)`);
+
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x2, y2);
+    ctx.closePath();
+    ctx.fillStyle = rayGrad;
+    ctx.fill();
+  }
+
+  // === Layer 3: Primary ring — flowing brightness with double wave ===
+  const steps = 96;
+  const ringWidth = 3 * DPR;
   for (let i = 0; i < steps; i++) {
     const a0 = (i / steps) * Math.PI * 2;
     const a1 = ((i + 1.5) / steps) * Math.PI * 2;
-    const wave = 0.5 + 0.5 * Math.sin(time * 1.2 + a0 * 2);
-    const lightness = 82 + wave * 12;
-    const alpha = 0.5 + wave * 0.4;
+    const wave1 = 0.5 + 0.5 * Math.sin(time * 1.4 + a0 * 2);
+    const wave2 = 0.5 + 0.5 * Math.sin(time * 0.9 - a0 * 3 + 1.5);
+    const combined = wave1 * 0.6 + wave2 * 0.4;
+    const lightness = 80 + combined * 16;
+    const alpha = 0.5 + combined * 0.45;
     ctx.beginPath();
     ctx.arc(cx, cy, baseRadius, a0, a1);
-    ctx.strokeStyle = `hsla(45, 30%, ${lightness}%, ${alpha})`;
-    ctx.lineWidth = ringWidth + wave * 1.5 * DPR;
+    ctx.strokeStyle = `hsla(45, 35%, ${lightness}%, ${alpha})`;
+    ctx.lineWidth = ringWidth + combined * 2 * DPR;
     ctx.stroke();
   }
 
-  const breathe = 0.5 + 0.5 * Math.sin(time * 0.8);
-  const glowRadius = baseRadius + (12 + breathe * 8) * DPR;
-  const gradient = ctx.createRadialGradient(cx, cy, baseRadius - 2, cx, cy, glowRadius);
-  gradient.addColorStop(0, `hsla(45, 40%, 90%, ${0.12 + breathe * 0.08})`);
-  gradient.addColorStop(0.4, `hsla(40, 25%, 85%, ${0.06 + breathe * 0.04})`);
-  gradient.addColorStop(1, `hsla(40, 20%, 80%, 0)`);
+  // === Layer 4: Inner shimmer ring (second thinner ring inside) ===
+  const innerRing = baseRadius - 4 * DPR;
+  for (let i = 0; i < 48; i++) {
+    const a0 = (i / 48) * Math.PI * 2;
+    const a1 = ((i + 1.5) / 48) * Math.PI * 2;
+    const shimmer = 0.5 + 0.5 * Math.sin(time * 2 + a0 * 4);
+    ctx.beginPath();
+    ctx.arc(cx, cy, innerRing, a0, a1);
+    ctx.strokeStyle = `hsla(48, 25%, 90%, ${shimmer * 0.2})`;
+    ctx.lineWidth = 1 * DPR;
+    ctx.stroke();
+  }
+
+  // === Layer 5: Bright glow halo ===
+  const glowRadius = baseRadius + (14 + breathe * 8) * DPR;
+  const gradient = ctx.createRadialGradient(cx, cy, baseRadius - 3, cx, cy, glowRadius);
+  gradient.addColorStop(0, `hsla(45, 50%, 92%, ${0.15 + breathe * 0.1})`);
+  gradient.addColorStop(0.35, `hsla(42, 35%, 88%, ${0.08 + breathe * 0.05})`);
+  gradient.addColorStop(1, `hsla(40, 25%, 82%, 0)`);
   ctx.beginPath();
   ctx.arc(cx, cy, glowRadius, 0, Math.PI * 2);
   ctx.fillStyle = gradient;
   ctx.fill();
 
+  // === Layer 6: Orbiting bright star particles (larger, brighter) ===
   for (const p of particles) {
-    p.angle += p.speed * 0.008;
+    p.angle += p.speed * 0.009;
     p.life += 1;
     if (p.life > p.maxLife) {
       p.life = 0;
-      p.opacity = 0.3 + Math.random() * 0.5;
-      p.radius = baseRadius + (Math.random() - 0.5) * 6;
+      p.opacity = 0.4 + Math.random() * 0.5;
+      p.radius = baseRadius + (Math.random() - 0.5) * 10;
     }
     const lifeFrac = p.life / p.maxLife;
-    const fade = lifeFrac < 0.15 ? lifeFrac / 0.15 : lifeFrac > 0.75 ? (1 - lifeFrac) / 0.25 : 1;
-    const wobble = Math.sin(time * 1.5 + p.angle * 4) * 4;
+    const fade = lifeFrac < 0.15 ? lifeFrac / 0.15 : lifeFrac > 0.7 ? (1 - lifeFrac) / 0.3 : 1;
+    const wobble = Math.sin(time * 1.2 + p.angle * 3) * 5;
+    const vertDrift = Math.cos(time * 0.8 + p.angle * 2) * 3;
     const px = cx + Math.cos(p.angle) * (p.radius + wobble);
-    const py = cy + Math.sin(p.angle) * (p.radius + wobble);
-    const pulse = 0.8 + Math.sin(time * 3 + p.angle * 5) * 0.2;
+    const py = cy + Math.sin(p.angle) * (p.radius + wobble + vertDrift);
+    const pulse = 0.7 + Math.sin(time * 3.5 + p.angle * 6) * 0.3;
     const s = p.size * DPR * pulse;
 
+    // Large soft halo
     ctx.beginPath();
-    ctx.arc(px, py, s * 3, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(45, 30%, 92%, ${p.opacity * fade * 0.1})`;
+    ctx.arc(px, py, s * 4, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(45, 35%, 92%, ${p.opacity * fade * 0.08})`;
     ctx.fill();
 
+    // Medium glow
+    ctx.beginPath();
+    ctx.arc(px, py, s * 2, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(43, 30%, 94%, ${p.opacity * fade * 0.15})`;
+    ctx.fill();
+
+    // Bright white-gold core
     ctx.beginPath();
     ctx.arc(px, py, s, 0, Math.PI * 2);
-    ctx.fillStyle = `hsla(${p.hue}, 20%, 94%, ${p.opacity * fade * 0.7})`;
+    ctx.fillStyle = `hsla(48, 20%, 97%, ${p.opacity * fade * 0.85})`;
     ctx.fill();
+  }
+
+  // === Layer 7: Occasional bright flare bursts at random points ===
+  for (let f = 0; f < 3; f++) {
+    const flarePhase = time * 0.4 + f * 2.1;
+    const flareActive = Math.sin(flarePhase) > 0.85;
+    if (flareActive) {
+      const flareAngle = (flarePhase * 0.7 + f) % (Math.PI * 2);
+      const fx = cx + Math.cos(flareAngle) * baseRadius;
+      const fy = cy + Math.sin(flareAngle) * baseRadius;
+      const flareIntensity = (Math.sin(flarePhase) - 0.85) / 0.15;
+      const fg = ctx.createRadialGradient(fx, fy, 0, fx, fy, 12 * DPR);
+      fg.addColorStop(0, `hsla(45, 40%, 98%, ${flareIntensity * 0.6})`);
+      fg.addColorStop(0.4, `hsla(42, 35%, 90%, ${flareIntensity * 0.2})`);
+      fg.addColorStop(1, `hsla(40, 25%, 85%, 0)`);
+      ctx.beginPath();
+      ctx.arc(fx, fy, 12 * DPR, 0, Math.PI * 2);
+      ctx.fillStyle = fg;
+      ctx.fill();
+    }
   }
 }
 
