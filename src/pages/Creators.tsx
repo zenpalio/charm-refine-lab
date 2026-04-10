@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, ArrowLeft, Crown, ChevronDown, Zap, Image, Video, BookOpen, Users } from "lucide-react";
+import { Search, ArrowLeft, Crown, ChevronDown, Zap, Image, Video, BookOpen, Users, Heart } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
@@ -386,7 +386,7 @@ const Creators = () => {
         {/* Remaining Creators List */}
         <div className="space-y-2">
           {filtered.slice(3).map((creator, idx) => (
-            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} creationType={creationType} />
+            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} creationType={creationType} sortBy={sortBy} />
           ))}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
@@ -401,9 +401,10 @@ interface CreatorRowProps {
   creator: typeof mockCreators[0];
   rank: number;
   creationType: CreationType;
+  sortBy: SortBy;
 }
 
-const CreatorRow = ({ creator, rank, creationType }: CreatorRowProps) => {
+const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) => {
   const borderColor = tierBorderColors[creator.tier];
   const glowHsl = tierGlowColors[creator.tier];
   const highTier = isHighTier(creator.tier);
@@ -446,17 +447,29 @@ const CreatorRow = ({ creator, rank, creationType }: CreatorRowProps) => {
         </p>
       </div>
 
-      {/* Aura pill */}
+      {/* Stat pill */}
       <div
         className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
         style={{
-          background: highTier
+          background: sortBy === "likes"
+            ? "hsl(0 70% 50% / 0.1)"
+            : highTier
             ? `linear-gradient(135deg, hsl(${glowHsl} / 0.12), hsl(${glowHsl} / 0.05))`
             : "hsl(var(--secondary) / 0.6)",
         }}
       >
-        <AuraIcon className="w-3.5 h-3.5 text-primary" />
-        <span className="text-xs font-bold text-foreground">{creator.aura.toLocaleString()}</span>
+        {sortBy === "likes" ? (
+          <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
+        ) : (
+          <AuraIcon className="w-3.5 h-3.5 text-primary" />
+        )}
+        <span className="text-xs font-bold text-foreground">
+          {sortBy === "likes"
+            ? creator.likes.toLocaleString()
+            : sortBy === "followers"
+            ? creator.followers.toLocaleString()
+            : creator.aura.toLocaleString()}
+        </span>
       </div>
     </div>
   );
