@@ -15,8 +15,8 @@ const tierAuraRewards: Record<BadgeTier, number> = {
   master: 40,
   legend: 100,
   elite: 250,
-  grandmaster: 500,
-  mythic: 1000,
+  mythic: 500,
+  grandmaster: 1000,
   immortal: 2500,
 };
 

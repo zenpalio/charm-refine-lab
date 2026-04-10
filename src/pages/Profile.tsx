@@ -6,8 +6,8 @@ import charNewbie from "@/assets/badges/char-newbie.png";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
 import charElite from "@/assets/badges/char-elite.png";
-import charMythic from "@/assets/badges/char-mythic.png";
-import charGrandmaster from "@/assets/badges/char-grandmaster.png";
+import charMythic from "@/assets/badges/char-grandmaster.png";
+import charGrandmaster from "@/assets/badges/char-mythic.png";
 import charImmortal from "@/assets/badges/char-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
 import frameNewbie from "@/assets/frames/frame-newbie.png";
@@ -18,11 +18,16 @@ import frameGrandmaster from "@/assets/frames/frame-grandmaster.png";
 import frameMythic from "@/assets/frames/frame-mythic.png";
 import frameImmortal from "@/assets/frames/frame-immortal.png";
 
-const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "grandmaster", "mythic", "immortal"];
+const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "mythic", "grandmaster", "immortal"];
 
 const tierBadgeImages: Record<BadgeTier, string> = {
-  newbie: charNewbie, master: charMaster, legend: charLegend,
-  elite: charElite, grandmaster: charGrandmaster, mythic: charMythic, immortal: charImmortal,
+  newbie: charNewbie,
+  master: charMaster,
+  legend: charLegend,
+  elite: charElite,
+  mythic: charMythic,
+  grandmaster: charGrandmaster,
+  immortal: charImmortal,
 };
 
 const tierProfileFrames: Record<BadgeTier, string> = {
@@ -30,14 +35,19 @@ const tierProfileFrames: Record<BadgeTier, string> = {
   master: frameMaster,
   legend: frameLegend,
   elite: frameElite,
-  grandmaster: frameGrandmaster,
   mythic: frameMythic,
+  grandmaster: frameGrandmaster,
   immortal: frameImmortal,
 };
 
 const tierLabels: Record<BadgeTier, string> = {
-  newbie: "Newbie", master: "Master", legend: "Legend",
-  elite: "Elite", grandmaster: "GM", mythic: "Mythic", immortal: "Immortal",
+  newbie: "Newbie",
+  master: "Master",
+  legend: "Legend",
+  elite: "Elite",
+  mythic: "Mythic",
+  grandmaster: "GM",
+  immortal: "Immortal",
 };
 
 const tierBadgeGlowColors: Record<BadgeTier, string> = {
@@ -45,8 +55,8 @@ const tierBadgeGlowColors: Record<BadgeTier, string> = {
   master: "hsl(213 100% 60%)",
   legend: "hsl(43 96% 58%)",
   elite: "hsl(213 100% 50%)",
-  grandmaster: "hsl(281 85% 62%)",
   mythic: "hsl(0 82% 58%)",
+  grandmaster: "hsl(281 85% 62%)",
   immortal: "hsl(0 0% 88%)",
 };
 
@@ -67,8 +77,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: true },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: true },
-      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: true },
-      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: true },
+      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: true },
+      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: true },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: true },
     ],
   },
@@ -82,8 +92,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: true },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: true },
-      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: true },
-      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: true },
+      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: true },
+      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: true },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: true },
     ],
   },
@@ -97,8 +107,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: false },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
-      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },
-      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: false },
+      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: false },
+      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: false },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: false },
     ],
   },
@@ -112,8 +122,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: false },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
-      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },
-      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: false },
+      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: false },
+      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: false },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: false },
     ],
   },
@@ -127,8 +137,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: false },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
-      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },
-      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: false },
+      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: false },
+      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: false },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: false },
     ],
   },
