@@ -125,8 +125,38 @@ const Creators = () => {
   }, [search, sortBy, filterBy, creationType]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="min-h-screen bg-background relative">
+      {/* Decorative background */}
+      <div className="absolute top-0 left-0 right-0 h-[420px] overflow-hidden pointer-events-none">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 80% 50% at 50% 0%, hsl(213 100% 50% / 0.08) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 60% 40% at 30% 10%, hsl(281 85% 62% / 0.06) 0%, transparent 60%)",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 50% 35% at 70% 5%, hsl(43 96% 58% / 0.06) 0%, transparent 60%)",
+          }}
+        />
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+      </div>
+
+      <div className="max-w-2xl mx-auto px-4 py-6 relative z-10">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <button onClick={() => navigate(-1)} className="p-2 rounded-full hover:bg-secondary transition-colors">
