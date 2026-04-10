@@ -66,7 +66,7 @@ const badgeCategories = [
     title: "Characters",
     subtitle: "Create & Collect Characters To Earn Aura",
     progress: 60,
-    imageSet: "aura" as const,
+    imageSet: "characters" as const,
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
@@ -81,7 +81,7 @@ const badgeCategories = [
     title: "Social",
     subtitle: "Grow Your Network To Earn Aura",
     progress: 30,
-    imageSet: "social" as const,
+    imageSet: "characters" as const,
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
@@ -96,7 +96,7 @@ const badgeCategories = [
     title: "Messaging",
     subtitle: "Chat & Connect To Earn Aura",
     progress: 15,
-    imageSet: "messaging" as const,
+    imageSet: "characters" as const,
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
@@ -111,7 +111,7 @@ const badgeCategories = [
     title: "Content Creation",
     subtitle: "Create Images, Videos & Stories To Earn Aura",
     progress: 50,
-    imageSet: "content" as const,
+    imageSet: "characters" as const,
     badges: [
       { name: "Newbie", aura: 100, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
