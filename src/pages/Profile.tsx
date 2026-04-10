@@ -183,12 +183,15 @@ const Profile = () => {
             )}
             {/* Rotating conic gradient ring for Immortal */}
             {previewTier === "immortal" && (
-              <div className="absolute -inset-[2px] rounded-full immortal-ring" style={{
-                background: 'conic-gradient(from 0deg, hsl(48 96% 70%), hsl(38 100% 50%), hsl(280 80% 60%), hsl(200 100% 70%), hsl(48 96% 70%))',
-                padding: '2px',
-              }}>
-                <div className="w-full h-full rounded-full bg-background" />
-              </div>
+              <>
+                <div className="absolute -inset-[5px] rounded-full immortal-outer-glow opacity-60" />
+                <div className="absolute -inset-[3px] rounded-full immortal-ring" style={{
+                  background: 'conic-gradient(from 0deg, hsl(0 100% 65%), hsl(30 100% 60%), hsl(60 100% 65%), hsl(120 80% 55%), hsl(200 100% 60%), hsl(270 90% 65%), hsl(330 100% 65%), hsl(0 100% 65%))',
+                  padding: '3px',
+                }}>
+                  <div className="w-full h-full rounded-full bg-background" />
+                </div>
+              </>
             )}
             {/* Border ring (non-immortal) */}
             {previewTier !== "immortal" && (
