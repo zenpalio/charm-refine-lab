@@ -12,6 +12,7 @@ interface BadgePopupProps {
   unlocked: boolean;
   claimed?: boolean;
   imageSet?: BadgeImageSet;
+  currentAura?: number;
   onClose: () => void;
   onClaim?: () => void;
 }
@@ -37,7 +38,7 @@ const tierAccentColors: Record<BadgeTier, string> = {
 };
 
 
-const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", onClose, onClaim }: BadgePopupProps) => {
+const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", currentAura = 0, onClose, onClaim }: BadgePopupProps) => {
   const tierImages = imageSets[imageSet];
   const glowHsl = tierGlowColors[tier];
   const accent = tierAccentColors[tier];
@@ -235,18 +236,22 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             ✅ Collected
           </Button>
         ) : (
-          <div className="w-full space-y-1.5">
-            <div className="w-full h-1.5 rounded-full bg-secondary overflow-hidden">
+          <div className="w-full space-y-2">
+            <div className="flex items-center justify-between text-[10px] text-muted-foreground font-semibold">
+              <span>{currentAura.toLocaleString()} / {aura.toLocaleString()} aura</span>
+              <span>{Math.min(100, Math.round((currentAura / aura) * 100))}%</span>
+            </div>
+            <div className="w-full h-2 rounded-full bg-secondary overflow-hidden">
               <div
-                className="h-full rounded-full transition-all"
+                className="h-full rounded-full transition-all duration-700"
                 style={{
-                  width: "30%",
+                  width: `${Math.min(100, (currentAura / aura) * 100)}%`,
                   background: `linear-gradient(90deg, ${accent}, hsl(${glowHsl} / 0.5))`,
                 }}
               />
             </div>
             <p className="text-[10px] text-muted-foreground font-medium">
-              {aura.toLocaleString()} aura needed
+              {(aura - currentAura).toLocaleString()} more aura needed
             </p>
           </div>
         )}
