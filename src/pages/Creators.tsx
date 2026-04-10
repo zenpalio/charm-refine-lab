@@ -223,7 +223,7 @@ const Creators = () => {
           ) : (
             <>
               <div className="flex items-center gap-1.5 flex-1">
-                <Sparkles className="w-4 h-4 text-primary" />
+                <Users className="w-4 h-4 text-primary" />
                 <h1 className="text-base font-bold text-foreground">Creators</h1>
               </div>
               <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
