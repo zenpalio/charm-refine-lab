@@ -113,7 +113,6 @@ const badgeCategories = [
 ];
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("Badges");
 
   // Derive highest unlocked tier from Total Aura category
   const totalAuraCategory = badgeCategories[0];
