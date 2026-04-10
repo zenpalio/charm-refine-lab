@@ -378,12 +378,7 @@ const Creators = () => {
                     >
                       <div
                           className="rounded-full overflow-hidden"
-                          style={{
-                            width: avatarPx, height: avatarPx,
-                            border: `2px solid ${borderColor}`,
-                            boxShadow: highTier ? `0 0 10px hsl(${glowHsl} / 0.4), 0 0 20px hsl(${glowHsl} / 0.15)` : 'none',
-                            animation: highTier ? 'pulse-glow 2.5s ease-in-out infinite' : 'none',
-                          }}
+                          style={{ width: avatarPx, height: avatarPx, border: `2px solid ${borderColor}` }}
                         >
                           <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
                         </div>
@@ -517,14 +512,7 @@ const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) =>
 
       {/* Avatar */}
       <div className="relative flex-shrink-0">
-          <div
-            className="w-11 h-11 rounded-full overflow-hidden"
-            style={{
-              border: `1.5px solid ${borderColor}80`,
-              boxShadow: highTier ? `0 0 6px hsl(${glowHsl} / 0.3)` : 'none',
-              animation: highTier ? 'pulse-glow 2.5s ease-in-out infinite' : 'none',
-            }}
-          >
+          <div className="w-11 h-11 rounded-full overflow-hidden" style={{ border: `1.5px solid ${borderColor}80` }}>
             <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
           </div>
       </div>
