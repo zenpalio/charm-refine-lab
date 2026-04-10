@@ -1,7 +1,35 @@
 import { useState } from "react";
 import { Settings, Info, Globe, Users, Trophy } from "lucide-react";
 import BadgeCategory from "@/components/BadgeCategory";
+import { type BadgeTier } from "@/components/BadgeCard";
+import badgeNewbie from "@/assets/badge-newbie.png";
+import badgeMaster from "@/assets/badge-master.png";
+import badgeLegend from "@/assets/badge-legend.png";
+import badgeElite from "@/assets/badge-elite.png";
+import badgeMythic from "@/assets/badge-mythic.png";
+import badgeGrandmaster from "@/assets/badge-grandmaster.png";
+import badgeImmortal from "@/assets/badge-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
+
+const tierBadgeImages: Record<BadgeTier, string> = {
+  newbie: badgeNewbie,
+  master: badgeMaster,
+  legend: badgeLegend,
+  elite: badgeElite,
+  mythic: badgeMythic,
+  grandmaster: badgeGrandmaster,
+  immortal: badgeImmortal,
+};
+
+const tierRingColors: Record<BadgeTier, string> = {
+  newbie: "ring-[hsl(0,0%,60%)]",
+  master: "ring-[hsl(340,50%,65%)]",
+  legend: "ring-[hsl(40,80%,55%)]",
+  elite: "ring-[hsl(213,100%,50%)]",
+  mythic: "ring-[hsl(300,60%,55%)]",
+  grandmaster: "ring-[hsl(0,70%,50%)]",
+  immortal: "ring-[hsl(0,0%,85%)]",
+};
 
 const statItems = [
   { icon: Trophy, label: "AURA", value: "1,340" },
@@ -87,14 +115,31 @@ const badgeCategories = [
 const Profile = () => {
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]>("Badges");
 
+  // Derive highest unlocked tier from Total Aura category
+  const totalAuraCategory = badgeCategories[0];
+  const highestUnlocked = [...totalAuraCategory.badges]
+    .reverse()
+    .find((b) => b.unlocked);
+  const currentTier: BadgeTier = highestUnlocked?.tier ?? "newbie";
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
 
           {/* Avatar + Name */}
           <div className="relative flex flex-col items-center mb-6">
-            <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-4 ring-primary/30 mb-3">
-              <img src={creator1} alt="Profile" className="w-full h-full object-cover" />
+            <div className="relative mb-3">
+              <div className={`w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden ring-4 ${tierRingColors[currentTier]}`}>
+                <img src={creator1} alt="Profile" className="w-full h-full object-cover" />
+              </div>
+              {/* Badge overlay */}
+              <div className="absolute -bottom-2 -right-2 w-10 h-10 sm:w-12 sm:h-12">
+                <img
+                  src={tierBadgeImages[currentTier]}
+                  alt={`${currentTier} badge`}
+                  className="w-full h-full object-contain drop-shadow-lg"
+                />
+              </div>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-lg font-bold text-foreground">A5AP YODA</span>
