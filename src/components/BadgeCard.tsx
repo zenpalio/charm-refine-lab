@@ -19,10 +19,10 @@ const tierImages: Record<string, string> = {
 };
 
 const tierGlow: Record<string, string> = {
-  newbie: "shadow-[0_0_20px_hsl(0,0%,50%,0.3)]",
-  master: "shadow-[0_0_20px_hsl(30,60%,40%,0.4)]",
-  legend: "shadow-[0_0_20px_hsl(45,80%,50%,0.4)]",
-  mythic: "shadow-[0_0_25px_hsl(260,70%,55%,0.5)]",
+  newbie: "shadow-[0_0_20px_hsl(0,0%,60%,0.2)]",
+  master: "shadow-[0_0_20px_hsl(340,60%,55%,0.3)]",
+  legend: "shadow-[0_0_20px_hsl(40,80%,50%,0.4)]",
+  mythic: "shadow-[0_0_25px_hsl(300,70%,55%,0.5)]",
 };
 
 const BadgeCard = ({ name, aura, tier, unlocked }: BadgeCardProps) => {
