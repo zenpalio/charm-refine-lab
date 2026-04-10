@@ -115,7 +115,7 @@ const Creators = () => {
   const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", followers: "Most Followers" };
   const filterLabels: Record<FilterBy, string> = { all: "All time", year: "Year", month: "Month", week: "Week", today: "Today" };
   const filterOptions: FilterBy[] = ["all", "year", "month", "week", "today"];
-  const creationOptions: CreationType[] = ["all", "characters", "images", "videos", "stories"];
+  const creationOptions: CreationType[] = ["all", "characters", "images", "videos"];
 
   const showExtraFilters = sortBy === "likes";
 
