@@ -13,6 +13,7 @@ interface BadgePopupProps {
   aura: number;
   tier: BadgeTier;
   unlocked: boolean;
+  imageSet?: BadgeImageSet;
   onClose: () => void;
 }
 
