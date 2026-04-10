@@ -3,7 +3,7 @@ import { Search, ArrowLeft, Crown, ChevronDown, Zap, Image, Video, BookOpen, Use
 import AuraIcon from "@/components/AuraIcon";
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
-import creator1 from "@/assets/creator1.jpg";
+import creator1 from "@/assets/creator1_new.jpg";
 import creator2 from "@/assets/creators/creator2.jpg";
 import creator3 from "@/assets/creators/creator3.jpg";
 import creator4 from "@/assets/creators/creator4.jpg";
