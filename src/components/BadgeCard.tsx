@@ -81,9 +81,9 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
 
 export { imageSets };
 
-const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, imageSet = "aura", onClick }: BadgeCardProps) => {
+const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, imageSet = "aura", onClick }: BadgeCardProps) => {
   const images = imageSets[imageSet];
-  const isClaimable = unlocked && !claimed;
+  const showNew = isNew;
 
   return (
     <div className="flex flex-col items-center gap-2 min-w-[116px] cursor-pointer" onClick={onClick}>
@@ -105,7 +105,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, imageSet = "aur
           </div>
         )}
 
-        {isClaimable && (
+        {showNew && (
           <div className="absolute -top-1.5 -right-1.5 z-20 bg-primary text-primary-foreground text-[9px] font-bold px-2 py-0.5 rounded-full shadow-lg animate-pulse">
             NEW
           </div>
