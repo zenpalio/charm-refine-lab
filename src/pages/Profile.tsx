@@ -10,13 +10,6 @@ import charMythic from "@/assets/badges/char-mythic.png";
 import charGrandmaster from "@/assets/badges/char-grandmaster.png";
 import charImmortal from "@/assets/badges/char-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
-import frameNewbie from "@/assets/frames/frame-newbie.png";
-import frameMaster from "@/assets/frames/frame-master.png";
-import frameLegend from "@/assets/frames/frame-legend.png";
-import frameElite from "@/assets/frames/frame-elite.png";
-import frameGrandmaster from "@/assets/frames/frame-grandmaster.png";
-import frameMythic from "@/assets/frames/frame-mythic.png";
-import frameImmortal from "@/assets/frames/frame-immortal.png";
 
 const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "grandmaster", "mythic", "immortal"];
 
