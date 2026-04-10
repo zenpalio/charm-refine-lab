@@ -1,7 +1,7 @@
 import { X, Sparkles, Star, Zap } from "lucide-react";
 import { type BadgeTier, type BadgeImageSet, imageSets } from "./BadgeCard";
 import { Button } from "./ui/button";
-import AuraIcon from "./AuraIcon";
+
 
 interface BadgePopupProps {
   name: string;
