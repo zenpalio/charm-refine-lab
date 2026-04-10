@@ -105,7 +105,7 @@ const Creators = () => {
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
-  const [sortBy, setSortBy] = useState<SortBy>("aura");
+  const [sortBy, setSortBy] = useState<SortBy>("followers");
   const [sortOpen, setSortOpen] = useState(false);
   const [creationOpen, setCreationOpen] = useState(false);
   const [timeOpen, setTimeOpen] = useState(false);
