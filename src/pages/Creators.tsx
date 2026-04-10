@@ -294,7 +294,7 @@ const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
             <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
           </div>
         )}
-        <img src={tierBadgeImages[creator.tier]} alt={creator.tier} className="absolute -bottom-1 -right-1 w-4.5 h-4.5 object-contain" />
+        
       </div>
 
       {/* Info */}
