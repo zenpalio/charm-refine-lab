@@ -84,27 +84,21 @@ const BadgeCard = ({ name, aura, tier, unlocked, imageSet = "aura", onClick }: B
   const images = imageSets[imageSet];
 
   return (
-    <div className="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer" onClick={onClick}>
+    <div className="flex flex-col items-center gap-2 min-w-[116px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-24 h-24 flex items-center justify-center transition-transform duration-300 ${
-          unlocked ? "hover:scale-105" : "opacity-40 grayscale"
+        className={`relative w-28 h-28 rounded-[1.75rem] bg-card border border-border/30 p-2 flex items-center justify-center transition-transform duration-300 ${
+          unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
         }`}
       >
-        {unlocked && (
-          <div className="absolute inset-4 rounded-full bg-primary/20 blur-xl motion-safe:animate-pulse" />
-        )}
-
         <img
           src={images[tier]}
           alt={`${name} badge`}
-          className={`relative z-10 w-full h-full object-contain ${
-            unlocked ? "drop-shadow-[0_0_18px_hsl(var(--primary)/0.28)]" : ""
-          }`}
+          className="w-full h-full object-contain"
           loading="lazy"
         />
 
         {!unlocked && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-background/35">
+          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-[1.75rem] bg-background/35">
             <Lock className="w-5 h-5 text-muted-foreground" />
           </div>
         )}
