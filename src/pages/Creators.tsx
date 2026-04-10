@@ -104,6 +104,7 @@ const Creators = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
   const [sortBy, setSortBy] = useState<SortBy>("aura");
   const [sortOpen, setSortOpen] = useState(false);
   const [creationOpen, setCreationOpen] = useState(false);
@@ -298,11 +299,20 @@ const Creators = () => {
               <input
                 autoFocus
                 value={search}
-                onChange={e => setSearch(e.target.value)}
-                onBlur={() => { if (!search) setSearchOpen(false); }}
+                onChange={e => { setSearch(e.target.value); if (!e.target.value) setSearchActive(false); }}
+                onKeyDown={e => { if (e.key === "Enter" && search.trim()) setSearchActive(true); }}
+                onBlur={() => { if (!search) { setSearchOpen(false); setSearchActive(false); } }}
                 placeholder="Search..."
                 className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-32"
               />
+              {searchActive && (
+                <button
+                  onClick={() => { setSearch(""); setSearchActive(false); setSearchOpen(false); }}
+                  className="text-muted-foreground hover:text-foreground text-xs"
+                >
+                  ✕
+                </button>
+              )}
             </div>
           ) : (
             <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
@@ -312,7 +322,7 @@ const Creators = () => {
         </div>
 
         {/* Top 3 Podium - Enhanced */}
-        {filtered.length >= 3 && (
+        {!searchActive && filtered.length >= 3 && (
           <div className="relative mb-8 pt-2">
             {/* Ambient glow behind podium */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -424,10 +434,21 @@ const Creators = () => {
         )}
 
 
-        {/* Remaining Creators List */}
+        {/* Creator List */}
         <div className="space-y-2">
-          {filtered.slice(3).map((creator, idx) => (
-            <CreatorRow key={creator.id} creator={creator} rank={idx + 4} creationType={creationType} sortBy={sortBy} />
+          {searchActive && search && (
+            <p className="text-xs text-muted-foreground mb-3">
+              {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "{search}"
+            </p>
+          )}
+          {(searchActive ? filtered : filtered.slice(3)).map((creator, idx) => (
+            <CreatorRow
+              key={creator.id}
+              creator={creator}
+              rank={searchActive ? idx + 1 : idx + 4}
+              creationType={creationType}
+              sortBy={sortBy}
+            />
           ))}
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12 text-sm">No creators found</p>
