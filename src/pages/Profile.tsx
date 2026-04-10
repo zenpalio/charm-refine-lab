@@ -192,7 +192,7 @@ const Profile = () => {
               />
             )}
             {/* Avatar */}
-            <div className="absolute inset-[6px] rounded-full overflow-hidden">
+            <div className="absolute inset-[4px] rounded-full overflow-hidden">
               <img src={creator1} alt="Profile" className="w-full h-full object-cover" />
             </div>
             {/* Badge overlay */}
