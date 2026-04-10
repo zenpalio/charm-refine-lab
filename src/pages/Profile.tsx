@@ -32,7 +32,7 @@ const tierBorderColors: Record<BadgeTier, string> = {
   elite: "hsl(213 100% 50%)",
   grandmaster: "hsl(0 82% 58%)",
   mythic: "hsl(281 85% 62%)",
-  immortal: "hsl(200 100% 70%)",
+  immortal: "hsl(43 96% 58%)",
 };
 
 const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
@@ -54,7 +54,7 @@ const tierBadgeGlowColors: Record<BadgeTier, string> = {
   elite: "hsl(213 100% 50%)",
   grandmaster: "hsl(0 82% 58%)",
   mythic: "hsl(281 85% 62%)",
-  immortal: "hsl(200 100% 70%)",
+  immortal: "hsl(43 90% 60%)",
 };
 
 const statItems = [
