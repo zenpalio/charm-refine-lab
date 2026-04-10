@@ -3,7 +3,15 @@ import { Search, ArrowLeft, TrendingUp, Calendar, Users, Sparkles, Crown, Chevro
 import { useNavigate } from "react-router-dom";
 import { type BadgeTier } from "@/components/BadgeCard";
 import creator1 from "@/assets/creator1.jpg";
-import charNewbie from "@/assets/badges/char-newbie.png";
+import creator2 from "@/assets/creators/creator2.jpg";
+import creator3 from "@/assets/creators/creator3.jpg";
+import creator4 from "@/assets/creators/creator4.jpg";
+import creator5 from "@/assets/creators/creator5.jpg";
+import creator6 from "@/assets/creators/creator6.jpg";
+import creator7 from "@/assets/creators/creator7.jpg";
+import creator8 from "@/assets/creators/creator8.jpg";
+import creator9 from "@/assets/creators/creator9.jpg";
+import creator10 from "@/assets/creators/creator10.jpg";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
 import charElite from "@/assets/badges/char-elite.png";
