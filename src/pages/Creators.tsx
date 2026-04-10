@@ -98,37 +98,35 @@ const Creators = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex gap-2 mb-6 flex-wrap">
-          {/* Sort */}
-          <div className="flex bg-card rounded-xl border border-border overflow-hidden">
+        <div className="flex items-center gap-2 mb-6">
+          {/* Sort dropdown */}
+          <div className="relative">
             <button
-              onClick={() => setSortBy("aura")}
-              className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium transition-colors ${sortBy === "aura" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              onClick={() => setSortBy(sortBy === "aura" ? "followers" : "aura")}
+              className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
             >
-              <Sparkles className="w-3.5 h-3.5" /> Aura
-            </button>
-            <button
-              onClick={() => setSortBy("followers")}
-              className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium transition-colors ${sortBy === "followers" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
-            >
-              <Users className="w-3.5 h-3.5" /> Followers
+              {sortBy === "aura" ? "Most Aura" : "Most Liked"}
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
             </button>
           </div>
 
-          {/* Filter */}
-          <div className="flex bg-card rounded-xl border border-border overflow-hidden">
-            {(["all", "trending", "newest"] as FilterBy[]).map(f => (
-              <button
-                key={f}
-                onClick={() => setFilterBy(f)}
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium transition-colors capitalize ${filterBy === f ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
-              >
-                {f === "trending" && <TrendingUp className="w-3.5 h-3.5" />}
-                {f === "newest" && <Calendar className="w-3.5 h-3.5" />}
-                {f}
-              </button>
-            ))}
+          {/* Time filter dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setFilterBy(filterBy === "all" ? "trending" : filterBy === "trending" ? "newest" : "all")}
+              className="flex items-center gap-2 bg-card border border-border rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/50 transition-colors"
+            >
+              {filterBy === "all" ? "All time" : filterBy === "trending" ? "Trending" : "Newest"}
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            </button>
           </div>
+
+          <div className="flex-1" />
+
+          {/* Filters button */}
+          <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            Filters
+          </button>
         </div>
 
         {/* Creators List */}
