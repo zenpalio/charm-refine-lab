@@ -56,9 +56,9 @@ const tierBadgeGlowColors: Record<BadgeTier, string> = {
 };
 
 const statItems = [
-  { icon: Users, label: "FOLLOWERS", value: "2,593" },
-  { icon: Trophy, label: "AURA", value: "1,340" },
-  { icon: Heart, label: "MOST LIKED", value: "4,821" },
+  { icon: Users, label: "FOLLOWERS", value: "#1,438", rank: true },
+  { icon: Trophy, label: "AURA", value: "#892", rank: true },
+  { icon: Heart, label: "MOST LIKED", value: "#2,105", rank: true },
 ];
 
 const badgeCategories = [
