@@ -35,21 +35,12 @@ const tierAccentColors: Record<BadgeTier, string> = {
   immortal: "hsl(48 96% 70%)",
 };
 
-const tierEmojis: Record<BadgeTier, string> = {
-  newbie: "🌱",
-  master: "⚔️",
-  legend: "👑",
-  elite: "💎",
-  mythic: "🔮",
-  grandmaster: "🏆",
-  immortal: "✨",
-};
 
 const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", onClose, onClaim }: BadgePopupProps) => {
   const tierImages = imageSets[imageSet];
   const glowHsl = tierGlowColors[tier];
   const accent = tierAccentColors[tier];
-  const emoji = tierEmojis[tier];
+  
   const isClaimable = unlocked && !claimed;
 
   return (
@@ -169,9 +160,8 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
           )}
         </div>
 
-        {/* Name with emoji */}
-        <div className="flex items-center gap-1.5 mb-0.5">
-          <span className="text-lg">{emoji}</span>
+        {/* Name */}
+        <div className="mb-0.5">
           <h2 className="text-lg font-bold text-foreground tracking-tight">
             {name}
           </h2>
