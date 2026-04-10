@@ -439,7 +439,44 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
   ctx.fillStyle = gradient;
   ctx.fill();
 
-  // === Layer 6: Orbiting bright star particles (larger, brighter) ===
+  // === Layer 5b: Jupiter-style orbital ring ===
+  ctx.save();
+  ctx.translate(cx, cy);
+  const orbitTilt = 0.28; // flattening factor for perspective
+  const orbitRadius = baseRadius + 14 * DPR;
+  const orbitRotation = time * 0.2; // slow rotation
+  ctx.rotate(orbitRotation);
+  ctx.scale(1, orbitTilt);
+  
+  // Ring segments with varying brightness
+  const orbitSteps = 120;
+  for (let i = 0; i < orbitSteps; i++) {
+    const oa0 = (i / orbitSteps) * Math.PI * 2;
+    const oa1 = ((i + 1.5) / orbitSteps) * Math.PI * 2;
+    const shimmer = 0.5 + 0.5 * Math.sin(time * 1.0 + oa0 * 3);
+    const alpha = 0.15 + shimmer * 0.25;
+    const lightness = 78 + shimmer * 14;
+    ctx.beginPath();
+    ctx.arc(0, 0, orbitRadius, oa0, oa1);
+    ctx.strokeStyle = `hsla(42, 30%, ${lightness}%, ${alpha})`;
+    ctx.lineWidth = (1.5 + shimmer * 1) * DPR;
+    ctx.stroke();
+  }
+  
+  // Second thinner outer orbit
+  const orbit2R = orbitRadius + 4 * DPR;
+  for (let i = 0; i < 60; i++) {
+    const oa0 = (i / 60) * Math.PI * 2;
+    const oa1 = ((i + 1.5) / 60) * Math.PI * 2;
+    const shimmer = 0.5 + 0.5 * Math.sin(time * 0.8 - oa0 * 2);
+    ctx.beginPath();
+    ctx.arc(0, 0, orbit2R, oa0, oa1);
+    ctx.strokeStyle = `hsla(45, 25%, 85%, ${shimmer * 0.12})`;
+    ctx.lineWidth = 0.8 * DPR;
+    ctx.stroke();
+  }
+  ctx.restore();
+
   for (const p of particles) {
     p.angle += p.speed * 0.009;
     p.life += 1;
