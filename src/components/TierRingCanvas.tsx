@@ -102,12 +102,99 @@ function drawImmortal(
   }
 }
 
+function createFireParticles(count: number, baseRadius: number): Particle[] {
+  return Array.from({ length: count }, () => ({
+    angle: Math.random() * Math.PI * 2,
+    radius: baseRadius + (Math.random() - 0.5) * 4,
+    speed: 0.2 + Math.random() * 0.4,
+    size: 1.5 + Math.random() * 3,
+    opacity: 0.5 + Math.random() * 0.5,
+    hue: -5 + Math.random() * 35, // red-orange-yellow
+    life: Math.random() * 60,
+    maxLife: 40 + Math.random() * 60,
+    drift: (Math.random() - 0.5) * 0.4,
+  }));
+}
+
+function drawGrandmaster(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  baseRadius: number,
+  time: number,
+  particles: Particle[]
+) {
+  // Flickering fire ring
+  const steps = 80;
+  const ringWidth = 2.5 * DPR;
+  for (let i = 0; i < steps; i++) {
+    const a = (i / steps) * Math.PI * 2;
+    const a1 = ((i + 1.5) / steps) * Math.PI * 2;
+    const flicker = Math.sin(time * 8 + i * 0.7) * 0.3 + Math.sin(time * 13 + i * 1.3) * 0.2;
+    const hue = 5 + flicker * 20; // red to orange flicker
+    const lightness = 50 + flicker * 15;
+    const alpha = 0.6 + flicker * 0.3;
+    ctx.beginPath();
+    ctx.arc(cx, cy, baseRadius, a, a1);
+    ctx.strokeStyle = `hsla(${hue}, 100%, ${lightness}%, ${alpha})`;
+    ctx.lineWidth = ringWidth + Math.max(0, flicker) * 2 * DPR;
+    ctx.stroke();
+  }
+
+  // Inner ember glow
+  const pulse = 0.5 + 0.5 * Math.sin(time * 2.5);
+  const glowGrad = ctx.createRadialGradient(cx, cy, baseRadius - 4, cx, cy, baseRadius + (10 + pulse * 6) * DPR);
+  glowGrad.addColorStop(0, `hsla(10, 100%, 55%, ${0.1 + pulse * 0.06})`);
+  glowGrad.addColorStop(0.5, `hsla(20, 100%, 45%, ${0.05 + pulse * 0.03})`);
+  glowGrad.addColorStop(1, `hsla(0, 80%, 40%, 0)`);
+  ctx.beginPath();
+  ctx.arc(cx, cy, baseRadius + 16 * DPR, 0, Math.PI * 2);
+  ctx.fillStyle = glowGrad;
+  ctx.fill();
+
+  // Fire particles — rise outward and fade
+  for (const p of particles) {
+    p.angle += p.speed * 0.012;
+    p.life += 1;
+    if (p.life > p.maxLife) {
+      p.life = 0;
+      p.opacity = 0.5 + Math.random() * 0.5;
+      p.radius = baseRadius + (Math.random() - 0.5) * 4;
+      p.hue = -5 + Math.random() * 35;
+      p.size = 1.5 + Math.random() * 3;
+    }
+    const lifeFrac = p.life / p.maxLife;
+    const fade = lifeFrac < 0.1 ? lifeFrac / 0.1 : lifeFrac > 0.6 ? (1 - lifeFrac) / 0.4 : 1;
+    // Flames rise outward
+    const riseOffset = lifeFrac * 10 * DPR;
+    const flameWobble = Math.sin(time * 6 + p.angle * 8) * 3;
+    const px = cx + Math.cos(p.angle) * (p.radius + riseOffset + flameWobble);
+    const py = cy + Math.sin(p.angle) * (p.radius + riseOffset + flameWobble);
+    // Color shifts from yellow core → orange → red as it ages
+    const ageHue = p.hue - lifeFrac * 15;
+    const ageLightness = 65 - lifeFrac * 20;
+    const s = p.size * DPR * (1 - lifeFrac * 0.4);
+
+    // Ember glow
+    ctx.beginPath();
+    ctx.arc(px, py, s * 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${ageHue}, 100%, ${ageLightness}%, ${p.opacity * fade * 0.12})`;
+    ctx.fill();
+
+    // Hot core
+    ctx.beginPath();
+    ctx.arc(px, py, s, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${ageHue}, 100%, ${ageLightness}%, ${p.opacity * fade * 0.8})`;
+    ctx.fill();
+  }
+}
+
 const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const rafRef = useRef<number>(0);
 
-  const canvasSize = size + 40; // extra space for glow
+  const canvasSize = size + 40;
   const baseRadius = (size / 2 + 2) * DPR;
 
   const animate = useCallback(() => {
@@ -127,6 +214,11 @@ const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
         particlesRef.current = createImmortalParticles(40, baseRadius);
       }
       drawImmortal(ctx, cx, cy, baseRadius, time, particlesRef.current);
+    } else if (tier === "grandmaster") {
+      if (particlesRef.current.length === 0) {
+        particlesRef.current = createFireParticles(50, baseRadius);
+      }
+      drawGrandmaster(ctx, cx, cy, baseRadius, time, particlesRef.current);
     }
 
     rafRef.current = requestAnimationFrame(animate);
@@ -139,7 +231,7 @@ const TierRingCanvas = ({ tier, size }: TierRingCanvasProps) => {
   }, [animate]);
 
   // Only render for tiers that have canvas effects
-  if (tier !== "immortal") return null;
+  if (tier !== "immortal" && tier !== "grandmaster") return null;
 
   return (
     <canvas
