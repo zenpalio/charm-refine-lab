@@ -6,17 +6,24 @@ const AuraIcon = ({ className, style }: { className?: string; style?: React.CSSP
     style={style}
     xmlns="http://www.w3.org/2000/svg"
   >
-    {/* Inner core */}
-    <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.9" />
-    {/* Middle ring */}
-    <circle cx="12" cy="12" r="6" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
-    {/* Outer ring */}
-    <circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1" opacity="0.25" strokeDasharray="3 2" />
-    {/* Energy rays */}
-    <path d="M12 1.5V4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
-    <path d="M12 20V22.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
-    <path d="M1.5 12H4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
-    <path d="M20 12H22.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+    {/* Outer aura flame */}
+    <path
+      d="M12 2C12 2 6 8.5 6 13.5C6 17.5 8.5 21 12 22C15.5 21 18 17.5 18 13.5C18 8.5 12 2 12 2Z"
+      fill="currentColor"
+      opacity="0.2"
+    />
+    {/* Inner flame */}
+    <path
+      d="M12 6C12 6 8.5 10.5 8.5 14C8.5 16.5 10 18.5 12 19C14 18.5 15.5 16.5 15.5 14C15.5 10.5 12 6 12 6Z"
+      fill="currentColor"
+      opacity="0.45"
+    />
+    {/* Core */}
+    <path
+      d="M12 11C12 11 10.5 13 10.5 14.5C10.5 15.9 11.1 16.8 12 17C12.9 16.8 13.5 15.9 13.5 14.5C13.5 13 12 11 12 11Z"
+      fill="currentColor"
+      opacity="0.9"
+    />
   </svg>
 );
 
