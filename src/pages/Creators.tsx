@@ -95,25 +95,6 @@ const Creators = () => {
             <Crown className="w-5 h-5 text-primary" />
             <h1 className="text-xl font-bold text-foreground">Top Creators</h1>
           </div>
-
-          {/* Search icon / expandable input */}
-          {searchOpen ? (
-            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
-              <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-              <input
-                autoFocus
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                onBlur={() => { if (!search) setSearchOpen(false); }}
-                placeholder="Search..."
-                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-32"
-              />
-            </div>
-          ) : (
-            <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
-              <Search className="w-5 h-5 text-muted-foreground" />
-            </button>
-          )}
         </div>
 
         {/* Filters */}
@@ -142,10 +123,24 @@ const Creators = () => {
 
           <div className="flex-1" />
 
-          {/* Filters button */}
-          <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            Filters
-          </button>
+          {/* Search icon */}
+          {searchOpen ? (
+            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
+              <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+              <input
+                autoFocus
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                onBlur={() => { if (!search) setSearchOpen(false); }}
+                placeholder="Search..."
+                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-32"
+              />
+            </div>
+          ) : (
+            <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
+              <Search className="w-5 h-5 text-muted-foreground" />
+            </button>
+          )}
         </div>
 
         {/* Top 3 Podium */}
