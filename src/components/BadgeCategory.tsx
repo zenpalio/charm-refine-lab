@@ -1,11 +1,11 @@
 import { Info } from "lucide-react";
-import BadgeCard from "./BadgeCard";
+import BadgeCard, { type BadgeTier } from "./BadgeCard";
 import HorizontalScroll from "./HorizontalScroll";
 
 interface Badge {
   name: string;
   aura: number;
-  tier: "newbie" | "master" | "legend" | "mythic";
+  tier: BadgeTier;
   unlocked: boolean;
 }
 
