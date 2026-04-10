@@ -189,30 +189,37 @@ const Creators = () => {
             <Crown className="w-5 h-5 text-primary" />
             <h1 className="text-xl font-bold text-foreground">Creators</h1>
           </div>
-        </div>
-
-        {/* Search bar — always visible when active */}
-        {searchActive && (
-          <div className="flex items-center gap-2 mb-6">
-            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 flex-1">
+          {/* Search in header */}
+          {searchOpen || searchActive ? (
+            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
               <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
               <input
                 autoFocus
                 value={search}
-                onChange={e => { setSearch(e.target.value); if (!e.target.value) setSearchActive(false); }}
+                onChange={e => {
+                  setSearch(e.target.value);
+                  if (!e.target.value) setSearchActive(false);
+                }}
                 onKeyDown={e => { if (e.key === "Enter" && search.trim()) setSearchActive(true); }}
+                onBlur={() => { if (!search) { setSearchOpen(false); setSearchActive(false); } }}
                 placeholder="Search..."
-                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1"
+                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-36"
               />
-              <button
-                onClick={() => { setSearch(""); setSearchActive(false); setSearchOpen(false); }}
-                className="text-muted-foreground hover:text-foreground text-xs"
-              >
-                ✕
-              </button>
+              {search && (
+                <button
+                  onClick={() => { setSearch(""); setSearchActive(false); setSearchOpen(false); }}
+                  className="text-muted-foreground hover:text-foreground text-xs"
+                >
+                  ✕
+                </button>
+              )}
             </div>
-          </div>
-        )}
+          ) : (
+            <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
+              <Search className="w-5 h-5 text-muted-foreground" />
+            </button>
+          )}
+        </div>
 
         {/* Filters — hidden during active search */}
         {!searchActive && (
@@ -321,25 +328,6 @@ const Creators = () => {
               </>
             )}
 
-            <div className="flex-1" />
-            {searchOpen ? (
-              <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
-                <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                <input
-                  autoFocus
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter" && search.trim()) setSearchActive(true); }}
-                  onBlur={() => { if (!search) setSearchOpen(false); }}
-                  placeholder="Search..."
-                  className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-32"
-                />
-              </div>
-            ) : (
-              <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
-                <Search className="w-5 h-5 text-muted-foreground" />
-              </button>
-            )}
           </div>
         )}
 
