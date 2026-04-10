@@ -460,6 +460,8 @@ const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) =>
       >
         {sortBy === "likes" ? (
           <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
+        ) : sortBy === "followers" ? (
+          <Users className="w-3.5 h-3.5 text-primary" />
         ) : (
           <AuraIcon className="w-3.5 h-3.5 text-primary" />
         )}
