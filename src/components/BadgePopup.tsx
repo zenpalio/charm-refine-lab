@@ -1,4 +1,4 @@
-import { X, Sparkles, Star, Zap } from "lucide-react";
+import { X, Sparkles, Star, Zap, Lock, Check } from "lucide-react";
 import { type BadgeTier, type BadgeImageSet, imageSets } from "./BadgeCard";
 import { Button } from "./ui/button";
 import TokenIcon from "./TokenIcon";
