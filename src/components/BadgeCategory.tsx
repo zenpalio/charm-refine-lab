@@ -15,7 +15,6 @@ interface Badge {
   claimed?: boolean;
   isNew?: boolean;
 }
-}
 
 interface BadgeCategoryProps {
   title: string;
