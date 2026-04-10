@@ -41,7 +41,7 @@ const tierLabels: Record<BadgeTier, string> = {
   master: "Master",
   legend: "Legend",
   elite: "Elite",
-  grandmaster: "GM",
+  grandmaster: "Obsession",
   mythic: "Mythic",
   immortal: "Immortal",
 };
