@@ -182,16 +182,23 @@ const Creators = () => {
       <div className="max-w-2xl mx-auto px-4 py-6 relative z-10">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <button onClick={() => navigate(-1)} className="p-2 rounded-full hover:bg-secondary transition-colors">
+          <button
+            onClick={() => {
+              if (searchOpen || searchActive) {
+                setSearch("");
+                setSearchOpen(false);
+                setSearchActive(false);
+              } else {
+                navigate(-1);
+              }
+            }}
+            className="p-2 rounded-full hover:bg-secondary transition-colors"
+          >
             <ArrowLeft className="w-5 h-5 text-foreground" />
           </button>
-          <div className="flex items-center gap-2 flex-1">
-            <Crown className="w-5 h-5 text-primary" />
-            <h1 className="text-xl font-bold text-foreground">Creators</h1>
-          </div>
-          {/* Search in header */}
+
           {searchOpen || searchActive ? (
-            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2 animate-in slide-in-from-right-4 duration-200">
+            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2.5 flex-1 animate-in fade-in slide-in-from-right-4 duration-200">
               <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
               <input
                 autoFocus
@@ -201,13 +208,12 @@ const Creators = () => {
                   if (!e.target.value) setSearchActive(false);
                 }}
                 onKeyDown={e => { if (e.key === "Enter" && search.trim()) setSearchActive(true); }}
-                onBlur={() => { if (!search) { setSearchOpen(false); setSearchActive(false); } }}
-                placeholder="Search..."
-                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none w-36"
+                placeholder="Search creators..."
+                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1"
               />
               {search && (
                 <button
-                  onClick={() => { setSearch(""); setSearchActive(false); setSearchOpen(false); }}
+                  onClick={() => { setSearch(""); setSearchActive(false); }}
                   className="text-muted-foreground hover:text-foreground text-xs"
                 >
                   ✕
@@ -215,9 +221,15 @@ const Creators = () => {
               )}
             </div>
           ) : (
-            <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
-              <Search className="w-5 h-5 text-muted-foreground" />
-            </button>
+            <>
+              <div className="flex items-center gap-2 flex-1">
+                <Crown className="w-5 h-5 text-primary" />
+                <h1 className="text-xl font-bold text-foreground">Creators</h1>
+              </div>
+              <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
+                <Search className="w-5 h-5 text-muted-foreground" />
+              </button>
+            </>
           )}
         </div>
 
