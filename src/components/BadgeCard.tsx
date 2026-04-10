@@ -82,21 +82,29 @@ export { imageSets };
 
 const BadgeCard = ({ name, aura, tier, unlocked, imageSet = "aura", onClick }: BadgeCardProps) => {
   const images = imageSets[imageSet];
+
   return (
     <div className="flex flex-col items-center gap-2 min-w-[100px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-20 h-20 rounded-2xl bg-card flex items-center justify-center transition-transform hover:scale-110 border border-border/30 ${
-          !unlocked ? "opacity-40 grayscale" : ""
+        className={`relative w-24 h-24 flex items-center justify-center transition-transform duration-300 ${
+          unlocked ? "hover:scale-105" : "opacity-40 grayscale"
         }`}
       >
+        {unlocked && (
+          <div className="absolute inset-4 rounded-full bg-primary/20 blur-xl motion-safe:animate-pulse" />
+        )}
+
         <img
           src={images[tier]}
           alt={`${name} badge`}
-          className="w-16 h-16 object-contain"
+          className={`relative z-10 w-full h-full object-contain ${
+            unlocked ? "drop-shadow-[0_0_18px_hsl(var(--primary)/0.28)]" : ""
+          }`}
           loading="lazy"
         />
+
         {!unlocked && (
-          <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-2xl">
+          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-background/35">
             <Lock className="w-5 h-5 text-muted-foreground" />
           </div>
         )}
