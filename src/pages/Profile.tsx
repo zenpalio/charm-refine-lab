@@ -156,75 +156,78 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
-        <div className="flex items-center justify-center gap-1.5 mb-4 flex-wrap">
-          {allTiers.map((tier) => (
-            <button
-              key={tier}
-              onClick={() => setPreviewTier(tier)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                previewTier === tier
-                  ? "bg-primary text-primary-foreground scale-105"
-                  : "bg-card text-muted-foreground hover:text-foreground border border-border/30"
-              }`}
-            >
-              {tierLabels[tier]}
-            </button>
-          ))}
-        </div>
+      <div className="mx-auto max-w-5xl px-3 py-4 sm:px-4 sm:py-6 lg:px-6">
+        <div className="mx-auto mb-8 max-w-xl">
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+            {allTiers.map((tier) => (
+              <button
+                key={tier}
+                onClick={() => setPreviewTier(tier)}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  previewTier === tier
+                    ? "bg-primary text-primary-foreground scale-105"
+                    : "bg-card text-muted-foreground hover:text-foreground border border-border/30"
+                }`}
+              >
+                {tierLabels[tier]}
+              </button>
+            ))}
+          </div>
 
-        <div className="relative flex flex-col items-center mb-6">
-          <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40">
-            {/* Canvas-based ring effects for all tiers */}
-            <TierRingCanvas tier={previewTier} size={160} />
-            {/* Avatar */}
-            <div className="absolute inset-[4px] rounded-full overflow-hidden z-[1]">
-              <img src={profileAvatar} alt="Profile" className="w-full h-full object-cover" />
-            </div>
-            {/* Badge overlay */}
-            <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16 z-[2]">
-              {isHighTier(previewTier) && (
-                <div
-                  className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
-                  style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
+          <div className="relative mb-6 flex flex-col items-center">
+            <div className="relative mb-3 h-28 w-28 sm:h-36 sm:w-36 lg:h-40 lg:w-40">
+              {/* Canvas-based ring effects for all tiers */}
+              <TierRingCanvas tier={previewTier} size={160} />
+              {/* Avatar */}
+              <div className="absolute inset-[4px] z-[1] overflow-hidden rounded-full">
+                <img src={profileAvatar} alt="Profile" className="h-full w-full object-cover" />
+              </div>
+              {/* Badge overlay */}
+              <div className="absolute -bottom-1 -right-1 z-[2] h-12 w-12 sm:h-16 sm:w-16 lg:h-[72px] lg:w-[72px]">
+                {isHighTier(previewTier) && (
+                  <div
+                    className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
+                    style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
+                  />
+                )}
+                <img
+                  src={tierBadgeImages[previewTier]}
+                  alt={`${previewTier} badge`}
+                  className="relative z-10 h-full w-full object-contain"
+                  style={isHighTier(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
                 />
-              )}
-              <img
-                src={tierBadgeImages[previewTier]}
-                alt={`${previewTier} badge`}
-                className="relative z-10 w-full h-full object-contain"
-                style={isHighTier(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
-              />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-lg font-bold uppercase tracking-wide sm:text-xl" style={{ color: tierBorderColors[previewTier] }}>
+                {tierLabels[previewTier]}
+              </span>
             </div>
           </div>
-        <div className="flex items-center gap-2">
-            <span className="text-lg font-bold uppercase tracking-wide" style={{ color: tierBorderColors[previewTier] }}>
-              {tierLabels[previewTier]}
-            </span>
-          </div>
-
         </div>
 
-        <div className="mb-6">
-          <p className="text-[11px] text-muted-foreground uppercase tracking-wider font-medium mb-2 px-1">Ranking</p>
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+        <div className="mx-auto mb-8 max-w-3xl">
+          <p className="mb-2 px-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Ranking</p>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-4">
             {statItems.map((stat) => (
               <div
                 key={stat.label}
-                className="flex flex-col items-center gap-1 bg-card rounded-xl p-3 sm:p-4 border border-border/30"
+                className="flex flex-col items-center gap-1 rounded-xl border border-border/30 bg-card p-3 sm:p-4"
               >
                 <stat.icon className={stat.iconClass} />
-                <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
+                <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
                   {stat.label}
                 </span>
-                <span className="text-foreground font-bold text-lg sm:text-xl leading-tight">{stat.count}</span>
-                <span className="text-[10px] text-muted-foreground/60 font-medium">Rank {stat.rank}</span>
+                <span className="text-lg font-bold leading-tight text-foreground sm:text-xl">{stat.count}</span>
+                <span className="text-[10px] font-medium text-muted-foreground/60">Rank {stat.rank}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div>
+        <div className="space-y-1">
+
           {badgeCategories.map((cat, i) => (
             <BadgeCategory key={i} {...cat} />
           ))}
