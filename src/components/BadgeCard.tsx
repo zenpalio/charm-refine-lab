@@ -3,19 +3,27 @@ import badgeNewbie from "@/assets/badge-newbie.png";
 import badgeMaster from "@/assets/badge-master.png";
 import badgeLegend from "@/assets/badge-legend.png";
 import badgeMythic from "@/assets/badge-mythic.png";
+import badgeElite from "@/assets/badge-elite.png";
+import badgeGrandmaster from "@/assets/badge-grandmaster.png";
+import badgeImmortal from "@/assets/badge-immortal.png";
+
+export type BadgeTier = "newbie" | "master" | "legend" | "mythic" | "elite" | "grandmaster" | "immortal";
 
 interface BadgeCardProps {
   name: string;
   aura: number;
-  tier: "newbie" | "master" | "legend" | "mythic";
+  tier: BadgeTier;
   unlocked: boolean;
 }
 
-const tierImages: Record<string, string> = {
+const tierImages: Record<BadgeTier, string> = {
   newbie: badgeNewbie,
   master: badgeMaster,
   legend: badgeLegend,
   mythic: badgeMythic,
+  elite: badgeElite,
+  grandmaster: badgeGrandmaster,
+  immortal: badgeImmortal,
 };
 
 const BadgeCard = ({ name, aura, tier, unlocked }: BadgeCardProps) => {
