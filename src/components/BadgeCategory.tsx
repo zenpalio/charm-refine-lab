@@ -3,6 +3,7 @@ import { Info } from "lucide-react";
 import BadgeCard, { type BadgeTier, type BadgeImageSet } from "./BadgeCard";
 import BadgePopup from "./BadgePopup";
 import HorizontalScroll from "./HorizontalScroll";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 interface Badge {
   name: string;
@@ -10,6 +11,7 @@ interface Badge {
   tier: BadgeTier;
   unlocked: boolean;
   claimed?: boolean;
+  isNew?: boolean;
 }
 
 interface BadgeCategoryProps {
@@ -18,9 +20,10 @@ interface BadgeCategoryProps {
   badges: Badge[];
   progress: number;
   imageSet?: BadgeImageSet;
+  tooltip?: string;
 }
 
-const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura" }: BadgeCategoryProps) => {
+const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura", tooltip }: BadgeCategoryProps) => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
   const [claimedTiers, setClaimedTiers] = useState<Set<BadgeTier>>(new Set());
 
@@ -41,9 +44,18 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <h3 className="text-foreground font-bold text-sm">{title}</h3>
-          <button className="text-muted-foreground hover:text-foreground transition-colors">
-            <Info className="w-4 h-4" />
-          </button>
+          <TooltipProvider delayDuration={200}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Info className="w-4 h-4" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="right" className="max-w-[200px] text-xs">
+                {tooltip || subtitle}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-28 h-2.5 rounded-full bg-secondary overflow-hidden">
