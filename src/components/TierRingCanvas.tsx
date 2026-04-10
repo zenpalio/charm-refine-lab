@@ -414,6 +414,64 @@ function drawImmortal(ctx: CanvasRenderingContext2D, cx: number, cy: number, bas
       ctx.fill();
     }
   }
+
+  // === Layer 8: Lightning strikes — divine energy bolts ===
+  const boltCount = 4;
+  for (let b = 0; b < boltCount; b++) {
+    // Each bolt has its own timing cycle — visible briefly then fades
+    const boltCycle = time * 0.6 + b * 1.7;
+    const boltPhase = boltCycle % 3; // 3-second cycle per bolt
+    const isActive = boltPhase < 0.15; // visible for 0.15s (~flash)
+    if (!isActive) continue;
+
+    const boltAlpha = 1 - boltPhase / 0.15; // fade out during the flash
+    const boltAngle = ((Math.floor(boltCycle / 3) * 2.39 + b * 1.57) % 1) * Math.PI * 2;
+
+    // Start from ring, strike outward
+    const startR = baseRadius;
+    const strikeLen = (18 + Math.sin(boltCycle * 7) * 8) * DPR;
+    const segments = 6;
+
+    ctx.beginPath();
+    let prevX = cx + Math.cos(boltAngle) * startR;
+    let prevY = cy + Math.sin(boltAngle) * startR;
+    ctx.moveTo(prevX, prevY);
+
+    for (let s = 1; s <= segments; s++) {
+      const t = s / segments;
+      const r = startR + t * strikeLen;
+      // Jagged lateral offset for lightning look
+      const jag = (Math.sin(Math.floor(boltCycle * 30) * 13 + s * 7 + b * 11) * 0.5 + 0.5 - 0.5) * 8 * DPR;
+      const perpAngle = boltAngle + Math.PI / 2;
+      const px = cx + Math.cos(boltAngle) * r + Math.cos(perpAngle) * jag;
+      const py = cy + Math.sin(boltAngle) * r + Math.sin(perpAngle) * jag;
+      ctx.lineTo(px, py);
+      prevX = px;
+      prevY = py;
+    }
+
+    // Bright white-gold bolt
+    ctx.strokeStyle = `hsla(45, 30%, 95%, ${boltAlpha * 0.9})`;
+    ctx.lineWidth = 2 * DPR;
+    ctx.stroke();
+
+    // Softer glow stroke
+    ctx.strokeStyle = `hsla(42, 40%, 85%, ${boltAlpha * 0.35})`;
+    ctx.lineWidth = 5 * DPR;
+    ctx.stroke();
+
+    // Flash at strike origin
+    const originGlow = ctx.createRadialGradient(
+      cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR, 0,
+      cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR, 10 * DPR
+    );
+    originGlow.addColorStop(0, `hsla(45, 50%, 98%, ${boltAlpha * 0.7})`);
+    originGlow.addColorStop(1, `hsla(42, 30%, 90%, 0)`);
+    ctx.beginPath();
+    ctx.arc(cx + Math.cos(boltAngle) * startR, cy + Math.sin(boltAngle) * startR, 10 * DPR, 0, Math.PI * 2);
+    ctx.fillStyle = originGlow;
+    ctx.fill();
+  }
 }
 
 // ─── GRANDMASTER: Fire flames ───
