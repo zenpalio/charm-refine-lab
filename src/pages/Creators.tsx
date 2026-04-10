@@ -191,8 +191,8 @@ const Creators = () => {
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="flex items-center gap-2 mb-6 flex-wrap">
+        {/* Filters — hidden during active search */}
+        <div className={`flex items-center gap-2 mb-6 flex-wrap ${searchActive ? "hidden" : ""}`}>
           {/* Sort dropdown with popover */}
           <div className="relative">
             <button
