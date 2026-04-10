@@ -699,23 +699,28 @@ const TierRingCanvas = ({ tier }: { tier: BadgeTier }) => {
     const parent = canvas.parentElement;
     if (!parent) return;
 
-    const rect = parent.getBoundingClientRect();
-    const w = rect.width;
-    const h = rect.height;
+    const parentRect = parent.getBoundingClientRect();
+    const parentW = parentRect.width;
+    const parentH = parentRect.height;
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasW = canvasRect.width;
+    const canvasH = canvasRect.height;
 
-    // Resize canvas if container changed
-    if (sizeRef.current.w !== w || sizeRef.current.h !== h) {
-      sizeRef.current = { w, h };
-      canvas.width = w * DPR;
-      canvas.height = h * DPR;
+    // Resize canvas buffer if changed
+    if (sizeRef.current.w !== canvasW || sizeRef.current.h !== canvasH) {
+      sizeRef.current = { w: canvasW, h: canvasH };
+      canvas.width = canvasW * DPR;
+      canvas.height = canvasH * DPR;
     }
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const cx = (w * DPR) / 2;
-    const cy = (h * DPR) / 2;
-    const baseRadius = (Math.min(w, h) / 2 - 2) * DPR;
+    // Center of canvas
+    const cx = (canvasW * DPR) / 2;
+    const cy = (canvasH * DPR) / 2;
+    // Base radius matches the PARENT size (the avatar), not the expanded canvas
+    const baseRadius = (Math.min(parentW, parentH) / 2 - 2) * DPR;
     const time = performance.now() / 1000;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
