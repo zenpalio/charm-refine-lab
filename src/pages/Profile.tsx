@@ -177,15 +177,15 @@ const Profile = () => {
           <div className="relative mb-3 w-24 h-24 sm:w-32 sm:h-32">
             {/* Canvas-based ring effects */}
             <TierRingCanvas tier={previewTier} size={128} />
-            {/* Animated glow ring for high tiers (non-immortal) */}
-            {isHighTier(previewTier) && previewTier !== "immortal" && (
+            {/* Animated glow ring for high tiers (CSS fallback, skip canvas-handled tiers) */}
+            {isHighTier(previewTier) && previewTier !== "immortal" && previewTier !== "grandmaster" && (
               <div
                 className="absolute -inset-1 rounded-full blur-md opacity-40 motion-safe:animate-pulse"
                 style={{ backgroundColor: tierBorderColors[previewTier] }}
               />
             )}
-            {/* Border ring (non-immortal) */}
-            {previewTier !== "immortal" && (
+            {/* Border ring (skip canvas-handled tiers) */}
+            {previewTier !== "immortal" && previewTier !== "grandmaster" && (
               <div
                 className="absolute inset-0 rounded-full transition-all duration-500"
                 style={{
