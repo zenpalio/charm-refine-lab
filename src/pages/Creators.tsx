@@ -188,7 +188,7 @@ const Creators = () => {
                     <span className="text-[11px] font-bold text-foreground">{creator.aura.toLocaleString()}</span>
                   </div>
 
-                  <div className={`${podiumHeight} w-20 rounded-t-xl flex items-center justify-center ${medalBg} border border-border/50`}>
+                  <div className={`${podiumHeight} w-20 rounded-t-xl flex items-center justify-center ${medalBg}`}>
                     <span className={`text-2xl font-black ${medalColor}`}>{podiumRank}</span>
                   </div>
                 </div>
