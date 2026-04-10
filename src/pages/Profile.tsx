@@ -198,17 +198,9 @@ const Profile = () => {
             </div>
           </div>
         <div className="flex items-center gap-2">
-            {(() => {
-              const totalAura = badgeCategories[0];
-              const unlockedTiers = totalAura.badges.filter(b => b.unlocked);
-              const highest = unlockedTiers[unlockedTiers.length - 1];
-              const color = highest ? tierBorderColors[highest.tier] : undefined;
-              return highest ? (
-                <span className="text-lg font-bold uppercase tracking-wide" style={{ color }}>
-                  {tierLabels[highest.tier]}
-                </span>
-              ) : null;
-            })()}
+            <span className="text-lg font-bold uppercase tracking-wide" style={{ color: tierBorderColors[previewTier] }}>
+              {tierLabels[previewTier]}
+            </span>
           </div>
 
         </div>
