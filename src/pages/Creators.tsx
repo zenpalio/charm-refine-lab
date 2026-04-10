@@ -338,16 +338,32 @@ const Creators = () => {
                       {creator.name}
                     </p>
 
-                    {/* Aura score with glow */}
+                    {/* Stat pill — synced with sort */}
                     <div
                       className="flex items-center gap-1.5 px-3 py-1 rounded-full"
                       style={{
-                        background: `linear-gradient(135deg, hsl(${glowHsl} / 0.2), hsl(${glowHsl} / 0.05))`,
-                        boxShadow: `0 0 12px hsl(${glowHsl} / 0.15)`,
+                        background: sortBy === "likes"
+                          ? "hsl(0 70% 50% / 0.15)"
+                          : `linear-gradient(135deg, hsl(${glowHsl} / 0.2), hsl(${glowHsl} / 0.05))`,
+                        boxShadow: sortBy === "likes"
+                          ? "0 0 12px hsl(0 70% 50% / 0.1)"
+                          : `0 0 12px hsl(${glowHsl} / 0.15)`,
                       }}
                     >
-                      <AuraIcon className={`w-3.5 h-3.5`} style={{ color: `hsl(${glowHsl})` }} />
-                      <span className="text-[11px] font-black text-foreground">{creator.aura.toLocaleString()}</span>
+                      {sortBy === "likes" ? (
+                        <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
+                      ) : sortBy === "followers" ? (
+                        <Users className="w-3.5 h-3.5" style={{ color: `hsl(${glowHsl})` }} />
+                      ) : (
+                        <AuraIcon className="w-3.5 h-3.5" style={{ color: `hsl(${glowHsl})` }} />
+                      )}
+                      <span className="text-[11px] font-black text-foreground">
+                        {sortBy === "likes"
+                          ? creator.likes.toLocaleString()
+                          : sortBy === "followers"
+                          ? creator.followers.toLocaleString()
+                          : creator.aura.toLocaleString()}
+                      </span>
                     </div>
 
                     {/* Podium block - gradient */}
