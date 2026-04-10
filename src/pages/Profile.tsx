@@ -11,7 +11,7 @@ import badgeGrandmaster from "@/assets/badge-grandmaster.png";
 import badgeImmortal from "@/assets/badge-immortal.png";
 import creator1 from "@/assets/creator1.jpg";
 
-const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "mythic", "grandmaster", "immortal"];
+const allTiers: BadgeTier[] = ["newbie", "master", "legend", "elite", "grandmaster", "mythic", "immortal"];
 
 const tierBadgeImages: Record<BadgeTier, string> = {
   newbie: badgeNewbie, master: badgeMaster, legend: badgeLegend,
@@ -50,8 +50,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: true },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
-      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: false },
-      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: false },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: false },
     ],
   },
@@ -65,8 +65,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: true },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: true },
-      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: true },
-      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: true },
+      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: true },
+      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: true },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: true },
     ],
   },
@@ -80,8 +80,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: false },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
-      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: false },
-      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: false },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: false },
     ],
   },
@@ -95,8 +95,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: false },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: false },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
-      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: false },
-      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: false },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: false },
     ],
   },
@@ -110,8 +110,8 @@ const badgeCategories = [
       { name: "Master", aura: 500, tier: "master" as const, unlocked: true },
       { name: "Legend", aura: 1000, tier: "legend" as const, unlocked: false },
       { name: "Elite", aura: 2500, tier: "elite" as const, unlocked: false },
-      { name: "Mythic", aura: 5000, tier: "mythic" as const, unlocked: false },
-      { name: "Grandmaster", aura: 10000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Grandmaster", aura: 5000, tier: "grandmaster" as const, unlocked: false },
+      { name: "Mythic", aura: 10000, tier: "mythic" as const, unlocked: false },
       { name: "Immortal", aura: 25000, tier: "immortal" as const, unlocked: false },
     ],
   },
