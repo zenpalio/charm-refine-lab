@@ -57,9 +57,9 @@ const tierBadgeGlowColors: Record<BadgeTier, string> = {
 };
 
 const statItems = [
-  { icon: Users, label: "FOLLOWERS", value: "#1,438", rank: true },
-  { icon: AuraIcon, label: "AURA", value: "#892", rank: true },
-  { icon: Heart, label: "MOST LIKED", value: "#2,105", rank: true },
+  { icon: Users, label: "FOLLOWERS", value: "#1,438", rank: true, iconClass: "w-4 h-4 text-primary mb-0.5" },
+  { icon: AuraIcon, label: "AURA", value: "#892", rank: true, iconClass: "w-4 h-4 text-primary mb-0.5" },
+  { icon: Heart, label: "MOST LIKED", value: "#2,105", rank: true, iconClass: "w-4 h-4 text-red-500 fill-red-500 mb-0.5" },
 ];
 
 const badgeCategories = [
@@ -226,7 +226,7 @@ const Profile = () => {
                 key={stat.label}
                 className="flex flex-col items-center gap-0.5 sm:gap-1 bg-card rounded-xl p-2.5 sm:p-4 border border-border/30"
               >
-                <stat.icon className="w-4 h-4 text-muted-foreground mb-0.5" />
+                <stat.icon className={stat.iconClass} />
                 <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">
                   {stat.label}
                 </span>
