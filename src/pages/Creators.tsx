@@ -160,7 +160,7 @@ const Creators = () => {
               const highTier = isHighTier(creator.tier);
               const isImmortalTier = creator.tier === "immortal";
               const medalColor = podiumRank === 1 ? "text-yellow-400" : podiumRank === 2 ? "text-gray-300" : "text-amber-600";
-              const medalBg = podiumRank === 1 ? "bg-yellow-400/20" : podiumRank === 2 ? "bg-gray-300/20" : "bg-amber-600/20";
+              const medalBg = "bg-card border border-border/50";
 
               return (
                 <div key={creator.id} className="flex flex-col items-center gap-2 cursor-pointer group" style={{ marginTop: isFirst ? 0 : "20px" }}>
