@@ -27,7 +27,7 @@ const BadgeCategory = ({ title, subtitle, badges, progress }: BadgeCategoryProps
       </div>
       <div className="w-28 h-2 rounded-full bg-secondary overflow-hidden">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-primary to-[hsl(280,70%,55%)] transition-all"
+          className="h-full rounded-full bg-primary transition-all"
           style={{ width: `${progress}%` }}
         />
       </div>
