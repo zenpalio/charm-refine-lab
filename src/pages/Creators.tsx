@@ -169,12 +169,12 @@ const Creators = () => {
                   <div className="relative">
                     {isImmortalTier ? (
                       <div className={`relative ${avatarSize}`}>
-                        <div className="absolute inset-[-3px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
+                        <div className="absolute inset-[-2px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
                         <div className="absolute inset-0 rounded-full bg-card" style={{ margin: "2px" }} />
                         <img src={creator.avatarUrl} alt={creator.name} className="absolute inset-0 w-full h-full rounded-full object-cover" style={{ margin: "3px", width: "calc(100% - 6px)", height: "calc(100% - 6px)" }} loading="lazy" />
                       </div>
                     ) : (
-                      <div className={`${avatarSize} rounded-full overflow-hidden`} style={{ boxShadow: highTier ? `0 0 12px ${borderColor}50` : "none", border: `3px solid ${borderColor}` }}>
+                      <div className={`${avatarSize} rounded-full overflow-hidden`} style={{ boxShadow: highTier ? `0 0 8px ${borderColor}30` : "none", border: `2px solid ${borderColor}80` }}>
                         <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
                       </div>
                     )}
@@ -237,7 +237,7 @@ const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
         {isImmortal ? (
           <div className="relative w-12 h-12">
             <div
-              className="absolute inset-[-3px] rounded-full immortal-ring"
+              className="absolute inset-[-2px] rounded-full immortal-ring"
               style={{
                 background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))",
               }}
@@ -255,8 +255,8 @@ const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
           <div
             className="w-12 h-12 rounded-full overflow-hidden"
             style={{
-              boxShadow: highTier ? `0 0 8px ${borderColor}40` : "none",
-              border: `2.5px solid ${borderColor}`,
+              boxShadow: highTier ? `0 0 6px ${borderColor}30` : "none",
+              border: `2px solid ${borderColor}80`,
             }}
           >
             <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
