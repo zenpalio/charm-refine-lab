@@ -283,17 +283,9 @@ const CreatorRow = ({ creator, rank }: CreatorRowProps) => {
 
       {/* Avatar */}
       <div className="relative flex-shrink-0">
-        {isImmortal ? (
-          <div className="relative w-11 h-11">
-            <div className="absolute inset-[-1.5px] rounded-full immortal-ring" style={{ background: "conic-gradient(hsl(48 96% 70%), hsl(36 100% 55%), hsl(280 80% 60%), hsl(200 100% 60%), hsl(48 96% 70%))" }} />
-            <div className="absolute inset-0 rounded-full bg-card" style={{ margin: "1.5px" }} />
-            <img src={creator.avatarUrl} alt={creator.name} className="absolute inset-0 w-full h-full rounded-full object-cover" style={{ margin: "2px", width: "calc(100% - 4px)", height: "calc(100% - 4px)" }} loading="lazy" />
-          </div>
-        ) : (
           <div className="w-11 h-11 rounded-full overflow-hidden" style={{ border: `1.5px solid ${borderColor}80` }}>
             <img src={creator.avatarUrl} alt={creator.name} className="w-full h-full object-cover" loading="lazy" />
           </div>
-        )}
         
       </div>
 
