@@ -142,11 +142,11 @@ const badgeCategories = [
     badges: [
       { name: "Newbie", aura: 10, tokens: 1, tier: "newbie" as const, unlocked: true },
       { name: "Master", aura: 50, tokens: 5, tier: "master" as const, unlocked: true, isNew: true },
-      { name: "Legend", aura: 100, tokens: 10, tier: "legend" as const, unlocked: false },
-      { name: "Elite", aura: 200, tokens: 20, tier: "elite" as const, unlocked: false },
-      { name: "Grandmaster", aura: 300, tokens: 30, tier: "grandmaster" as const, unlocked: false },
-      { name: "Mythic", aura: 500, tokens: 50, tier: "mythic" as const, unlocked: false },
-      { name: "Immortal", aura: 1000, tokens: 100, tier: "immortal" as const, unlocked: false },
+      { name: "Legend", aura: 100, tokens: 10, tier: "legend" as const, unlocked: true },
+      { name: "Elite", aura: 200, tokens: 20, tier: "elite" as const, unlocked: true },
+      { name: "Grandmaster", aura: 300, tokens: 30, tier: "grandmaster" as const, unlocked: true },
+      { name: "Mythic", aura: 500, tokens: 50, tier: "mythic" as const, unlocked: true },
+      { name: "Immortal", aura: 1000, tokens: 100, tier: "immortal" as const, unlocked: true },
     ],
   },
 ];
