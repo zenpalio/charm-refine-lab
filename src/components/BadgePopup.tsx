@@ -207,7 +207,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             >
               <TokenIcon className="w-6 h-6" />
             </div>
-            <div className="flex flex-col items-start">
+            <div className="flex items-baseline gap-2">
               <span className="text-foreground font-extrabold text-xl leading-tight tracking-tight">+{tokens ?? aura}</span>
               <span className="text-[10px] text-muted-foreground/70 uppercase tracking-widest font-medium">token reward</span>
             </div>
