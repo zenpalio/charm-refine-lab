@@ -157,21 +157,6 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
-        <div className="flex items-center justify-center gap-1.5 mb-4 flex-wrap">
-          {allTiers.map((tier) => (
-            <button
-              key={tier}
-              onClick={() => setPreviewTier(tier)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                previewTier === tier
-                  ? "bg-primary text-primary-foreground scale-105"
-                  : "bg-card text-muted-foreground hover:text-foreground border border-border/30"
-              }`}
-            >
-              {tierLabels[tier]}
-            </button>
-          ))}
-        </div>
 
         <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>
