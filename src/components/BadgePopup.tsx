@@ -219,9 +219,6 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
               <span className="text-foreground font-extrabold text-xl leading-tight tracking-tight">+{tokens ?? aura}</span>
               <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">token reward</span>
             </div>
-            {unlocked && (
-              <Sparkles className="ml-auto w-4 h-4 animate-pulse" style={{ color: accent, opacity: 0.5 }} />
-            )}
           </div>
         </div>
 
