@@ -43,8 +43,17 @@ import contentMythic from "@/assets/badges/content-mythic.png";
 import contentGrandmaster from "@/assets/badges/content-grandmaster.png";
 import contentImmortal from "@/assets/badges/content-immortal.png";
 
+// Characters v2 (symbolic)
+import char2Newbie from "@/assets/badges/char2-newbie.png";
+import char2Master from "@/assets/badges/char2-master.png";
+import char2Legend from "@/assets/badges/char2-legend.png";
+import char2Elite from "@/assets/badges/char2-elite.png";
+import char2Mythic from "@/assets/badges/char2-mythic.png";
+import char2Grandmaster from "@/assets/badges/char2-grandmaster.png";
+import char2Immortal from "@/assets/badges/char2-immortal.png";
+
 export type BadgeTier = "newbie" | "master" | "legend" | "mythic" | "elite" | "grandmaster" | "immortal";
-export type BadgeImageSet = "aura" | "characters" | "social" | "messaging" | "content";
+export type BadgeImageSet = "aura" | "characters" | "characters2" | "social" | "messaging" | "content";
 
 interface BadgeCardProps {
   name: string;
@@ -78,6 +87,10 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
   content: {
     newbie: contentNewbie, master: contentMaster, legend: contentLegend,
     elite: contentElite, mythic: contentMythic, grandmaster: contentGrandmaster, immortal: contentImmortal,
+  },
+  characters2: {
+    newbie: char2Newbie, master: char2Master, legend: char2Legend,
+    elite: char2Elite, mythic: char2Mythic, grandmaster: char2Grandmaster, immortal: char2Immortal,
   },
 };
 
