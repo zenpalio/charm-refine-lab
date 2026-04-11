@@ -96,9 +96,20 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
 
 export { imageSets };
 
+const tierSizes: Record<BadgeTier, { base: string; sm: string }> = {
+  newbie:      { base: "w-[52px] h-[52px]", sm: "sm:w-[62px] sm:h-[62px]" },
+  master:      { base: "w-[56px] h-[56px]", sm: "sm:w-[68px] sm:h-[68px]" },
+  legend:      { base: "w-[60px] h-[60px]", sm: "sm:w-[74px] sm:h-[74px]" },
+  elite:       { base: "w-[64px] h-[64px]", sm: "sm:w-[80px] sm:h-[80px]" },
+  mythic:      { base: "w-[68px] h-[68px]", sm: "sm:w-[86px] sm:h-[86px]" },
+  grandmaster: { base: "w-[72px] h-[72px]", sm: "sm:w-[92px] sm:h-[92px]" },
+  immortal:    { base: "w-[76px] h-[76px]", sm: "sm:w-[98px] sm:h-[98px]" },
+};
+
 const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, imageSet = "aura", onClick }: BadgeCardProps) => {
   const images = imageSets[imageSet];
   const showNew = isNew;
+  const size = tierSizes[tier];
 
   return (
     <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[90px] sm:min-w-[116px] cursor-pointer" onClick={onClick}>
@@ -110,7 +121,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
         <img
           src={images[tier]}
           alt={`${name} badge`}
-          className="w-[72px] h-[72px] sm:w-[92px] sm:h-[92px] object-cover rounded-lg"
+          className={`${size.base} ${size.sm} object-cover rounded-lg`}
           loading="lazy"
         />
 
