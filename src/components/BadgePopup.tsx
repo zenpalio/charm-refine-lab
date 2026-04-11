@@ -274,7 +274,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
                 className="w-full rounded-xl font-bold gap-2 mt-2 hover:scale-[1.02] active:scale-95 transition-transform border-dashed"
               >
                 <Lock className="w-4 h-4" />
-                Unlock (Preview)
+                Unlock (Dev Only)
               </Button>
             )}
           </div>
