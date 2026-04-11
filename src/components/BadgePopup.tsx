@@ -182,28 +182,36 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
               : `Reach ${aura.toLocaleString()} aura to unlock`}
         </p>
 
-        {/* Token reward */}
-        <div className="relative mb-5 w-full">
-          <div className="flex items-center justify-center gap-2 py-3">
-            <div className="flex items-center gap-1.5">
-              <TokenIcon className="w-5 h-5" />
-              <span
-                className="font-black text-2xl tracking-tight"
-                style={{ color: unlocked ? accent : undefined }}
-              >
-                +{tokens ?? aura}
-              </span>
+        {/* Token reward — glass card */}
+        <div
+          className="relative mb-5 px-5 py-4 rounded-2xl w-full overflow-hidden backdrop-blur-xl"
+          style={{
+            background: unlocked
+              ? `linear-gradient(135deg, hsl(${glowHsl} / 0.08), hsl(0 0% 100% / 0.04))`
+              : "hsl(0 0% 100% / 0.03)",
+            border: `1px solid ${unlocked ? `hsl(${glowHsl} / 0.15)` : "hsl(0 0% 100% / 0.06)"}`,
+            boxShadow: unlocked
+              ? `inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 4px 24px hsl(${glowHsl} / 0.08)`
+              : "inset 0 1px 0 hsl(0 0% 100% / 0.04)",
+          }}
+        >
+          <div className="relative flex items-center gap-3">
+            <div
+              className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 backdrop-blur-sm"
+              style={{
+                background: unlocked
+                  ? `linear-gradient(135deg, hsl(${glowHsl} / 0.15), hsl(0 0% 100% / 0.05))`
+                  : "hsl(0 0% 100% / 0.05)",
+                border: `1px solid ${unlocked ? `hsl(${glowHsl} / 0.2)` : "hsl(0 0% 100% / 0.08)"}`,
+              }}
+            >
+              <TokenIcon className="w-6 h-6" />
             </div>
-            <span className="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider">tokens</span>
+            <div className="flex flex-col items-start">
+              <span className="text-foreground font-extrabold text-xl leading-tight tracking-tight">+{tokens ?? aura}</span>
+              <span className="text-[10px] text-muted-foreground/70 uppercase tracking-widest font-medium">token reward</span>
+            </div>
           </div>
-          <div
-            className="h-px w-full"
-            style={{
-              background: unlocked
-                ? `linear-gradient(90deg, transparent, hsl(${glowHsl} / 0.3), transparent)`
-                : "linear-gradient(90deg, transparent, hsl(var(--border) / 0.3), transparent)",
-            }}
-          />
         </div>
 
         {/* Action */}
