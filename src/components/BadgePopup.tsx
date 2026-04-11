@@ -182,42 +182,34 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
               : `Reach ${aura.toLocaleString()} aura to unlock`}
         </p>
 
-        {/* Token reward */}
+        {/* Token reward — glass card */}
         <div
-          className="relative mb-5 px-5 py-4 rounded-2xl border w-full overflow-hidden"
+          className="relative mb-5 px-5 py-4 rounded-2xl w-full overflow-hidden backdrop-blur-xl"
           style={{
             background: unlocked
-              ? `linear-gradient(135deg, hsl(${glowHsl} / 0.12), hsl(${glowHsl} / 0.03))`
-              : "hsl(var(--secondary) / 0.3)",
-            borderColor: unlocked ? `hsl(${glowHsl} / 0.2)` : "hsl(var(--border) / 0.15)",
+              ? `linear-gradient(135deg, hsl(${glowHsl} / 0.08), hsl(0 0% 100% / 0.04))`
+              : "hsl(0 0% 100% / 0.03)",
+            border: `1px solid ${unlocked ? `hsl(${glowHsl} / 0.15)` : "hsl(0 0% 100% / 0.06)"}`,
+            boxShadow: unlocked
+              ? `inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 4px 24px hsl(${glowHsl} / 0.08)`
+              : "inset 0 1px 0 hsl(0 0% 100% / 0.04)",
           }}
         >
-          {/* Shimmer effect for unlocked */}
-          {unlocked && (
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: `linear-gradient(105deg, transparent 40%, hsl(${glowHsl} / 0.08) 45%, hsl(${glowHsl} / 0.15) 50%, hsl(${glowHsl} / 0.08) 55%, transparent 60%)`,
-                backgroundSize: "200% 100%",
-                animation: "shimmer 3s ease-in-out infinite",
-              }}
-            />
-          )}
           <div className="relative flex items-center gap-3">
             <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+              className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 backdrop-blur-sm"
               style={{
                 background: unlocked
-                  ? `linear-gradient(135deg, hsl(${glowHsl} / 0.2), hsl(${glowHsl} / 0.08))`
-                  : "hsl(var(--secondary))",
-                boxShadow: unlocked ? `0 0 20px hsl(${glowHsl} / 0.15)` : "none",
+                  ? `linear-gradient(135deg, hsl(${glowHsl} / 0.15), hsl(0 0% 100% / 0.05))`
+                  : "hsl(0 0% 100% / 0.05)",
+                border: `1px solid ${unlocked ? `hsl(${glowHsl} / 0.2)` : "hsl(0 0% 100% / 0.08)"}`,
               }}
             >
-              <TokenIcon className="w-7 h-7" />
+              <TokenIcon className="w-6 h-6" />
             </div>
             <div className="flex flex-col items-start">
               <span className="text-foreground font-extrabold text-xl leading-tight tracking-tight">+{tokens ?? aura}</span>
-              <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">token reward</span>
+              <span className="text-[10px] text-muted-foreground/70 uppercase tracking-widest font-medium">token reward</span>
             </div>
           </div>
         </div>
