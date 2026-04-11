@@ -96,16 +96,6 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
 
 export { imageSets };
 
-const tierGlowColors: Record<BadgeTier, string> = {
-  newbie: "rgba(205, 133, 63, 0.35)",
-  master: "rgba(192, 192, 210, 0.4)",
-  legend: "rgba(255, 215, 0, 0.4)",
-  elite: "rgba(60, 140, 255, 0.45)",
-  mythic: "rgba(160, 80, 255, 0.45)",
-  grandmaster: "rgba(255, 60, 40, 0.45)",
-  immortal: "rgba(255, 230, 150, 0.5)",
-};
-
 const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, imageSet = "aura", onClick }: BadgeCardProps) => {
   const images = imageSets[imageSet];
   const showNew = isNew;
@@ -116,7 +106,6 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
         className={`relative w-[88px] h-[88px] sm:w-28 sm:h-28 rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 p-1.5 sm:p-2 flex items-center justify-center transition-transform duration-300 ${
           unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
         } ${imageSet === "characters2" ? "overflow-hidden" : ""}`}
-        style={unlocked ? { boxShadow: `0 0 18px 4px ${tierGlowColors[tier]}, inset 0 0 12px 2px ${tierGlowColors[tier]}` } : undefined}
       >
         <img
           src={images[tier]}
