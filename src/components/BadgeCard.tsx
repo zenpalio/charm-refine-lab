@@ -106,23 +106,23 @@ const tierSizes: Record<BadgeTier, { base: string; sm: string }> = {
   immortal:    { base: "w-[108px] h-[108px]", sm: "sm:w-[148px] sm:h-[148px]" },
 };
 
-const tierGlow: Partial<Record<BadgeTier, string>> = {
-  elite: "shadow-[0_0_18px_4px_rgba(59,130,246,0.35)]",
-  mythic: "shadow-[0_0_18px_4px_rgba(168,85,247,0.35)]",
-  grandmaster: "shadow-[0_0_18px_4px_rgba(239,68,68,0.35)]",
-  immortal: "shadow-[0_0_22px_6px_rgba(234,179,8,0.4)]",
+const tierImgGlow: Partial<Record<BadgeTier, string>> = {
+  elite: "drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]",
+  mythic: "drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]",
+  grandmaster: "drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]",
+  immortal: "drop-shadow-[0_0_12px_rgba(234,179,8,0.55)]",
 };
 
 const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, imageSet = "aura", onClick }: BadgeCardProps) => {
   const images = imageSets[imageSet];
   const showNew = isNew;
   const size = tierSizes[tier];
-  const glow = unlocked ? tierGlow[tier] ?? "" : "";
+  const imgGlow = unlocked ? tierImgGlow[tier] ?? "" : "";
 
   return (
     <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[120px] sm:min-w-[170px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-[120px] h-[120px] sm:w-[164px] sm:h-[164px] rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 ${glow} ${
+        className={`relative w-[120px] h-[120px] sm:w-[164px] sm:h-[164px] rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 ${
           unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
         }`}
       >
