@@ -4,7 +4,7 @@ import BadgeCard, { type BadgeTier, type BadgeImageSet } from "./BadgeCard";
 import BadgePopup from "./BadgePopup";
 import AuraIcon from "./AuraIcon";
 import HorizontalScroll from "./HorizontalScroll";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface Badge {
   name: string;
