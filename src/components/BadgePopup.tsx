@@ -189,7 +189,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             background: unlocked
               ? `linear-gradient(135deg, hsl(${glowHsl} / 0.08), hsl(0 0% 100% / 0.04))`
               : "hsl(0 0% 100% / 0.03)",
-            border: `1px solid ${unlocked ? `hsl(${glowHsl} / 0.15)` : "hsl(0 0% 100% / 0.06)"}`,
+            border: `1px solid ${unlocked ? `hsl(${glowHsl} / 0.3)` : "hsl(0 0% 100% / 0.15)"}`,
             boxShadow: unlocked
               ? `inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 4px 24px hsl(${glowHsl} / 0.08)`
               : "inset 0 1px 0 hsl(0 0% 100% / 0.04)",
