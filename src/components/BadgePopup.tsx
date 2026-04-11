@@ -158,12 +158,6 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
               animation: isClaimable ? "bounce 2s ease-in-out infinite" : undefined,
             }}
           />
-          {isClaimable && (
-            <>
-              <Sparkles className="absolute -top-1 -right-1 w-3.5 h-3.5 animate-ping z-20" style={{ color: accent, animationDuration: "2s" }} />
-              <Sparkles className="absolute -bottom-1 -left-1 w-3 h-3 animate-ping z-20" style={{ color: accent, animationDuration: "2.5s", animationDelay: "0.5s" }} />
-            </>
-          )}
         </div>
 
         {/* Name */}
