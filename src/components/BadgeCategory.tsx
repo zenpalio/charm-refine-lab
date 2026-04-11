@@ -4,7 +4,7 @@ import BadgeCard, { type BadgeTier, type BadgeImageSet } from "./BadgeCard";
 import BadgePopup from "./BadgePopup";
 import AuraIcon from "./AuraIcon";
 import HorizontalScroll from "./HorizontalScroll";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface Badge {
   name: string;
@@ -47,18 +47,16 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
       <div className="flex items-center justify-between mb-1">
         <div className="flex items-center gap-2">
           <h3 className="text-foreground font-bold text-sm">{title}</h3>
-          <TooltipProvider delayDuration={200}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button className="text-muted-foreground hover:text-foreground transition-colors">
-                  <Info className="w-4 h-4" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="right" className="max-w-[200px] text-xs">
-                {tooltip || subtitle}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Popover>
+            <PopoverTrigger asChild>
+              <button className="text-muted-foreground hover:text-foreground transition-colors">
+                <Info className="w-4 h-4" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent side="right" className="max-w-[200px] text-xs p-3">
+              {tooltip || subtitle}
+            </PopoverContent>
+          </Popover>
         </div>
         <div className="flex items-center gap-3">
           {aura !== undefined && (
