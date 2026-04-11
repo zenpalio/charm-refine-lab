@@ -86,7 +86,7 @@ const badgeCategories = [
     subtitle: "Create & Collect Characters To Earn Aura",
     progress: 60,
     aura: 820,
-    imageSet: "aura" as const,
+    imageSet: "characters" as const,
     tooltip: "Create new characters, customize them, and get likes from other users",
     badges: [
       { name: "Newbie", aura: 10, tokens: 1, tier: "newbie" as const, unlocked: true },
@@ -103,7 +103,7 @@ const badgeCategories = [
     subtitle: "Grow Your Network To Earn Aura",
     progress: 30,
     aura: 210,
-    imageSet: "aura" as const,
+    imageSet: "social" as const,
     tooltip: "Follow creators, get followers, and share content to grow your social presence",
     badges: [
       { name: "Newbie", aura: 10, tokens: 1, tier: "newbie" as const, unlocked: true },
@@ -120,7 +120,7 @@ const badgeCategories = [
     subtitle: "Chat & Connect To Earn Aura",
     progress: 15,
     aura: 95,
-    imageSet: "aura" as const,
+    imageSet: "messaging" as const,
     tooltip: "Send messages, start conversations, and connect with other creators daily",
     badges: [
       { name: "Newbie", aura: 10, tokens: 1, tier: "newbie" as const, unlocked: true },
@@ -137,7 +137,7 @@ const badgeCategories = [
     subtitle: "Create Images, Videos & Stories To Earn Aura",
     progress: 50,
     aura: 540,
-    imageSet: "aura" as const,
+    imageSet: "content" as const,
     tooltip: "Generate images, create videos, and write stories to boost your content aura",
     badges: [
       { name: "Newbie", aura: 10, tokens: 1, tier: "newbie" as const, unlocked: true },
