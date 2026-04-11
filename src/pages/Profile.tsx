@@ -226,7 +226,7 @@ const Profile = () => {
 
         <div>
           {badgeCategories.map((cat, i) => (
-            <BadgeCategory key={i} {...cat} />
+            <BadgeCategory key={i} {...cat} activeTier={previewTier} onUseBadge={(tier) => setPreviewTier(tier)} />
           ))}
         </div>
       </div>
