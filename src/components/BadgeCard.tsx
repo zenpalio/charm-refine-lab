@@ -114,7 +114,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
   return (
     <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[120px] sm:min-w-[170px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-[120px] h-[120px] sm:w-[164px] sm:h-[164px] rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 overflow-hidden ${
+        className={`relative w-[120px] h-[120px] sm:w-[164px] sm:h-[164px] rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 ${
           unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
         }`}
       >
