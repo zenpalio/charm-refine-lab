@@ -97,13 +97,13 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
 export { imageSets };
 
 const tierSizes: Record<BadgeTier, { base: string; sm: string }> = {
-  newbie:      { base: "w-[72px] h-[72px]", sm: "sm:w-[100px] sm:h-[100px]" },
-  master:      { base: "w-[78px] h-[78px]", sm: "sm:w-[108px] sm:h-[108px]" },
-  legend:      { base: "w-[84px] h-[84px]", sm: "sm:w-[116px] sm:h-[116px]" },
-  elite:       { base: "w-[90px] h-[90px]", sm: "sm:w-[124px] sm:h-[124px]" },
-  mythic:      { base: "w-[96px] h-[96px]", sm: "sm:w-[132px] sm:h-[132px]" },
-  grandmaster: { base: "w-[102px] h-[102px]", sm: "sm:w-[140px] sm:h-[140px]" },
-  immortal:    { base: "w-[108px] h-[108px]", sm: "sm:w-[148px] sm:h-[148px]" },
+  newbie:      { base: "w-[88px] h-[88px]", sm: "sm:w-[100px] sm:h-[100px]" },
+  master:      { base: "w-[94px] h-[94px]", sm: "sm:w-[108px] sm:h-[108px]" },
+  legend:      { base: "w-[100px] h-[100px]", sm: "sm:w-[116px] sm:h-[116px]" },
+  elite:       { base: "w-[106px] h-[106px]", sm: "sm:w-[124px] sm:h-[124px]" },
+  mythic:      { base: "w-[112px] h-[112px]", sm: "sm:w-[132px] sm:h-[132px]" },
+  grandmaster: { base: "w-[118px] h-[118px]", sm: "sm:w-[140px] sm:h-[140px]" },
+  immortal:    { base: "w-[124px] h-[124px]", sm: "sm:w-[148px] sm:h-[148px]" },
 };
 
 const tierImgGlow: Partial<Record<BadgeTier, string>> = {
@@ -120,9 +120,9 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
   const imgGlow = unlocked ? tierImgGlow[tier] ?? "" : "";
 
   return (
-    <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[120px] sm:min-w-[170px] cursor-pointer" onClick={onClick}>
+    <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[145px] sm:min-w-[170px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-[120px] h-[120px] sm:w-[164px] sm:h-[164px] rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 ${
+        className={`relative w-[140px] h-[140px] sm:w-[164px] sm:h-[164px] rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 ${
           unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
         }`}
       >
