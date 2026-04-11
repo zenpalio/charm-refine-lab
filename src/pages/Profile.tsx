@@ -114,6 +114,9 @@ const badgeCategories = [
       { name: "Grandmaster", aura: 300, tokens: 30, tier: "grandmaster" as const, unlocked: false },
       { name: "Immortal", aura: 1000, tokens: 100, tier: "immortal" as const, unlocked: false },
     ],
+  },
+  {
+    title: "Messaging",
     subtitle: "Chat & Connect To Earn Aura",
     progress: 15,
     aura: 95,
