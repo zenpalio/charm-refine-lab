@@ -129,7 +129,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
         <img
           src={images[tier]}
           alt={`${name} badge`}
-          className={`${size.base} ${size.sm} object-cover rounded-lg`}
+          className={`${size.base} ${size.sm} object-cover rounded-lg ${imgGlow}`}
           loading="lazy"
         />
 
