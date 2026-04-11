@@ -31,9 +31,11 @@ interface BadgeCategoryProps {
 const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura", tooltip, aura, activeTier, onUseBadge }: BadgeCategoryProps) => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
   const [claimedTiers, setClaimedTiers] = useState<Set<BadgeTier>>(new Set());
+  const [unlockedTiers, setUnlockedTiers] = useState<Set<BadgeTier>>(new Set());
 
   const badges = initialBadges.map((b) => ({
     ...b,
+    unlocked: b.unlocked || unlockedTiers.has(b.tier),
     claimed: b.claimed || claimedTiers.has(b.tier),
   }));
 
@@ -41,6 +43,13 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
     if (selectedBadge) {
       setClaimedTiers((prev) => new Set(prev).add(selectedBadge.tier));
       setSelectedBadge({ ...selectedBadge, claimed: true });
+    }
+  };
+
+  const handleUnlock = () => {
+    if (selectedBadge) {
+      setUnlockedTiers((prev) => new Set(prev).add(selectedBadge.tier));
+      setSelectedBadge({ ...selectedBadge, unlocked: true, claimed: false, isNew: true });
     }
   };
 
@@ -89,12 +98,14 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
         <BadgePopup
           {...selectedBadge}
           claimed={selectedBadge.claimed || claimedTiers.has(selectedBadge.tier)}
+          unlocked={selectedBadge.unlocked || unlockedTiers.has(selectedBadge.tier)}
           imageSet={imageSet}
           currentAura={aura ?? 0}
           activeTier={activeTier}
           onClose={() => setSelectedBadge(null)}
           onClaim={handleClaim}
           onUseBadge={onUseBadge}
+          onUnlock={handleUnlock}
         />
       )}
     </div>

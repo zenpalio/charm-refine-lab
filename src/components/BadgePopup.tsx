@@ -17,6 +17,7 @@ interface BadgePopupProps {
   onClose: () => void;
   onClaim?: () => void;
   onUseBadge?: (tier: BadgeTier) => void;
+  onUnlock?: () => void;
 }
 
 const tierGlowColors: Record<BadgeTier, string> = {
@@ -40,7 +41,7 @@ const tierAccentColors: Record<BadgeTier, string> = {
 };
 
 
-const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", currentAura = 0, activeTier, onClose, onClaim, onUseBadge }: BadgePopupProps) => {
+const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", currentAura = 0, activeTier, onClose, onClaim, onUseBadge, onUnlock }: BadgePopupProps) => {
   const tierImages = imageSets[imageSet];
   const glowHsl = tierGlowColors[tier];
   const accent = tierAccentColors[tier];
@@ -276,6 +277,17 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             <p className="text-[10px] text-muted-foreground font-medium">
               {(aura - currentAura).toLocaleString()} more aura needed
             </p>
+            {onUnlock && (
+              <Button
+                onClick={onUnlock}
+                variant="outline"
+                size="lg"
+                className="w-full rounded-xl font-bold gap-2 mt-2 hover:scale-[1.02] active:scale-95 transition-transform border-dashed"
+              >
+                <Lock className="w-4 h-4" />
+                Unlock (Preview)
+              </Button>
+            )}
           </div>
         )}
 
