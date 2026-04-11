@@ -97,7 +97,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
         <img
           src={images[tier]}
           alt={`${name} badge`}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-contain scale-[1.15]"
           loading="lazy"
         />
 
