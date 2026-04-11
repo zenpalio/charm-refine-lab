@@ -69,7 +69,7 @@ const badgeCategories = [
     subtitle: "Earn More Aura And Claim Free Tokens",
     progress: 45,
     aura: 1340,
-    imageSet: "aura" as const,
+    imageSet: "characters" as const,
     tooltip: "Create characters, post content, and engage with the community to earn more aura",
     badges: [
       { name: "Newbie", aura: 100, tokens: 10, tier: "newbie" as const, unlocked: true, claimed: true },
@@ -86,7 +86,7 @@ const badgeCategories = [
     subtitle: "Create & Collect Characters To Earn Aura",
     progress: 60,
     aura: 820,
-    imageSet: "characters" as const,
+    imageSet: "aura" as const,
     tooltip: "Create new characters, customize them, and get likes from other users",
     badges: [
       { name: "Newbie", aura: 10, tokens: 1, tier: "newbie" as const, unlocked: true },
