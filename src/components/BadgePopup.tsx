@@ -248,12 +248,13 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
               <span>{currentAura.toLocaleString()} / {aura.toLocaleString()} aura</span>
               <span>{Math.min(100, Math.round((currentAura / aura) * 100))}%</span>
             </div>
-            <div className="w-full h-2 rounded-full bg-secondary overflow-hidden">
+            <div className="relative w-full h-2.5 rounded-full bg-muted/50 overflow-hidden border border-border/30">
               <div
-                className="h-full rounded-full transition-all duration-700"
+                className="h-full rounded-full transition-all duration-700 relative z-10"
                 style={{
                   width: `${Math.min(100, (currentAura / aura) * 100)}%`,
-                  background: `linear-gradient(90deg, ${accent}, hsl(${glowHsl} / 0.5))`,
+                  background: `linear-gradient(90deg, ${accent}, hsl(${glowHsl} / 0.8))`,
+                  boxShadow: `0 0 8px hsl(${glowHsl} / 0.4)`,
                 }}
               />
             </div>
