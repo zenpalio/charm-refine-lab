@@ -103,14 +103,14 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
   return (
     <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[90px] sm:min-w-[116px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-[88px] h-[88px] sm:w-28 sm:h-28 rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 p-1.5 sm:p-2 flex items-center justify-center transition-transform duration-300 ${
+        className={`relative w-[88px] h-[88px] sm:w-28 sm:h-28 rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 overflow-hidden ${
           unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
-        } ${imageSet === "characters2" ? "overflow-hidden" : ""}`}
+        }`}
       >
         <img
           src={images[tier]}
           alt={`${name} badge`}
-          className={`w-full h-full object-contain ${imageSet === "characters2" ? "scale-[1.35]" : "scale-[1.15]"}`}
+          className="w-[72px] h-[72px] sm:w-[92px] sm:h-[92px] object-cover rounded-lg"
           loading="lazy"
         />
 
