@@ -97,13 +97,13 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
 export { imageSets };
 
 const tierSizes: Record<BadgeTier, { base: string; sm: string }> = {
-  newbie:      { base: "w-[52px] h-[52px]", sm: "sm:w-[62px] sm:h-[62px]" },
-  master:      { base: "w-[56px] h-[56px]", sm: "sm:w-[68px] sm:h-[68px]" },
-  legend:      { base: "w-[60px] h-[60px]", sm: "sm:w-[74px] sm:h-[74px]" },
-  elite:       { base: "w-[64px] h-[64px]", sm: "sm:w-[80px] sm:h-[80px]" },
-  mythic:      { base: "w-[68px] h-[68px]", sm: "sm:w-[86px] sm:h-[86px]" },
-  grandmaster: { base: "w-[72px] h-[72px]", sm: "sm:w-[92px] sm:h-[92px]" },
-  immortal:    { base: "w-[76px] h-[76px]", sm: "sm:w-[98px] sm:h-[98px]" },
+  newbie:      { base: "w-[72px] h-[72px]", sm: "sm:w-[100px] sm:h-[100px]" },
+  master:      { base: "w-[78px] h-[78px]", sm: "sm:w-[108px] sm:h-[108px]" },
+  legend:      { base: "w-[84px] h-[84px]", sm: "sm:w-[116px] sm:h-[116px]" },
+  elite:       { base: "w-[90px] h-[90px]", sm: "sm:w-[124px] sm:h-[124px]" },
+  mythic:      { base: "w-[96px] h-[96px]", sm: "sm:w-[132px] sm:h-[132px]" },
+  grandmaster: { base: "w-[102px] h-[102px]", sm: "sm:w-[140px] sm:h-[140px]" },
+  immortal:    { base: "w-[108px] h-[108px]", sm: "sm:w-[148px] sm:h-[148px]" },
 };
 
 const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, imageSet = "aura", onClick }: BadgeCardProps) => {
@@ -112,9 +112,9 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
   const size = tierSizes[tier];
 
   return (
-    <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[90px] sm:min-w-[116px] cursor-pointer" onClick={onClick}>
+    <div className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[120px] sm:min-w-[170px] cursor-pointer" onClick={onClick}>
       <div
-        className={`relative w-[88px] h-[88px] sm:w-28 sm:h-28 rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 overflow-hidden ${
+        className={`relative w-[120px] h-[120px] sm:w-[164px] sm:h-[164px] rounded-[1.25rem] sm:rounded-[1.75rem] bg-card border border-border/30 flex items-center justify-center transition-transform duration-300 overflow-hidden ${
           unlocked ? "hover:scale-[1.03]" : "opacity-45 grayscale"
         }`}
       >
