@@ -59,7 +59,7 @@ const tierBadgeGlowColors: Record<BadgeTier, string> = {
 
 const statItems = [
   { icon: Users, label: "FOLLOWERS", rank: "#1,438", count: "12.4K", iconClass: "w-4 h-4 text-primary mb-0.5" },
-  { icon: AuraIcon, label: "AURA", rank: "#892", count: "1,340", iconClass: "w-5 h-5 text-purple-500 mb-0.5" },
+  { icon: AuraIcon, label: "AURA", rank: "#892", count: "450", iconClass: "w-5 h-5 text-purple-500 mb-0.5" },
   { icon: Heart, label: "Likes", rank: "#2,105", count: "8.2K", iconClass: "w-4 h-4 text-red-500 fill-red-500 mb-0.5" },
 ];
 
@@ -68,7 +68,7 @@ const badgeCategories = [
     title: "Total Aura",
     subtitle: "Earn More Aura And Claim Free Tokens",
     progress: 45,
-    aura: 1340,
+    aura: 450,
     imageSet: "characters" as const,
     tooltip: "Create characters, post content, and engage with the community to earn more aura",
     badges: [
