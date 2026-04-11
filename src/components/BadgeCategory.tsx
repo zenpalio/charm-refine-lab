@@ -24,9 +24,11 @@ interface BadgeCategoryProps {
   imageSet?: BadgeImageSet;
   tooltip?: string;
   aura?: number;
+  activeTier?: BadgeTier;
+  onUseBadge?: (tier: BadgeTier) => void;
 }
 
-const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura", tooltip, aura }: BadgeCategoryProps) => {
+const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, imageSet = "aura", tooltip, aura, activeTier, onUseBadge }: BadgeCategoryProps) => {
   const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
   const [claimedTiers, setClaimedTiers] = useState<Set<BadgeTier>>(new Set());
 
@@ -89,8 +91,10 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
           claimed={selectedBadge.claimed || claimedTiers.has(selectedBadge.tier)}
           imageSet={imageSet}
           currentAura={aura ?? 0}
+          activeTier={activeTier}
           onClose={() => setSelectedBadge(null)}
           onClaim={handleClaim}
+          onUseBadge={onUseBadge}
         />
       )}
     </div>

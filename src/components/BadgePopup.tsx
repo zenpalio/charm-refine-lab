@@ -13,8 +13,10 @@ interface BadgePopupProps {
   claimed?: boolean;
   imageSet?: BadgeImageSet;
   currentAura?: number;
+  activeTier?: BadgeTier;
   onClose: () => void;
   onClaim?: () => void;
+  onUseBadge?: (tier: BadgeTier) => void;
 }
 
 const tierGlowColors: Record<BadgeTier, string> = {
@@ -38,12 +40,13 @@ const tierAccentColors: Record<BadgeTier, string> = {
 };
 
 
-const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", currentAura = 0, onClose, onClaim }: BadgePopupProps) => {
+const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageSet = "aura", currentAura = 0, activeTier, onClose, onClaim, onUseBadge }: BadgePopupProps) => {
   const tierImages = imageSets[imageSet];
   const glowHsl = tierGlowColors[tier];
   const accent = tierAccentColors[tier];
   
   const isClaimable = unlocked && !claimed;
+  const isActiveBadge = activeTier === tier;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/85 backdrop-blur-md" onClick={onClose}>
@@ -232,9 +235,29 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             Claim Tokens
           </Button>
         ) : unlocked ? (
-          <Button variant="secondary" size="lg" className="w-full rounded-xl" disabled>
-            <Check className="w-4 h-4" /> Collected
-          </Button>
+          <div className="w-full space-y-2">
+            <Button variant="secondary" size="lg" className="w-full rounded-xl" disabled>
+              <Check className="w-4 h-4" /> Collected
+            </Button>
+            {onUseBadge && (
+              <Button
+                variant={isActiveBadge ? "outline" : "default"}
+                size="lg"
+                className="w-full rounded-xl font-bold gap-2 hover:scale-[1.02] active:scale-95 transition-transform"
+                disabled={isActiveBadge}
+                onClick={() => onUseBadge(tier)}
+                style={!isActiveBadge ? {
+                  background: `linear-gradient(135deg, hsl(${glowHsl}), hsl(${glowHsl} / 0.7))`,
+                } : undefined}
+              >
+                {isActiveBadge ? (
+                  <><Check className="w-4 h-4" /> Active Badge</>
+                ) : (
+                  <><Sparkles className="w-4 h-4" /> Use Badge</>
+                )}
+              </Button>
+            )}
+          </div>
         ) : (
           <div className="w-full space-y-2">
             <div className="flex items-center justify-between text-[10px] text-muted-foreground font-semibold">
