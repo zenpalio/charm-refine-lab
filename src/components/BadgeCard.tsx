@@ -145,6 +145,15 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
           </div>
         )}
 
+        {unlocked && !claimed && !showNew && (
+          <div className="absolute -top-1 -right-1 z-20">
+            <span className="relative flex h-3.5 w-3.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-primary border-2 border-card" />
+            </span>
+          </div>
+        )}
+
         {unlocked && claimed && !showNew && (
           <div className="absolute -top-1.5 -right-1.5 z-20 text-[9px] font-bold px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border/30">
             <Check className="w-3 h-3" />
