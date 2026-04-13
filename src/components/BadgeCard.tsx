@@ -53,7 +53,7 @@ import char2Grandmaster from "@/assets/badges/char2-grandmaster.png";
 import char2Immortal from "@/assets/badges/char2-immortal.png";
 
 export type BadgeTier = "newbie" | "master" | "legend" | "mythic" | "elite" | "grandmaster" | "immortal";
-export type BadgeImageSet = "aura" | "characters" | "characters2" | "social" | "messaging" | "content";
+export type BadgeImageSet = "aura" | "characters" | "characters2" | "social" | "messaging" | "content" | "totalAura";
 
 interface BadgeCardProps {
   name: string;
@@ -75,6 +75,10 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
   characters: {
     newbie: charNewbie, master: charMaster, legend: charLegend,
     elite: charElite, mythic: charMythic, grandmaster: charGrandmaster, immortal: charImmortal,
+  },
+  totalAura: {
+    newbie: charNewbie, master: charMaster, legend: charLegend,
+    elite: charElite, mythic: charMythic, grandmaster: badgeGrandmaster, immortal: charImmortal,
   },
   social: {
     newbie: socialNewbie, master: socialMaster, legend: socialLegend,
