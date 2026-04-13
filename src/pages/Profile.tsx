@@ -9,7 +9,7 @@ import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
 import charElite from "@/assets/badges/char-elite.png";
 import charMythic from "@/assets/badges/char-mythic.png";
-import charGrandmaster from "@/assets/badges/char-grandmaster.png";
+import charGrandmaster from "@/assets/badge-grandmaster.png";
 import charImmortal from "@/assets/badges/char-immortal.png";
 import profileAvatar from "@/assets/profile-avatar.svg";
 
