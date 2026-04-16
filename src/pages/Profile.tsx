@@ -304,16 +304,13 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Tier label + active badge name */}
+          {/* Show only the active badge name OR tier label */}
           <div className="flex flex-col items-center gap-1">
-            <span className="text-lg font-bold uppercase tracking-wide" style={{ color: tierBorderColors[previewTier] }}>
-              {tierLabels[previewTier]}
-            </span>
-            {activeBadge && (() => {
+            {activeBadge ? (() => {
               const effect = getBadgeEffect(activeBadge.name);
               return (
                 <span
-                  className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                  className="text-sm font-bold px-3 py-1 rounded-full uppercase tracking-wider"
                   style={{
                     color: effect.glowColor,
                     backgroundColor: `${effect.glowColor.replace(")", " / 0.12)")}`,
@@ -323,7 +320,11 @@ const Profile = () => {
                   {activeBadge.name}
                 </span>
               );
-            })()}
+            })() : (
+              <span className="text-lg font-bold uppercase tracking-wide" style={{ color: tierBorderColors[previewTier] }}>
+                {tierLabels[previewTier]}
+              </span>
+            )}
           </div>
 
         </div>
