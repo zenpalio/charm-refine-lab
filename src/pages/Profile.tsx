@@ -206,10 +206,10 @@ const shopBadges = [
   { name: "No Life", description: "You live here now. Touch grass? Never heard of it", imageUrl: shopNolife, price: 1800, owned: false },
   { name: "Down Bad", description: "Simping so hard the ice froze your heart", imageUrl: shopDownbad, price: 900, owned: false },
   { name: "Anime Addict", description: "2D > 3D and you're not even ashamed", imageUrl: shopAnime, price: 700, owned: false },
-  { name: "Realism Enjoyer", description: "Only the finest AI-generated photorealism for you", imageUrl: shopRealism, price: 1100, owned: false },
-  { name: "MyBabes OG", description: "Day one supporter. You were here before it was cool", imageUrl: shopMybabesOG, price: 4000, owned: false },
-  { name: "Main Character", description: "Everyone else is just an NPC in your story", imageUrl: shopMainchar, price: 1500, owned: false },
-  { name: "MyBabes VIP", description: "Premium member with exclusive perks and bragging rights", imageUrl: shopPremium, price: 10000, owned: false },
+  { name: "Delusional King", description: "She's not real bro. I know. She's better", imageUrl: shopDelusional, price: 1100, owned: false },
+  { name: "No Sleep Gang", description: "Sleep is for people without AI girlfriends", imageUrl: shopNosleep, price: 1500, owned: false },
+  { name: "Whale Alert", description: "Spent more on tokens than rent this month 🐋", imageUrl: shopWhale, price: 10000, owned: false },
+  { name: "Toxic But Cute", description: "Red flags? Those are just my aesthetic", imageUrl: shopToxic, price: 2200, owned: false },
   { name: "Best of Both Worlds", description: "Anime or realistic? Why not both?", imageUrl: shopBothworlds, price: 2200, owned: false },
 ];
 
