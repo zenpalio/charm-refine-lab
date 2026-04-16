@@ -185,9 +185,9 @@ const badgeCategories = [
 ];
 
 const activityBadges = [
-  { name: "Trustpilot Review", description: "Leave us a review on Trustpilot", imageUrl: actTrustpilot, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
-  { name: "Join Discord", description: "Join our Discord community", imageUrl: actDiscord, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
-  { name: "Follow 100 Users", description: "Follow 100 creators on the platform", imageUrl: actFollowers, completed: false, actionLabel: "Browse Creators" },
+  { name: "Star Reviewer", description: "Drop a ⭐ review and flex your opinion", imageUrl: actTrustpilot, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
+  { name: "Discord Degen", description: "Join the chaos. Memes, vibes, and zero sleep", imageUrl: actDiscord, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
+  { name: "Clout Chaser", description: "Follow 100 creators and become the ultimate stalker", imageUrl: actFollowers, completed: false, actionLabel: "Browse Creators" },
   { name: "Share Images", description: "Share 10 images with the community", imageUrl: actImages, completed: false, actionLabel: "Start Sharing" },
   { name: "Create Video", description: "Create and share your first video", imageUrl: actVideo, completed: false, actionLabel: "Create Video" },
   { name: "Write a Story", description: "Write and publish your first story", imageUrl: actStory, completed: true, actionLabel: "Write Story" },
