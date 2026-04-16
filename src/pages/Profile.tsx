@@ -3,7 +3,25 @@ import { Settings, Info, Globe, Users, Heart } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
 import TierRingCanvas from "@/components/TierRingCanvas";
 import BadgeCategory from "@/components/BadgeCategory";
+import ActivityBadgeCard from "@/components/ActivityBadgeCard";
+import ShopBadgeCard from "@/components/ShopBadgeCard";
+import HorizontalScroll from "@/components/HorizontalScroll";
 import { type BadgeTier } from "@/components/BadgeCard";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+
+import actTrustpilot from "@/assets/badges/activity-trustpilot.png";
+import actDiscord from "@/assets/badges/activity-discord.png";
+import actFollowers from "@/assets/badges/activity-followers.png";
+import actImages from "@/assets/badges/activity-images.png";
+import actVideo from "@/assets/badges/activity-video.png";
+import actStory from "@/assets/badges/activity-story.png";
+
+import shopDiamond from "@/assets/badges/shop-diamond.png";
+import shopCrown from "@/assets/badges/shop-crown.png";
+import shopPhoenix from "@/assets/badges/shop-phoenix.png";
+import shopCosmic from "@/assets/badges/shop-cosmic.png";
+import shopDragon from "@/assets/badges/shop-dragon.png";
+import shopThunder from "@/assets/badges/shop-thunder.png";
 import charNewbie from "@/assets/badges/char-newbie.png";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
@@ -151,6 +169,24 @@ const badgeCategories = [
   },
 ];
 
+const activityBadges = [
+  { name: "Trustpilot Review", description: "Leave us a review on Trustpilot", imageUrl: actTrustpilot, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
+  { name: "Join Discord", description: "Join our Discord community", imageUrl: actDiscord, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
+  { name: "Follow 100 Users", description: "Follow 100 creators on the platform", imageUrl: actFollowers, completed: false, actionLabel: "Browse Creators" },
+  { name: "Share Images", description: "Share 10 images with the community", imageUrl: actImages, completed: false, actionLabel: "Start Sharing" },
+  { name: "Create Video", description: "Create and share your first video", imageUrl: actVideo, completed: false, actionLabel: "Create Video" },
+  { name: "Write a Story", description: "Write and publish your first story", imageUrl: actStory, completed: true, actionLabel: "Write Story" },
+];
+
+const shopBadges = [
+  { name: "Diamond VIP", description: "Exclusive diamond emblem for your profile", imageUrl: shopDiamond, price: 500, owned: false },
+  { name: "Royal Crown", description: "Show your royal status to all", imageUrl: shopCrown, price: 1000, owned: false },
+  { name: "Phoenix Rising", description: "Rise from the ashes with this fiery badge", imageUrl: shopPhoenix, price: 750, owned: false },
+  { name: "Cosmic Star", description: "A badge from beyond the stars", imageUrl: shopCosmic, price: 1500, owned: false },
+  { name: "Dragon Shield", description: "Wield the power of the ancient dragon", imageUrl: shopDragon, price: 2000, owned: false },
+  { name: "Thunder Strike", description: "Channel the storm with this electric badge", imageUrl: shopThunder, price: 800, owned: false },
+];
+
 const Profile = () => {
   const [previewTier, setPreviewTier] = useState<BadgeTier>("legend");
 
@@ -210,11 +246,57 @@ const Profile = () => {
           </div>
         </div>
 
-        <div>
-          {badgeCategories.map((cat, i) => (
-            <BadgeCategory key={i} {...cat} activeTier={previewTier} onUseBadge={i === 0 ? (tier) => setPreviewTier(tier) : undefined} />
-          ))}
-        </div>
+        <Tabs defaultValue="aura" className="w-full">
+          <TabsList className="w-full bg-transparent border-b border-border/30 rounded-none h-auto p-0 mb-6">
+            <TabsTrigger
+              value="aura"
+              className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs font-semibold uppercase tracking-wider py-3"
+            >
+              Aura Badges
+            </TabsTrigger>
+            <TabsTrigger
+              value="activity"
+              className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs font-semibold uppercase tracking-wider py-3"
+            >
+              Activity
+            </TabsTrigger>
+            <TabsTrigger
+              value="shop"
+              className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs font-semibold uppercase tracking-wider py-3"
+            >
+              Shop
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="aura">
+            {badgeCategories.map((cat, i) => (
+              <BadgeCategory key={i} {...cat} activeTier={previewTier} onUseBadge={i === 0 ? (tier) => setPreviewTier(tier) : undefined} />
+            ))}
+          </TabsContent>
+
+          <TabsContent value="activity">
+            <div className="mb-4">
+              <p className="text-xs text-muted-foreground mb-1">Complete activities to earn exclusive badges</p>
+              <p className="text-[10px] text-muted-foreground/60">{activityBadges.filter(b => b.completed).length}/{activityBadges.length} completed</p>
+            </div>
+            <HorizontalScroll>
+              {activityBadges.map((badge) => (
+                <ActivityBadgeCard key={badge.name} {...badge} />
+              ))}
+            </HorizontalScroll>
+          </TabsContent>
+
+          <TabsContent value="shop">
+            <div className="mb-4">
+              <p className="text-xs text-muted-foreground mb-1">Buy exclusive badges with your tokens</p>
+            </div>
+            <HorizontalScroll>
+              {shopBadges.map((badge) => (
+                <ShopBadgeCard key={badge.name} {...badge} />
+              ))}
+            </HorizontalScroll>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
