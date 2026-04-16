@@ -240,11 +240,30 @@ const Profile = () => {
           <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>
             {/* Canvas-based ring effects for all tiers */}
             <TierRingCanvas tier={previewTier} />
+
+            {/* Equipped badge glow overlay on avatar ring */}
+            {equippedBadges.length > 0 && (
+              <div
+                className="absolute inset-[-8%] rounded-full pointer-events-none z-[0]"
+                style={{
+                  background: `conic-gradient(${equippedBadges.map((b, i) => {
+                    const effect = getBadgeEffect(b.name);
+                    const start = (i / equippedBadges.length) * 360;
+                    const end = ((i + 1) / equippedBadges.length) * 360;
+                    return `${effect.glowColor} ${start}deg, ${effect.glowColor} ${end}deg`;
+                  }).join(", ")})`,
+                  opacity: 0.25,
+                  filter: "blur(8px)",
+                  animation: "badge-rotate 12s linear infinite",
+                }}
+              />
+            )}
+
             {/* Avatar */}
             <div className="absolute inset-[4px] rounded-full overflow-hidden z-[1]">
               <img src={profileAvatar} alt="Profile" className="w-full h-full object-cover" />
             </div>
-            {/* Badge overlay */}
+            {/* Tier badge overlay */}
             <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16 z-[2]">
               {isHighTier(previewTier) && (
                 <div
@@ -259,11 +278,68 @@ const Profile = () => {
                 style={isHighTier(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
               />
             </div>
+
+            {/* Equipped shop badges orbiting around avatar */}
+            {equippedBadges.map((badge, i) => {
+              const effect = getBadgeEffect(badge.name);
+              const angle = (i / Math.max(equippedBadges.length, 1)) * 360;
+              // Position badges around the circle, starting from top-left
+              const positions = [
+                { top: '-14%', left: '-14%' },
+                { top: '-14%', right: '-14%' },
+                { top: '35%', left: '-20%' },
+                { top: '35%', right: '-20%' },
+                { bottom: '-10%', left: '50%', transform: 'translateX(-50%)' },
+              ];
+              const pos = positions[i] || positions[0];
+
+              return (
+                <div
+                  key={badge.name}
+                  className="absolute w-9 h-9 sm:w-11 sm:h-11 z-[3]"
+                  style={pos as any}
+                >
+                  <div
+                    className="absolute inset-0 rounded-full blur-md opacity-60"
+                    style={{ backgroundColor: effect.glowColor, animation: "badge-pulse-glow 2s ease-in-out infinite" }}
+                  />
+                  <img
+                    src={badge.imageUrl}
+                    alt={badge.name}
+                    className="relative z-10 w-full h-full object-contain rounded-full"
+                    style={{ filter: `drop-shadow(0 0 6px ${effect.glowColor})` }}
+                    loading="lazy"
+                  />
+                </div>
+              );
+            })}
           </div>
-        <div className="flex items-center gap-2">
+
+          {/* Tier + badge names */}
+          <div className="flex flex-col items-center gap-1">
             <span className="text-lg font-bold uppercase tracking-wide" style={{ color: tierBorderColors[previewTier] }}>
               {tierLabels[previewTier]}
             </span>
+            {equippedBadges.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-1.5">
+                {equippedBadges.map(b => {
+                  const effect = getBadgeEffect(b.name);
+                  return (
+                    <span
+                      key={b.name}
+                      className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                      style={{
+                        color: effect.glowColor,
+                        backgroundColor: `${effect.glowColor.replace(")", " / 0.12)")}`,
+                        border: `1px solid ${effect.glowColor.replace(")", " / 0.25)")}`,
+                      }}
+                    >
+                      {b.name}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
         </div>
