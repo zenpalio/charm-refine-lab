@@ -185,7 +185,7 @@ const badgeCategories = [
 ];
 
 const activityBadges = [
-  { name: "Hype Man", description: "Leave a 5-star review on our store page", imageUrl: actHypeman, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
+  { name: "Hype Man", description: "Leave a review on our trustpilot page", imageUrl: actHypeman, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
   { name: "Squad Goals", description: "Join our Discord server and verify your account", imageUrl: actSquad, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
   { name: "First Date", description: "Follow 100 creators on the platform", imageUrl: actFirstdate, completed: false, actionLabel: "Browse Creators" },
   { name: "Pic Spammer", description: "Generate and share 10 images with the community", imageUrl: actPicspammer, completed: false, actionLabel: "Start Sharing" },
