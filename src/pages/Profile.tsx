@@ -243,19 +243,13 @@ const Profile = () => {
             <TierRingCanvas tier={previewTier} />
 
             {/* Equipped badge glow overlay on avatar ring */}
-            {equippedBadges.length > 0 && (
+            {activeBadge && (
               <div
                 className="absolute inset-[-8%] rounded-full pointer-events-none z-[0]"
                 style={{
-                  background: `conic-gradient(${equippedBadges.map((b, i) => {
-                    const effect = getBadgeEffect(b.name);
-                    const start = (i / equippedBadges.length) * 360;
-                    const end = ((i + 1) / equippedBadges.length) * 360;
-                    return `${effect.glowColor} ${start}deg, ${effect.glowColor} ${end}deg`;
-                  }).join(", ")})`,
-                  opacity: 0.25,
-                  filter: "blur(8px)",
-                  animation: "badge-rotate 12s linear infinite",
+                  background: `radial-gradient(circle, ${getBadgeEffect(activeBadge.name).glowColor.replace(")", " / 0.2)")} 60%, transparent 100%)`,
+                  filter: "blur(10px)",
+                  animation: "badge-pulse-glow 3s ease-in-out infinite",
                 }}
               />
             )}
@@ -264,83 +258,65 @@ const Profile = () => {
             <div className="absolute inset-[4px] rounded-full overflow-hidden z-[1]">
               <img src={profileAvatar} alt="Profile" className="w-full h-full object-cover" />
             </div>
-            {/* Tier badge overlay */}
+
+            {/* Single badge overlay — shop badge replaces tier badge */}
             <div className="absolute -bottom-1 -right-1 w-12 h-12 sm:w-16 sm:h-16 z-[2]">
-              {isHighTier(previewTier) && (
-                <div
-                  className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
-                  style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
-                />
-              )}
-              <img
-                src={tierBadgeImages[previewTier]}
-                alt={`${previewTier} badge`}
-                className="relative z-10 w-full h-full object-contain"
-                style={isHighTier(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
-              />
-            </div>
-
-            {/* Equipped shop badges orbiting around avatar */}
-            {equippedBadges.map((badge, i) => {
-              const effect = getBadgeEffect(badge.name);
-              const angle = (i / Math.max(equippedBadges.length, 1)) * 360;
-              // Position badges around the circle, starting from top-left
-              const positions = [
-                { top: '-14%', left: '-14%' },
-                { top: '-14%', right: '-14%' },
-                { top: '35%', left: '-20%' },
-                { top: '35%', right: '-20%' },
-                { bottom: '-10%', left: '50%', transform: 'translateX(-50%)' },
-              ];
-              const pos = positions[i] || positions[0];
-
-              return (
-                <div
-                  key={badge.name}
-                  className="absolute w-9 h-9 sm:w-11 sm:h-11 z-[3]"
-                  style={pos as any}
-                >
-                  <div
-                    className="absolute inset-0 rounded-full blur-md opacity-60"
-                    style={{ backgroundColor: effect.glowColor, animation: "badge-pulse-glow 2s ease-in-out infinite" }}
-                  />
+              {activeBadge ? (() => {
+                const effect = getBadgeEffect(activeBadge.name);
+                return (
+                  <>
+                    <div
+                      className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
+                      style={{ backgroundColor: effect.glowColor }}
+                    />
+                    <img
+                      src={activeBadge.imageUrl}
+                      alt={activeBadge.name}
+                      className="relative z-10 w-full h-full object-contain"
+                      style={{ filter: `drop-shadow(0 0 14px ${effect.glowColor})` }}
+                      loading="lazy"
+                    />
+                  </>
+                );
+              })() : (
+                <>
+                  {isHighTier(previewTier) && (
+                    <div
+                      className="absolute inset-[14%] rounded-full blur-md opacity-80 motion-safe:animate-pulse"
+                      style={{ backgroundColor: tierBadgeGlowColors[previewTier] }}
+                    />
+                  )}
                   <img
-                    src={badge.imageUrl}
-                    alt={badge.name}
-                    className="relative z-10 w-full h-full object-contain rounded-full"
-                    style={{ filter: `drop-shadow(0 0 6px ${effect.glowColor})` }}
-                    loading="lazy"
+                    src={tierBadgeImages[previewTier]}
+                    alt={`${previewTier} badge`}
+                    className="relative z-10 w-full h-full object-contain"
+                    style={isHighTier(previewTier) ? { filter: `drop-shadow(0 0 14px ${tierBadgeGlowColors[previewTier]})` } : undefined}
                   />
-                </div>
-              );
-            })}
+                </>
+              )}
+            </div>
           </div>
 
-          {/* Tier + badge names */}
+          {/* Tier label + active badge name */}
           <div className="flex flex-col items-center gap-1">
             <span className="text-lg font-bold uppercase tracking-wide" style={{ color: tierBorderColors[previewTier] }}>
               {tierLabels[previewTier]}
             </span>
-            {equippedBadges.length > 0 && (
-              <div className="flex flex-wrap justify-center gap-1.5">
-                {equippedBadges.map(b => {
-                  const effect = getBadgeEffect(b.name);
-                  return (
-                    <span
-                      key={b.name}
-                      className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
-                      style={{
-                        color: effect.glowColor,
-                        backgroundColor: `${effect.glowColor.replace(")", " / 0.12)")}`,
-                        border: `1px solid ${effect.glowColor.replace(")", " / 0.25)")}`,
-                      }}
-                    >
-                      {b.name}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
+            {activeBadge && (() => {
+              const effect = getBadgeEffect(activeBadge.name);
+              return (
+                <span
+                  className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                  style={{
+                    color: effect.glowColor,
+                    backgroundColor: `${effect.glowColor.replace(")", " / 0.12)")}`,
+                    border: `1px solid ${effect.glowColor.replace(")", " / 0.25)")}`,
+                  }}
+                >
+                  {activeBadge.name}
+                </span>
+              );
+            })()}
           </div>
 
         </div>
