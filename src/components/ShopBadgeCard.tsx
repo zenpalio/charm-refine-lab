@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, Star } from "lucide-react";
 import TokenIcon from "./TokenIcon";
 
 interface ShopBadgeCardProps {
@@ -7,10 +7,11 @@ interface ShopBadgeCardProps {
   imageUrl: string;
   price: number;
   owned: boolean;
+  equipped?: boolean;
   onClick?: () => void;
 }
 
-const ShopBadgeCard = ({ name, description, imageUrl, price, owned, onClick }: ShopBadgeCardProps) => {
+const ShopBadgeCard = ({ name, description, imageUrl, price, owned, equipped, onClick }: ShopBadgeCardProps) => {
   return (
     <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={onClick}>
       <div
@@ -18,11 +19,15 @@ const ShopBadgeCard = ({ name, description, imageUrl, price, owned, onClick }: S
         style={{ backgroundColor: "hsl(var(--popover))", backgroundImage: "none" }}
       >
         <img src={imageUrl} alt={name} className="w-[100px] h-[100px] sm:w-[116px] sm:h-[116px] object-contain" loading="lazy" width={512} height={512} />
-        {owned && (
+        {equipped ? (
+          <div className="absolute -top-1.5 -right-1.5 z-20 text-[9px] font-bold px-2 py-0.5 rounded-full text-primary border border-primary/30" style={{ backgroundColor: "hsl(var(--primary) / 0.15)" }}>
+            <Star className="w-3 h-3 fill-current" />
+          </div>
+        ) : owned ? (
           <div className="absolute -top-1.5 -right-1.5 z-20 text-[9px] font-bold px-2 py-0.5 rounded-full text-muted-foreground border border-border/30" style={{ backgroundColor: "hsl(var(--muted))" }}>
             <Check className="w-3 h-3" />
           </div>
-        )}
+        ) : null}
       </div>
       <p className="text-xs font-semibold text-foreground text-center">{name}</p>
       <p className="text-[10px] text-muted-foreground text-center max-w-[140px]">{description}</p>

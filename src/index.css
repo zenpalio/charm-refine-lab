@@ -128,3 +128,85 @@
   0%, 100% { box-shadow: inherit; }
   50% { box-shadow: 0 0 14px currentColor, 0 0 28px currentColor; filter: brightness(1.15); }
 }
+
+/* Badge showcase animations */
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes badge-shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+@keyframes badge-pulse-glow {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.08); filter: brightness(1.3); }
+}
+@keyframes badge-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+  75% { opacity: 1; }
+  85% { opacity: 0.6; }
+}
+@keyframes badge-heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.1); }
+}
+@keyframes badge-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes badge-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes badge-fire {
+  0%, 100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+  25% { transform: scale(1.05) rotate(-2deg); filter: brightness(1.2); }
+  50% { transform: scale(1.1) rotate(0deg); filter: brightness(1.4); }
+  75% { transform: scale(1.05) rotate(2deg); filter: brightness(1.2); }
+}
+@keyframes badge-flex {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.12); }
+}
+@keyframes badge-glitch {
+  0%, 100% { transform: translate(0); filter: hue-rotate(0deg); }
+  20% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+  40% { transform: translate(2px, -1px); filter: hue-rotate(180deg); }
+  60% { transform: translate(-1px, 2px); filter: hue-rotate(270deg); }
+  80% { transform: translate(1px, -2px); filter: hue-rotate(360deg); }
+}
+@keyframes badge-drip {
+  0%, 100% { transform: translateY(0) scaleY(1); }
+  50% { transform: translateY(4px) scaleY(1.05); }
+}
+@keyframes badge-sparkle {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 2px transparent); }
+  50% { filter: brightness(1.3) drop-shadow(0 0 8px hsl(330 90% 65%)); }
+}
+@keyframes badge-claw {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  30% { transform: scale(1.1) rotate(-8deg); }
+  60% { transform: scale(1.05) rotate(4deg); }
+}
+@keyframes badge-cry {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(3px); }
+  60% { transform: translateY(-2px); }
+}
+@keyframes badge-ghost {
+  0%, 100% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.4; transform: translateY(-5px); }
+}
+@keyframes badge-bling {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 0px transparent); }
+  50% { filter: brightness(1.4) drop-shadow(0 0 12px hsl(45 90% 50%)); }
+}
+@keyframes badge-particle-float {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
+  50% { transform: translateY(-8px) scale(1.2); opacity: 0.6; }
+}

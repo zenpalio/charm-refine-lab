@@ -8,6 +8,7 @@ import ActivityBadgePopup from "@/components/ActivityBadgePopup";
 import ShopBadgeCard from "@/components/ShopBadgeCard";
 import ShopBadgePopup from "@/components/ShopBadgePopup";
 import HorizontalScroll from "@/components/HorizontalScroll";
+import ProfileBadgeShowcase, { type EquippedBadge } from "@/components/ProfileBadgeShowcase";
 import { type BadgeTier } from "@/components/BadgeCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
@@ -219,6 +220,17 @@ const Profile = () => {
   const [completedActivities, setCompletedActivities] = useState<Set<string>>(new Set(activityBadges.filter(b => b.completed).map(b => b.name)));
   const [selectedShop, setSelectedShop] = useState<typeof shopBadges[0] | null>(null);
   const [ownedShop, setOwnedShop] = useState<Set<string>>(new Set());
+  const [equippedBadges, setEquippedBadges] = useState<EquippedBadge[]>([]);
+
+  const handleEquip = (badge: { name: string; imageUrl: string }) => {
+    if (equippedBadges.length >= 5) return; // max 5 equipped
+    if (equippedBadges.some(b => b.name === badge.name)) return;
+    setEquippedBadges(prev => [...prev, { name: badge.name, imageUrl: badge.imageUrl, effect: badge.name }]);
+  };
+
+  const handleUnequip = (name: string) => {
+    setEquippedBadges(prev => prev.filter(b => b.name !== name));
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -275,6 +287,8 @@ const Profile = () => {
             ))}
           </div>
         </div>
+
+        <ProfileBadgeShowcase equippedBadges={equippedBadges} onRemove={handleUnequip} />
 
         <Tabs defaultValue="aura" className="w-full">
           <TabsList className="w-full bg-transparent border-b border-border/30 rounded-none h-auto p-0 mb-6">
@@ -333,17 +347,26 @@ const Profile = () => {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {shopBadges.map((badge) => (
-                <ShopBadgeCard key={badge.name} {...badge} owned={ownedShop.has(badge.name)} onClick={() => setSelectedShop(badge)} />
+                <ShopBadgeCard key={badge.name} {...badge} owned={ownedShop.has(badge.name)} equipped={equippedBadges.some(b => b.name === badge.name)} onClick={() => setSelectedShop(badge)} />
               ))}
             </div>
             {selectedShop && (
               <ShopBadgePopup
                 {...selectedShop}
                 owned={ownedShop.has(selectedShop.name)}
+                equipped={equippedBadges.some(b => b.name === selectedShop.name)}
                 onClose={() => setSelectedShop(null)}
                 onBuy={() => {
                   setOwnedShop(prev => new Set(prev).add(selectedShop.name));
                   setSelectedShop({ ...selectedShop, owned: true });
+                }}
+                onEquip={() => {
+                  handleEquip(selectedShop);
+                  setSelectedShop(null);
+                }}
+                onUnequip={() => {
+                  handleUnequip(selectedShop.name);
+                  setSelectedShop(null);
                 }}
               />
             )}
