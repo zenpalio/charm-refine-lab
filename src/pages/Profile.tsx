@@ -218,6 +218,7 @@ const Profile = () => {
   const [previewTier, setPreviewTier] = useState<BadgeTier>("legend");
   const [selectedActivity, setSelectedActivity] = useState<typeof activityBadges[0] | null>(null);
   const [completedActivities, setCompletedActivities] = useState<Set<string>>(new Set(activityBadges.filter(b => b.completed).map(b => b.name)));
+  const [claimedActivities, setClaimedActivities] = useState<Set<string>>(new Set());
   const [selectedShop, setSelectedShop] = useState<typeof shopBadges[0] | null>(null);
   const [ownedShop, setOwnedShop] = useState<Set<string>>(new Set());
   const [activeBadge, setActiveBadge] = useState<EquippedBadge | null>(null);
