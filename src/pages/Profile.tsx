@@ -376,7 +376,7 @@ const Profile = () => {
 
           <TabsContent value="aura">
             {badgeCategories.map((cat, i) => (
-              <BadgeCategory key={i} {...cat} activeTier={previewTier} onUseBadge={i === 0 ? (tier) => setPreviewTier(tier) : undefined} />
+              <BadgeCategory key={i} {...cat} activeTier={activeBadge ? undefined : previewTier} onUseBadge={i === 0 ? (tier) => { setPreviewTier(tier); setActiveBadge(null); } : undefined} />
             ))}
           </TabsContent>
 
