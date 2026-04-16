@@ -283,13 +283,24 @@ const Profile = () => {
           <TabsContent value="activity">
             <div className="mb-4">
               <p className="text-xs text-muted-foreground mb-1">Complete activities to earn exclusive badges</p>
-              <p className="text-[10px] text-muted-foreground/60">{activityBadges.filter(b => b.completed).length}/{activityBadges.length} completed</p>
+              <p className="text-[10px] text-muted-foreground/60">{completedActivities.size}/{activityBadges.length} completed</p>
             </div>
             <HorizontalScroll>
               {activityBadges.map((badge) => (
-                <ActivityBadgeCard key={badge.name} {...badge} />
+                <ActivityBadgeCard key={badge.name} {...badge} completed={completedActivities.has(badge.name)} onClick={() => setSelectedActivity(badge)} />
               ))}
             </HorizontalScroll>
+            {selectedActivity && (
+              <ActivityBadgePopup
+                {...selectedActivity}
+                completed={completedActivities.has(selectedActivity.name)}
+                onClose={() => setSelectedActivity(null)}
+                onComplete={() => {
+                  setCompletedActivities(prev => new Set(prev).add(selectedActivity.name));
+                  setSelectedActivity({ ...selectedActivity, completed: true });
+                }}
+              />
+            )}
           </TabsContent>
 
           <TabsContent value="shop">
@@ -298,9 +309,20 @@ const Profile = () => {
             </div>
             <HorizontalScroll>
               {shopBadges.map((badge) => (
-                <ShopBadgeCard key={badge.name} {...badge} />
+                <ShopBadgeCard key={badge.name} {...badge} owned={ownedShop.has(badge.name)} onClick={() => setSelectedShop(badge)} />
               ))}
             </HorizontalScroll>
+            {selectedShop && (
+              <ShopBadgePopup
+                {...selectedShop}
+                owned={ownedShop.has(selectedShop.name)}
+                onClose={() => setSelectedShop(null)}
+                onBuy={() => {
+                  setOwnedShop(prev => new Set(prev).add(selectedShop.name));
+                  setSelectedShop({ ...selectedShop, owned: true });
+                }}
+              />
+            )}
           </TabsContent>
         </Tabs>
       </div>
