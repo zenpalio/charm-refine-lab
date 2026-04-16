@@ -285,7 +285,7 @@ const Profile = () => {
               <p className="text-xs text-muted-foreground mb-1">Complete activities to earn exclusive badges</p>
               <p className="text-[10px] text-muted-foreground/60">{completedActivities.size}/{activityBadges.length} completed</p>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {activityBadges.map((badge) => (
                 <ActivityBadgeCard key={badge.name} {...badge} completed={completedActivities.has(badge.name)} onClick={() => setSelectedActivity(badge)} />
               ))}
@@ -307,7 +307,7 @@ const Profile = () => {
             <div className="mb-4">
               <p className="text-xs text-muted-foreground mb-1">Buy exclusive badges with your tokens</p>
             </div>
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {shopBadges.map((badge) => (
                 <ShopBadgeCard key={badge.name} {...badge} owned={ownedShop.has(badge.name)} onClick={() => setSelectedShop(badge)} />
               ))}
