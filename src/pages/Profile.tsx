@@ -3,7 +3,25 @@ import { Settings, Info, Globe, Users, Heart } from "lucide-react";
 import AuraIcon from "@/components/AuraIcon";
 import TierRingCanvas from "@/components/TierRingCanvas";
 import BadgeCategory from "@/components/BadgeCategory";
+import ActivityBadgeCard from "@/components/ActivityBadgeCard";
+import ShopBadgeCard from "@/components/ShopBadgeCard";
+import HorizontalScroll from "@/components/HorizontalScroll";
 import { type BadgeTier } from "@/components/BadgeCard";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+
+import actTrustpilot from "@/assets/badges/activity-trustpilot.png";
+import actDiscord from "@/assets/badges/activity-discord.png";
+import actFollowers from "@/assets/badges/activity-followers.png";
+import actImages from "@/assets/badges/activity-images.png";
+import actVideo from "@/assets/badges/activity-video.png";
+import actStory from "@/assets/badges/activity-story.png";
+
+import shopDiamond from "@/assets/badges/shop-diamond.png";
+import shopCrown from "@/assets/badges/shop-crown.png";
+import shopPhoenix from "@/assets/badges/shop-phoenix.png";
+import shopCosmic from "@/assets/badges/shop-cosmic.png";
+import shopDragon from "@/assets/badges/shop-dragon.png";
+import shopThunder from "@/assets/badges/shop-thunder.png";
 import charNewbie from "@/assets/badges/char-newbie.png";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
