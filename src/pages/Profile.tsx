@@ -12,12 +12,12 @@ import ProfileBadgeShowcase, { type EquippedBadge, getBadgeEffect } from "@/comp
 import { type BadgeTier } from "@/components/BadgeCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-import actTrustpilot from "@/assets/badges/activity-trustpilot.png";
-import actDiscord from "@/assets/badges/activity-discord.png";
-import actFollowers from "@/assets/badges/activity-followers.png";
-import actImages from "@/assets/badges/activity-images.png";
-import actVideo from "@/assets/badges/activity-video.png";
-import actStory from "@/assets/badges/activity-story.png";
+import actHypeman from "@/assets/badges/activity-hypeman.png";
+import actSquad from "@/assets/badges/activity-squad.png";
+import actFirstdate from "@/assets/badges/activity-firstdate.png";
+import actPicspammer from "@/assets/badges/activity-picspammer.png";
+import actMoviemaker from "@/assets/badges/activity-moviemaker.png";
+import actFanfic from "@/assets/badges/activity-fanfic.png";
 
 import shopWaifu from "@/assets/badges/shop-waifu.png";
 import shopTouchgrass from "@/assets/badges/shop-touchgrass.png";
@@ -185,12 +185,12 @@ const badgeCategories = [
 ];
 
 const activityBadges = [
-  { name: "Star Reviewer", description: "Drop a ⭐ review and flex your opinion", imageUrl: actTrustpilot, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
-  { name: "Discord Degen", description: "Join the chaos. Memes, vibes, and zero sleep", imageUrl: actDiscord, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
-  { name: "Clout Chaser", description: "Follow 100 creators and become the ultimate stalker", imageUrl: actFollowers, completed: false, actionLabel: "Browse Creators" },
-  { name: "Share Images", description: "Share 10 images with the community", imageUrl: actImages, completed: false, actionLabel: "Start Sharing" },
-  { name: "Create Video", description: "Create and share your first video", imageUrl: actVideo, completed: false, actionLabel: "Create Video" },
-  { name: "Write a Story", description: "Write and publish your first story", imageUrl: actStory, completed: true, actionLabel: "Write Story" },
+  { name: "Hype Man", description: "Drop a ⭐ review — be our biggest fan or get roasted", imageUrl: actHypeman, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
+  { name: "Squad Goals", description: "Join the degen squad. Memes, waifus, zero sleep", imageUrl: actSquad, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
+  { name: "First Date", description: "Follow 100 creators — you're officially obsessed", imageUrl: actFirstdate, completed: false, actionLabel: "Browse Creators" },
+  { name: "Pic Spammer", description: "Share 10 pics of your AI bae. We get it, she's hot", imageUrl: actPicspammer, completed: false, actionLabel: "Start Sharing" },
+  { name: "Movie Maker", description: "Direct your first AI girlfriend cinematic universe", imageUrl: actMoviemaker, completed: false, actionLabel: "Create Video" },
+  { name: "Fanfic Lord", description: "Write your love story. We won't judge... much", imageUrl: actFanfic, completed: true, actionLabel: "Write Story" },
 ];
 
 const shopBadges = [
@@ -218,6 +218,7 @@ const Profile = () => {
   const [previewTier, setPreviewTier] = useState<BadgeTier>("legend");
   const [selectedActivity, setSelectedActivity] = useState<typeof activityBadges[0] | null>(null);
   const [completedActivities, setCompletedActivities] = useState<Set<string>>(new Set(activityBadges.filter(b => b.completed).map(b => b.name)));
+  const [claimedActivities, setClaimedActivities] = useState<Set<string>>(new Set());
   const [selectedShop, setSelectedShop] = useState<typeof shopBadges[0] | null>(null);
   const [ownedShop, setOwnedShop] = useState<Set<string>>(new Set());
   const [activeBadge, setActiveBadge] = useState<EquippedBadge | null>(null);
@@ -386,17 +387,38 @@ const Profile = () => {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {activityBadges.map((badge) => (
-                <ActivityBadgeCard key={badge.name} {...badge} completed={completedActivities.has(badge.name)} onClick={() => setSelectedActivity(badge)} />
+                <ActivityBadgeCard
+                  key={badge.name}
+                  {...badge}
+                  completed={completedActivities.has(badge.name)}
+                  claimed={claimedActivities.has(badge.name)}
+                  equipped={activeBadge?.name === badge.name}
+                  onClick={() => setSelectedActivity(badge)}
+                />
               ))}
             </div>
             {selectedActivity && (
               <ActivityBadgePopup
                 {...selectedActivity}
                 completed={completedActivities.has(selectedActivity.name)}
+                claimed={claimedActivities.has(selectedActivity.name)}
+                equipped={activeBadge?.name === selectedActivity.name}
                 onClose={() => setSelectedActivity(null)}
                 onComplete={() => {
                   setCompletedActivities(prev => new Set(prev).add(selectedActivity.name));
                   setSelectedActivity({ ...selectedActivity, completed: true });
+                }}
+                onClaim={() => {
+                  setClaimedActivities(prev => new Set(prev).add(selectedActivity.name));
+                  setSelectedActivity(null);
+                }}
+                onEquip={() => {
+                  handleEquip(selectedActivity);
+                  setSelectedActivity(null);
+                }}
+                onUnequip={() => {
+                  handleUnequip(selectedActivity.name);
+                  setSelectedActivity(null);
                 }}
               />
             )}
