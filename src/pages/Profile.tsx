@@ -347,17 +347,26 @@ const Profile = () => {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {shopBadges.map((badge) => (
-                <ShopBadgeCard key={badge.name} {...badge} owned={ownedShop.has(badge.name)} onClick={() => setSelectedShop(badge)} />
+                <ShopBadgeCard key={badge.name} {...badge} owned={ownedShop.has(badge.name)} equipped={equippedBadges.some(b => b.name === badge.name)} onClick={() => setSelectedShop(badge)} />
               ))}
             </div>
             {selectedShop && (
               <ShopBadgePopup
                 {...selectedShop}
                 owned={ownedShop.has(selectedShop.name)}
+                equipped={equippedBadges.some(b => b.name === selectedShop.name)}
                 onClose={() => setSelectedShop(null)}
                 onBuy={() => {
                   setOwnedShop(prev => new Set(prev).add(selectedShop.name));
                   setSelectedShop({ ...selectedShop, owned: true });
+                }}
+                onEquip={() => {
+                  handleEquip(selectedShop);
+                  setSelectedShop(null);
+                }}
+                onUnequip={() => {
+                  handleUnequip(selectedShop.name);
+                  setSelectedShop(null);
                 }}
               />
             )}
