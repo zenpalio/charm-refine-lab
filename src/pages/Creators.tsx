@@ -50,7 +50,7 @@ const isHighTier = (tier: BadgeTier) => ["elite", "grandmaster", "mythic", "immo
 
 type CreationType = "all" | "characters" | "images" | "videos" | "stories";
 type SortBy = "aura" | "likes" | "followers";
-type FilterBy = "all" | "year" | "month" | "week" | "today";
+type FilterBy = "all" | "year" | "month" | "week";
 
 const creationTypeLabels: Record<CreationType, string> = {
   all: "All Creations",
@@ -113,8 +113,8 @@ const Creators = () => {
   const [creationType, setCreationType] = useState<CreationType>("all");
 
   const sortLabels: Record<SortBy, string> = { aura: "Most Aura", likes: "Most Liked", followers: "Most Followers" };
-  const filterLabels: Record<FilterBy, string> = { all: "All time", year: "Year", month: "Month", week: "Week", today: "Today" };
-  const filterOptions: FilterBy[] = ["all", "year", "month", "week", "today"];
+  const filterLabels: Record<FilterBy, string> = { all: "All time", year: "Year", month: "Month", week: "Week" };
+  const filterOptions: FilterBy[] = ["all", "year", "month", "week"];
   const creationOptions: CreationType[] = ["all", "characters", "images", "videos"];
 
   const showExtraFilters = sortBy === "likes";
