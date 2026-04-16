@@ -30,6 +30,12 @@ import shopFLegend from "@/assets/badges/shop-legend.png";
 import shopGigachad from "@/assets/badges/shop-gigachad.png";
 import shopNolife from "@/assets/badges/shop-nolife.png";
 import shopDownbad from "@/assets/badges/shop-downbad.png";
+import shopAnime from "@/assets/badges/shop-anime-addict.png";
+import shopRealism from "@/assets/badges/shop-realism.png";
+import shopMybabesOG from "@/assets/badges/shop-mybabes-og.png";
+import shopMainchar from "@/assets/badges/shop-mainchar.png";
+import shopPremium from "@/assets/badges/shop-premium.png";
+import shopBothworlds from "@/assets/badges/shop-bothworlds.png";
 import charNewbie from "@/assets/badges/char-newbie.png";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
@@ -199,6 +205,12 @@ const shopBadges = [
   { name: "Giga Chad", description: "Peak masculinity. Jaw of steel, heart of gold", imageUrl: shopGigachad, price: 5000, owned: false },
   { name: "No Life", description: "You live here now. Touch grass? Never heard of it", imageUrl: shopNolife, price: 1800, owned: false },
   { name: "Down Bad", description: "Simping so hard the ice froze your heart", imageUrl: shopDownbad, price: 900, owned: false },
+  { name: "Anime Addict", description: "2D > 3D and you're not even ashamed", imageUrl: shopAnime, price: 700, owned: false },
+  { name: "Realism Enjoyer", description: "Only the finest AI-generated photorealism for you", imageUrl: shopRealism, price: 1100, owned: false },
+  { name: "MyBabes OG", description: "Day one supporter. You were here before it was cool", imageUrl: shopMybabesOG, price: 4000, owned: false },
+  { name: "Main Character", description: "Everyone else is just an NPC in your story", imageUrl: shopMainchar, price: 1500, owned: false },
+  { name: "MyBabes VIP", description: "Premium member with exclusive perks and bragging rights", imageUrl: shopPremium, price: 10000, owned: false },
+  { name: "Best of Both Worlds", description: "Anime or realistic? Why not both?", imageUrl: shopBothworlds, price: 2200, owned: false },
 ];
 
 const Profile = () => {
