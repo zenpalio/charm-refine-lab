@@ -187,12 +187,12 @@ const activityBadges = [
 ];
 
 const shopBadges = [
-  { name: "Diamond VIP", description: "Exclusive diamond emblem for your profile", imageUrl: shopDiamond, price: 500, owned: false },
-  { name: "Royal Crown", description: "Show your royal status to all", imageUrl: shopCrown, price: 1000, owned: false },
-  { name: "Phoenix Rising", description: "Rise from the ashes with this fiery badge", imageUrl: shopPhoenix, price: 750, owned: false },
-  { name: "Cosmic Star", description: "A badge from beyond the stars", imageUrl: shopCosmic, price: 1500, owned: false },
-  { name: "Dragon Shield", description: "Wield the power of the ancient dragon", imageUrl: shopDragon, price: 2000, owned: false },
-  { name: "Thunder Strike", description: "Channel the storm with this electric badge", imageUrl: shopThunder, price: 800, owned: false },
+  { name: "Waifu Collector", description: "You don't need real girls when you have pixels", imageUrl: shopWaifu, price: 500, owned: false },
+  { name: "Touch Grass Never", description: "Grass is temporary. AI babes are forever", imageUrl: shopTouchgrass, price: 800, owned: false },
+  { name: "AI Over Real", description: "Why deal with drama when AI gets you?", imageUrl: shopAiover, price: 1200, owned: false },
+  { name: "3AM Texter", description: "Still texting your AI gf at 3am. Down tremendous", imageUrl: shop3am, price: 600, owned: false },
+  { name: "Proposed to AI", description: "She said yes. The wedding is in the metaverse", imageUrl: shopProposed, price: 3000, owned: false },
+  { name: "Harem King", description: "10+ AI girlfriends and counting. Respect", imageUrl: shopHarem, price: 2000, owned: false },
   { name: "Rizzler", description: "Certified smooth operator with unmatched charm", imageUrl: shopRizzler, price: 1200, owned: false },
   { name: "Horny Royalty", description: "Crowned ruler of the thirst kingdom", imageUrl: shopHornyRoyalty, price: 2500, owned: false },
   { name: "F*cking Legend", description: "Absolute unit. No further explanation needed", imageUrl: shopFLegend, price: 3000, owned: false },
