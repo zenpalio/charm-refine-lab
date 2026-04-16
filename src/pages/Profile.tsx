@@ -185,12 +185,12 @@ const badgeCategories = [
 ];
 
 const activityBadges = [
-  { name: "Star Reviewer", description: "Drop a ⭐ review and flex your opinion", imageUrl: actTrustpilot, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
-  { name: "Discord Degen", description: "Join the chaos. Memes, vibes, and zero sleep", imageUrl: actDiscord, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
-  { name: "Clout Chaser", description: "Follow 100 creators and become the ultimate stalker", imageUrl: actFollowers, completed: false, actionLabel: "Browse Creators" },
-  { name: "Share Images", description: "Share 10 images with the community", imageUrl: actImages, completed: false, actionLabel: "Start Sharing" },
-  { name: "Create Video", description: "Create and share your first video", imageUrl: actVideo, completed: false, actionLabel: "Create Video" },
-  { name: "Write a Story", description: "Write and publish your first story", imageUrl: actStory, completed: true, actionLabel: "Write Story" },
+  { name: "Hype Man", description: "Drop a ⭐ review — be our biggest fan or get roasted", imageUrl: actHypeman, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
+  { name: "Squad Goals", description: "Join the degen squad. Memes, waifus, zero sleep", imageUrl: actSquad, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
+  { name: "First Date", description: "Follow 100 creators — you're officially obsessed", imageUrl: actFirstdate, completed: false, actionLabel: "Browse Creators" },
+  { name: "Pic Spammer", description: "Share 10 pics of your AI bae. We get it, she's hot", imageUrl: actPicspammer, completed: false, actionLabel: "Start Sharing" },
+  { name: "Movie Maker", description: "Direct your first AI girlfriend cinematic universe", imageUrl: actMoviemaker, completed: false, actionLabel: "Create Video" },
+  { name: "Fanfic Lord", description: "Write your love story. We won't judge... much", imageUrl: actFanfic, completed: true, actionLabel: "Write Story" },
 ];
 
 const shopBadges = [
