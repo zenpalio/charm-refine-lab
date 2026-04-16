@@ -246,11 +246,57 @@ const Profile = () => {
           </div>
         </div>
 
-        <div>
-          {badgeCategories.map((cat, i) => (
-            <BadgeCategory key={i} {...cat} activeTier={previewTier} onUseBadge={i === 0 ? (tier) => setPreviewTier(tier) : undefined} />
-          ))}
-        </div>
+        <Tabs defaultValue="aura" className="w-full">
+          <TabsList className="w-full bg-transparent border-b border-border/30 rounded-none h-auto p-0 mb-6">
+            <TabsTrigger
+              value="aura"
+              className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs font-semibold uppercase tracking-wider py-3"
+            >
+              Aura Badges
+            </TabsTrigger>
+            <TabsTrigger
+              value="activity"
+              className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs font-semibold uppercase tracking-wider py-3"
+            >
+              Activity
+            </TabsTrigger>
+            <TabsTrigger
+              value="shop"
+              className="flex-1 rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none text-xs font-semibold uppercase tracking-wider py-3"
+            >
+              Shop
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="aura">
+            {badgeCategories.map((cat, i) => (
+              <BadgeCategory key={i} {...cat} activeTier={previewTier} onUseBadge={i === 0 ? (tier) => setPreviewTier(tier) : undefined} />
+            ))}
+          </TabsContent>
+
+          <TabsContent value="activity">
+            <div className="mb-4">
+              <p className="text-xs text-muted-foreground mb-1">Complete activities to earn exclusive badges</p>
+              <p className="text-[10px] text-muted-foreground/60">{activityBadges.filter(b => b.completed).length}/{activityBadges.length} completed</p>
+            </div>
+            <HorizontalScroll>
+              {activityBadges.map((badge) => (
+                <ActivityBadgeCard key={badge.name} {...badge} />
+              ))}
+            </HorizontalScroll>
+          </TabsContent>
+
+          <TabsContent value="shop">
+            <div className="mb-4">
+              <p className="text-xs text-muted-foreground mb-1">Buy exclusive badges with your tokens</p>
+            </div>
+            <HorizontalScroll>
+              {shopBadges.map((badge) => (
+                <ShopBadgeCard key={badge.name} {...badge} />
+              ))}
+            </HorizontalScroll>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
