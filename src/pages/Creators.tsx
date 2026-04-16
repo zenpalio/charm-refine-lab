@@ -539,7 +539,7 @@ const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) =>
             ? "hsl(0 70% 50% / 0.1)"
             : highTier
             ? `linear-gradient(135deg, hsl(${glowHsl} / 0.12), hsl(${glowHsl} / 0.05))`
-            : "hsl(var(--secondary) / 0.6)",
+            : "hsl(var(--muted) / 0.6)",
         }}
       >
         {sortBy === "likes" ? (
