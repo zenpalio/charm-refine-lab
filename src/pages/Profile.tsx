@@ -169,6 +169,24 @@ const badgeCategories = [
   },
 ];
 
+const activityBadges = [
+  { name: "Trustpilot Review", description: "Leave us a review on Trustpilot", imageUrl: actTrustpilot, completed: false, actionLabel: "Review Now", actionUrl: "https://trustpilot.com" },
+  { name: "Join Discord", description: "Join our Discord community", imageUrl: actDiscord, completed: false, actionLabel: "Join Discord", actionUrl: "https://discord.gg" },
+  { name: "Follow 100 Users", description: "Follow 100 creators on the platform", imageUrl: actFollowers, completed: false, actionLabel: "Browse Creators" },
+  { name: "Share Images", description: "Share 10 images with the community", imageUrl: actImages, completed: false, actionLabel: "Start Sharing" },
+  { name: "Create Video", description: "Create and share your first video", imageUrl: actVideo, completed: false, actionLabel: "Create Video" },
+  { name: "Write a Story", description: "Write and publish your first story", imageUrl: actStory, completed: true, actionLabel: "Write Story" },
+];
+
+const shopBadges = [
+  { name: "Diamond VIP", description: "Exclusive diamond emblem for your profile", imageUrl: shopDiamond, price: 500, owned: false },
+  { name: "Royal Crown", description: "Show your royal status to all", imageUrl: shopCrown, price: 1000, owned: false },
+  { name: "Phoenix Rising", description: "Rise from the ashes with this fiery badge", imageUrl: shopPhoenix, price: 750, owned: false },
+  { name: "Cosmic Star", description: "A badge from beyond the stars", imageUrl: shopCosmic, price: 1500, owned: false },
+  { name: "Dragon Shield", description: "Wield the power of the ancient dragon", imageUrl: shopDragon, price: 2000, owned: false },
+  { name: "Thunder Strike", description: "Channel the storm with this electric badge", imageUrl: shopThunder, price: 800, owned: false },
+];
+
 const Profile = () => {
   const [previewTier, setPreviewTier] = useState<BadgeTier>("legend");
 
