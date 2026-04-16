@@ -239,19 +239,18 @@ const Profile = () => {
 
         <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>
-            {/* Canvas-based ring effects for all tiers */}
-            <TierRingCanvas tier={previewTier} />
-
-            {/* Equipped badge glow overlay on avatar ring */}
-            {activeBadge && (
+            {/* Show tier ring OR shop badge glow — never both */}
+            {activeBadge ? (
               <div
-                className="absolute inset-[-8%] rounded-full pointer-events-none z-[0]"
+                className="absolute inset-[-8%] rounded-full pointer-events-none z-[2]"
                 style={{
-                  background: `radial-gradient(circle, ${getBadgeEffect(activeBadge.name).glowColor.replace(")", " / 0.2)")} 60%, transparent 100%)`,
+                  background: `radial-gradient(circle, ${getBadgeEffect(activeBadge.name).glowColor.replace(")", " / 0.25)")} 60%, transparent 100%)`,
                   filter: "blur(10px)",
                   animation: "badge-pulse-glow 3s ease-in-out infinite",
                 }}
               />
+            ) : (
+              <TierRingCanvas tier={previewTier} />
             )}
 
             {/* Avatar */}
