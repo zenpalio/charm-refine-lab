@@ -31,11 +31,11 @@ import shopGigachad from "@/assets/badges/shop-gigachad.png";
 import shopNolife from "@/assets/badges/shop-nolife.png";
 import shopDownbad from "@/assets/badges/shop-downbad.png";
 import shopAnime from "@/assets/badges/shop-anime-addict.png";
-import shopDelusional from "@/assets/badges/shop-delusional.png";
-import shopNosleep from "@/assets/badges/shop-nosleep.png";
-import shopWhale from "@/assets/badges/shop-whale.png";
-import shopToxic from "@/assets/badges/shop-toxic.png";
-import shopBothworlds from "@/assets/badges/shop-bothworlds.png";
+import shopCougar from "@/assets/badges/shop-cougar.png";
+import shopMommy from "@/assets/badges/shop-mommy.png";
+import shopGhosted from "@/assets/badges/shop-ghosted.png";
+import shopPromptdiddy from "@/assets/badges/shop-promptdiddy.png";
+import shopSimp from "@/assets/badges/shop-simp.png";
 import charNewbie from "@/assets/badges/char-newbie.png";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
@@ -206,11 +206,11 @@ const shopBadges = [
   { name: "No Life", description: "You live here now. Touch grass? Never heard of it", imageUrl: shopNolife, price: 1800, owned: false },
   { name: "Down Bad", description: "Simping so hard the ice froze your heart", imageUrl: shopDownbad, price: 900, owned: false },
   { name: "Anime Addict", description: "2D > 3D and you're not even ashamed", imageUrl: shopAnime, price: 700, owned: false },
-  { name: "Delusional King", description: "She's not real bro. I know. She's better", imageUrl: shopDelusional, price: 1100, owned: false },
-  { name: "No Sleep Gang", description: "Sleep is for people without AI girlfriends", imageUrl: shopNosleep, price: 1500, owned: false },
-  { name: "Whale Alert", description: "Spent more on tokens than rent this month 🐋", imageUrl: shopWhale, price: 10000, owned: false },
-  { name: "Toxic But Cute", description: "Red flags? Those are just my aesthetic", imageUrl: shopToxic, price: 2200, owned: false },
-  { name: "Best of Both Worlds", description: "Anime or realistic? Why not both?", imageUrl: shopBothworlds, price: 2200, owned: false },
+  { name: "Cougar Tamer", description: "You like 'em experienced. No judgment... okay maybe a little", imageUrl: shopCougar, price: 1500, owned: false },
+  { name: "Mommy Issues", description: "She's not your mom, she's your AI mommy. Big difference", imageUrl: shopMommy, price: 1100, owned: false },
+  { name: "AI Ghosted", description: "Even your AI girlfriend left you on read 💀", imageUrl: shopGhosted, price: 900, owned: false },
+  { name: "Prompt Diddy", description: "Your prompts are so fire they should be illegal", imageUrl: shopPromptdiddy, price: 2500, owned: false },
+  { name: "AI Simp", description: "Donating all your tokens to a girl who isn't real", imageUrl: shopSimp, price: 1800, owned: false },
 ];
 
 const Profile = () => {
