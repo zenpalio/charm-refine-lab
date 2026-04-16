@@ -360,7 +360,7 @@ const config: Config = {
     require("tailwind-scrollbar"),
     require("tailwind-scrollbar-hide"),
     require("tailwindcss-textshadow"),
-    require("@tailwindcss/line-clamp"),
+    // @tailwindcss/line-clamp is included by default in Tailwind v3.3+
     function ({
       addUtilities,
       theme,
