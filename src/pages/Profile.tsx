@@ -12,12 +12,12 @@ import ProfileBadgeShowcase, { type EquippedBadge, getBadgeEffect } from "@/comp
 import { type BadgeTier } from "@/components/BadgeCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-import actTrustpilot from "@/assets/badges/activity-trustpilot.png";
-import actDiscord from "@/assets/badges/activity-discord.png";
-import actFollowers from "@/assets/badges/activity-followers.png";
-import actImages from "@/assets/badges/activity-images.png";
-import actVideo from "@/assets/badges/activity-video.png";
-import actStory from "@/assets/badges/activity-story.png";
+import actHypeman from "@/assets/badges/activity-hypeman.png";
+import actSquad from "@/assets/badges/activity-squad.png";
+import actFirstdate from "@/assets/badges/activity-firstdate.png";
+import actPicspammer from "@/assets/badges/activity-picspammer.png";
+import actMoviemaker from "@/assets/badges/activity-moviemaker.png";
+import actFanfic from "@/assets/badges/activity-fanfic.png";
 
 import shopWaifu from "@/assets/badges/shop-waifu.png";
 import shopTouchgrass from "@/assets/badges/shop-touchgrass.png";
