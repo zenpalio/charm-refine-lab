@@ -18,12 +18,12 @@ import actImages from "@/assets/badges/activity-images.png";
 import actVideo from "@/assets/badges/activity-video.png";
 import actStory from "@/assets/badges/activity-story.png";
 
-import shopDiamond from "@/assets/badges/shop-diamond.png";
-import shopCrown from "@/assets/badges/shop-crown.png";
-import shopPhoenix from "@/assets/badges/shop-phoenix.png";
-import shopCosmic from "@/assets/badges/shop-cosmic.png";
-import shopDragon from "@/assets/badges/shop-dragon.png";
-import shopThunder from "@/assets/badges/shop-thunder.png";
+import shopWaifu from "@/assets/badges/shop-waifu.png";
+import shopTouchgrass from "@/assets/badges/shop-touchgrass.png";
+import shopAiover from "@/assets/badges/shop-aiover.png";
+import shop3am from "@/assets/badges/shop-3am.png";
+import shopProposed from "@/assets/badges/shop-proposed.png";
+import shopHarem from "@/assets/badges/shop-harem.png";
 import shopRizzler from "@/assets/badges/shop-rizzler.png";
 import shopHornyRoyalty from "@/assets/badges/shop-horny-royalty.png";
 import shopFLegend from "@/assets/badges/shop-legend.png";
