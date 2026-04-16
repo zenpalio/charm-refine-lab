@@ -175,7 +175,7 @@ const config: Config = {
         "active-stories": 'url("/active-stories.svg")',
         "active-card":
           "linear-gradient(180deg, hsl(var(--message)) 45%, hsl(var(--primary)) 100%)",
-        card: "linear-gradient(90deg, #0e0f11 45%, #191B1F 100%)",
+        "card-gradient": "linear-gradient(90deg, #0e0f11 45%, #191B1F 100%)",
         "countdown-card":
           "linear-gradient(90deg, hsl(var(--secondary)) 0%, hsl(var(--primary)) 100%)",
         footer:
