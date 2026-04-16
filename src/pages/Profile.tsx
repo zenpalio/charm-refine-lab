@@ -387,17 +387,38 @@ const Profile = () => {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
               {activityBadges.map((badge) => (
-                <ActivityBadgeCard key={badge.name} {...badge} completed={completedActivities.has(badge.name)} onClick={() => setSelectedActivity(badge)} />
+                <ActivityBadgeCard
+                  key={badge.name}
+                  {...badge}
+                  completed={completedActivities.has(badge.name)}
+                  claimed={claimedActivities.has(badge.name)}
+                  equipped={activeBadge?.name === badge.name}
+                  onClick={() => setSelectedActivity(badge)}
+                />
               ))}
             </div>
             {selectedActivity && (
               <ActivityBadgePopup
                 {...selectedActivity}
                 completed={completedActivities.has(selectedActivity.name)}
+                claimed={claimedActivities.has(selectedActivity.name)}
+                equipped={activeBadge?.name === selectedActivity.name}
                 onClose={() => setSelectedActivity(null)}
                 onComplete={() => {
                   setCompletedActivities(prev => new Set(prev).add(selectedActivity.name));
                   setSelectedActivity({ ...selectedActivity, completed: true });
+                }}
+                onClaim={() => {
+                  setClaimedActivities(prev => new Set(prev).add(selectedActivity.name));
+                  setSelectedActivity(null);
+                }}
+                onEquip={() => {
+                  handleEquip(selectedActivity);
+                  setSelectedActivity(null);
+                }}
+                onUnequip={() => {
+                  handleUnequip(selectedActivity.name);
+                  setSelectedActivity(null);
                 }}
               />
             )}
