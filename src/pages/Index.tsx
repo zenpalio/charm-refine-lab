@@ -97,7 +97,7 @@ const Index = () => {
           <h1 className="text-2xl font-bold text-foreground">
             Welcome back, Arthur <span className="text-primary">💜</span>
           </h1>
-          <button className="p-2 rounded-full hover:bg-secondary transition-colors">
+          <button className="p-2 rounded-full hover:bg-muted transition-colors">
             <Bell className="w-5 h-5 text-muted-foreground" />
           </button>
         </header>

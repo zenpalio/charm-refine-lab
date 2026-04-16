@@ -192,7 +192,7 @@ const Creators = () => {
                 navigate(-1);
               }
             }}
-            className="p-1.5 rounded-full hover:bg-secondary transition-colors"
+            className="p-1.5 rounded-full hover:bg-muted transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-foreground" />
           </button>
@@ -226,7 +226,7 @@ const Creators = () => {
                 <Users className="w-4 h-4 text-primary" />
                 <h1 className="text-base font-bold text-foreground">Creators</h1>
               </div>
-              <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
+              <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-muted transition-colors">
                 <Search className="w-5 h-5 text-muted-foreground" />
               </button>
             </>
