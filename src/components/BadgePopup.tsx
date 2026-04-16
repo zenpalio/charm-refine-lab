@@ -121,12 +121,12 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             </span>
           )}
           {unlocked && claimed && (
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary text-muted-foreground">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-muted-foreground" style={{ backgroundColor: "hsl(var(--muted))" }}>
               <Star className="w-3 h-3" /> Collected
             </span>
           )}
           {!unlocked && (
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/50 text-muted-foreground">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-muted-foreground" style={{ backgroundColor: "hsl(var(--muted) / 0.5)" }}>
               <Lock className="w-3 h-3" /> Locked
             </span>
           )}
@@ -220,7 +220,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
           </Button>
         ) : unlocked ? (
           <div className="w-full space-y-2">
-            <Button variant="secondary" size="lg" className="w-full rounded-xl" disabled>
+            <Button variant="ghost" size="lg" className="w-full rounded-xl border border-border/30" disabled style={{ backgroundColor: "hsl(var(--muted))" }}>
               <Check className="w-4 h-4" /> Collected
             </Button>
             {onUseBadge && (
@@ -248,14 +248,14 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
               <span>{currentAura.toLocaleString()} / {aura.toLocaleString()} aura</span>
               <span>{Math.min(100, Math.round((currentAura / aura) * 100))}%</span>
             </div>
-            <div className="relative w-full h-2.5 rounded-full overflow-hidden border border-border/50 bg-muted/40">
+            <div className="relative w-full h-2.5 rounded-full overflow-hidden border border-border/50" style={{ backgroundColor: "hsl(var(--muted))" }}>
               <div
                 className="absolute inset-y-0 left-0 rounded-full transition-all duration-700 z-10"
                 style={{
                   width: `${Math.min(100, (currentAura / aura) * 100)}%`,
                   minWidth: currentAura > 0 ? "0.5rem" : "0",
-                  backgroundColor: accent,
-                  boxShadow: `0 0 10px ${accent}`,
+                  backgroundColor: "hsl(var(--primary))",
+                  boxShadow: "0 0 10px hsl(var(--primary) / 0.5)",
                 }}
               />
             </div>

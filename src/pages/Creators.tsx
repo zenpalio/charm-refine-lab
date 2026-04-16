@@ -192,7 +192,7 @@ const Creators = () => {
                 navigate(-1);
               }
             }}
-            className="p-1.5 rounded-full hover:bg-secondary transition-colors"
+            className="p-1.5 rounded-full hover:bg-muted transition-colors"
           >
             <ArrowLeft className="w-4 h-4 text-foreground" />
           </button>
@@ -226,7 +226,7 @@ const Creators = () => {
                 <Users className="w-4 h-4 text-primary" />
                 <h1 className="text-base font-bold text-foreground">Creators</h1>
               </div>
-              <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-secondary transition-colors">
+              <button onClick={() => setSearchOpen(true)} className="p-2 rounded-full hover:bg-muted transition-colors">
                 <Search className="w-5 h-5 text-muted-foreground" />
               </button>
             </>
@@ -539,7 +539,7 @@ const CreatorRow = ({ creator, rank, creationType, sortBy }: CreatorRowProps) =>
             ? "hsl(0 70% 50% / 0.1)"
             : highTier
             ? `linear-gradient(135deg, hsl(${glowHsl} / 0.12), hsl(${glowHsl} / 0.05))`
-            : "hsl(var(--secondary) / 0.6)",
+            : "hsl(var(--muted) / 0.6)",
         }}
       >
         {sortBy === "likes" ? (

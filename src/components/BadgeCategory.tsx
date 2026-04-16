@@ -77,10 +77,10 @@ const BadgeCategory = ({ title, subtitle, badges: initialBadges, progress, image
             </div>
           )}
           <div className="flex items-center gap-2">
-            <div className="w-20 h-2 rounded-full bg-secondary overflow-hidden">
+            <div className="w-20 h-2 rounded-full overflow-hidden" style={{ backgroundColor: "hsl(var(--muted))" }}>
               <div
-                className="h-full rounded-full bg-primary transition-all"
-                style={{ width: `${progress}%` }}
+                className="h-full rounded-full transition-all"
+                style={{ width: `${progress}%`, backgroundColor: "hsl(var(--primary))" }}
               />
             </div>
             <span className="text-[10px] text-muted-foreground font-medium min-w-[28px]">{progress}%</span>

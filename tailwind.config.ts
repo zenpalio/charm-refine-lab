@@ -372,7 +372,7 @@ const config: Config = {
       theme: (key: string) => any;
     }) {
       const gradientText = {
-        ".text-secondary": {
+        ".text-gradient-secondary": {
           backgroundImage: theme("backgroundImage.secondary-gradient"),
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -382,7 +382,7 @@ const config: Config = {
           backgroundSize: "200% 200%",
           backgroundPosition: "0% 50%",
         },
-        ".hover\\:text-secondary:hover": {
+        ".hover\\:text-gradient-secondary:hover": {
           backgroundPosition: "50% 50%",
         },
       };
@@ -399,17 +399,17 @@ const config: Config = {
       theme: (key: string) => any;
     }) {
       addUtilities({
-        ".bg-secondary": {
+        ".bg-gradient-secondary": {
           backgroundImage: theme("backgroundImage.secondary-gradient"),
           backgroundSize: "200% 200%",
           backgroundPosition: "0% 50%",
           transition:
             "background-position 0.4s ease, filter 400ms ease, opacity 400ms ease",
         },
-        ".bg-secondary:hover": {
+        ".bg-gradient-secondary:hover": {
           backgroundPosition: "50% 50%",
         },
-        ".bg-secondary:disabled": {
+        ".bg-gradient-secondary:disabled": {
           backgroundPosition: "50% 50%",
           filter: "grayscale(100%) brightness(0.85)",
           opacity: "0.7",
@@ -417,17 +417,17 @@ const config: Config = {
           transition:
             "background-position 0.4s ease, filter 400ms ease, opacity 400ms ease",
         },
-        ".bg-primary": {
+        ".bg-gradient-primary": {
           backgroundImage: theme("backgroundImage.primary-gradient"),
           backgroundSize: "200% 200%",
           backgroundPosition: "0% 50%",
           transition:
             "background-position 0.4s ease, filter 400ms ease, opacity 400ms ease",
         },
-        ".bg-primary:hover": {
+        ".bg-gradient-primary:hover": {
           backgroundPosition: "50% 50%",
         },
-        ".bg-primary:disabled": {
+        ".bg-gradient-primary:disabled": {
           backgroundPosition: "50% 50%",
           filter: "grayscale(60%) brightness(0.85)",
           opacity: "0.7",
