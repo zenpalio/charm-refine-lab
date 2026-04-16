@@ -120,6 +120,43 @@ const badgeEffects: Record<string, {
     animation: "heartbeat",
     particleEmoji: "💗",
   },
+  // Activity badges
+  "Hype Man": {
+    className: "badge-effect-hypeman",
+    glowColor: "hsl(120 70% 45%)",
+    animation: "bounce-subtle",
+    particleEmoji: "⭐",
+  },
+  "Squad Goals": {
+    className: "badge-effect-squad",
+    glowColor: "hsl(270 80% 60%)",
+    animation: "pulse-glow",
+    particleEmoji: "💜",
+  },
+  "First Date": {
+    className: "badge-effect-firstdate",
+    glowColor: "hsl(340 80% 65%)",
+    animation: "heartbeat",
+    particleEmoji: "💕",
+  },
+  "Pic Spammer": {
+    className: "badge-effect-picspammer",
+    glowColor: "hsl(180 100% 50%)",
+    animation: "sparkle",
+    particleEmoji: "📸",
+  },
+  "Movie Maker": {
+    className: "badge-effect-moviemaker",
+    glowColor: "hsl(35 90% 50%)",
+    animation: "rotate-slow",
+    particleEmoji: "🎬",
+  },
+  "Fanfic Lord": {
+    className: "badge-effect-fanfic",
+    glowColor: "hsl(25 90% 55%)",
+    animation: "float",
+    particleEmoji: "📝",
+  },
 };
 
 export const getBadgeEffect = (name: string) => badgeEffects[name] || {
