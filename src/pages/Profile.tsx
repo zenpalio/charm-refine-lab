@@ -24,6 +24,12 @@ import shopPhoenix from "@/assets/badges/shop-phoenix.png";
 import shopCosmic from "@/assets/badges/shop-cosmic.png";
 import shopDragon from "@/assets/badges/shop-dragon.png";
 import shopThunder from "@/assets/badges/shop-thunder.png";
+import shopRizzler from "@/assets/badges/shop-rizzler.png";
+import shopHornyRoyalty from "@/assets/badges/shop-horny-royalty.png";
+import shopFLegend from "@/assets/badges/shop-legend.png";
+import shopGigachad from "@/assets/badges/shop-gigachad.png";
+import shopNolife from "@/assets/badges/shop-nolife.png";
+import shopDownbad from "@/assets/badges/shop-downbad.png";
 import charNewbie from "@/assets/badges/char-newbie.png";
 import charMaster from "@/assets/badges/char-master.png";
 import charLegend from "@/assets/badges/char-legend.png";
@@ -187,6 +193,12 @@ const shopBadges = [
   { name: "Cosmic Star", description: "A badge from beyond the stars", imageUrl: shopCosmic, price: 1500, owned: false },
   { name: "Dragon Shield", description: "Wield the power of the ancient dragon", imageUrl: shopDragon, price: 2000, owned: false },
   { name: "Thunder Strike", description: "Channel the storm with this electric badge", imageUrl: shopThunder, price: 800, owned: false },
+  { name: "Rizzler", description: "Certified smooth operator with unmatched charm", imageUrl: shopRizzler, price: 1200, owned: false },
+  { name: "Horny Royalty", description: "Crowned ruler of the thirst kingdom", imageUrl: shopHornyRoyalty, price: 2500, owned: false },
+  { name: "F*cking Legend", description: "Absolute unit. No further explanation needed", imageUrl: shopFLegend, price: 3000, owned: false },
+  { name: "Giga Chad", description: "Peak masculinity. Jaw of steel, heart of gold", imageUrl: shopGigachad, price: 5000, owned: false },
+  { name: "No Life", description: "You live here now. Touch grass? Never heard of it", imageUrl: shopNolife, price: 1800, owned: false },
+  { name: "Down Bad", description: "Simping so hard the ice froze your heart", imageUrl: shopDownbad, price: 900, owned: false },
 ];
 
 const Profile = () => {
