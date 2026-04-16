@@ -8,7 +8,7 @@ import ActivityBadgePopup from "@/components/ActivityBadgePopup";
 import ShopBadgeCard from "@/components/ShopBadgeCard";
 import ShopBadgePopup from "@/components/ShopBadgePopup";
 import HorizontalScroll from "@/components/HorizontalScroll";
-import ProfileBadgeShowcase, { type EquippedBadge } from "@/components/ProfileBadgeShowcase";
+import ProfileBadgeShowcase, { type EquippedBadge, getBadgeEffect } from "@/components/ProfileBadgeShowcase";
 import { type BadgeTier } from "@/components/BadgeCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
