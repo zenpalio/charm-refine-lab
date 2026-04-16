@@ -288,6 +288,8 @@ const Profile = () => {
           </div>
         </div>
 
+        <ProfileBadgeShowcase equippedBadges={equippedBadges} onRemove={handleUnequip} />
+
         <Tabs defaultValue="aura" className="w-full">
           <TabsList className="w-full bg-transparent border-b border-border/30 rounded-none h-auto p-0 mb-6">
             <TabsTrigger
