@@ -196,7 +196,8 @@ const Profile = () => {
             {statItems.map((stat) => (
               <div
                 key={stat.label}
-                className="flex flex-col items-center gap-1 bg-card rounded-xl p-3 sm:p-4 border border-border/30"
+                className="flex flex-col items-center gap-1 rounded-xl p-3 sm:p-4 border border-border/30"
+                style={{ backgroundColor: "hsl(var(--popover))", backgroundImage: "none" }}
               >
                 <stat.icon className={stat.iconClass} />
                 <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">

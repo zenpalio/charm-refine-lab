@@ -52,9 +52,11 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/85 backdrop-blur-md" onClick={onClose}>
       <div
-        className="relative w-[320px] sm:w-[380px] bg-card rounded-2xl border border-border/20 p-6 flex flex-col items-center text-center overflow-hidden animate-in zoom-in-90 fade-in duration-500"
+        className="relative w-[320px] sm:w-[380px] rounded-2xl border border-border/20 p-6 flex flex-col items-center text-center overflow-hidden animate-in zoom-in-90 fade-in duration-500"
         onClick={(e) => e.stopPropagation()}
         style={{
+          backgroundColor: "hsl(var(--popover))",
+          backgroundImage: "none",
           boxShadow: unlocked
             ? `0 0 60px hsl(${glowHsl} / 0.25), 0 0 120px hsl(${glowHsl} / 0.1)`
             : "0 25px 50px hsl(0 0% 0% / 0.3)",
