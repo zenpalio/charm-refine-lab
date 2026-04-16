@@ -121,12 +121,12 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             </span>
           )}
           {unlocked && claimed && (
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary text-muted-foreground">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-muted-foreground" style={{ backgroundColor: "hsl(var(--muted))" }}>
               <Star className="w-3 h-3" /> Collected
             </span>
           )}
           {!unlocked && (
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/50 text-muted-foreground">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-muted-foreground" style={{ backgroundColor: "hsl(var(--muted) / 0.5)" }}>
               <Lock className="w-3 h-3" /> Locked
             </span>
           )}
@@ -220,7 +220,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
           </Button>
         ) : unlocked ? (
           <div className="w-full space-y-2">
-            <Button variant="secondary" size="lg" className="w-full rounded-xl" disabled>
+            <Button variant="ghost" size="lg" className="w-full rounded-xl border border-border/30" disabled style={{ backgroundColor: "hsl(var(--muted))" }}>
               <Check className="w-4 h-4" /> Collected
             </Button>
             {onUseBadge && (
