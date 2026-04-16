@@ -220,16 +220,17 @@ const Profile = () => {
   const [completedActivities, setCompletedActivities] = useState<Set<string>>(new Set(activityBadges.filter(b => b.completed).map(b => b.name)));
   const [selectedShop, setSelectedShop] = useState<typeof shopBadges[0] | null>(null);
   const [ownedShop, setOwnedShop] = useState<Set<string>>(new Set());
-  const [equippedBadges, setEquippedBadges] = useState<EquippedBadge[]>([]);
+  const [activeBadge, setActiveBadge] = useState<EquippedBadge | null>(null);
+
+  // For backward compat, expose as array
+  const equippedBadges = activeBadge ? [activeBadge] : [];
 
   const handleEquip = (badge: { name: string; imageUrl: string }) => {
-    if (equippedBadges.length >= 5) return; // max 5 equipped
-    if (equippedBadges.some(b => b.name === badge.name)) return;
-    setEquippedBadges(prev => [...prev, { name: badge.name, imageUrl: badge.imageUrl, effect: badge.name }]);
+    setActiveBadge({ name: badge.name, imageUrl: badge.imageUrl, effect: badge.name });
   };
 
-  const handleUnequip = (name: string) => {
-    setEquippedBadges(prev => prev.filter(b => b.name !== name));
+  const handleUnequip = (_name: string) => {
+    setActiveBadge(null);
   };
 
   return (
