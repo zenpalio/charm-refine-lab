@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState } from "react"
 import {
   Search,
   ArrowLeft,
@@ -10,42 +10,47 @@ import {
   BookOpen,
   Users,
   Heart,
-} from "lucide-react";
-import AuraIcon from "./AuraIcon";
-import { type BadgeTier } from "./BadgeCard";
+} from "lucide-react"
+import AuraIcon from "./AuraIcon"
+import { type BadgeTier } from "./BadgeCard"
 
-export type CreationType = "all" | "characters" | "images" | "videos" | "stories";
-export type SortBy = "aura" | "likes" | "followers";
-export type FilterBy = "all" | "year" | "month" | "week";
+export type CreationType =
+  | "all"
+  | "characters"
+  | "images"
+  | "videos"
+  | "stories"
+export type SortBy = "aura" | "likes" | "followers"
+export type FilterBy = "all" | "year" | "month" | "week"
 
 export interface CreatorsViewCreator {
-  id: number;
-  name: string;
-  avatarUrl: string;
-  tier: BadgeTier;
-  followers: number;
-  likes: number;
-  aura: number;
+  id: number
+  name: string
+  avatarUrl: string
+  tier: BadgeTier
+  followers: number
+  likes: number
+  aura: number
   creations: {
-    characters: number;
-    images: number;
-    videos: number;
-    stories: number;
-  };
+    characters: number
+    images: number
+    videos: number
+    stories: number
+  }
 }
 
 export interface CreatorsViewLabels {
-  title: string;
-  searchPlaceholder: string;
-  sortBy: Record<SortBy, string>;
-  timeFilter: Record<FilterBy, string>;
-  creationType: Record<CreationType, string>;
-  emptyMessage: string;
-  hotBadge: string;
-  searchResultsSummary: (resultCount: number, query: string) => string;
-  followersCount: (n: number) => string;
-  creationCountFragment: (count: number, typeLabel: string) => string;
-  searchResultMeta: (followers: number, aura: number) => string;
+  title: string
+  searchPlaceholder: string
+  sortBy: Record<SortBy, string>
+  timeFilter: Record<FilterBy, string>
+  creationType: Record<CreationType, string>
+  emptyMessage: string
+  hotBadge: string
+  searchResultsSummary: (resultCount: number, query: string) => string
+  followersCount: (n: number) => string
+  creationCountFragment: (count: number, typeLabel: string) => string
+  searchResultMeta: (followers: number, aura: number) => string
 }
 
 const tierBorderColors: Record<BadgeTier, string> = {
@@ -56,7 +61,7 @@ const tierBorderColors: Record<BadgeTier, string> = {
   grandmaster: "hsl(0 82% 58%)",
   mythic: "hsl(281 85% 62%)",
   immortal: "hsl(48 96% 70%)",
-};
+}
 
 const tierGlowColors: Record<BadgeTier, string> = {
   newbie: "25 45% 52%",
@@ -66,10 +71,10 @@ const tierGlowColors: Record<BadgeTier, string> = {
   grandmaster: "0 82% 58%",
   mythic: "281 85% 62%",
   immortal: "48 96% 70%",
-};
+}
 
 const isHighTier = (tier: BadgeTier) =>
-  ["elite", "grandmaster", "mythic", "immortal"].includes(tier);
+  ["elite", "grandmaster", "mythic", "immortal"].includes(tier)
 
 const creationTypeIcons: Record<CreationType, React.ReactNode> = {
   all: <Users className="w-4 h-4" />,
@@ -77,43 +82,52 @@ const creationTypeIcons: Record<CreationType, React.ReactNode> = {
   images: <Image className="w-4 h-4" />,
   videos: <Video className="w-4 h-4" />,
   stories: <BookOpen className="w-4 h-4" />,
-};
+}
 
 export interface CreatorsViewProps {
-  creators: CreatorsViewCreator[];
-  labels: CreatorsViewLabels;
-  onBack: () => void;
+  creators: CreatorsViewCreator[]
+  labels: CreatorsViewLabels
+  onBack: () => void
 }
 
 export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
-  const [search, setSearch] = useState("");
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchActive, setSearchActive] = useState(false);
-  const [sortBy, setSortBy] = useState<SortBy>("followers");
-  const [sortOpen, setSortOpen] = useState(false);
-  const [creationOpen, setCreationOpen] = useState(false);
-  const [timeOpen, setTimeOpen] = useState(false);
-  const [filterBy, setFilterBy] = useState<FilterBy>("all");
-  const [creationType, setCreationType] = useState<CreationType>("all");
+  const [search, setSearch] = useState("")
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [searchActive, setSearchActive] = useState(false)
+  const [sortBy, setSortBy] = useState<SortBy>("followers")
+  const [sortOpen, setSortOpen] = useState(false)
+  const [creationOpen, setCreationOpen] = useState(false)
+  const [timeOpen, setTimeOpen] = useState(false)
+  const [filterBy, setFilterBy] = useState<FilterBy>("all")
+  const [creationType, setCreationType] = useState<CreationType>("all")
 
-  const filterOptions: FilterBy[] = ["all", "year", "month", "week"];
-  const creationOptions: CreationType[] = ["all", "characters", "images", "videos"];
+  const filterOptions: FilterBy[] = ["all", "year", "month", "week"]
+  const creationOptions: CreationType[] = [
+    "all",
+    "characters",
+    "images",
+    "videos",
+  ]
 
-  const showExtraFilters = sortBy === "likes";
+  const showExtraFilters = sortBy === "likes"
 
   const filtered = useMemo(() => {
-    let list = [...creators];
-    if (search) list = list.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()));
+    let list = [...creators]
+    if (search)
+      list = list.filter((c) =>
+        c.name.toLowerCase().includes(search.toLowerCase()),
+      )
     if (showExtraFilters && creationType !== "all")
-      list = list.filter((c) => c.creations[creationType] > 0);
-    if (sortBy === "likes") list.sort((a, b) => b.likes - a.likes);
-    else if (sortBy === "followers") list.sort((a, b) => b.followers - a.followers);
-    else list.sort((a, b) => b.aura - a.aura);
-    return list;
-  }, [creators, search, sortBy, creationType, showExtraFilters]);
+      list = list.filter((c) => c.creations[creationType] > 0)
+    if (sortBy === "likes") list.sort((a, b) => b.likes - a.likes)
+    else if (sortBy === "followers")
+      list.sort((a, b) => b.followers - a.followers)
+    else list.sort((a, b) => b.aura - a.aura)
+    return list
+  }, [creators, search, sortBy, creationType, showExtraFilters])
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen bg-background relative w-full">
       <div className="absolute top-0 left-0 right-0 h-[500px] overflow-hidden pointer-events-none">
         <div
           className="absolute inset-0"
@@ -145,13 +159,15 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
         <div
           className="absolute left-1/2 -translate-x-1/2 top-0 w-[200px] h-[1px]"
           style={{
-            background: "linear-gradient(90deg, transparent, hsl(40 80% 55% / 0.3), transparent)",
+            background:
+              "linear-gradient(90deg, transparent, hsl(40 80% 55% / 0.3), transparent)",
           }}
         />
         <div
           className="absolute bottom-0 left-0 right-0 h-32"
           style={{
-            background: "linear-gradient(to top, hsl(var(--background)), transparent)",
+            background:
+              "linear-gradient(to top, hsl(var(--background)), transparent)",
           }}
         />
       </div>
@@ -161,11 +177,11 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
           <button
             onClick={() => {
               if (searchOpen || searchActive) {
-                setSearch("");
-                setSearchOpen(false);
-                setSearchActive(false);
+                setSearch("")
+                setSearchOpen(false)
+                setSearchActive(false)
               } else {
-                onBack();
+                onBack()
               }
             }}
             className="p-1.5 rounded-full hover:bg-muted transition-colors"
@@ -180,11 +196,11 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
                 autoFocus
                 value={search}
                 onChange={(e) => {
-                  setSearch(e.target.value);
-                  if (!e.target.value) setSearchActive(false);
+                  setSearch(e.target.value)
+                  if (!e.target.value) setSearchActive(false)
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" && search.trim()) setSearchActive(true);
+                  if (e.key === "Enter" && search.trim()) setSearchActive(true)
                 }}
                 placeholder={labels.searchPlaceholder}
                 className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1"
@@ -192,8 +208,8 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
               {search && (
                 <button
                   onClick={() => {
-                    setSearch("");
-                    setSearchActive(false);
+                    setSearch("")
+                    setSearchActive(false)
                   }}
                   className="text-muted-foreground hover:text-foreground text-xs"
                 >
@@ -205,7 +221,9 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
             <>
               <div className="flex items-center gap-1.5 flex-1">
                 <Users className="w-4 h-4 text-primary" />
-                <h1 className="text-base font-bold text-foreground">{labels.title}</h1>
+                <h1 className="text-base font-bold text-foreground">
+                  {labels.title}
+                </h1>
               </div>
               <button
                 onClick={() => setSearchOpen(true)}
@@ -231,24 +249,29 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
               </button>
               {sortOpen && (
                 <>
-                  <div className="fixed inset-0 z-40" onClick={() => setSortOpen(false)} />
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setSortOpen(false)}
+                  />
                   <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
-                    {(["likes", "followers", "aura"] as SortBy[]).map((option) => (
-                      <button
-                        key={option}
-                        onClick={() => {
-                          setSortBy(option);
-                          setSortOpen(false);
-                        }}
-                        className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 ${
-                          sortBy === option
-                            ? "bg-primary/10 text-primary"
-                            : "text-foreground hover:bg-accent/50"
-                        }`}
-                      >
-                        {labels.sortBy[option]}
-                      </button>
-                    ))}
+                    {(["likes", "followers", "aura"] as SortBy[]).map(
+                      (option) => (
+                        <button
+                          key={option}
+                          onClick={() => {
+                            setSortBy(option)
+                            setSortOpen(false)
+                          }}
+                          className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 ${
+                            sortBy === option
+                              ? "bg-primary/10 text-primary"
+                              : "text-foreground hover:bg-accent/50"
+                          }`}
+                        >
+                          {labels.sortBy[option]}
+                        </button>
+                      ),
+                    )}
                   </div>
                 </>
               )}
@@ -268,14 +291,17 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
                 </button>
                 {creationOpen && (
                   <>
-                    <div className="fixed inset-0 z-40" onClick={() => setCreationOpen(false)} />
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setCreationOpen(false)}
+                    />
                     <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
                       {creationOptions.map((option) => (
                         <button
                           key={option}
                           onClick={() => {
-                            setCreationType(option);
-                            setCreationOpen(false);
+                            setCreationType(option)
+                            setCreationOpen(false)
                           }}
                           className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors flex items-center gap-2 ${
                             creationType === option
@@ -306,14 +332,17 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
                 </button>
                 {timeOpen && (
                   <>
-                    <div className="fixed inset-0 z-40" onClick={() => setTimeOpen(false)} />
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setTimeOpen(false)}
+                    />
                     <div className="absolute top-full left-0 mt-2 z-50 bg-card border border-border rounded-xl overflow-hidden shadow-lg min-w-[180px] animate-in fade-in slide-in-from-top-2 duration-150">
                       {filterOptions.map((option) => (
                         <button
                           key={option}
                           onClick={() => {
-                            setFilterBy(option);
-                            setTimeOpen(false);
+                            setFilterBy(option)
+                            setTimeOpen(false)
                           }}
                           className={`w-full text-left px-4 py-3 text-sm font-medium transition-colors ${
                             filterBy === option
@@ -340,12 +369,12 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
 
             <div className="flex items-end justify-center gap-2 relative z-10">
               {[filtered[1], filtered[0], filtered[2]].map((creator, i) => {
-                const podiumRank = [2, 1, 3][i];
-                const isFirst = podiumRank === 1;
-                const avatarPx = isFirst ? 104 : 76;
-                const borderColor = tierBorderColors[creator.tier];
-                const glowHsl = tierGlowColors[creator.tier];
-                const highTier = isHighTier(creator.tier);
+                const podiumRank = [2, 1, 3][i]
+                const isFirst = podiumRank === 1
+                const avatarPx = isFirst ? 104 : 76
+                const borderColor = tierBorderColors[creator.tier]
+                const glowHsl = tierGlowColors[creator.tier]
+                const highTier = isHighTier(creator.tier)
 
                 return (
                   <div
@@ -372,7 +401,11 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
                     >
                       <div
                         className="rounded-full overflow-hidden"
-                        style={{ width: avatarPx, height: avatarPx, border: `2px solid ${borderColor}` }}
+                        style={{
+                          width: avatarPx,
+                          height: avatarPx,
+                          border: `2px solid ${borderColor}`,
+                        }}
                       >
                         <img
                           src={creator.avatarUrl}
@@ -405,7 +438,10 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
                       {sortBy === "likes" ? (
                         <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
                       ) : sortBy === "followers" ? (
-                        <Users className="w-3.5 h-3.5" style={{ color: `hsl(${glowHsl})` }} />
+                        <Users
+                          className="w-3.5 h-3.5"
+                          style={{ color: `hsl(${glowHsl})` }}
+                        />
                       ) : (
                         <AuraIcon className="w-3.5 h-3.5 text-purple-500" />
                       )}
@@ -445,12 +481,14 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
                       {isFirst && (
                         <div className="flex items-center gap-0.5">
                           <Zap className="w-3 h-3 text-yellow-400" />
-                          <span className="text-[9px] font-bold text-yellow-400/80">{labels.hotBadge}</span>
+                          <span className="text-[9px] font-bold text-yellow-400/80">
+                            {labels.hotBadge}
+                          </span>
                         </div>
                       )}
                     </div>
                   </div>
-                );
+                )
               })}
             </div>
           </div>
@@ -462,45 +500,57 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
               {labels.searchResultsSummary(filtered.length, search)}
             </p>
           )}
-          {searchActive || search ? (
-            filtered.map((creator) => (
-              <SearchResultCard key={creator.id} creator={creator} labels={labels} />
-            ))
-          ) : (
-            filtered.slice(3).map((creator, idx) => (
-              <CreatorRow
-                key={creator.id}
-                creator={creator}
-                rank={idx + 4}
-                creationType={creationType}
-                sortBy={sortBy}
-                labels={labels}
-              />
-            ))
-          )}
+          {searchActive || search
+            ? filtered.map((creator) => (
+                <SearchResultCard
+                  key={creator.id}
+                  creator={creator}
+                  labels={labels}
+                />
+              ))
+            : filtered
+                .slice(3)
+                .map((creator, idx) => (
+                  <CreatorRow
+                    key={creator.id}
+                    creator={creator}
+                    rank={idx + 4}
+                    creationType={creationType}
+                    sortBy={sortBy}
+                    labels={labels}
+                  />
+                ))}
           {filtered.length === 0 && (
-            <p className="text-center text-muted-foreground py-12 text-sm">{labels.emptyMessage}</p>
+            <p className="text-center text-muted-foreground py-12 text-sm">
+              {labels.emptyMessage}
+            </p>
           )}
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 interface CreatorRowProps {
-  creator: CreatorsViewCreator;
-  rank: number;
-  creationType: CreationType;
-  sortBy: SortBy;
-  labels: CreatorsViewLabels;
+  creator: CreatorsViewCreator
+  rank: number
+  creationType: CreationType
+  sortBy: SortBy
+  labels: CreatorsViewLabels
 }
 
-function CreatorRow({ creator, rank, creationType, sortBy, labels }: CreatorRowProps) {
-  const borderColor = tierBorderColors[creator.tier];
-  const glowHsl = tierGlowColors[creator.tier];
-  const highTier = isHighTier(creator.tier);
+function CreatorRow({
+  creator,
+  rank,
+  creationType,
+  sortBy,
+  labels,
+}: CreatorRowProps) {
+  const borderColor = tierBorderColors[creator.tier]
+  const glowHsl = tierGlowColors[creator.tier]
+  const highTier = isHighTier(creator.tier)
 
-  const rankColor = rank <= 10 ? "text-foreground" : "text-muted-foreground";
+  const rankColor = rank <= 10 ? "text-foreground" : "text-muted-foreground"
 
   const secondary =
     creationType !== "all"
@@ -508,7 +558,7 @@ function CreatorRow({ creator, rank, creationType, sortBy, labels }: CreatorRowP
           creator.creations[creationType],
           labels.creationType[creationType],
         )}`
-      : labels.followersCount(creator.followers);
+      : labels.followersCount(creator.followers)
 
   return (
     <div
@@ -517,7 +567,9 @@ function CreatorRow({ creator, rank, creationType, sortBy, labels }: CreatorRowP
         boxShadow: highTier ? `inset 0 0 30px hsl(${glowHsl} / 0.03)` : "none",
       }}
     >
-      <span className={`text-lg font-black w-8 text-center ${rankColor}`}>{rank}</span>
+      <span className={`text-lg font-black w-8 text-center ${rankColor}`}>
+        {rank}
+      </span>
 
       <div className="relative flex-shrink-0">
         <div
@@ -535,7 +587,9 @@ function CreatorRow({ creator, rank, creationType, sortBy, labels }: CreatorRowP
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
-          <p className="text-sm font-semibold text-foreground truncate">{creator.name}</p>
+          <p className="text-sm font-semibold text-foreground truncate">
+            {creator.name}
+          </p>
         </div>
         <p className="text-[11px] text-muted-foreground">{secondary}</p>
       </div>
@@ -567,17 +621,17 @@ function CreatorRow({ creator, rank, creationType, sortBy, labels }: CreatorRowP
         </span>
       </div>
     </div>
-  );
+  )
 }
 
 function SearchResultCard({
   creator,
   labels,
 }: {
-  creator: CreatorsViewCreator;
-  labels: CreatorsViewLabels;
+  creator: CreatorsViewCreator
+  labels: CreatorsViewLabels
 }) {
-  const borderColor = tierBorderColors[creator.tier];
+  const borderColor = tierBorderColors[creator.tier]
 
   return (
     <div className="flex items-center gap-4 bg-card rounded-xl border border-border/50 px-5 py-4 hover:bg-accent/50 transition-all duration-200 cursor-pointer group hover:border-border">
@@ -594,7 +648,9 @@ function SearchResultCard({
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-semibold text-foreground truncate">{creator.name}</p>
+        <p className="text-sm font-semibold text-foreground truncate">
+          {creator.name}
+        </p>
         <p className="text-[11px] text-muted-foreground mt-0.5">
           {labels.searchResultMeta(creator.followers, creator.aura)}
         </p>
@@ -602,8 +658,10 @@ function SearchResultCard({
 
       <div className="flex items-center gap-1.5 text-muted-foreground">
         <Heart className="w-3.5 h-3.5" />
-        <span className="text-xs font-medium">{creator.likes.toLocaleString()}</span>
+        <span className="text-xs font-medium">
+          {creator.likes.toLocaleString()}
+        </span>
       </div>
     </div>
-  );
+  )
 }
