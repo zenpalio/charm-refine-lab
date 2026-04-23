@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { Bell, Sparkles, Camera, Video, ImageIcon } from "lucide-react";
-import Sidebar from "@/components/Sidebar";
-import CharacterCard from "@/components/CharacterCard";
-import ContentCard from "@/components/ContentCard";
-import ModelCard from "@/components/ModelCard";
-import SectionHeader from "@/components/SectionHeader";
-import HorizontalScroll from "@/components/HorizontalScroll";
-import TagRow from "@/components/TagRow";
-import CreateToolCard from "@/components/CreateToolCard";
-import CreatorCard from "@/components/CreatorCard";
-import StoryCard from "@/components/StoryCard";
+import Sidebar from "../components/Sidebar";
+import CharacterCard from "../components/CharacterCard";
+import ContentCard from "../components/ContentCard";
+import ModelCard from "../components/ModelCard";
+import SectionHeader from "../components/SectionHeader";
+import HorizontalScroll from "../components/HorizontalScroll";
+import TagRow from "../components/TagRow";
+import CreateToolCard from "../components/CreateToolCard";
+import CreatorCard from "../components/CreatorCard";
+import StoryCard from "../components/StoryCard";
 
-import char1 from "@/assets/char1.jpg";
-import char2 from "@/assets/char2.jpg";
-import char3 from "@/assets/char3.jpg";
-import char4 from "@/assets/char4.jpg";
-import char5 from "@/assets/char5.jpg";
-import char6 from "@/assets/char6.jpg";
-import model1 from "@/assets/model1.jpg";
-import model2 from "@/assets/model2.jpg";
-import model3 from "@/assets/model3.jpg";
-import model4 from "@/assets/model4.jpg";
-import creator1 from "@/assets/creator1.jpg";
+import char1 from "../assets/char1.jpg";
+import char2 from "../assets/char2.jpg";
+import char3 from "../assets/char3.jpg";
+import char4 from "../assets/char4.jpg";
+import char5 from "../assets/char5.jpg";
+import char6 from "../assets/char6.jpg";
+import model1 from "../assets/model1.jpg";
+import model2 from "../assets/model2.jpg";
+import model3 from "../assets/model3.jpg";
+import model4 from "../assets/model4.jpg";
+import creator1 from "../assets/creator1.jpg";
 
 const topCreators = [
   { name: "Big Daddy", avatarUrl: creator1, verified: true },

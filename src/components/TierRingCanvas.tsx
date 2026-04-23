@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from "react";
-import type { BadgeTier } from "@/components/BadgeCard";
+import type { BadgeTier } from "./BadgeCard";
 
 interface TierRingCanvasProps {
   tier: BadgeTier;

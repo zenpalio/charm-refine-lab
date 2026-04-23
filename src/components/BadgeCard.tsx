@@ -1,56 +1,56 @@
 import { Lock, Check } from "lucide-react";
-import badgeNewbie from "@/assets/badge-newbie.png";
-import badgeMaster from "@/assets/badge-master.png";
-import badgeLegend from "@/assets/badge-legend.png";
-import badgeElite from "@/assets/badge-elite.png";
-import badgeMythic from "@/assets/badge-mythic.png";
-import badgeGrandmaster from "@/assets/badge-grandmaster.png";
-import badgeImmortal from "@/assets/badge-immortal.png";
+import badgeNewbie from "../assets/badge-newbie.png";
+import badgeMaster from "../assets/badge-master.png";
+import badgeLegend from "../assets/badge-legend.png";
+import badgeElite from "../assets/badge-elite.png";
+import badgeMythic from "../assets/badge-mythic.png";
+import badgeGrandmaster from "../assets/badge-grandmaster.png";
+import badgeImmortal from "../assets/badge-immortal.png";
 
 // Characters
-import charNewbie from "@/assets/badges/char-newbie.png";
-import charMaster from "@/assets/badges/char-master.png";
-import charLegend from "@/assets/badges/char-legend.png";
-import charElite from "@/assets/badges/char-elite.png";
-import charMythic from "@/assets/badges/char-mythic.png";
-import charGrandmaster from "@/assets/badges/char-grandmaster.png";
-import charImmortal from "@/assets/badges/char-immortal.png";
+import charNewbie from "../assets/badges/char-newbie.png";
+import charMaster from "../assets/badges/char-master.png";
+import charLegend from "../assets/badges/char-legend.png";
+import charElite from "../assets/badges/char-elite.png";
+import charMythic from "../assets/badges/char-mythic.png";
+import charGrandmaster from "../assets/badges/char-grandmaster.png";
+import charImmortal from "../assets/badges/char-immortal.png";
 
 // Social
-import socialNewbie from "@/assets/badges/social-newbie.png";
-import socialMaster from "@/assets/badges/social-master.png";
-import socialLegend from "@/assets/badges/social-legend.png";
-import socialElite from "@/assets/badges/social-elite.png";
-import socialMythic from "@/assets/badges/social-mythic.png";
-import socialGrandmaster from "@/assets/badges/social-grandmaster.png";
-import socialImmortal from "@/assets/badges/social-immortal.png";
+import socialNewbie from "../assets/badges/social-newbie.png";
+import socialMaster from "../assets/badges/social-master.png";
+import socialLegend from "../assets/badges/social-legend.png";
+import socialElite from "../assets/badges/social-elite.png";
+import socialMythic from "../assets/badges/social-mythic.png";
+import socialGrandmaster from "../assets/badges/social-grandmaster.png";
+import socialImmortal from "../assets/badges/social-immortal.png";
 
 // Messaging
-import msgNewbie from "@/assets/badges/msg-newbie.png";
-import msgMaster from "@/assets/badges/msg-master.png";
-import msgLegend from "@/assets/badges/msg-legend.png";
-import msgElite from "@/assets/badges/msg-elite.png";
-import msgMythic from "@/assets/badges/msg-mythic.png";
-import msgGrandmaster from "@/assets/badges/msg-grandmaster.png";
-import msgImmortal from "@/assets/badges/msg-immortal.png";
+import msgNewbie from "../assets/badges/msg-newbie.png";
+import msgMaster from "../assets/badges/msg-master.png";
+import msgLegend from "../assets/badges/msg-legend.png";
+import msgElite from "../assets/badges/msg-elite.png";
+import msgMythic from "../assets/badges/msg-mythic.png";
+import msgGrandmaster from "../assets/badges/msg-grandmaster.png";
+import msgImmortal from "../assets/badges/msg-immortal.png";
 
 // Content Creation
-import contentNewbie from "@/assets/badges/content-newbie.png";
-import contentMaster from "@/assets/badges/content-master.png";
-import contentLegend from "@/assets/badges/content-legend.png";
-import contentElite from "@/assets/badges/content-elite.png";
-import contentMythic from "@/assets/badges/content-mythic.png";
-import contentGrandmaster from "@/assets/badges/content-grandmaster.png";
-import contentImmortal from "@/assets/badges/content-immortal.png";
+import contentNewbie from "../assets/badges/content-newbie.png";
+import contentMaster from "../assets/badges/content-master.png";
+import contentLegend from "../assets/badges/content-legend.png";
+import contentElite from "../assets/badges/content-elite.png";
+import contentMythic from "../assets/badges/content-mythic.png";
+import contentGrandmaster from "../assets/badges/content-grandmaster.png";
+import contentImmortal from "../assets/badges/content-immortal.png";
 
 // Characters v2 (symbolic)
-import char2Newbie from "@/assets/badges/char2-newbie.png";
-import char2Master from "@/assets/badges/char2-master.png";
-import char2Legend from "@/assets/badges/char2-legend.png";
-import char2Elite from "@/assets/badges/char2-elite.png";
-import char2Mythic from "@/assets/badges/char2-mythic.png";
-import char2Grandmaster from "@/assets/badges/char2-grandmaster.png";
-import char2Immortal from "@/assets/badges/char2-immortal.png";
+import char2Newbie from "../assets/badges/char2-newbie.png";
+import char2Master from "../assets/badges/char2-master.png";
+import char2Legend from "../assets/badges/char2-legend.png";
+import char2Elite from "../assets/badges/char2-elite.png";
+import char2Mythic from "../assets/badges/char2-mythic.png";
+import char2Grandmaster from "../assets/badges/char2-grandmaster.png";
+import char2Immortal from "../assets/badges/char2-immortal.png";
 
 export type BadgeTier = "newbie" | "master" | "legend" | "mythic" | "elite" | "grandmaster" | "immortal";
 export type BadgeImageSet = "aura" | "characters" | "characters2" | "social" | "messaging" | "content" | "totalAura";

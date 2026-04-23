@@ -1,20 +1,20 @@
 import { useNavigate } from "react-router-dom";
-import { type BadgeTier } from "@/components/BadgeCard";
+import { type BadgeTier } from "../components/BadgeCard";
 import {
   CreatorsView,
   type CreatorsViewCreator,
   type CreatorsViewLabels,
-} from "@/components/CreatorsView";
-import creator1 from "@/assets/creator1_new.jpg";
-import creator2 from "@/assets/creators/creator2.jpg";
-import creator3 from "@/assets/creators/creator3.jpg";
-import creator4 from "@/assets/creators/creator4.jpg";
-import creator5 from "@/assets/creators/creator5.jpg";
-import creator6 from "@/assets/creators/creator6.jpg";
-import creator7 from "@/assets/creators/creator7.jpg";
-import creator8 from "@/assets/creators/creator8.jpg";
-import creator9 from "@/assets/creators/creator9.jpg";
-import creator10 from "@/assets/creators/creator10.jpg";
+} from "../components/CreatorsView";
+import creator1 from "../assets/creator1_new.jpg";
+import creator2 from "../assets/creators/creator2.jpg";
+import creator3 from "../assets/creators/creator3.jpg";
+import creator4 from "../assets/creators/creator4.jpg";
+import creator5 from "../assets/creators/creator5.jpg";
+import creator6 from "../assets/creators/creator6.jpg";
+import creator7 from "../assets/creators/creator7.jpg";
+import creator8 from "../assets/creators/creator8.jpg";
+import creator9 from "../assets/creators/creator9.jpg";
+import creator10 from "../assets/creators/creator10.jpg";
 
 const creatorsPageLabels: CreatorsViewLabels = {
   title: "Creators",

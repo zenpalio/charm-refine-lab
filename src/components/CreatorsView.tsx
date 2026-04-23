@@ -11,8 +11,8 @@ import {
   Users,
   Heart,
 } from "lucide-react";
-import AuraIcon from "@/components/AuraIcon";
-import { type BadgeTier } from "@/components/BadgeCard";
+import AuraIcon from "./AuraIcon";
+import { type BadgeTier } from "./BadgeCard";
 
 export type CreationType = "all" | "characters" | "images" | "videos" | "stories";
 export type SortBy = "aura" | "likes" | "followers";
