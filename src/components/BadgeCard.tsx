@@ -54,6 +54,7 @@ import char2Immortal from "../assets/badges/char2-immortal.png";
 
 export type BadgeTier = "newbie" | "master" | "legend" | "mythic" | "elite" | "grandmaster" | "immortal";
 export type BadgeImageSet = "aura" | "characters" | "characters2" | "social" | "messaging" | "content" | "totalAura";
+type ImportedImage = string | { src: string };
 
 interface BadgeCardProps {
   name: string;
@@ -67,7 +68,7 @@ interface BadgeCardProps {
   onClick?: () => void;
 }
 
-const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
+const imageSets: Record<BadgeImageSet, Record<BadgeTier, ImportedImage>> = {
   aura: {
     newbie: badgeNewbie, master: badgeMaster, legend: badgeLegend,
     elite: badgeElite, mythic: badgeMythic, grandmaster: badgeGrandmaster, immortal: badgeImmortal,
@@ -99,6 +100,9 @@ const imageSets: Record<BadgeImageSet, Record<BadgeTier, string>> = {
 };
 
 export { imageSets };
+
+const resolveImageSrc = (image: ImportedImage): string =>
+  typeof image === "string" ? image : image.src;
 
 const tierSizes: Record<BadgeTier, { base: string; sm: string }> = {
   newbie:      { base: "w-[88px] h-[88px]", sm: "sm:w-[100px] sm:h-[100px]" },
@@ -132,7 +136,7 @@ const BadgeCard = ({ name, aura, tier, unlocked, claimed = true, isNew = false, 
         style={{ backgroundColor: "hsl(var(--popover))", backgroundImage: "none" }}
       >
         <img
-          src={images[tier]}
+          src={resolveImageSrc(images[tier])}
           alt={`${name} badge`}
           className={`${size.base} ${size.sm} object-cover rounded-lg ${imgGlow}`}
           loading="lazy"
