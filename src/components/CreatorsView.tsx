@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import AuraIcon from "./AuraIcon"
 import { type BadgeTier } from "./BadgeCard"
+import { cn } from "../lib/utils"
 
 export type CreationType =
   | "all"
@@ -88,9 +89,15 @@ export interface CreatorsViewProps {
   creators: CreatorsViewCreator[]
   labels: CreatorsViewLabels
   onBack: () => void
+  className?: string
 }
 
-export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
+export function CreatorsView({
+  creators,
+  labels,
+  onBack,
+  className,
+}: CreatorsViewProps) {
   const [search, setSearch] = useState("")
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchActive, setSearchActive] = useState(false)
@@ -127,7 +134,7 @@ export function CreatorsView({ creators, labels, onBack }: CreatorsViewProps) {
   }, [creators, search, sortBy, creationType, showExtraFilters])
 
   return (
-    <div className="min-h-screen bg-background relative w-full">
+    <div className={cn("min-h-screen bg-background relative w-full", className)}>
       <div className="absolute top-0 left-0 right-0 h-[500px] overflow-hidden pointer-events-none">
         <div
           className="absolute inset-0"
