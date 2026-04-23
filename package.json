@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./creators-view": "./src/components/CreatorsView.tsx"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
