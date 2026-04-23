@@ -7,3 +7,4 @@ export type {
   CreatorsViewLabels,
   CreatorsViewProps,
 } from "./components/CreatorsView";
+export type { BadgeTier } from "./components/BadgeCard";
