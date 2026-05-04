@@ -250,7 +250,7 @@ const Profile = () => {
           </button>
         </div>
 
-        <div className="relative flex flex-col items-center mb-6"></div>
+        <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>
             {/* Show tier ring OR shop badge border ring — never both */}
             {activeBadge ? (() => {
