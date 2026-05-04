@@ -86,6 +86,13 @@
   }
 }
 
+/* Disable hover transforms on touch devices — they fire on tap and break scrolling */
+@media (hover: none) {
+  *:hover {
+    transform: none !important;
+  }
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
