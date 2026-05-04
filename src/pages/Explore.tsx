@@ -358,6 +358,31 @@ const sidebarLinks = [
 
 const Explore = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const mainRef = useRef<HTMLElement>(null);
+  const [headerHidden, setHeaderHidden] = useState(false);
+
+  useEffect(() => {
+    const el = mainRef.current;
+    if (!el) return;
+    let lastY = el.scrollTop;
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = el.scrollTop;
+        const dy = y - lastY;
+        // Always show near the top
+        if (y < 80) setHeaderHidden(false);
+        else if (dy > 6) setHeaderHidden(true); // scrolling down
+        else if (dy < -6) setHeaderHidden(false); // scrolling up
+        lastY = y;
+        ticking = false;
+      });
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div className="relative flex h-svh w-full overflow-hidden bg-background font-onest text-foreground">
