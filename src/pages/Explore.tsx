@@ -1,4 +1,4 @@
-import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play } from "lucide-react";
+import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play, ChevronRight } from "lucide-react";
 import BabeCard from "@/components/explore/BabeCard";
 import HScroll from "@/components/explore/HScroll";
 import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHero";
@@ -377,20 +377,20 @@ const Explore = () => {
 
           <section className="mt-4">
             <SectionTitle title="Start creating" />
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <HScroll>
               {createTools.map((t) => {
                 const Icon = t.Icon;
                 return (
                   <button
                     key={t.title}
-                    className="group relative flex h-[120px] items-stretch overflow-hidden rounded-2xl bg-grey-dark-1 text-left transition-transform hover:-translate-y-0.5"
+                    className="group relative flex h-[170px] w-[300px] shrink-0 items-start gap-4 overflow-hidden rounded-2xl bg-grey-dark-1 p-4 text-left transition-transform hover:-translate-y-0.5"
                   >
-                    {/* Left: gradient art block */}
+                    {/* Left: square gradient art block */}
                     <div
-                      className={`relative h-full w-[140px] shrink-0 overflow-hidden bg-gradient-to-br ${t.gradient}`}
+                      className={`relative h-[140px] w-[120px] shrink-0 overflow-hidden rounded-xl bg-gradient-to-br ${t.gradient}`}
                     >
                       <img
-                        src={img(t.seed, 320, 240)}
+                        src={img(t.seed, 320, 320)}
                         alt=""
                         loading="lazy"
                         className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay"
@@ -400,19 +400,19 @@ const Explore = () => {
                       </div>
                     </div>
 
-                    {/* Right: title + arrow */}
-                    <div className="flex flex-1 items-center justify-between gap-3 px-5">
-                      <span className="text-base font-bold leading-tight text-white">
-                        {t.title}
-                      </span>
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-grey-dark-2 transition-colors group-hover:bg-grey-dark-3">
-                        <ArrowUpRight className="h-4 w-4 text-white" />
-                      </div>
+                    {/* Right: multi-line title */}
+                    <span className="flex-1 pt-1 text-xl font-bold leading-tight text-white">
+                      {t.title}
+                    </span>
+
+                    {/* Arrow pinned bottom-right */}
+                    <div className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-grey-dark-2 transition-colors group-hover:bg-grey-dark-3">
+                      <ChevronRight className="h-4 w-4 text-white" />
                     </div>
                   </button>
                 );
               })}
-            </div>
+            </HScroll>
           </section>
 
           {/* Footer links */}
