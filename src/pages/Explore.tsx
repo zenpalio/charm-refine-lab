@@ -291,6 +291,23 @@ const Explore = () => {
             </HScroll>
           </section>
 
+          {/* Top creators */}
+          <section className="mt-4">
+            <SectionTitle title="Top creators" action="See all" />
+            <HScroll>
+              {topCreators.map((c) => (
+                <CreatorRankCard
+                  key={c.rank}
+                  rank={c.rank}
+                  name={c.name}
+                  tier={c.tier}
+                  verified={c.verified}
+                  avatarUrl={`https://picsum.photos/seed/${encodeURIComponent(c.avatarSeed)}/160/160`}
+                />
+              ))}
+            </HScroll>
+          </section>
+
           {/* Your following */}
           <section className="mt-4">
             <SectionTitle title="Your following" action="See all" />
@@ -323,39 +340,6 @@ const Explore = () => {
             </HScroll>
           </section>
 
-          {/* New releases */}
-          <section className="mt-4">
-            <SectionTitle title="New releases" action="See all" />
-            <TagRow tags={newReleaseTags} />
-            <HScroll>
-              {newBabes.map((b, i) => (
-                <BabeCard
-                  key={i}
-                  {...b}
-                  variant="stats"
-                  imageUrl={img(`new-${b.name}-${i}`)}
-                />
-              ))}
-            </HScroll>
-          </section>
-
-          {/* Top creators */}
-          <section className="mt-4">
-            <SectionTitle title="Top creators" action="See all" />
-            <HScroll>
-              {topCreators.map((c) => (
-                <CreatorRankCard
-                  key={c.rank}
-                  rank={c.rank}
-                  name={c.name}
-                  tier={c.tier}
-                  verified={c.verified}
-                  avatarUrl={`https://picsum.photos/seed/${encodeURIComponent(c.avatarSeed)}/160/160`}
-                />
-              ))}
-            </HScroll>
-          </section>
-
           {/* Rising creators */}
           <section className="mt-4">
             <SectionTitle title="Rising creators this week" action="See all" />
@@ -368,6 +352,22 @@ const Explore = () => {
                   tier={c.tier}
                   verified={c.verified}
                   avatarUrl={`https://picsum.photos/seed/${encodeURIComponent(c.avatarSeed)}/160/160`}
+                />
+              ))}
+            </HScroll>
+          </section>
+
+          {/* New releases */}
+          <section className="mt-4">
+            <SectionTitle title="New releases" action="See all" />
+            <TagRow tags={newReleaseTags} />
+            <HScroll>
+              {newBabes.map((b, i) => (
+                <BabeCard
+                  key={i}
+                  {...b}
+                  variant="stats"
+                  imageUrl={img(`new-${b.name}-${i}`)}
                 />
               ))}
             </HScroll>

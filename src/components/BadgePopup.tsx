@@ -152,7 +152,7 @@ const BadgePopup = ({ name, aura, tokens, tier, unlocked, claimed = true, imageS
             />
           )}
           <img
-            src={tierImages[tier]}
+            src={typeof tierImages[tier] === "string" ? (tierImages[tier] as string) : (tierImages[tier] as { src: string }).src}
             alt={`${name} badge`}
             className="relative z-10 w-full h-full object-contain"
             style={{
