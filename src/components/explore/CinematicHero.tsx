@@ -384,7 +384,27 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
             </div>
           )}
 
-          {slide.meta && (
+          {slide.layout === "story" && slide.storyMeta && (
+            <div className="flex flex-wrap items-center gap-4 text-xs text-amber-200/90">
+              {slide.storyMeta.chapters != null && (
+                <span className="flex items-center gap-1.5">
+                  <BookOpen className="h-3.5 w-3.5" />
+                  {slide.storyMeta.chapters} chapters
+                </span>
+              )}
+              {slide.storyMeta.episodes != null && (
+                <span>{slide.storyMeta.episodes} episodes</span>
+              )}
+              {slide.storyMeta.rating != null && (
+                <span className="flex items-center gap-1">
+                  <Star className="h-3.5 w-3.5 fill-amber-300 text-amber-300" />
+                  {slide.storyMeta.rating.toFixed(1)}
+                </span>
+              )}
+            </div>
+          )}
+
+          {slide.meta && slide.layout !== "story" && (
             <div className="hidden items-center gap-4 text-xs text-white/70 md:flex">
               {slide.meta.messages && (
                 <span className="flex items-center gap-1.5">
@@ -397,8 +417,16 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           )}
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
-            <button className="inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black transition-transform hover:scale-[1.03]">
-              <Play className="h-4 w-4 fill-black" />
+            <button className={`inline-flex h-11 items-center gap-2 rounded-full px-6 text-sm font-bold transition-transform hover:scale-[1.03] ${
+              slide.layout === "story"
+                ? "bg-amber-300 text-black"
+                : "bg-white text-black"
+            }`}>
+              {slide.layout === "story" ? (
+                <BookOpen className="h-4 w-4" />
+              ) : (
+                <Play className="h-4 w-4 fill-black" />
+              )}
               {slide.cta ?? "Chat now"}
             </button>
             <button className="hidden h-11 items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20 md:inline-flex">
