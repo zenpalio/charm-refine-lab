@@ -585,7 +585,7 @@ const Explore = () => {
             <SectionTitle title="Start creating" />
             {(() => {
               const cardClass =
-                "group relative flex w-full shrink-0 flex-col gap-3 overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-white/10";
+                "group relative flex w-full shrink-0 flex-col gap-2.5 overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-4 text-left transition-all hover:-translate-y-0.5 hover:border-white/10";
               const renderCard = (t: (typeof createTools)[number]) => {
                 const Icon = t.Icon;
                 return (
@@ -593,22 +593,24 @@ const Explore = () => {
                     {/* Subtle primary accent */}
                     <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/15 blur-2xl transition-opacity duration-300 group-hover:bg-primary/25" />
 
-                    {/* Icon badge */}
-                    <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
-                      <Icon className="h-5 w-5 text-white" />
-                    </div>
-
-                    {/* Title + subtitle + arrow */}
-                    <div className="relative flex items-end justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="line-clamp-2 text-base font-bold leading-tight text-white">
-                          {t.title}
-                        </h3>
-                        <p className="mt-1 line-clamp-2 text-xs text-grey-light-3">{t.subtitle}</p>
+                    {/* Top row: icon + arrow */}
+                    <div className="relative flex items-center justify-between">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                        <Icon className="h-[18px] w-[18px] text-white" />
                       </div>
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
                         <ChevronRight className="h-4 w-4 text-current" />
                       </div>
+                    </div>
+
+                    {/* Title + subtitle */}
+                    <div className="relative min-w-0">
+                      <h3 className="line-clamp-2 text-[15px] font-bold leading-tight text-white">
+                        {t.title}
+                      </h3>
+                      <p className="mt-1 line-clamp-2 text-xs leading-snug text-grey-light-3">
+                        {t.subtitle}
+                      </p>
                     </div>
                   </button>
                 );
