@@ -2,6 +2,8 @@ import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play } from "l
 import BabeCard from "@/components/explore/BabeCard";
 import HScroll from "@/components/explore/HScroll";
 import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHero";
+import CreatorRankCard from "@/components/explore/CreatorRankCard";
+import { type BadgeTier } from "@/components/BadgeCard";
 
 // ---- Mock data ----
 const img = (seed: string, w = 400, h = 533) =>
