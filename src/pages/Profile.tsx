@@ -239,16 +239,14 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-background">
       <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 sm:pt-6 pb-4 sm:pb-6">
-        <div className="mb-2 -ml-2">
-          <button
-            onClick={() => setNavOpen(true)}
-            className="flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
-            aria-label="Open menu"
-          >
-            <Menu className="h-5 w-5" strokeWidth={1.5} />
-          </button>
-        </div>
+      <button
+        onClick={() => setNavOpen(true)}
+        className="fixed left-4 top-4 z-40 flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
+        aria-label="Open menu"
+      >
+        <Menu className="h-5 w-5" strokeWidth={1.5} />
+      </button>
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-8 sm:pt-12 pb-4 sm:pb-6">
 
         <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>
