@@ -208,6 +208,7 @@ const Explore = () => {
           {/* Your babes */}
           <section>
             <SectionTitle title="Your babes are waiting" action="See all" />
+            <TagRow tags={babeCategories} />
             <HScroll>
               {yourBabes.map((b, i) => (
                 <BabeCard key={i} {...b} imageUrl={img(`babe-${b.name}-${i}`)} />
@@ -218,72 +219,81 @@ const Explore = () => {
           {/* Top trending videos */}
           <section className="mt-4">
             <SectionTitle title="Top trending videos" action="See all" />
+            <TagRow tags={videoCategories} />
             <HScroll>
-              {videoCategories.map((c) => (
-                <button
-                  key={c}
-                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
+              {trendingVideos.map((v) => (
+                <div
+                  key={v.id}
+                  className="group relative w-[180px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
                 >
-                  {c}
-                </button>
-              ))}
-            </HScroll>
-            <div className="mt-3">
-              <HScroll>
-                {trendingVideos.map((v) => (
-                  <div
-                    key={v.id}
-                    className="group relative w-[180px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
-                  >
-                    <div className="relative aspect-[13/19] w-full overflow-hidden">
-                      <img
-                        src={img(`vid-${v.id}`, 260, 380)}
-                        alt=""
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
-                          <Play className="h-5 w-5 fill-black text-black" />
-                        </div>
-                      </div>
-                      <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
-                        ❤ {v.likes}
+                  <div className="relative aspect-[13/19] w-full overflow-hidden">
+                    <img
+                      src={img(`vid-${v.id}`, 260, 380)}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
+                        <Play className="h-5 w-5 fill-black text-black" />
                       </div>
                     </div>
+                    <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
+                      ❤ {v.likes}
+                    </div>
                   </div>
-                ))}
-              </HScroll>
-            </div>
+                </div>
+              ))}
+            </HScroll>
           </section>
 
           {/* Your following */}
           <section className="mt-4">
             <SectionTitle title="Your following" action="See all" />
+            <TagRow tags={followingUsernames} />
             <HScroll>
-              {followingUsernames.map((u) => (
-                <button
-                  key={u}
-                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
-                >
-                  {u}
-                </button>
+              {yourFollowing.map((b, i) => (
+                <BabeCard
+                  key={i}
+                  {...b}
+                  variant="stats"
+                  imageUrl={img(`follow-${b.name}-${i}`)}
+                />
               ))}
             </HScroll>
-            <div className="mt-3">
-              <HScroll>
-                {yourFollowing.map((b, i) => (
-                  <BabeCard
-                    key={i}
-                    {...b}
-                    variant="stats"
-                    imageUrl={img(`follow-${b.name}-${i}`)}
-                  />
-                ))}
-              </HScroll>
-            </div>
           </section>
 
+          {/* Trending this week */}
+          <section className="mt-4">
+            <SectionTitle title="Check out this week trending babes" action="See all" />
+            <TagRow tags={trendingTags} />
+            <HScroll>
+              {trendingBabes.map((b, i) => (
+                <BabeCard
+                  key={i}
+                  {...b}
+                  variant="stats"
+                  imageUrl={img(`trend-${b.name}-${i}`)}
+                />
+              ))}
+            </HScroll>
+          </section>
+
+          {/* New releases */}
+          <section className="mt-4">
+            <SectionTitle title="New releases" action="See all" />
+            <TagRow tags={newReleaseTags} />
+            <HScroll>
+              {newBabes.map((b, i) => (
+                <BabeCard
+                  key={i}
+                  {...b}
+                  variant="stats"
+                  imageUrl={img(`new-${b.name}-${i}`)}
+                />
+              ))}
+            </HScroll>
+          </section>
 
           {/* Start creating */}
           <section className="mt-4">
