@@ -184,6 +184,15 @@ export function CreatorsView({
 
       <div className="max-w-2xl mx-auto px-4 py-6 relative z-10">
         <div className="flex items-center gap-2 mb-4 min-h-[40px]">
+          {onMenu && !(searchOpen || searchActive) && (
+            <button
+              onClick={onMenu}
+              className="flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" strokeWidth={1.5} />
+            </button>
+          )}
           {searchOpen || searchActive ? (
             <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2.5 flex-1 animate-in fade-in slide-in-from-right-4 duration-200">
               <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
