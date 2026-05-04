@@ -575,32 +575,24 @@ const Explore = () => {
 
           <section className="mt-4">
             <SectionTitle title="Start creating" />
-            <HScroll>
-              {createTools.map((t) => {
+            {(() => {
+              const cardClass =
+                "group relative flex h-[180px] w-full shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-white/10";
+              const renderCard = (t: (typeof createTools)[number]) => {
                 const Icon = t.Icon;
                 return (
-                  <button
-                    key={t.title}
-                    className="group relative flex h-[180px] w-[260px] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-white/10"
-                  >
-                    {/* Gradient glow backdrop */}
-                    <div
-                      className={`pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-gradient-to-br ${t.gradient} opacity-40 blur-2xl transition-opacity duration-300 group-hover:opacity-60`}
-                    />
-                    <div
-                      className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${t.gradient} opacity-[0.06] transition-opacity duration-300 group-hover:opacity-[0.12]`}
-                    />
+                  <button key={t.title} className={cardClass}>
+                    {/* Subtle primary accent */}
+                    <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/15 blur-2xl transition-opacity duration-300 group-hover:bg-primary/25" />
 
                     {/* Icon badge */}
-                    <div
-                      className={`relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${t.gradient} shadow-lg`}
-                    >
-                      <Icon className="h-6 w-6 text-white drop-shadow" />
+                    <div className="relative flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                      <Icon className="h-5 w-5 text-white" />
                     </div>
 
                     {/* Title + subtitle */}
                     <div className="relative">
-                      <h3 className="text-lg font-bold leading-tight text-white">
+                      <h3 className="text-base font-bold leading-tight text-white">
                         {t.title}
                       </h3>
                       <p className="mt-1 text-xs text-grey-light-3">{t.subtitle}</p>
@@ -612,8 +604,28 @@ const Explore = () => {
                     </div>
                   </button>
                 );
-              })}
-            </HScroll>
+              };
+
+              return (
+                <>
+                  {/* Tablet & mobile: horizontal scroll */}
+                  <div className="lg:hidden">
+                    <HScroll>
+                      {createTools.map((t) => (
+                        <div key={t.title} className="w-[260px] shrink-0">
+                          {renderCard(t)}
+                        </div>
+                      ))}
+                    </HScroll>
+                  </div>
+                  {/* Desktop: full-width grid */}
+                  <div className="hidden gap-3 lg:grid lg:grid-cols-5">
+                    {createTools.map(renderCard)}
+                  </div>
+                </>
+              );
+            })()}
+          </section>
           </section>
 
           {/* Footer links */}
