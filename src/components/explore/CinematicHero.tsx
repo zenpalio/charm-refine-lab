@@ -166,8 +166,46 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
         >
           {(() => {
             const list = slideMedia[i];
-            // Main portrait always uses the FIRST media item — stable hero anchor.
             const m = list[0];
+            const isBanner = s.layout === "banner";
+
+            if (isBanner) {
+              return (
+                <div className="absolute inset-0">
+                  {/* Blurred backdrop, same image */}
+                  <img
+                    src={m.type === "image" ? m.url : (m.poster ?? s.imageUrl)}
+                    alt=""
+                    aria-hidden
+                    className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150 opacity-70"
+                  />
+                  {/* Sharp full-bleed banner image — anchored right on desktop, full on mobile */}
+                  {m.type === "image" ? (
+                    <img
+                      src={m.url}
+                      alt={s.name}
+                      className="absolute inset-0 h-full w-full object-cover md:object-right"
+                      loading={i === 0 ? "eager" : "lazy"}
+                    />
+                  ) : (
+                    <video
+                      src={m.url}
+                      poster={m.poster}
+                      autoPlay muted loop playsInline
+                      className="absolute inset-0 h-full w-full object-cover md:object-right"
+                    />
+                  )}
+                  {/* Accent color wash */}
+                  {s.accent && (
+                    <div
+                      className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-40"
+                      style={{ background: `radial-gradient(ellipse at 30% 50%, ${s.accent} 0%, transparent 65%)` }}
+                    />
+                  )}
+                </div>
+              );
+            }
+
             return (
               <div className="absolute inset-0">
                 {/* Blurred full-bleed backdrop */}
@@ -178,12 +216,9 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                   className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
                 />
 
-                {/* Sharp portrait panel(s), anchored right (desktop). When the slide
-                    has 2+ media, render two 13:19 panels side-by-side that each
-                    crossfade through their own subset of the gallery. */}
+                {/* Sharp portrait panel(s), anchored right (desktop). */}
                 <div className="absolute inset-y-0 right-0 hidden h-full md:flex">
                   {(() => {
-                    const list = slideMedia[i];
                     if (list.length < 2) {
                       return (
                         <HeroPanel
@@ -195,26 +230,12 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                         />
                       );
                     }
-                    // Split: panel 0 cycles odd indices starting at 0, panel 1 starts at 1
                     const panelA = list.filter((_, idx) => idx % 2 === 0);
                     const panelB = list.filter((_, idx) => idx % 2 === 1);
                     return (
                       <>
-                        <HeroPanel
-                          media={panelA}
-                          name={s.name}
-                          eager={i === 0}
-                          paused={paused}
-                          slotIndex={0}
-                          withLeftFade
-                        />
-                        <HeroPanel
-                          media={panelB}
-                          name={s.name}
-                          eager={false}
-                          paused={paused}
-                          slotIndex={1}
-                        />
+                        <HeroPanel media={panelA} name={s.name} eager={i === 0} paused={paused} slotIndex={0} withLeftFade />
+                        <HeroPanel media={panelB} name={s.name} eager={false} paused={paused} slotIndex={1} />
                       </>
                     );
                   })()}
@@ -223,28 +244,16 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                 {/* Mobile centered */}
                 <div className="absolute inset-0 md:hidden">
                   {m.type === "image" ? (
-                    <img
-                      src={m.url}
-                      alt={s.name}
-                      className="h-full w-full object-cover object-right"
-                    />
+                    <img src={m.url} alt={s.name} className="h-full w-full object-cover object-right" />
                   ) : (
-                    <video
-                      src={m.url}
-                      poster={m.poster}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="h-full w-full object-cover object-right"
-                    />
+                    <video src={m.url} poster={m.poster} autoPlay muted loop playsInline className="h-full w-full object-cover object-right" />
                   )}
                 </div>
               </div>
             );
           })()}
 
-          {/* Mobile readability: strong bottom-up vignette behind text */}
+          {/* Mobile readability vignette */}
           <div
             className="pointer-events-none absolute inset-0 md:hidden"
             style={{
@@ -252,7 +261,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                 "linear-gradient(180deg, transparent 0%, hsl(var(--background) / 0.2) 35%, hsl(var(--background) / 0.85) 70%, hsl(var(--background)) 100%)",
             }}
           />
-          {/* Desktop readability: side gradient — darkens text side only */}
+          {/* Desktop side gradient */}
           <div
             className="pointer-events-none absolute inset-0 hidden md:block"
             style={{
