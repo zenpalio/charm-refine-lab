@@ -414,7 +414,7 @@ const Explore = () => {
             >
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
-            <h1 className="text-lg font-bold leading-none text-white drop-shadow-md md:text-xl">
+            <h1 className="hidden text-lg font-bold leading-none text-white drop-shadow-md md:block md:text-xl">
               Welcome back, Arthur <span>🩷</span>
             </h1>
           </div>
