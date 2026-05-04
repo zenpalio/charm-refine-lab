@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Plus, Image as ImageIcon, Film, BookOpen, Users, X } from "lucide-react";
 
 const tools = [
-  { icon: ImageIcon, label: "Image Generator" },
-  { icon: BookOpen, label: "Story Creator" },
-  { icon: Users, label: "Characters" },
-  { icon: Film, label: "Video Generator" },
+  { icon: Users, label: "Create Babe" },
+  { icon: ImageIcon, label: "Create Image" },
+  { icon: Film, label: "Create Video" },
+  { icon: BookOpen, label: "Create Story" },
 ];
 
 /**
