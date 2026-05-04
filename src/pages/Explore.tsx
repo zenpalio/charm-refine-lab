@@ -1,10 +1,11 @@
-import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play, ChevronRight, Menu, X, Compass, Users, Heart, Settings, LogOut } from "lucide-react";
+import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play, ChevronRight, Menu, X, Compass, Users, Heart, Settings, LogOut, BookOpen } from "lucide-react";
 import { useState } from "react";
 import BabeCard from "@/components/explore/BabeCard";
 import HScroll from "@/components/explore/HScroll";
 import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHero";
 import CreatorRankCard from "@/components/explore/CreatorRankCard";
 import StoryContentCard from "@/components/explore/StoryContentCard";
+import FloatingToolsFAB from "@/components/explore/FloatingToolsFAB";
 import { type BadgeTier } from "@/components/BadgeCard";
 
 // ---- Mock data ----
@@ -277,13 +278,15 @@ const risingCreators: { rank: number; name: string; avatarSeed: string; tier: Ba
 const createTools = [
   {
     title: "Create Custom Babe",
+    subtitle: "Design your dream character",
     href: "/explore/create-babe",
-    gradient: "from-fuchsia-700 via-pink-600 to-rose-500",
+    gradient: "from-fuchsia-600 via-pink-600 to-rose-500",
     Icon: Sparkles,
     seed: "create-babe",
   },
   {
     title: "Video Generator",
+    subtitle: "Bring scenes to life",
     href: "/explore/video-generator",
     gradient: "from-rose-600 via-red-500 to-orange-500",
     Icon: Video,
@@ -291,19 +294,30 @@ const createTools = [
   },
   {
     title: "Image Generator",
+    subtitle: "Render any moment",
     href: "/explore/image-generator",
     gradient: "from-blue-700 via-blue-600 to-cyan-500",
     Icon: ImageIcon,
     seed: "image-gen",
   },
   {
+    title: "Story Creator",
+    subtitle: "Write episodic adventures",
+    href: "/explore/story-creator",
+    gradient: "from-violet-700 via-purple-600 to-indigo-500",
+    Icon: BookOpen,
+    seed: "story-creator",
+  },
+  {
     title: "Create Template Babe",
+    subtitle: "Start from a preset",
     href: "/explore/create-template",
     gradient: "from-emerald-700 via-green-600 to-teal-500",
     Icon: Sparkles,
     seed: "template-babe",
   },
 ];
+
 
 // ---- Section header ----
 const SectionTitle = ({ title, action }: { title: string; action?: string }) => (
@@ -576,31 +590,34 @@ const Explore = () => {
                 return (
                   <button
                     key={t.title}
-                    className="group relative flex h-[170px] w-[300px] shrink-0 items-start gap-4 overflow-hidden rounded-2xl bg-grey-dark-1 p-4 text-left transition-transform hover:-translate-y-0.5"
+                    className="group relative flex h-[180px] w-[260px] shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-white/10"
                   >
-                    {/* Left: square gradient art block */}
+                    {/* Gradient glow backdrop */}
                     <div
-                      className={`relative h-[140px] w-[120px] shrink-0 overflow-hidden rounded-xl bg-gradient-to-br ${t.gradient}`}
+                      className={`pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-gradient-to-br ${t.gradient} opacity-40 blur-2xl transition-opacity duration-300 group-hover:opacity-60`}
+                    />
+                    <div
+                      className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${t.gradient} opacity-[0.06] transition-opacity duration-300 group-hover:opacity-[0.12]`}
+                    />
+
+                    {/* Icon badge */}
+                    <div
+                      className={`relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${t.gradient} shadow-lg`}
                     >
-                      <img
-                        src={img(t.seed, 320, 320)}
-                        alt=""
-                        loading="lazy"
-                        className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay"
-                      />
-                      <div className="relative flex h-full w-full items-center justify-center">
-                        <Icon className="h-7 w-7 text-white drop-shadow" />
-                      </div>
+                      <Icon className="h-6 w-6 text-white drop-shadow" />
                     </div>
 
-                    {/* Right: multi-line title */}
-                    <span className="flex-1 pt-1 text-xl font-bold leading-tight text-white">
-                      {t.title}
-                    </span>
+                    {/* Title + subtitle */}
+                    <div className="relative">
+                      <h3 className="text-lg font-bold leading-tight text-white">
+                        {t.title}
+                      </h3>
+                      <p className="mt-1 text-xs text-grey-light-3">{t.subtitle}</p>
+                    </div>
 
-                    {/* Arrow pinned bottom-right */}
-                    <div className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-grey-dark-2 transition-colors group-hover:bg-grey-dark-3">
-                      <ChevronRight className="h-4 w-4 text-white" />
+                    {/* Arrow CTA */}
+                    <div className="absolute bottom-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
+                      <ChevronRight className="h-4 w-4 text-current" />
                     </div>
                   </button>
                 );
@@ -645,6 +662,8 @@ const Explore = () => {
           </footer>
         </div>
       </main>
+
+      <FloatingToolsFAB />
     </div>
   );
 };
