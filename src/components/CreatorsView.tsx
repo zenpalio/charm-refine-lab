@@ -183,29 +183,7 @@ export function CreatorsView({
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6 relative z-10">
-        <div className="flex items-center gap-2 mb-4">
-          <button
-            onClick={() => {
-              if (searchOpen || searchActive) {
-                setSearch("")
-                setSearchOpen(false)
-                setSearchActive(false)
-              } else if (onMenu) {
-                onMenu()
-              } else {
-                onBack()
-              }
-            }}
-            className="p-1.5 rounded-full hover:bg-muted transition-colors"
-            aria-label={onMenu && !searchOpen && !searchActive ? "Open menu" : "Back"}
-          >
-            {onMenu && !searchOpen && !searchActive ? (
-              <Menu className="w-5 h-5 text-foreground" strokeWidth={1.5} />
-            ) : (
-              <ArrowLeft className="w-4 h-4 text-foreground" />
-            )}
-          </button>
-
+        <div className="flex items-center gap-2 mb-4 min-h-[40px]">
           {searchOpen || searchActive ? (
             <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2.5 flex-1 animate-in fade-in slide-in-from-right-4 duration-200">
               <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
@@ -222,33 +200,26 @@ export function CreatorsView({
                 placeholder={labels.searchPlaceholder}
                 className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1"
               />
-              {search && (
-                <button
-                  onClick={() => {
-                    setSearch("")
-                    setSearchActive(false)
-                  }}
-                  className="text-muted-foreground hover:text-foreground text-xs"
-                >
-                  ✕
-                </button>
-              )}
+              <button
+                onClick={() => {
+                  setSearch("")
+                  setSearchOpen(false)
+                  setSearchActive(false)
+                }}
+                className="text-muted-foreground hover:text-foreground text-xs"
+                aria-label="Close search"
+              >
+                ✕
+              </button>
             </div>
           ) : (
-            <>
-              <div className="flex items-center gap-1.5 flex-1">
-                <Users className="w-4 h-4 text-primary" />
-                <h1 className="text-base font-bold text-foreground">
-                  {labels.title}
-                </h1>
-              </div>
-              <button
-                onClick={() => setSearchOpen(true)}
-                className="p-2 rounded-full hover:bg-muted transition-colors"
-              >
-                <Search className="w-5 h-5 text-muted-foreground" />
-              </button>
-            </>
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="ml-auto p-2 rounded-full hover:bg-muted transition-colors"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5 text-muted-foreground" />
+            </button>
           )}
         </div>
 
