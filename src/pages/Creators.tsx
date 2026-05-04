@@ -86,17 +86,11 @@ const Creators = () => {
   return (
     <>
       <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
-      <button
-        onClick={() => setNavOpen(true)}
-        className="fixed left-4 top-4 z-40 flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
-        aria-label="Open menu"
-      >
-        <Menu className="h-5 w-5" strokeWidth={1.5} />
-      </button>
       <CreatorsView
         creators={mockCreators}
         labels={creatorsPageLabels}
         onBack={() => navigate(-1)}
+        onMenu={() => setNavOpen(true)}
       />
     </>
   );
