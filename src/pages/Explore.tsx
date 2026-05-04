@@ -662,6 +662,8 @@ const Explore = () => {
           </footer>
         </div>
       </main>
+
+      <FloatingToolsFAB />
     </div>
   );
 };
