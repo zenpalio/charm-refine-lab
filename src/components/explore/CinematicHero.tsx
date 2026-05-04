@@ -80,12 +80,32 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
   const go = (i: number) => setActive((i + slides.length) % slides.length);
   const slide = slides[active];
 
+  // Touch swipe (mobile)
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current == null || touchStartY.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      go(active + (dx < 0 ? 1 : -1));
+    }
+  };
+
   return (
     <section
-      className="relative w-full shrink-0 overflow-hidden"
+      className="relative w-full shrink-0 overflow-hidden touch-pan-y"
       style={{ height: "clamp(520px, 78vh, 760px)" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
       aria-roledescription="carousel"
     >
       {/* Layered backdrops — crossfade */}
