@@ -19,10 +19,13 @@ export interface HeroSlide {
   /** Optional override for the primary CTA label (default: "Chat now") */
   cta?: string;
   /** Visual treatment. "portrait" (default) shows a tall portrait panel on the right.
-   *  "banner" shows a full-bleed wide image — better for promo / sale / feature cards. */
-  layout?: "portrait" | "banner";
+   *  "banner" shows a full-bleed wide image — better for promo / sale / feature cards.
+   *  "story" shows a book-cover style card with chapter/episode metadata. */
+  layout?: "portrait" | "banner" | "story";
   /** Optional accent color (hsl) for banner overlays */
   accent?: string;
+  /** Story metadata, shown when layout === "story" */
+  storyMeta?: { chapters?: number; episodes?: number; rating?: number };
 }
 
 interface Props {
