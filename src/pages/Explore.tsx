@@ -339,7 +339,42 @@ const Explore = () => {
             </HScroll>
           </section>
 
+          {/* Top creators */}
+          <section className="mt-4">
+            <SectionTitle title="Top creators" action="See all" />
+            <HScroll>
+              {topCreators.map((c) => (
+                <CreatorRankCard
+                  key={c.rank}
+                  rank={c.rank}
+                  name={c.name}
+                  tier={c.tier}
+                  verified={c.verified}
+                  avatarUrl={`https://picsum.photos/seed/${encodeURIComponent(c.avatarSeed)}/160/160`}
+                />
+              ))}
+            </HScroll>
+          </section>
+
+          {/* Rising creators */}
+          <section className="mt-4">
+            <SectionTitle title="Rising creators this week" action="See all" />
+            <HScroll>
+              {risingCreators.map((c) => (
+                <CreatorRankCard
+                  key={c.rank}
+                  rank={c.rank}
+                  name={c.name}
+                  tier={c.tier}
+                  verified={c.verified}
+                  avatarUrl={`https://picsum.photos/seed/${encodeURIComponent(c.avatarSeed)}/160/160`}
+                />
+              ))}
+            </HScroll>
+          </section>
+
           {/* Start creating */}
+
           <section className="mt-4">
             <SectionTitle title="Start creating" />
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
