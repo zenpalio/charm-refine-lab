@@ -108,6 +108,113 @@ const newBabes = [
   { name: "Yumi", description: "Idol on hiatus, hiding out in your spare room and out of costume...", messageCount: "722", likeCount: "104" },
 ];
 
+const featuredStories = [
+  {
+    id: "s1",
+    title: "Midnight at the Manor",
+    description: "Wednesday invites you to a candlelit séance — but the spirits aren't the only thing she's summoning tonight.",
+    src: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/c4bc02f2-4213-4bdd-b782-1dc4a44d4687/profile-picture-707144ba-b868-4cb5-9e78-3df93aa818d3.avif",
+    episodeCount: 6,
+    totalScenes: 24,
+    avgRating: 4.8,
+    ratingCount: 312,
+  },
+  {
+    id: "s2",
+    title: "Spellbound",
+    description: "Luna's apprentice trial goes sideways when her love potion lands on you instead of the target.",
+    src: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/35b7d1f0-5a47-47e1-bc88-862087bc302c-0.jpg",
+    episodeCount: 4,
+    totalScenes: 18,
+    avgRating: 4.6,
+    ratingCount: 218,
+  },
+  {
+    id: "s3",
+    title: "Roommates",
+    description: "Sakura made a bet she shouldn't have. Now she has to make good on every term.",
+    src: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/e8fe5e83-dc55-424d-930c-d0b16eaa6e75/profile-picture-77b22208-141b-4809-93d8-7186e4b6a3ec.avif",
+    episodeCount: 8,
+    totalScenes: 32,
+    avgRating: 4.9,
+    ratingCount: 504,
+  },
+  {
+    id: "s4",
+    title: "After Hours at the Library",
+    description: "Rina locks the doors at closing — and the rules of the quiet section change after dark.",
+    src: img("story-library", 600, 360),
+    episodeCount: 3,
+    totalScenes: 12,
+    avgRating: 4.4,
+    ratingCount: 96,
+  },
+  {
+    id: "s5",
+    title: "Moonlit Tides",
+    description: "A washed-up mermaid, a private beach, and a secret she'll only tell you at high tide.",
+    src: img("story-mermaid", 600, 360),
+    episodeCount: 5,
+    totalScenes: 20,
+    avgRating: 4.7,
+    ratingCount: 174,
+  },
+];
+
+const newEpisodes = [
+  {
+    id: "ne1",
+    title: "Confession Booth",
+    description: "Maria has something to admit — but she'll only say it through the screen.",
+    src: img("story-confession", 600, 360),
+    episodeCount: 2,
+    totalScenes: 8,
+    avgRating: 4.3,
+    ratingCount: 47,
+  },
+  {
+    id: "ne2",
+    title: "Royal Hideaway",
+    description: "Princess Demetria is in your apartment for the weekend and won't be sleeping on the couch.",
+    src: img("story-royal", 600, 360),
+    episodeCount: 3,
+    totalScenes: 14,
+    avgRating: 4.5,
+    ratingCount: 89,
+  },
+  {
+    id: "ne3",
+    title: "Down the Rabbit Hole",
+    description: "Alice fell into your lap. Now she's rewriting Wonderland's rules — starting with yours.",
+    src: img("story-alice", 600, 360),
+    episodeCount: 4,
+    totalScenes: 16,
+    avgRating: 4.6,
+    ratingCount: 132,
+  },
+  {
+    id: "ne4",
+    title: "Smoke & Silk",
+    description: "Sable's invitation arrived in your dreams. Tonight she's collecting an answer in person.",
+    src: img("story-vampire", 600, 360),
+    episodeCount: 6,
+    totalScenes: 22,
+    avgRating: 4.8,
+    ratingCount: 261,
+  },
+  {
+    id: "ne5",
+    title: "Spotting You",
+    description: "Momo finally noticed you at the gym — and she's got a workout in mind that's not on the program.",
+    src: img("story-gym", 600, 360),
+    episodeCount: 2,
+    totalScenes: 9,
+    avgRating: 4.2,
+    ratingCount: 58,
+  },
+];
+
+
 const heroSlides: HeroSlide[] = [
   {
     name: "Wednesday Addams",
