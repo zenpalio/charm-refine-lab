@@ -177,11 +177,11 @@ const Explore = () => {
                 {trendingVideos.map((v) => (
                   <div
                     key={v.id}
-                    className="group relative w-[260px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
+                    className="group relative w-[180px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
                   >
-                    <div className="relative aspect-video w-full overflow-hidden">
+                    <div className="relative aspect-[13/19] w-full overflow-hidden">
                       <img
-                        src={img(`vid-${v.id}`, 520, 293)}
+                        src={img(`vid-${v.id}`, 260, 380)}
                         alt=""
                         loading="lazy"
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
