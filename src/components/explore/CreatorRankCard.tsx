@@ -1,4 +1,4 @@
-import { ChevronRight, Shield } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { imageSets, type BadgeTier } from "@/components/BadgeCard";
 
 const tierBorderColors: Record<BadgeTier, string> = {
@@ -30,30 +30,31 @@ const CreatorRankCard = ({
   name,
   avatarUrl,
   tier,
-  verified,
 }: CreatorRankCardProps) => {
   const borderColor = tierBorderColors[tier];
   const high = isHighTier(tier);
   const badgeSrc = resolveSrc(imageSets.aura[tier]);
 
   return (
-    <button className="group relative flex w-[300px] shrink-0 items-center gap-4 overflow-hidden rounded-2xl bg-grey-dark-1 px-4 py-3 text-left transition-colors hover:bg-grey-dark-2">
-      {/* Outlined ranking numeral behind avatar — neutral */}
+    <button className="group relative flex w-[300px] shrink-0 items-center gap-4 overflow-hidden rounded-2xl bg-grey-dark-1 pl-5 pr-4 py-3 text-left transition-colors hover:bg-grey-dark-2">
+      {/* Large outlined ranking numeral behind avatar — neutral */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -left-1 bottom-[-14px] select-none text-[110px] font-black leading-none"
+        className="pointer-events-none absolute -left-2 -bottom-6 select-none font-black leading-none"
         style={{
+          fontSize: "150px",
           color: "transparent",
-          WebkitTextStroke: "2px hsl(var(--muted-foreground) / 0.3)",
+          WebkitTextStroke: "2px hsl(var(--muted-foreground) / 0.28)",
+          fontVariantNumeric: "tabular-nums",
           zIndex: 0,
         }}
       >
         {rank}
       </span>
 
-      {/* Avatar — only colored element */}
+      {/* Avatar with badge in bottom-right */}
       <div
-        className="relative z-10 shrink-0"
+        className="relative z-10 ml-8 shrink-0"
         style={{
           filter: high ? `drop-shadow(0 0 8px ${borderColor})` : "none",
         }}
@@ -69,27 +70,21 @@ const CreatorRankCard = ({
             className="h-full w-full object-cover"
           />
         </div>
-        {verified && (
-          <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-lg bg-primary">
-            <Shield className="h-3.5 w-3.5 text-primary-foreground" />
-          </div>
-        )}
-      </div>
-
-      {/* Name + real badge image */}
-      <div className="relative z-10 flex min-w-0 flex-1 items-center gap-2">
-        <div className="flex min-w-0 flex-1 flex-col">
-          <span className="truncate text-sm font-bold text-white">{name}</span>
-          <span className="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-grey-light-3">
-            {tier}
-          </span>
-        </div>
+        {/* Real tier badge in bottom-right of avatar */}
         <img
           src={badgeSrc}
           alt={`${tier} badge`}
           loading="lazy"
-          className="h-9 w-9 shrink-0 object-contain"
+          className="absolute -bottom-1.5 -right-2 h-7 w-7 object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
         />
+      </div>
+
+      {/* Name + tier */}
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col">
+        <span className="truncate text-sm font-bold text-white">{name}</span>
+        <span className="mt-0.5 text-[10px] font-medium uppercase tracking-wider text-grey-light-3">
+          {tier}
+        </span>
       </div>
 
       <ChevronRight className="relative z-10 h-5 w-5 text-grey-light-3 transition-colors group-hover:text-white" />
