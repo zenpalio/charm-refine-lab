@@ -7,7 +7,7 @@ export type HeroMedia =
 
 export interface HeroSlide {
   name: string;
-  tagline: string;
+  tagline?: string;
   description: string;
   imageUrl: string;
   /** Optional gallery of additional images/videos cycled within the slide */
