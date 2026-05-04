@@ -87,7 +87,7 @@ const StoryContentCard = ({
       </div>
 
       {/* Hover overlay */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/40 group-hover:opacity-100">
+      <div className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/40 group-hover:opacity-100">
         <span className="rounded-full border border-white/20 bg-white/20 px-4 py-2 text-xs font-semibold text-white backdrop-blur-sm">
           View Story
         </span>
