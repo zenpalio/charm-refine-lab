@@ -626,7 +626,6 @@ const Explore = () => {
               );
             })()}
           </section>
-          </section>
 
           {/* Footer links */}
           <footer className="mt-8 grid grid-cols-2 gap-6 border-t border-[#242529] pt-6 text-[13px] text-grey-light-4 md:grid-cols-4">
