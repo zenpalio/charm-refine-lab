@@ -111,47 +111,48 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                   className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
                 />
 
-                {/* Sharp portrait panel(s), anchored right (desktop). When the slide
-                    has 2+ media, render two 13:19 panels side-by-side that each
-                    crossfade through their own subset of the gallery. */}
-                <div className="absolute inset-y-0 right-0 hidden h-full md:flex">
-                  {(() => {
-                    const list = slideMedia[i];
-                    if (list.length < 2) {
-                      return (
+                {/* Sharp portrait panel(s). Single-media slides center the panel
+                    so the empty space sits on the right (blurred backdrop fills it).
+                    Multi-media slides render two 13:19 panels anchored right. */}
+                {(() => {
+                  const list = slideMedia[i];
+                  if (list.length < 2) {
+                    return (
+                      <div className="absolute inset-y-0 left-1/2 hidden h-full -translate-x-1/2 md:flex">
                         <HeroPanel
                           media={[m]}
                           name={s.name}
                           eager={i === 0}
                           paused={paused}
                           slotIndex={0}
-                        />
-                      );
-                    }
-                    // Split: panel 0 cycles odd indices starting at 0, panel 1 starts at 1
-                    const panelA = list.filter((_, idx) => idx % 2 === 0);
-                    const panelB = list.filter((_, idx) => idx % 2 === 1);
-                    return (
-                      <>
-                        <HeroPanel
-                          media={panelA}
-                          name={s.name}
-                          eager={i === 0}
-                          paused={paused}
-                          slotIndex={0}
                           withLeftFade
+                          withRightFade
                         />
-                        <HeroPanel
-                          media={panelB}
-                          name={s.name}
-                          eager={false}
-                          paused={paused}
-                          slotIndex={1}
-                        />
-                      </>
+                      </div>
                     );
-                  })()}
-                </div>
+                  }
+                  const panelA = list.filter((_, idx) => idx % 2 === 0);
+                  const panelB = list.filter((_, idx) => idx % 2 === 1);
+                  return (
+                    <div className="absolute inset-y-0 right-0 hidden h-full md:flex">
+                      <HeroPanel
+                        media={panelA}
+                        name={s.name}
+                        eager={i === 0}
+                        paused={paused}
+                        slotIndex={0}
+                        withLeftFade
+                      />
+                      <HeroPanel
+                        media={panelB}
+                        name={s.name}
+                        eager={false}
+                        paused={paused}
+                        slotIndex={1}
+                      />
+                    </div>
+                  );
+                })()}
 
                 {/* Mobile centered */}
                 <div className="absolute inset-0 md:hidden">
