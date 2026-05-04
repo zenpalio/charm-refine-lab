@@ -24,17 +24,35 @@ const yourBabes = [
 ];
 
 const yourFollowing = [
-  { name: "Hana", description: "Quiet, shy, and dangerously curious about your bookshelf...", messageCount: "1.1K" },
-  { name: "Riyo Reaper", description: "Death's intern with a soft spot for tortured souls and tortured nights...", messageCount: "412" },
-  { name: "Luna", description: "Apprentice witch who keeps mistaking lust spells for love spells...", messageCount: "1.8K" },
-  { name: "Momo", description: "Your gym crush who finally noticed you spotting her squats...", messageCount: "2.8K" },
-  { name: "Meir Bad dream (DarkFantasy) V1.0", description: "She slips into your nightmares wearing nothing but smoke...", messageCount: "21.8K" },
-  { name: "Elara Vosslove", description: "Disgraced noble running from her arranged marriage straight to your door...", messageCount: "596" },
-  { name: "Maria", description: "Your devout neighbor whose confessional has gotten very specific lately...", messageCount: "0" },
-  { name: "Princess Demetria Agiad", description: "Royal heir slumming it in your one-bedroom apartment for the weekend...", messageCount: "32" },
-  { name: "June", description: "Summer fling who never left and now never wears clothes either...", messageCount: "904" },
-  { name: "Alice (DarkFantasy)", description: "She fell down the rabbit hole and landed in your lap...", messageCount: "877" },
-  { name: "Olivia", description: "Your therapist's eyebrow twitches every time you describe her in session...", messageCount: "830" },
+  { name: "Hana", description: "Quiet, shy, and dangerously curious about your bookshelf...", messageCount: "1.1K", likeCount: "26" },
+  { name: "Riyo Reaper", description: "Death's intern with a soft spot for tortured souls and tortured nights...", messageCount: "412", likeCount: "34" },
+  { name: "Luna", description: "Apprentice witch who keeps mistaking lust spells for love spells...", messageCount: "1.8K", likeCount: "322" },
+  { name: "Momo", description: "Your gym crush who finally noticed you spotting her squats...", messageCount: "2.8K", likeCount: "32" },
+  { name: "Meir Bad dream (DarkFantasy) V1.0", description: "She slips into your nightmares wearing nothing but smoke...", messageCount: "21.8K", likeCount: "20" },
+  { name: "Elara Vosslove", description: "Disgraced noble running from her arranged marriage straight to your door...", messageCount: "596", likeCount: "136" },
+  { name: "Maria", description: "Your devout neighbor whose confessional has gotten very specific lately...", messageCount: "0", likeCount: "5" },
+  { name: "Princess Demetria Agiad", description: "Royal heir slumming it in your one-bedroom apartment for the weekend...", messageCount: "32", likeCount: "8" },
+  { name: "June", description: "Summer fling who never left and now never wears clothes either...", messageCount: "904", likeCount: "210" },
+  { name: "Alice (DarkFantasy)", description: "She fell down the rabbit hole and landed in your lap...", messageCount: "877", likeCount: "44" },
+  { name: "Olivia", description: "Your therapist's eyebrow twitches every time you describe her in session...", messageCount: "830", likeCount: "61" },
+];
+
+const followingUsernames = [
+  "@phenix_giraffe_BDSM",
+  "@energetic_giraffe_3754",
+  "@marvelous_ibis",
+  "@respectful_leopard_9203",
+  "@Sirlight",
+  "@Sandwiches",
+  "@gentle_horse_1142",
+  "@quiet_owl_88",
+  "@cosmic_fox",
+  "@velvet_raven",
+];
+
+const videoCategories = [
+  "Anime3d", "Aphrodite", "Furry", "Velvetheat", "Fantasy", "Artea",
+  "Truelook", "Dreammix", "Cartoon", "Darkfantasy", "Anthro", "Female",
 ];
 
 const trendingVideos = [
@@ -46,6 +64,7 @@ const trendingVideos = [
   { id: "v6", likes: "640" },
   { id: "v7", likes: "523" },
 ];
+
 
 const createTools = [
   {
