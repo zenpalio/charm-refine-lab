@@ -593,10 +593,10 @@ const Explore = () => {
                     {/* Title + subtitle + arrow */}
                     <div className="relative flex items-end justify-between gap-3">
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-base font-bold leading-tight text-white">
+                        <h3 className="line-clamp-2 min-h-[2.5rem] text-base font-bold leading-tight text-white">
                           {t.title}
                         </h3>
-                        <p className="mt-1 text-xs text-grey-light-3">{t.subtitle}</p>
+                        <p className="mt-1 line-clamp-2 text-xs text-grey-light-3">{t.subtitle}</p>
                       </div>
                       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
                         <ChevronRight className="h-4 w-4 text-current" />
