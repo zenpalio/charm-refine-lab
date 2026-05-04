@@ -248,6 +248,7 @@ const heroSlides: HeroSlide[] = [
     imageUrl: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/e8fe5e83-dc55-424d-930c-d0b16eaa6e75/profile-picture-77b22208-141b-4809-93d8-7186e4b6a3ec.avif",
     tags: ["Anime", "Roommate", "New"],
     meta: { messages: "9.1K", likes: "4.4K" },
+  },
   {
     name: "Go Premium",
     tagline: "Unlock the full experience",
