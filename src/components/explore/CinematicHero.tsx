@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, MessageSquare, Play, User } from "lucide-react";
+import { BookOpen, ChevronLeft, ChevronRight, MessageSquare, Play, Star, User } from "lucide-react";
 
 export type HeroMedia =
   | { type: "image"; url: string }
@@ -19,10 +19,13 @@ export interface HeroSlide {
   /** Optional override for the primary CTA label (default: "Chat now") */
   cta?: string;
   /** Visual treatment. "portrait" (default) shows a tall portrait panel on the right.
-   *  "banner" shows a full-bleed wide image — better for promo / sale / feature cards. */
-  layout?: "portrait" | "banner";
+   *  "banner" shows a full-bleed wide image — better for promo / sale / feature cards.
+   *  "story" shows a book-cover style card with chapter/episode metadata. */
+  layout?: "portrait" | "banner" | "story";
   /** Optional accent color (hsl) for banner overlays */
   accent?: string;
+  /** Story metadata, shown when layout === "story" */
+  storyMeta?: { chapters?: number; episodes?: number; rating?: number };
 }
 
 interface Props {
@@ -168,6 +171,77 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
             const list = slideMedia[i];
             const m = list[0];
             const isBanner = s.layout === "banner";
+            const isStory = s.layout === "story";
+
+            if (isStory) {
+              const src = m.type === "image" ? m.url : (m.poster ?? s.imageUrl);
+              return (
+                <div className="absolute inset-0">
+                  {/* Warm parchment/library backdrop */}
+                  <img
+                    src={src}
+                    alt=""
+                    aria-hidden
+                    className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-50 opacity-50"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "radial-gradient(ellipse at 70% 40%, hsl(28 60% 20% / 0.55) 0%, hsl(20 40% 8% / 0.85) 60%, hsl(0 0% 0% / 0.95) 100%)",
+                    }}
+                  />
+                  {/* Book cover panel — portrait, tilted, with spine and page edges */}
+                  <div className="absolute inset-y-0 right-0 hidden items-center justify-center pr-12 md:flex">
+                    <div
+                      className="relative h-[70%] aspect-[2/3] rotate-[-3deg] transition-transform"
+                      style={{
+                        boxShadow:
+                          "0 30px 60px -15px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)",
+                      }}
+                    >
+                      {/* Page edges (right side stack) */}
+                      <div className="absolute -right-1.5 inset-y-2 w-1.5 rounded-r bg-gradient-to-b from-amber-100/60 via-amber-200/40 to-amber-100/60" />
+                      <div className="absolute -right-2.5 inset-y-3 w-1 rounded-r bg-amber-100/30" />
+                      {/* Spine */}
+                      <div className="absolute left-0 inset-y-0 w-2 rounded-l bg-gradient-to-b from-black/70 via-black/40 to-black/70" />
+                      {/* Cover image */}
+                      <img
+                        src={src}
+                        alt={s.name}
+                        className="h-full w-full rounded-sm object-cover"
+                        loading={i === 0 ? "eager" : "lazy"}
+                      />
+                      {/* Cover overlay: title plate */}
+                      <div className="absolute inset-x-0 bottom-0 p-4">
+                        <div className="rounded-sm border border-amber-200/30 bg-black/60 px-3 py-2 backdrop-blur-sm">
+                          <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-amber-200/80">
+                            A VelvetHeat Story
+                          </div>
+                          <div className="mt-0.5 font-serif text-sm font-bold leading-tight text-white">
+                            {s.name}
+                          </div>
+                        </div>
+                      </div>
+                      {/* Top corner ribbon */}
+                      <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-sm bg-amber-400/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black shadow">
+                        <BookOpen className="h-2.5 w-2.5" />
+                        Chapter 1
+                      </div>
+                    </div>
+                  </div>
+                  {/* Mobile: show book cover centered */}
+                  <div className="absolute inset-0 flex items-center justify-center md:hidden">
+                    <div className="relative h-[55%] aspect-[2/3] rotate-[-3deg]" style={{ boxShadow: "0 20px 40px -10px rgba(0,0,0,0.7)" }}>
+                      <img src={src} alt={s.name} className="h-full w-full rounded-sm object-cover" />
+                      <div className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-sm bg-amber-400/90 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
+                        <BookOpen className="h-2.5 w-2.5" /> Chapter 1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
 
             if (isBanner) {
               return (
@@ -310,7 +384,27 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
             </div>
           )}
 
-          {slide.meta && (
+          {slide.layout === "story" && slide.storyMeta && (
+            <div className="flex flex-wrap items-center gap-4 text-xs text-amber-200/90">
+              {slide.storyMeta.chapters != null && (
+                <span className="flex items-center gap-1.5">
+                  <BookOpen className="h-3.5 w-3.5" />
+                  {slide.storyMeta.chapters} chapters
+                </span>
+              )}
+              {slide.storyMeta.episodes != null && (
+                <span>{slide.storyMeta.episodes} episodes</span>
+              )}
+              {slide.storyMeta.rating != null && (
+                <span className="flex items-center gap-1">
+                  <Star className="h-3.5 w-3.5 fill-amber-300 text-amber-300" />
+                  {slide.storyMeta.rating.toFixed(1)}
+                </span>
+              )}
+            </div>
+          )}
+
+          {slide.meta && slide.layout !== "story" && (
             <div className="hidden items-center gap-4 text-xs text-white/70 md:flex">
               {slide.meta.messages && (
                 <span className="flex items-center gap-1.5">
@@ -323,8 +417,16 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           )}
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
-            <button className="inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black transition-transform hover:scale-[1.03]">
-              <Play className="h-4 w-4 fill-black" />
+            <button className={`inline-flex h-11 items-center gap-2 rounded-full px-6 text-sm font-bold transition-transform hover:scale-[1.03] ${
+              slide.layout === "story"
+                ? "bg-amber-300 text-black"
+                : "bg-white text-black"
+            }`}>
+              {slide.layout === "story" ? (
+                <BookOpen className="h-4 w-4" />
+              ) : (
+                <Play className="h-4 w-4 fill-black" />
+              )}
               {slide.cta ?? "Chat now"}
             </button>
             <button className="hidden h-11 items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20 md:inline-flex">
