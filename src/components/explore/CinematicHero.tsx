@@ -217,7 +217,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                     <img
                       src={m.url}
                       alt={s.name}
-                      className="h-full w-full object-cover object-center"
+                      className="h-full w-full object-cover object-right"
                     />
                   ) : (
                     <video
