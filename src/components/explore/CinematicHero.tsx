@@ -374,6 +374,15 @@ const HeroPanel = ({
           }}
         />
       )}
+      {withRightFade && (
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 w-24"
+          style={{
+            background:
+              "linear-gradient(270deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
+          }}
+        />
+      )}
       {/* Bottom fade into next sections */}
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
