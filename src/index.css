@@ -68,6 +68,11 @@
     --grey-light-4: 0 0% 55%;
     --accent-yellow: 43 96% 58%;
     --system-red: 0 84% 60%;
+
+    /* mybabes layout */
+    --header-height: 56px;
+    --sidebar-width: 240px;
+    --gallery-sidebar-width: 320px;
   }
 }
 
