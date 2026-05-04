@@ -18,6 +18,11 @@ export interface HeroSlide {
   badge?: string;
   /** Optional override for the primary CTA label (default: "Chat now") */
   cta?: string;
+  /** Visual treatment. "portrait" (default) shows a tall portrait panel on the right.
+   *  "banner" shows a full-bleed wide image — better for promo / sale / feature cards. */
+  layout?: "portrait" | "banner";
+  /** Optional accent color (hsl) for banner overlays */
+  accent?: string;
 }
 
 interface Props {
