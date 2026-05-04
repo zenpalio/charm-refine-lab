@@ -249,6 +249,42 @@ const heroSlides: HeroSlide[] = [
     tags: ["Anime", "Roommate", "New"],
     meta: { messages: "9.1K", likes: "4.4K" },
   },
+  {
+    name: "Go Premium",
+    tagline: "Unlock the full experience",
+    description: "Unlimited messages, priority generations, exclusive babes and HD video access. Your fantasies, no limits.",
+    imageUrl: "https://picsum.photos/seed/premium-hero/1600/1000",
+    tags: ["Premium", "Unlimited", "HD"],
+    badge: "Get Premium",
+    cta: "Upgrade now",
+  },
+  {
+    name: "Video Generator 2.0",
+    tagline: "Bring any scene to life",
+    description: "Our newest model renders silky-smooth 6-second clips with real motion, cinematic lighting and lip-sync. Try it free this week.",
+    imageUrl: "https://picsum.photos/seed/new-feature-hero/1600/1000",
+    tags: ["New", "Video AI", "Beta"],
+    badge: "New feature",
+    cta: "Try it now",
+  },
+  {
+    name: "50% OFF Token Packs",
+    tagline: "Limited-time weekend sale",
+    description: "Double your tokens on every pack until Sunday. Stack them, spend them, never run dry mid-conversation again.",
+    imageUrl: "https://picsum.photos/seed/sale-hero/1600/1000",
+    tags: ["Sale", "Limited", "Weekend"],
+    badge: "50% OFF — ends Sunday",
+    cta: "Claim deal",
+  },
+  {
+    name: "The Midnight Confession",
+    tagline: "An interactive story by VelvetHeat",
+    description: "She left a voicemail you weren't supposed to hear. Choose how the night unfolds in this 12-chapter branching story.",
+    imageUrl: "https://picsum.photos/seed/story-hero/1600/1000",
+    tags: ["Story", "Interactive", "Featured"],
+    badge: "New story",
+    cta: "Start reading",
+  },
 ];
 
 

@@ -14,6 +14,10 @@ export interface HeroSlide {
   media?: HeroMedia[];
   tags?: string[];
   meta?: { messages?: string; likes?: string };
+  /** Optional override for the small pill above the headline (default: "Featured today") */
+  badge?: string;
+  /** Optional override for the primary CTA label (default: "Chat now") */
+  cta?: string;
 }
 
 interface Props {
@@ -270,7 +274,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
         <div key={slide.name} className="max-w-xl animate-fade-in space-y-4">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/80 backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            Featured today
+            {slide.badge ?? "Featured today"}
           </span>
           <h1 className="text-4xl font-extrabold leading-[1.05] text-white drop-shadow-lg md:text-6xl">
             {slide.name}
@@ -307,7 +311,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <button className="inline-flex h-11 items-center gap-2 rounded-full bg-white px-6 text-sm font-bold text-black transition-transform hover:scale-[1.03]">
               <Play className="h-4 w-4 fill-black" />
-              Chat now
+              {slide.cta ?? "Chat now"}
             </button>
             <button className="hidden h-11 items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20 md:inline-flex">
               <User className="h-4 w-4" />
