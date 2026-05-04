@@ -111,42 +111,46 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                   className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
                 />
 
-                {/* Sharp 13:19 portrait, anchored right (desktop) */}
-                <div className="absolute inset-y-0 right-0 hidden md:block">
-                  <div className="relative h-full" style={{ aspectRatio: "13 / 19" }}>
-                    {m.type === "image" ? (
-                      <img
-                        src={m.url}
-                        alt={s.name}
-                        className="h-full w-full object-cover"
-                        loading={i === 0 ? "eager" : "lazy"}
-                      />
-                    ) : (
-                      <video
-                        src={m.url}
-                        poster={m.poster}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="h-full w-full object-cover"
-                      />
-                    )}
-                    <div
-                      className="pointer-events-none absolute inset-y-0 left-0 w-24"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
-                      }}
-                    />
-                    <div
-                      className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
-                      }}
-                    />
-                  </div>
+                {/* Sharp portrait panel(s), anchored right (desktop). When the slide
+                    has 2+ media, render two 13:19 panels side-by-side that each
+                    crossfade through their own subset of the gallery. */}
+                <div className="absolute inset-y-0 right-0 hidden h-full md:flex">
+                  {(() => {
+                    const list = slideMedia[i];
+                    if (list.length < 2) {
+                      return (
+                        <HeroPanel
+                          media={[m]}
+                          name={s.name}
+                          eager={i === 0}
+                          paused={paused}
+                          slotIndex={0}
+                        />
+                      );
+                    }
+                    // Split: panel 0 cycles odd indices starting at 0, panel 1 starts at 1
+                    const panelA = list.filter((_, idx) => idx % 2 === 0);
+                    const panelB = list.filter((_, idx) => idx % 2 === 1);
+                    return (
+                      <>
+                        <HeroPanel
+                          media={panelA}
+                          name={s.name}
+                          eager={i === 0}
+                          paused={paused}
+                          slotIndex={0}
+                          withLeftFade
+                        />
+                        <HeroPanel
+                          media={panelB}
+                          name={s.name}
+                          eager={false}
+                          paused={paused}
+                          slotIndex={1}
+                        />
+                      </>
+                    );
+                  })()}
                 </div>
 
                 {/* Mobile centered */}
