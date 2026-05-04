@@ -23,13 +23,42 @@ interface Props {
   mediaIntervalMs?: number;
 }
 
-const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
+const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Props) => {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const startRef = useRef<number>(performance.now());
   const [progress, setProgress] = useState(0);
 
-  // Auto-rotate with progress
+  // Build a normalized media list per slide (always at least the imageUrl)
+  const slideMedia = useMemo<HeroMedia[][]>(
+    () =>
+      slides.map((s) =>
+        s.media && s.media.length > 0
+          ? s.media
+          : [{ type: "image", url: s.imageUrl }],
+      ),
+    [slides],
+  );
+
+  // Sub-index for cycling media within the active slide
+  const [mediaIdx, setMediaIdx] = useState(0);
+
+  // Reset media index when slide changes
+  useEffect(() => {
+    setMediaIdx(0);
+  }, [active]);
+
+  // Auto-cycle media within the active slide
+  useEffect(() => {
+    const list = slideMedia[active];
+    if (!list || list.length <= 1 || paused) return;
+    const id = window.setInterval(() => {
+      setMediaIdx((i) => (i + 1) % list.length);
+    }, mediaIntervalMs);
+    return () => window.clearInterval(id);
+  }, [active, paused, slideMedia, mediaIntervalMs]);
+
+  // Auto-rotate slides with progress
   useEffect(() => {
     if (paused) return;
     startRef.current = performance.now();
