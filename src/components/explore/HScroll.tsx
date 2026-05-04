@@ -28,7 +28,7 @@ const HScroll = ({ children }: HScrollProps) => {
       >
         <ChevronRight className="h-5 w-5" />
       </button>
-      <div ref={ref} className="scrollbar-hide flex gap-3 overflow-x-auto scroll-smooth pb-1">
+      <div ref={ref} className="scrollbar-hide flex overflow-x-auto scroll-smooth pb-1 gap-2">
         {children}
       </div>
     </div>
