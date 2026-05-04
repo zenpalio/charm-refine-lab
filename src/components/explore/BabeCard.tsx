@@ -1,4 +1,4 @@
-import { MessageSquare, Heart, MoreHorizontal } from "lucide-react";
+import { MessageSquare, Heart } from "lucide-react";
 
 interface BabeCardProps {
   name: string;
