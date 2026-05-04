@@ -36,7 +36,7 @@ const StoryContentCard = ({
           src={src}
           alt={title || "Story"}
           loading="lazy"
-          className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover object-top transition-transform duration-300 md:group-hover:scale-[1.03]"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
@@ -86,8 +86,8 @@ const StoryContentCard = ({
         </div>
       </div>
 
-      {/* Hover overlay */}
-      <div className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/40 group-hover:opacity-100">
+      {/* Hover overlay (desktop only) */}
+      <div className="pointer-events-none absolute inset-0 z-[1] hidden items-center justify-center bg-black/0 opacity-0 transition-all duration-300 md:flex md:group-hover:bg-black/40 md:group-hover:opacity-100">
         <span className="rounded-full border border-white/20 bg-white/20 px-4 py-2 text-xs font-semibold text-white backdrop-blur-sm">
           View Story
         </span>
