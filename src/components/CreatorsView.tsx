@@ -102,9 +102,8 @@ export function CreatorsView({
   className,
 }: CreatorsViewProps) {
   const [search, setSearch] = useState("")
-  const [searchOpen, setSearchOpen] = useState(false)
   const [searchActive, setSearchActive] = useState(false)
-  const [sortBy, setSortBy] = useState<SortBy>("followers")
+  const [sortBy, setSortBy] = useState<SortBy>("likes")
   const [sortOpen, setSortOpen] = useState(false)
   const [creationOpen, setCreationOpen] = useState(false)
   const [timeOpen, setTimeOpen] = useState(false)
@@ -183,44 +182,34 @@ export function CreatorsView({
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6 relative z-10">
-        <div className="flex items-center gap-2 mb-4 min-h-[40px]">
-          {searchOpen || searchActive ? (
-            <div className="flex items-center gap-2 bg-card border border-border rounded-xl px-3 py-2.5 flex-1 animate-in fade-in slide-in-from-right-4 duration-200">
-              <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-              <input
-                autoFocus
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value)
-                  if (!e.target.value) setSearchActive(false)
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && search.trim()) setSearchActive(true)
-                }}
-                placeholder={labels.searchPlaceholder}
-                className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1"
-              />
+        <div className="flex items-center justify-end mb-4 min-h-[40px]">
+          <div className="flex items-center gap-2 bg-card border border-border rounded-full px-3 py-1.5 w-[200px] focus-within:w-[260px] transition-all duration-200">
+            <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+            <input
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value)
+                if (!e.target.value) setSearchActive(false)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && search.trim()) setSearchActive(true)
+              }}
+              placeholder={labels.searchPlaceholder}
+              className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1 min-w-0"
+            />
+            {search && (
               <button
                 onClick={() => {
                   setSearch("")
-                  setSearchOpen(false)
                   setSearchActive(false)
                 }}
-                className="text-muted-foreground hover:text-foreground text-xs"
-                aria-label="Close search"
+                className="text-muted-foreground hover:text-foreground text-xs flex-shrink-0"
+                aria-label="Clear search"
               >
                 ✕
               </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="ml-auto p-2 rounded-full hover:bg-muted transition-colors"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5 text-muted-foreground" />
-            </button>
-          )}
+            )}
+          </div>
         </div>
 
         {!searchActive && !search && (
