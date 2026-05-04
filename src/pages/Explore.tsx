@@ -1,5 +1,4 @@
 import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play } from "lucide-react";
-import ExploreSidebar from "@/components/explore/ExploreSidebar";
 import BabeCard from "@/components/explore/BabeCard";
 import HScroll from "@/components/explore/HScroll";
 
@@ -95,9 +94,7 @@ const SectionTitle = ({ title, action }: { title: string; action?: string }) => 
 const Explore = () => {
   return (
     <div className="relative flex h-svh w-full overflow-hidden bg-background font-onest text-foreground">
-      <ExploreSidebar />
-
-      <main className="relative ml-0 flex w-full flex-1 flex-col overflow-y-auto overflow-x-hidden md:ml-sidebar-width">
+      <main className="relative flex w-full flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Hero gradient backdrop */}
         <div
           className="pointer-events-none absolute left-0 top-0 z-0 h-[800px] w-full"
