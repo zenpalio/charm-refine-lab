@@ -8,6 +8,10 @@ import StoryContentCard from "@/components/explore/StoryContentCard";
 import FloatingToolsFAB from "@/components/explore/FloatingToolsFAB";
 import SideNav from "@/components/SideNav";
 import { type BadgeTier } from "@/components/BadgeCard";
+import bannerPremium from "@/assets/hero/banner-premium.jpg";
+import bannerFeature from "@/assets/hero/banner-feature.jpg";
+import bannerSale from "@/assets/hero/banner-sale.jpg";
+import bannerStory from "@/assets/hero/banner-story.jpg";
 
 // ---- Mock data ----
 const img = (seed: string, w = 400, h = 533) =>
