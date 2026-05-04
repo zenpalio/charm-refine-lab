@@ -80,22 +80,53 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
   const go = (i: number) => setActive((i + slides.length) % slides.length);
   const slide = slides[active];
 
-  // Touch swipe (mobile)
+  // Touch swipe (mobile) — live drag with snap on release
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
+  const lockedAxis = useRef<"x" | "y" | null>(null);
+  const [dragX, setDragX] = useState(0);
+  const [isDragging, setIsDragging] = useState(0); // 0 idle, 1 dragging
+  const widthRef = useRef<number>(0);
+
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
+    lockedAxis.current = null;
+    widthRef.current = (e.currentTarget as HTMLElement).clientWidth || 1;
+    setPaused(true);
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current == null || touchStartY.current == null) return;
+    const dx = e.touches[0].clientX - touchStartX.current;
+    const dy = e.touches[0].clientY - touchStartY.current;
+    if (lockedAxis.current == null) {
+      if (Math.abs(dx) > 8 || Math.abs(dy) > 8) {
+        lockedAxis.current = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+      }
+    }
+    if (lockedAxis.current === "x") {
+      setIsDragging(1);
+      // resistance at edges
+      setDragX(dx);
+    }
   };
   const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current == null || touchStartY.current == null) return;
+    if (touchStartX.current == null || touchStartY.current == null) {
+      setPaused(false);
+      return;
+    }
     const dx = e.changedTouches[0].clientX - touchStartX.current;
-    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    const w = widthRef.current || 1;
+    const ratio = Math.abs(dx) / w;
     touchStartX.current = null;
     touchStartY.current = null;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+    setIsDragging(0);
+    setDragX(0);
+    if (lockedAxis.current === "x" && (ratio > 0.18 || Math.abs(dx) > 80)) {
       go(active + (dx < 0 ? 1 : -1));
     }
+    lockedAxis.current = null;
+    setPaused(false);
   };
 
   return (
@@ -105,16 +136,23 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchEnd}
       aria-roledescription="carousel"
     >
       {/* Layered backdrops — crossfade */}
       {slides.map((s, i) => (
         <div
           key={s.name + i}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+          className={`absolute inset-0 ${isDragging ? "" : "transition-all duration-1000 ease-out"} ${
             i === active ? "opacity-100" : "opacity-0"
           }`}
+          style={
+            i === active && isDragging
+              ? { transform: `translate3d(${dragX}px,0,0)` }
+              : undefined
+          }
           aria-hidden={i !== active}
         >
           {(() => {
@@ -225,7 +263,10 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
       ))}
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1600px] items-end px-6 pb-20 md:items-center md:pb-0">
+      <div
+        className={`relative z-10 mx-auto flex h-full max-w-[1600px] items-end px-6 pb-20 md:items-center md:pb-0 ${isDragging ? "" : "transition-transform duration-500 ease-out"}`}
+        style={isDragging ? { transform: `translate3d(${dragX}px,0,0)` } : undefined}
+      >
         <div key={slide.name} className="max-w-xl animate-fade-in space-y-4">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/80 backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
