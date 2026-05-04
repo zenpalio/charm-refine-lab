@@ -177,9 +177,17 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
             );
           })()}
 
-          {/* Readability gradient — darkens text side only, lets backdrop breathe */}
+          {/* Mobile readability: strong bottom-up vignette behind text */}
           <div
-            className="pointer-events-none absolute inset-0"
+            className="pointer-events-none absolute inset-0 md:hidden"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent 0%, hsl(var(--background) / 0.2) 35%, hsl(var(--background) / 0.85) 70%, hsl(var(--background)) 100%)",
+            }}
+          />
+          {/* Desktop readability: side gradient — darkens text side only */}
+          <div
+            className="pointer-events-none absolute inset-0 hidden md:block"
             style={{
               background:
                 "linear-gradient(90deg, hsl(var(--background) / 0.92) 0%, hsl(var(--background) / 0.7) 25%, hsl(var(--background) / 0.25) 55%, transparent 75%)",
@@ -187,15 +195,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           />
           {/* Bottom-up vignette into rows */}
           <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-48"
-            style={{
-              background:
-                "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
-            }}
-          />
-
-          <div
-            className="absolute inset-x-0 bottom-0 h-40"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-40 hidden md:block"
             style={{
               background:
                 "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
