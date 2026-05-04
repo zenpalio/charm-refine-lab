@@ -12,11 +12,7 @@ import { type BadgeTier } from "@/components/BadgeCard";
 const img = (seed: string, w = 400, h = 533) =>
   `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
 
-// AI-generated video pool (1-100). Use vid(n) or vid() for a deterministic pick.
-const vid = (n?: number) => {
-  const i = n != null ? ((((n - 1) % 100) + 100) % 100) + 1 : Math.floor(Math.random() * 100) + 1;
-  return `https://seo-characters.fra1.cdn.digitaloceanspaces.com/AI-Gen-Porn/AI-Porn/AI-Porn${i}.mp4`;
-};
+
 
 const yourBabes = [
   { name: "Tanya", description: "Your sultry coworker who always finds a reason to bend over your desk...", messageCount: 12 },
@@ -238,9 +234,7 @@ const heroSlides: HeroSlide[] = [
     imageUrl: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/profile-picture-a2cfaed2-d95a-4a35-b729-3b7619033d42.avif",
     media: [
       { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/profile-picture-a2cfaed2-d95a-4a35-b729-3b7619033d42.avif" },
-      { type: "video", url: vid(7) },
       { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/35b7d1f0-5a47-47e1-bc88-862087bc302c-0.jpg" },
-      { type: "video", url: vid(42) },
       { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/80dddad7-a9d2-46bf-a21a-b45edd0cd81a-0.jpg" },
     ],
     tags: ["Fantasy", "Witch", "Trending"],
