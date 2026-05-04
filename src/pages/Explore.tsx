@@ -149,6 +149,23 @@ const SectionTitle = ({ title, action }: { title: string; action?: string }) => 
   </div>
 );
 
+// ---- Tag pill row ----
+const TagRow = ({ tags }: { tags: string[] }) => (
+  <div className="mb-3">
+    <HScroll>
+      {tags.map((t) => (
+        <button
+          key={t}
+          className="inline-flex h-[41px] shrink-0 items-center justify-center whitespace-nowrap rounded-[5px] bg-grey-dark-1 px-[16px] text-sm font-medium text-[#F2F2F2] transition-colors hover:bg-grey-dark-3 hover:text-white"
+        >
+          <span className="normal-case">{t}</span>
+        </button>
+      ))}
+    </HScroll>
+  </div>
+);
+
+
 const Explore = () => {
   return (
     <div className="relative flex h-svh w-full overflow-hidden bg-background font-onest text-foreground">
