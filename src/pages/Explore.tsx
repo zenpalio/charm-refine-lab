@@ -12,6 +12,12 @@ import { type BadgeTier } from "@/components/BadgeCard";
 const img = (seed: string, w = 400, h = 533) =>
   `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
 
+// AI-generated video pool (1-100). Use vid(n) or vid() for a deterministic pick.
+const vid = (n?: number) => {
+  const i = n != null ? ((((n - 1) % 100) + 100) % 100) + 1 : Math.floor(Math.random() * 100) + 1;
+  return `https://seo-characters.fra1.cdn.digitaloceanspaces.com/AI-Gen-Porn/AI-Porn/AI-Porn${i}.mp4`;
+};
+
 const yourBabes = [
   { name: "Tanya", description: "Your sultry coworker who always finds a reason to bend over your desk...", messageCount: 12 },
   { name: "Celeste", description: "A stargazer who reads your future in the constellations of her freckles...", messageCount: 0 },
@@ -232,7 +238,9 @@ const heroSlides: HeroSlide[] = [
     imageUrl: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/profile-picture-a2cfaed2-d95a-4a35-b729-3b7619033d42.avif",
     media: [
       { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/profile-picture-a2cfaed2-d95a-4a35-b729-3b7619033d42.avif" },
+      { type: "video", url: vid(7) },
       { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/35b7d1f0-5a47-47e1-bc88-862087bc302c-0.jpg" },
+      { type: "video", url: vid(42) },
       { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/80dddad7-a9d2-46bf-a21a-b45edd0cd81a-0.jpg" },
     ],
     tags: ["Fantasy", "Witch", "Trending"],
@@ -577,7 +585,7 @@ const Explore = () => {
             <SectionTitle title="Start creating" />
             {(() => {
               const cardClass =
-                "group relative flex w-full shrink-0 flex-col gap-3 overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-white/10";
+                "group relative flex w-full shrink-0 flex-col gap-2.5 overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-4 text-left transition-all hover:-translate-y-0.5 hover:border-white/10";
               const renderCard = (t: (typeof createTools)[number]) => {
                 const Icon = t.Icon;
                 return (
@@ -585,22 +593,24 @@ const Explore = () => {
                     {/* Subtle primary accent */}
                     <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/15 blur-2xl transition-opacity duration-300 group-hover:bg-primary/25" />
 
-                    {/* Icon badge */}
-                    <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
-                      <Icon className="h-5 w-5 text-white" />
-                    </div>
-
-                    {/* Title + subtitle + arrow */}
-                    <div className="relative flex items-end justify-between gap-3">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="line-clamp-2 text-base font-bold leading-tight text-white">
-                          {t.title}
-                        </h3>
-                        <p className="mt-1 line-clamp-2 text-xs text-grey-light-3">{t.subtitle}</p>
+                    {/* Top row: icon + arrow */}
+                    <div className="relative flex items-center justify-between">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                        <Icon className="h-[18px] w-[18px] text-white" />
                       </div>
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
                         <ChevronRight className="h-4 w-4 text-current" />
                       </div>
+                    </div>
+
+                    {/* Title + subtitle */}
+                    <div className="relative min-w-0">
+                      <h3 className="line-clamp-2 text-[15px] font-bold leading-tight text-white">
+                        {t.title}
+                      </h3>
+                      <p className="mt-1 line-clamp-2 text-xs leading-snug text-grey-light-3">
+                        {t.subtitle}
+                      </p>
                     </div>
                   </button>
                 );
