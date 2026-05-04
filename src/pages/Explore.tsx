@@ -227,7 +227,7 @@ const Explore = () => {
         <CinematicHero slides={heroSlides} />
 
         {/* Edge-to-edge content rows */}
-        <div className="relative z-10 -mt-12 flex w-full flex-col gap-6 px-4 pb-16 md:px-8 lg:px-12">
+        <div className="relative z-10 flex w-full flex-col gap-6 px-4 pb-16 pt-6 md:px-8 lg:px-12">
 
           {/* Your babes */}
           <section>
