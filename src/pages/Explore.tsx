@@ -523,6 +523,16 @@ const Explore = () => {
             </HScroll>
           </section>
 
+          {/* New story episodes */}
+          <section className="mt-4">
+            <SectionTitle title="New story episodes" action="See all" />
+            <HScroll>
+              {newEpisodes.map((s) => (
+                <StoryContentCard key={s.id} {...s} />
+              ))}
+            </HScroll>
+          </section>
+
           {/* Rising creators */}
           <section className="mt-4">
             <SectionTitle title="Rising creators this week" action="See all" />
