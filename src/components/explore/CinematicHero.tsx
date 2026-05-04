@@ -217,12 +217,12 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           <p className="text-base font-medium text-white/80 md:text-lg">
             {slide.tagline}
           </p>
-          <p className="line-clamp-3 max-w-lg text-sm text-grey-light-3 md:text-base">
+          <p className="max-w-lg text-sm text-grey-light-3 md:line-clamp-3 md:text-base">
             {slide.description}
           </p>
 
           {slide.tags && slide.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="hidden flex-wrap gap-2 md:flex">
               {slide.tags.slice(0, 4).map((t) => (
                 <span
                   key={t}
@@ -235,7 +235,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           )}
 
           {slide.meta && (
-            <div className="flex items-center gap-4 text-xs text-white/70">
+            <div className="hidden items-center gap-4 text-xs text-white/70 md:flex">
               {slide.meta.messages && (
                 <span className="flex items-center gap-1.5">
                   <MessageSquare className="h-3.5 w-3.5" />
@@ -251,7 +251,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
               <Play className="h-4 w-4 fill-black" />
               Chat now
             </button>
-            <button className="inline-flex h-11 items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20">
+            <button className="hidden h-11 items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20 md:inline-flex">
               <Plus className="h-4 w-4" />
               More info
             </button>
