@@ -1,13 +1,24 @@
-import { MessageSquare } from "lucide-react";
+import { MessageSquare, Heart, MoreHorizontal } from "lucide-react";
 
 interface BabeCardProps {
   name: string;
   description: string;
   imageUrl: string;
   messageCount?: number | string;
+  likeCount?: number | string;
+  variant?: "compact" | "stats";
 }
 
-const BabeCard = ({ name, description, imageUrl, messageCount = 0 }: BabeCardProps) => {
+const BabeCard = ({
+  name,
+  description,
+  imageUrl,
+  messageCount = 0,
+  likeCount,
+  variant = "compact",
+}: BabeCardProps) => {
+  const showStats = variant === "stats";
+
   return (
     <div className="group relative w-[180px] shrink-0 cursor-pointer overflow-hidden rounded-2xl bg-grey-dark-1 transition-transform hover:-translate-y-1">
       <div className="relative aspect-[3/4] w-full overflow-hidden">
@@ -18,17 +29,44 @@ const BabeCard = ({ name, description, imageUrl, messageCount = 0 }: BabeCardPro
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-        {messageCount !== 0 && messageCount !== "0" && (
+
+        {/* Top-right menu (stats variant) */}
+        {showStats && (
+          <button
+            onClick={(e) => e.stopPropagation()}
+            className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white/90 backdrop-blur-sm hover:bg-black/70"
+            aria-label="More"
+          >
+            <MoreHorizontal className="h-4 w-4" />
+          </button>
+        )}
+
+        {/* Compact variant: message badge top-right */}
+        {!showStats && messageCount !== 0 && messageCount !== "0" && (
           <div className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm">
             <MessageSquare className="h-3 w-3" />
             {messageCount}
           </div>
         )}
+
         <div className="absolute bottom-0 left-0 right-0 p-3">
           <h3 className="text-sm font-bold text-white leading-tight">{name}</h3>
           <p className="mt-1 line-clamp-2 text-[11px] text-grey-light-3 leading-snug">
             {description}
           </p>
+
+          {showStats && (
+            <div className="mt-2 flex items-center justify-between text-[12px] font-medium text-white/90">
+              <span className="flex items-center gap-1">
+                <MessageSquare className="h-3.5 w-3.5" />
+                {messageCount}
+              </span>
+              <span className="flex items-center gap-1">
+                <Heart className="h-3.5 w-3.5" />
+                {likeCount ?? 0}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>

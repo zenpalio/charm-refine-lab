@@ -24,17 +24,35 @@ const yourBabes = [
 ];
 
 const yourFollowing = [
-  { name: "Hana", description: "Quiet, shy, and dangerously curious about your bookshelf...", messageCount: "1.1K" },
-  { name: "Riyo Reaper", description: "Death's intern with a soft spot for tortured souls and tortured nights...", messageCount: "412" },
-  { name: "Luna", description: "Apprentice witch who keeps mistaking lust spells for love spells...", messageCount: "1.8K" },
-  { name: "Momo", description: "Your gym crush who finally noticed you spotting her squats...", messageCount: "2.8K" },
-  { name: "Meir Bad dream (DarkFantasy) V1.0", description: "She slips into your nightmares wearing nothing but smoke...", messageCount: "21.8K" },
-  { name: "Elara Vosslove", description: "Disgraced noble running from her arranged marriage straight to your door...", messageCount: "596" },
-  { name: "Maria", description: "Your devout neighbor whose confessional has gotten very specific lately...", messageCount: "0" },
-  { name: "Princess Demetria Agiad", description: "Royal heir slumming it in your one-bedroom apartment for the weekend...", messageCount: "32" },
-  { name: "June", description: "Summer fling who never left and now never wears clothes either...", messageCount: "904" },
-  { name: "Alice (DarkFantasy)", description: "She fell down the rabbit hole and landed in your lap...", messageCount: "877" },
-  { name: "Olivia", description: "Your therapist's eyebrow twitches every time you describe her in session...", messageCount: "830" },
+  { name: "Hana", description: "Quiet, shy, and dangerously curious about your bookshelf...", messageCount: "1.1K", likeCount: "26" },
+  { name: "Riyo Reaper", description: "Death's intern with a soft spot for tortured souls and tortured nights...", messageCount: "412", likeCount: "34" },
+  { name: "Luna", description: "Apprentice witch who keeps mistaking lust spells for love spells...", messageCount: "1.8K", likeCount: "322" },
+  { name: "Momo", description: "Your gym crush who finally noticed you spotting her squats...", messageCount: "2.8K", likeCount: "32" },
+  { name: "Meir Bad dream (DarkFantasy) V1.0", description: "She slips into your nightmares wearing nothing but smoke...", messageCount: "21.8K", likeCount: "20" },
+  { name: "Elara Vosslove", description: "Disgraced noble running from her arranged marriage straight to your door...", messageCount: "596", likeCount: "136" },
+  { name: "Maria", description: "Your devout neighbor whose confessional has gotten very specific lately...", messageCount: "0", likeCount: "5" },
+  { name: "Princess Demetria Agiad", description: "Royal heir slumming it in your one-bedroom apartment for the weekend...", messageCount: "32", likeCount: "8" },
+  { name: "June", description: "Summer fling who never left and now never wears clothes either...", messageCount: "904", likeCount: "210" },
+  { name: "Alice (DarkFantasy)", description: "She fell down the rabbit hole and landed in your lap...", messageCount: "877", likeCount: "44" },
+  { name: "Olivia", description: "Your therapist's eyebrow twitches every time you describe her in session...", messageCount: "830", likeCount: "61" },
+];
+
+const followingUsernames = [
+  "@phenix_giraffe_BDSM",
+  "@energetic_giraffe_3754",
+  "@marvelous_ibis",
+  "@respectful_leopard_9203",
+  "@Sirlight",
+  "@Sandwiches",
+  "@gentle_horse_1142",
+  "@quiet_owl_88",
+  "@cosmic_fox",
+  "@velvet_raven",
+];
+
+const videoCategories = [
+  "Anime3d", "Aphrodite", "Furry", "Velvetheat", "Fantasy", "Artea",
+  "Truelook", "Dreammix", "Cartoon", "Darkfantasy", "Anthro", "Female",
 ];
 
 const trendingVideos = [
@@ -46,6 +64,7 @@ const trendingVideos = [
   { id: "v6", likes: "640" },
   { id: "v7", likes: "523" },
 ];
+
 
 const createTools = [
   {
@@ -144,41 +163,71 @@ const Explore = () => {
           <section className="mt-4">
             <SectionTitle title="Top trending videos" action="See all" />
             <HScroll>
-              {trendingVideos.map((v, i) => (
-                <div
-                  key={v.id}
-                  className="group relative w-[260px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
+              {videoCategories.map((c) => (
+                <button
+                  key={c}
+                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
                 >
-                  <div className="relative aspect-video w-full overflow-hidden">
-                    <img
-                      src={img(`vid-${v.id}`, 520, 293)}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
-                        <Play className="h-5 w-5 fill-black text-black" />
-                      </div>
-                    </div>
-                    <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
-                      ❤ {v.likes}
-                    </div>
-                  </div>
-                </div>
+                  {c}
+                </button>
               ))}
             </HScroll>
+            <div className="mt-3">
+              <HScroll>
+                {trendingVideos.map((v) => (
+                  <div
+                    key={v.id}
+                    className="group relative w-[260px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
+                  >
+                    <div className="relative aspect-video w-full overflow-hidden">
+                      <img
+                        src={img(`vid-${v.id}`, 520, 293)}
+                        alt=""
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
+                          <Play className="h-5 w-5 fill-black text-black" />
+                        </div>
+                      </div>
+                      <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
+                        ❤ {v.likes}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </HScroll>
+            </div>
           </section>
 
           {/* Your following */}
           <section className="mt-4">
             <SectionTitle title="Your following" action="See all" />
             <HScroll>
-              {yourFollowing.map((b, i) => (
-                <BabeCard key={i} {...b} imageUrl={img(`follow-${b.name}-${i}`)} />
+              {followingUsernames.map((u) => (
+                <button
+                  key={u}
+                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
+                >
+                  {u}
+                </button>
               ))}
             </HScroll>
+            <div className="mt-3">
+              <HScroll>
+                {yourFollowing.map((b, i) => (
+                  <BabeCard
+                    key={i}
+                    {...b}
+                    variant="stats"
+                    imageUrl={img(`follow-${b.name}-${i}`)}
+                  />
+                ))}
+              </HScroll>
+            </div>
           </section>
+
 
           {/* Start creating */}
           <section className="mt-4">
