@@ -250,7 +250,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
             </button>
             <button className="hidden h-11 items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20 md:inline-flex">
               <Plus className="h-4 w-4" />
-              More info
+              View profile
             </button>
           </div>
         </div>
