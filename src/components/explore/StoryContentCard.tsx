@@ -36,7 +36,7 @@ const StoryContentCard = ({
           src={src}
           alt={title || "Story"}
           loading="lazy"
-          className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+          className="h-full w-full object-cover object-top transition-transform duration-300 md:group-hover:scale-[1.03]"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
