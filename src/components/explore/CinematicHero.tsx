@@ -111,42 +111,46 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                   className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
                 />
 
-                {/* Sharp 13:19 portrait, anchored right (desktop) */}
-                <div className="absolute inset-y-0 right-0 hidden md:block">
-                  <div className="relative h-full" style={{ aspectRatio: "13 / 19" }}>
-                    {m.type === "image" ? (
-                      <img
-                        src={m.url}
-                        alt={s.name}
-                        className="h-full w-full object-cover"
-                        loading={i === 0 ? "eager" : "lazy"}
-                      />
-                    ) : (
-                      <video
-                        src={m.url}
-                        poster={m.poster}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="h-full w-full object-cover"
-                      />
-                    )}
-                    <div
-                      className="pointer-events-none absolute inset-y-0 left-0 w-24"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
-                      }}
-                    />
-                    <div
-                      className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
-                      style={{
-                        background:
-                          "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
-                      }}
-                    />
-                  </div>
+                {/* Sharp portrait panel(s), anchored right (desktop). When the slide
+                    has 2+ media, render two 13:19 panels side-by-side that each
+                    crossfade through their own subset of the gallery. */}
+                <div className="absolute inset-y-0 right-0 hidden h-full md:flex">
+                  {(() => {
+                    const list = slideMedia[i];
+                    if (list.length < 2) {
+                      return (
+                        <HeroPanel
+                          media={[m]}
+                          name={s.name}
+                          eager={i === 0}
+                          paused={paused}
+                          slotIndex={0}
+                        />
+                      );
+                    }
+                    // Split: panel 0 cycles odd indices starting at 0, panel 1 starts at 1
+                    const panelA = list.filter((_, idx) => idx % 2 === 0);
+                    const panelB = list.filter((_, idx) => idx % 2 === 1);
+                    return (
+                      <>
+                        <HeroPanel
+                          media={panelA}
+                          name={s.name}
+                          eager={i === 0}
+                          paused={paused}
+                          slotIndex={0}
+                          withLeftFade
+                        />
+                        <HeroPanel
+                          media={panelB}
+                          name={s.name}
+                          eager={false}
+                          paused={paused}
+                          slotIndex={1}
+                        />
+                      </>
+                    );
+                  })()}
                 </div>
 
                 {/* Mobile centered */}
@@ -255,28 +259,6 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
         </div>
       </div>
 
-      {/* Filmstrip — only when the active slide has 2+ media items */}
-      {(() => {
-        const list = slideMedia[active];
-        if (!list || list.length < 2) return null;
-        const slotCount = Math.min(3, list.length - 1);
-        return (
-          <div
-            key={`strip-${active}`}
-            className="pointer-events-none absolute bottom-20 right-6 z-20 hidden items-end gap-3 md:flex"
-          >
-            {Array.from({ length: slotCount }).map((_, slotI) => (
-              <FilmstripCard
-                key={slotI}
-                media={list}
-                slotIndex={slotI}
-                paused={paused}
-              />
-            ))}
-          </div>
-        );
-      })()}
-
       {/* Arrows */}
       <button
         onClick={() => go(active - 1)}
@@ -321,45 +303,52 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
 };
 
 /**
- * Small card on the right side of the hero that crossfades through the
- * character's media gallery on its own staggered timer. Each slot starts at a
- * different media index so cards never show the same image at once.
+ * Full-height 13:19 portrait panel anchored on the hero's right side. Crossfades
+ * through its assigned media subset on a staggered timer so two adjacent panels
+ * never advance in lockstep.
  */
-const FilmstripCard = ({
+const HeroPanel = ({
   media,
-  slotIndex,
+  name,
+  eager,
   paused,
+  slotIndex,
+  withLeftFade = false,
 }: {
   media: HeroMedia[];
-  slotIndex: number;
+  name: string;
+  eager: boolean;
   paused: boolean;
+  slotIndex: number;
+  withLeftFade?: boolean;
 }) => {
-  // Skip the first item (it's already the main hero portrait) and offset by slot
-  const pool = media.length > 1 ? media.slice(1) : media;
-  const [idx, setIdx] = useState(slotIndex % pool.length);
+  const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    if (paused || pool.length <= 1) return;
+    if (paused || media.length <= 1) return;
     const id = window.setInterval(() => {
-      setIdx((i) => (i + 1) % pool.length);
-    }, 4200 + slotIndex * 600);
+      setIdx((i) => (i + 1) % media.length);
+    }, 4200 + slotIndex * 700);
     return () => window.clearInterval(id);
-  }, [paused, pool.length, slotIndex]);
+  }, [paused, media.length, slotIndex]);
 
   return (
-    <div
-      className="pointer-events-auto relative overflow-hidden rounded-xl border border-white/10 shadow-2xl ring-1 ring-black/20 transition-transform hover:scale-[1.04]"
-      style={{ width: "120px", aspectRatio: "13 / 19" }}
-    >
-      {pool.map((m, i) => (
+    <div className="relative h-full" style={{ aspectRatio: "13 / 19" }}>
+      {media.map((m, i) => (
         <div
           key={i}
           className={`absolute inset-0 transition-opacity duration-700 ease-out ${
             i === idx ? "opacity-100" : "opacity-0"
           }`}
+          aria-hidden={i !== idx}
         >
           {m.type === "image" ? (
-            <img src={m.url} alt="" className="h-full w-full object-cover" loading="lazy" />
+            <img
+              src={m.url}
+              alt={i === 0 ? name : ""}
+              className="h-full w-full object-cover"
+              loading={eager && i === 0 ? "eager" : "lazy"}
+            />
           ) : (
             <video
               src={m.url}
@@ -373,12 +362,21 @@ const FilmstripCard = ({
           )}
         </div>
       ))}
-      {/* Soft top sheen */}
+      {withLeftFade && (
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 w-24"
+          style={{
+            background:
+              "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
+          }}
+        />
+      )}
+      {/* Bottom fade into next sections */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-1/3"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
         style={{
           background:
-            "linear-gradient(180deg, hsl(0 0% 0% / 0.25) 0%, transparent 100%)",
+            "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
         }}
       />
     </div>
