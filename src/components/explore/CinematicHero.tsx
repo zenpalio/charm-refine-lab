@@ -145,9 +145,14 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
       {slides.map((s, i) => (
         <div
           key={s.name + i}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+          className={`absolute inset-0 ${isDragging ? "" : "transition-all duration-1000 ease-out"} ${
             i === active ? "opacity-100" : "opacity-0"
           }`}
+          style={
+            i === active && isDragging
+              ? { transform: `translate3d(${dragX}px,0,0)` }
+              : undefined
+          }
           aria-hidden={i !== active}
         >
           {(() => {
