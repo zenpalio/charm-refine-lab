@@ -425,9 +425,13 @@ const Explore = () => {
       <main ref={mainRef} className="relative flex w-full flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Sticky top bar — slides away on scroll down, returns on scroll up */}
         <header
-          className={`pointer-events-none sticky top-0 z-30 flex min-h-[62px] w-full items-center justify-between bg-gradient-to-b from-black/40 via-black/15 to-transparent px-6 py-4 transition-transform duration-300 ease-out ${
+          className={`pointer-events-none sticky top-0 z-30 flex min-h-[62px] w-full items-center justify-between px-6 py-4 transition-transform duration-300 ease-out ${
             headerHidden ? "-translate-y-full" : "translate-y-0"
           }`}
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0) 100%)",
+          }}
         >
           <div className="pointer-events-auto flex items-center gap-3">
             <button
