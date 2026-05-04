@@ -12,6 +12,12 @@ import { type BadgeTier } from "@/components/BadgeCard";
 const img = (seed: string, w = 400, h = 533) =>
   `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
 
+// AI-generated video pool (1-100). Use vid(n) or vid() for a deterministic pick.
+const vid = (n?: number) => {
+  const i = n != null ? ((((n - 1) % 100) + 100) % 100) + 1 : Math.floor(Math.random() * 100) + 1;
+  return `https://seo-characters.fra1.cdn.digitaloceanspaces.com/AI-Gen-Porn/AI-Porn/AI-Porn${i}.mp4`;
+};
+
 const yourBabes = [
   { name: "Tanya", description: "Your sultry coworker who always finds a reason to bend over your desk...", messageCount: 12 },
   { name: "Celeste", description: "A stargazer who reads your future in the constellations of her freckles...", messageCount: 0 },
