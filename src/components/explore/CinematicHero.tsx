@@ -227,7 +227,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                       muted
                       loop
                       playsInline
-                      className="h-full w-full object-cover object-center"
+                      className="h-full w-full object-cover object-right"
                     />
                   )}
                 </div>
