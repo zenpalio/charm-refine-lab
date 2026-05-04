@@ -283,10 +283,10 @@ const Explore = () => {
           <div className="pointer-events-auto flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur transition-colors hover:bg-black/70"
+              className="flex h-9 w-9 items-center justify-center text-white/90 transition-opacity hover:opacity-70"
               aria-label="Open menu"
             >
-              <Menu className="h-4 w-4 text-white" />
+              <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
             <h1 className="text-lg font-bold leading-none text-white drop-shadow-md md:text-xl">
               Welcome back, Arthur <span>🩷</span>
