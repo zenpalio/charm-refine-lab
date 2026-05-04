@@ -214,9 +214,6 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           <h1 className="text-4xl font-extrabold leading-[1.05] text-white drop-shadow-lg md:text-6xl">
             {slide.name}
           </h1>
-          <p className="text-base font-medium text-white/80 md:text-lg">
-            {slide.tagline}
-          </p>
           <p className="max-w-lg text-sm text-grey-light-3 md:line-clamp-3 md:text-base">
             {slide.description}
           </p>
