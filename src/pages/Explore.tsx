@@ -163,41 +163,71 @@ const Explore = () => {
           <section className="mt-4">
             <SectionTitle title="Top trending videos" action="See all" />
             <HScroll>
-              {trendingVideos.map((v, i) => (
-                <div
-                  key={v.id}
-                  className="group relative w-[260px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
+              {videoCategories.map((c) => (
+                <button
+                  key={c}
+                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
                 >
-                  <div className="relative aspect-video w-full overflow-hidden">
-                    <img
-                      src={img(`vid-${v.id}`, 520, 293)}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
-                        <Play className="h-5 w-5 fill-black text-black" />
-                      </div>
-                    </div>
-                    <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
-                      ❤ {v.likes}
-                    </div>
-                  </div>
-                </div>
+                  {c}
+                </button>
               ))}
             </HScroll>
+            <div className="mt-3">
+              <HScroll>
+                {trendingVideos.map((v) => (
+                  <div
+                    key={v.id}
+                    className="group relative w-[260px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
+                  >
+                    <div className="relative aspect-video w-full overflow-hidden">
+                      <img
+                        src={img(`vid-${v.id}`, 520, 293)}
+                        alt=""
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
+                          <Play className="h-5 w-5 fill-black text-black" />
+                        </div>
+                      </div>
+                      <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
+                        ❤ {v.likes}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </HScroll>
+            </div>
           </section>
 
           {/* Your following */}
           <section className="mt-4">
             <SectionTitle title="Your following" action="See all" />
             <HScroll>
-              {yourFollowing.map((b, i) => (
-                <BabeCard key={i} {...b} imageUrl={img(`follow-${b.name}-${i}`)} />
+              {followingUsernames.map((u) => (
+                <button
+                  key={u}
+                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
+                >
+                  {u}
+                </button>
               ))}
             </HScroll>
+            <div className="mt-3">
+              <HScroll>
+                {yourFollowing.map((b, i) => (
+                  <BabeCard
+                    key={i}
+                    {...b}
+                    variant="stats"
+                    imageUrl={img(`follow-${b.name}-${i}`)}
+                  />
+                ))}
+              </HScroll>
+            </div>
           </section>
+
 
           {/* Start creating */}
           <section className="mt-4">
