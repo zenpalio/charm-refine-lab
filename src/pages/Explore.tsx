@@ -1,0 +1,261 @@
+import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play } from "lucide-react";
+import ExploreSidebar from "@/components/explore/ExploreSidebar";
+import BabeCard from "@/components/explore/BabeCard";
+import HScroll from "@/components/explore/HScroll";
+
+// ---- Mock data ----
+const img = (seed: string, w = 400, h = 533) =>
+  `https://picsum.photos/seed/${encodeURIComponent(seed)}/${w}/${h}`;
+
+const yourBabes = [
+  { name: "Tanya", description: "Your sultry coworker who always finds a reason to bend over your desk...", messageCount: 12 },
+  { name: "Celeste", description: "A stargazer who reads your future in the constellations of her freckles...", messageCount: 0 },
+  { name: "Naomi", description: "Your best friend's older sister, back from college with a wicked smile...", messageCount: 4 },
+  { name: "Rina", description: "Quiet librarian by day, devil between the stacks after closing time...", messageCount: 0 },
+  { name: "Lola", description: "A burlesque dancer with a soft spot for shy admirers backstage...", messageCount: 23 },
+  { name: "Nyx", description: "Goth witch from the apartment above, knocking at midnight again...", messageCount: 7 },
+  { name: "Luna", description: "Moonlit mermaid washed up on your private beach with a secret to tell...", messageCount: 0 },
+  { name: "Paola", description: "Latina chef teaching you how to handle her spice the right way...", messageCount: 1 },
+  { name: "Ximena", description: "Fiery activist who'll argue you into bed and out of your hangups...", messageCount: 0 },
+  { name: "Sakura", description: "Your flirty roommate just busted you red-handed with her panties...", messageCount: 9 },
+  { name: "Wednesday Addams – Smash or Pass", description: "She raises one perfectly arched brow. The verdict is yours...", messageCount: 88 },
+  { name: "Lucia", description: "Italian widow next door who needs help with more than the gardening...", messageCount: 0 },
+  { name: "Pocahontas", description: "Wild spirit of the woods who doesn't believe in clothes or apologies...", messageCount: 14 },
+  { name: "Ella", description: "Cinderella after midnight, no longer playing nice or losing slippers...", messageCount: 0 },
+];
+
+const yourFollowing = [
+  { name: "Hana", description: "Quiet, shy, and dangerously curious about your bookshelf...", messageCount: "1.1K" },
+  { name: "Riyo Reaper", description: "Death's intern with a soft spot for tortured souls and tortured nights...", messageCount: "412" },
+  { name: "Luna", description: "Apprentice witch who keeps mistaking lust spells for love spells...", messageCount: "1.8K" },
+  { name: "Momo", description: "Your gym crush who finally noticed you spotting her squats...", messageCount: "2.8K" },
+  { name: "Meir Bad dream (DarkFantasy) V1.0", description: "She slips into your nightmares wearing nothing but smoke...", messageCount: "21.8K" },
+  { name: "Elara Vosslove", description: "Disgraced noble running from her arranged marriage straight to your door...", messageCount: "596" },
+  { name: "Maria", description: "Your devout neighbor whose confessional has gotten very specific lately...", messageCount: "0" },
+  { name: "Princess Demetria Agiad", description: "Royal heir slumming it in your one-bedroom apartment for the weekend...", messageCount: "32" },
+  { name: "June", description: "Summer fling who never left and now never wears clothes either...", messageCount: "904" },
+  { name: "Alice (DarkFantasy)", description: "She fell down the rabbit hole and landed in your lap...", messageCount: "877" },
+  { name: "Olivia", description: "Your therapist's eyebrow twitches every time you describe her in session...", messageCount: "830" },
+];
+
+const trendingVideos = [
+  { id: "v1", likes: "2.1K" },
+  { id: "v2", likes: "1.8K" },
+  { id: "v3", likes: "1.4K" },
+  { id: "v4", likes: "987" },
+  { id: "v5", likes: "812" },
+  { id: "v6", likes: "640" },
+  { id: "v7", likes: "523" },
+];
+
+const createTools = [
+  {
+    title: "Create Custom Babe",
+    href: "/explore/create-babe",
+    gradient: "from-fuchsia-700 via-pink-600 to-rose-500",
+    Icon: Sparkles,
+    seed: "create-babe",
+  },
+  {
+    title: "Video Generator",
+    href: "/explore/video-generator",
+    gradient: "from-rose-600 via-red-500 to-orange-500",
+    Icon: Video,
+    seed: "video-gen",
+  },
+  {
+    title: "Image Generator",
+    href: "/explore/image-generator",
+    gradient: "from-blue-700 via-blue-600 to-cyan-500",
+    Icon: ImageIcon,
+    seed: "image-gen",
+  },
+  {
+    title: "Create Template Babe",
+    href: "/explore/create-template",
+    gradient: "from-emerald-700 via-green-600 to-teal-500",
+    Icon: Sparkles,
+    seed: "template-babe",
+  },
+];
+
+// ---- Section header ----
+const SectionTitle = ({ title, action }: { title: string; action?: string }) => (
+  <div className="mb-3 flex items-end justify-between">
+    <h2 className="text-xl font-bold leading-tight text-white">{title}</h2>
+    {action && (
+      <button className="flex items-center gap-1 text-xs font-medium text-grey-light-3 hover:text-white transition-colors">
+        {action}
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </button>
+    )}
+  </div>
+);
+
+const Explore = () => {
+  return (
+    <div className="relative flex h-svh w-full overflow-hidden bg-background font-onest text-foreground">
+      <ExploreSidebar />
+
+      <main className="relative ml-0 flex w-full flex-1 flex-col overflow-y-auto overflow-x-hidden md:ml-sidebar-width">
+        {/* Hero gradient backdrop */}
+        <div
+          className="pointer-events-none absolute left-0 top-0 z-0 h-[800px] w-full"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(245,84,44,0.20) 68.27%, rgba(248,113,113,0.15) 86.54%)",
+            backdropFilter: "blur(20px)",
+          }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(15,15,15,0.4) 0.27%, rgba(15,15,15,0.4) 0.28%, #0F0F0F 77.44%)",
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 mx-auto flex w-full max-w-[1119px] flex-col gap-5 px-4 pb-16 pt-4">
+          {/* Page header */}
+          <header className="flex min-h-[62px] w-full items-center justify-between">
+            <h1 className="text-2xl font-bold leading-[31px] text-white">
+              Welcome back, Arthur <span>🩷</span>
+            </h1>
+            <button
+              className="relative flex h-[30px] w-[30px] items-center justify-center rounded-full bg-grey-dark-1 hover:bg-grey-dark-2 transition-colors"
+              aria-label="Notifications"
+            >
+              <Bell className="h-4 w-4 text-grey-light-2" />
+              <span className="absolute -right-1 -top-1 flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[#2E70E8] px-[2px] text-[10px] font-semibold leading-[14px] text-white">
+                14
+              </span>
+            </button>
+          </header>
+
+          {/* Your babes */}
+          <section>
+            <SectionTitle title="Your babes are waiting" action="See all" />
+            <HScroll>
+              {yourBabes.map((b, i) => (
+                <BabeCard key={i} {...b} imageUrl={img(`babe-${b.name}-${i}`)} />
+              ))}
+            </HScroll>
+          </section>
+
+          {/* Top trending videos */}
+          <section className="mt-4">
+            <SectionTitle title="Top trending videos" action="See all" />
+            <HScroll>
+              {trendingVideos.map((v, i) => (
+                <div
+                  key={v.id}
+                  className="group relative w-[260px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
+                >
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    <img
+                      src={img(`vid-${v.id}`, 520, 293)}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
+                        <Play className="h-5 w-5 fill-black text-black" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
+                      ❤ {v.likes}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </HScroll>
+          </section>
+
+          {/* Your following */}
+          <section className="mt-4">
+            <SectionTitle title="Your following" action="See all" />
+            <HScroll>
+              {yourFollowing.map((b, i) => (
+                <BabeCard key={i} {...b} imageUrl={img(`follow-${b.name}-${i}`)} />
+              ))}
+            </HScroll>
+          </section>
+
+          {/* Start creating */}
+          <section className="mt-4">
+            <SectionTitle title="Start creating" />
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+              {createTools.map((t) => {
+                const Icon = t.Icon;
+                return (
+                  <button
+                    key={t.title}
+                    className={`group relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br ${t.gradient} p-4 text-left transition-transform hover:-translate-y-1`}
+                  >
+                    <img
+                      src={img(t.seed, 480, 360)}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay"
+                    />
+                    <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/20 backdrop-blur">
+                      <Icon className="h-4 w-4 text-white" />
+                    </div>
+                    <div className="relative flex items-end justify-between gap-2">
+                      <span className="text-sm font-bold leading-tight text-white">
+                        {t.title}
+                      </span>
+                      <div className="flex h-[31px] w-[31px] items-center justify-center rounded-full bg-grey-dark-2 transition-colors group-hover:bg-grey-dark-2/80">
+                        <ArrowUpRight className="h-4 w-4 text-white" />
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Footer links */}
+          <footer className="mt-8 grid grid-cols-2 gap-6 border-t border-[#242529] pt-6 text-[13px] text-grey-light-4 md:grid-cols-4">
+            <div>
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-grey-light-2">Social</h4>
+              <ul className="space-y-1.5">
+                <li><a href="#" className="hover:text-white">Discord</a></li>
+                <li><a href="#" className="hover:text-white">X (Twitter)</a></li>
+                <li><a href="#" className="hover:text-white">Reddit</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-grey-light-2">Features</h4>
+              <ul className="space-y-1.5">
+                <li><a href="#" className="hover:text-white">AI Chat</a></li>
+                <li><a href="#" className="hover:text-white">Image Generator</a></li>
+                <li><a href="#" className="hover:text-white">Video Generator</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-grey-light-2">Legal</h4>
+              <ul className="space-y-1.5">
+                <li><a href="#" className="hover:text-white">Terms</a></li>
+                <li><a href="#" className="hover:text-white">Privacy</a></li>
+                <li><a href="#" className="hover:text-white">2257</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-grey-light-2">Resources</h4>
+              <ul className="space-y-1.5">
+                <li><a href="#" className="hover:text-white">Guides</a></li>
+                <li><a href="#" className="hover:text-white">Blog</a></li>
+                <li><a href="#" className="hover:text-white">Contact</a></li>
+              </ul>
+            </div>
+          </footer>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default Explore;
