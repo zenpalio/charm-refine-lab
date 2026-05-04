@@ -45,7 +45,7 @@ const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
+      className="relative w-full shrink-0 overflow-hidden"
       style={{ height: "clamp(520px, 78vh, 760px)" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
