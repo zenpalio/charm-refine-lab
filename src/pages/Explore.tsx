@@ -55,6 +55,22 @@ const videoCategories = [
   "Truelook", "Dreammix", "Cartoon", "Darkfantasy", "Anthro", "Female",
 ];
 
+const trendingTags = [
+  "Blowjob", "Cowgirl", "Creampie", "Cumshot", "Doggy Style", "Deepthroat",
+  "Facials", "Footjob", "Handjob", "Kissing", "Masturbation", "Mating Press",
+  "Missionary", "Pissing", "Bukkake", "Boob Bounce", "Breast Play", "Fingering",
+];
+
+const babeCategories = [
+  "Realistic", "Anime", "Hentai", "Caucasian", "Asian", "Latina",
+  "Ebony", "Goth", "MILF", "Teen 18+", "Cosplay", "Fantasy",
+];
+
+const newReleaseTags = [
+  "New today", "This week", "Rising stars", "Editor's pick",
+  "Most chatted", "Most liked", "Trending now", "Hidden gems",
+];
+
 const trendingVideos = [
   { id: "v1", likes: "2.1K" },
   { id: "v2", likes: "1.8K" },
@@ -64,6 +80,29 @@ const trendingVideos = [
   { id: "v6", likes: "640" },
   { id: "v7", likes: "523" },
 ];
+
+const trendingBabes = [
+  { name: "Juliana", description: "Brazilian samba instructor whose hips never lie and never quit...", messageCount: "3.2K", likeCount: "412" },
+  { name: "Natalie", description: "Your boss's daughter who keeps texting you after the office party...", messageCount: "2.8K", likeCount: "388" },
+  { name: "Elyndra", description: "Elven scout who tracked your scent across three kingdoms to find you...", messageCount: "1.9K", likeCount: "266" },
+  { name: "Beckki", description: "Egirl streamer who only goes live for her favorite supporter...", messageCount: "4.1K", likeCount: "521" },
+  { name: "Madeline", description: "French pastry chef teaching you to knead, slowly and thoroughly...", messageCount: "2.3K", likeCount: "190" },
+  { name: "Celeste", description: "Astronomy student who sees constellations in the freckles on your back...", messageCount: "1.6K", likeCount: "144" },
+  { name: "Pocahontas", description: "Wild spirit of the woods who doesn't believe in clothes or apologies...", messageCount: "3.7K", likeCount: "402" },
+  { name: "Princess Demetria", description: "Royal heir slumming it in your one-bedroom apartment for the weekend...", messageCount: "2.0K", likeCount: "229" },
+];
+
+const newBabes = [
+  { name: "Vexa", description: "Cyberpunk netrunner jacking into your dreams uninvited...", messageCount: "412", likeCount: "38" },
+  { name: "Hikari", description: "Shrine maiden bored of incense and ready for trouble...", messageCount: "289", likeCount: "44" },
+  { name: "Sable", description: "Vampire countess who needs more than just your blood tonight...", messageCount: "611", likeCount: "82" },
+  { name: "Iris", description: "Florist with a greenhouse and a very interesting orchid collection...", messageCount: "204", likeCount: "30" },
+  { name: "Cleo", description: "Curator of the museum's private after-hours exhibits...", messageCount: "356", likeCount: "51" },
+  { name: "Marisol", description: "Beach lifeguard who saved you and now she's collecting interest...", messageCount: "488", likeCount: "67" },
+  { name: "Tess", description: "Mechanic who'll fix your bike and break your resolve in one afternoon...", messageCount: "133", likeCount: "21" },
+  { name: "Yumi", description: "Idol on hiatus, hiding out in your spare room and out of costume...", messageCount: "722", likeCount: "104" },
+];
+
 
 
 const createTools = [
