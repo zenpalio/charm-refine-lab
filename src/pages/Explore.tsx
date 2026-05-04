@@ -104,6 +104,40 @@ const newBabes = [
   { name: "Yumi", description: "Idol on hiatus, hiding out in your spare room and out of costume...", messageCount: "722", likeCount: "104" },
 ];
 
+const heroSlides: HeroSlide[] = [
+  {
+    name: "Wednesday Addams",
+    tagline: "Smash or Pass — the verdict is yours",
+    description: "She raises one perfectly arched brow, fingers laced, daring you to make the first move. The night is long, the verdict is yours, and her interest is unsettlingly genuine.",
+    imageUrl: img("hero-wednesday", 780, 1140),
+    tags: ["Goth", "Roleplay", "Dark Romance", "Editor's pick"],
+    meta: { messages: "12.4K", likes: "8.9K" },
+  },
+  {
+    name: "Luna",
+    tagline: "Apprentice witch, dangerous in love",
+    description: "She keeps mistaking lust spells for love spells — and tonight she swears she got it right. The candles are lit. Your move.",
+    imageUrl: img("hero-luna", 780, 1140),
+    tags: ["Fantasy", "Witch", "Trending"],
+    meta: { messages: "1.8K", likes: "2.2K" },
+  },
+  {
+    name: "Sakura",
+    tagline: "Caught red-handed and not even sorry",
+    description: "Your flirty roommate just walked in with that look — the one that means tonight's rules don't apply. Lean in.",
+    imageUrl: img("hero-sakura", 780, 1140),
+    tags: ["Anime", "Roommate", "New"],
+    meta: { messages: "9.1K", likes: "4.4K" },
+  },
+  {
+    name: "Princess Demetria",
+    tagline: "Royal heir, common appetites",
+    description: "Slumming it in your one-bedroom apartment for the weekend. The crown stays on. Everything else is up for negotiation.",
+    imageUrl: img("hero-demetria", 780, 1140),
+    tags: ["Royalty", "Fantasy", "Featured"],
+    meta: { messages: "3.2K", likes: "1.9K" },
+  },
+];
 
 
 const createTools = [
