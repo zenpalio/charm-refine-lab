@@ -1,4 +1,5 @@
-import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play, ChevronRight } from "lucide-react";
+import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play, ChevronRight, Menu, X, Compass, Users, Heart, Settings, LogOut } from "lucide-react";
+import { useState } from "react";
 import BabeCard from "@/components/explore/BabeCard";
 import HScroll from "@/components/explore/HScroll";
 import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHero";
@@ -221,13 +222,72 @@ const TagRow = ({ tags }: { tags: string[] }) => (
 );
 
 
+const sidebarLinks = [
+  { label: "Explore", icon: Compass },
+  { label: "Creators", icon: Users },
+  { label: "Favorites", icon: Heart },
+  { label: "Create", icon: Sparkles },
+  { label: "Settings", icon: Settings },
+];
+
 const Explore = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="relative flex h-svh w-full overflow-hidden bg-background font-onest text-foreground">
+      {/* Mock slide-in sidebar */}
+      <div
+        className={`fixed inset-0 z-50 transition-opacity ${sidebarOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          onClick={() => setSidebarOpen(false)}
+        />
+        {/* Panel */}
+        <aside
+          className={`absolute left-0 top-0 h-full w-[280px] bg-grey-dark-1 shadow-2xl transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+        >
+          <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
+            <span className="text-base font-bold text-white">Menu</span>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="flex h-8 w-8 items-center justify-center rounded-full text-grey-light-3 hover:bg-white/5 hover:text-white"
+              aria-label="Close menu"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <nav className="flex flex-col gap-1 p-3">
+            {sidebarLinks.map(({ label, icon: Icon }) => (
+              <button
+                key={label}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-grey-light-2 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                <Icon className="h-4 w-4" />
+                {label}
+              </button>
+            ))}
+            <div className="my-2 h-px bg-white/5" />
+            <button className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-grey-light-3 transition-colors hover:bg-white/5 hover:text-white">
+              <LogOut className="h-4 w-4" />
+              Log out
+            </button>
+          </nav>
+        </aside>
+      </div>
+
       <main className="relative flex w-full flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Floating top bar over hero */}
         <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex min-h-[62px] w-full items-center justify-between px-6 py-4">
           <div className="pointer-events-auto flex items-center gap-3">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur transition-colors hover:bg-black/70"
+              aria-label="Open menu"
+            >
+              <Menu className="h-4 w-4 text-white" />
+            </button>
             <h1 className="text-lg font-bold leading-none text-white drop-shadow-md md:text-xl">
               Welcome back, Arthur <span>🩷</span>
             </h1>
