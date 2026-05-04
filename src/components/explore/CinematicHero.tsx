@@ -343,7 +343,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
             aria-label={`Go to slide ${i + 1}`}
           >
             <span
-              className="block h-full bg-white"
+              className="block h-full bg-white transition-[width] duration-150 ease-linear"
               style={{
                 width:
                   i < active
