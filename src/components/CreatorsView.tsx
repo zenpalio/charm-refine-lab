@@ -182,35 +182,34 @@ export function CreatorsView({
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6 relative z-10">
-        <div className="flex items-center justify-end mb-4 min-h-[40px]">
-          <div className="flex items-center gap-2 bg-card border border-border rounded-full px-3 py-1.5 w-[200px] focus-within:w-[260px] transition-all duration-200">
-            <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-            <input
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value)
-                if (!e.target.value) setSearchActive(false)
+        <div className="fixed right-4 top-4 z-40 flex h-9 items-center gap-2 bg-card/70 backdrop-blur-md border border-border/40 rounded-full px-3 w-[200px] focus-within:w-[260px] transition-all duration-200">
+          <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+          <input
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value)
+              if (!e.target.value) setSearchActive(false)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && search.trim()) setSearchActive(true)
+            }}
+            placeholder={labels.searchPlaceholder}
+            className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1 min-w-0"
+          />
+          {search && (
+            <button
+              onClick={() => {
+                setSearch("")
+                setSearchActive(false)
               }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && search.trim()) setSearchActive(true)
-              }}
-              placeholder={labels.searchPlaceholder}
-              className="bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none flex-1 min-w-0"
-            />
-            {search && (
-              <button
-                onClick={() => {
-                  setSearch("")
-                  setSearchActive(false)
-                }}
-                className="text-muted-foreground hover:text-foreground text-xs flex-shrink-0"
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
+              className="text-muted-foreground hover:text-foreground text-xs flex-shrink-0"
+              aria-label="Clear search"
+            >
+              ✕
+            </button>
+          )}
         </div>
+        <div className="h-9 mb-4" />
 
         {!searchActive && !search && (
           <div className="flex items-center gap-2 mb-6 flex-wrap">
