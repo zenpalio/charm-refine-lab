@@ -255,6 +255,28 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
         </div>
       </div>
 
+      {/* Filmstrip — only when the active slide has 2+ media items */}
+      {(() => {
+        const list = slideMedia[active];
+        if (!list || list.length < 2) return null;
+        const slotCount = Math.min(3, list.length - 1);
+        return (
+          <div
+            key={`strip-${active}`}
+            className="pointer-events-none absolute bottom-20 right-6 z-20 hidden items-end gap-3 md:flex"
+          >
+            {Array.from({ length: slotCount }).map((_, slotI) => (
+              <FilmstripCard
+                key={slotI}
+                media={list}
+                slotIndex={slotI}
+                paused={paused}
+              />
+            ))}
+          </div>
+        );
+      })()}
+
       {/* Arrows */}
       <button
         onClick={() => go(active - 1)}
