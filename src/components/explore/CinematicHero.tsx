@@ -320,4 +320,69 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
   );
 };
 
+/**
+ * Small card on the right side of the hero that crossfades through the
+ * character's media gallery on its own staggered timer. Each slot starts at a
+ * different media index so cards never show the same image at once.
+ */
+const FilmstripCard = ({
+  media,
+  slotIndex,
+  paused,
+}: {
+  media: HeroMedia[];
+  slotIndex: number;
+  paused: boolean;
+}) => {
+  // Skip the first item (it's already the main hero portrait) and offset by slot
+  const pool = media.length > 1 ? media.slice(1) : media;
+  const [idx, setIdx] = useState(slotIndex % pool.length);
+
+  useEffect(() => {
+    if (paused || pool.length <= 1) return;
+    const id = window.setInterval(() => {
+      setIdx((i) => (i + 1) % pool.length);
+    }, 4200 + slotIndex * 600);
+    return () => window.clearInterval(id);
+  }, [paused, pool.length, slotIndex]);
+
+  return (
+    <div
+      className="pointer-events-auto relative overflow-hidden rounded-xl border border-white/10 shadow-2xl ring-1 ring-black/20 transition-transform hover:scale-[1.04]"
+      style={{ width: "120px", aspectRatio: "13 / 19" }}
+    >
+      {pool.map((m, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+            i === idx ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {m.type === "image" ? (
+            <img src={m.url} alt="" className="h-full w-full object-cover" loading="lazy" />
+          ) : (
+            <video
+              src={m.url}
+              poster={m.poster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover"
+            />
+          )}
+        </div>
+      ))}
+      {/* Soft top sheen */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-1/3"
+        style={{
+          background:
+            "linear-gradient(180deg, hsl(0 0% 0% / 0.25) 0%, transparent 100%)",
+        }}
+      />
+    </div>
+  );
+};
+
 export default CinematicHero;
