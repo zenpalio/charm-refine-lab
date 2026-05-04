@@ -609,17 +609,17 @@ const Explore = () => {
               return (
                 <>
                   {/* Tablet & mobile: horizontal scroll */}
-                  <div className="lg:hidden">
+                  <div className="xl:hidden">
                     <HScroll>
                       {createTools.map((t) => (
-                        <div key={t.title} className="w-[260px] shrink-0">
+                        <div key={t.title} className="w-[240px] shrink-0">
                           {renderCard(t)}
                         </div>
                       ))}
                     </HScroll>
                   </div>
                   {/* Desktop: full-width grid */}
-                  <div className="hidden gap-3 lg:grid lg:grid-cols-5">
+                  <div className="hidden gap-3 xl:grid xl:grid-cols-5">
                     {createTools.map(renderCard)}
                   </div>
                 </>
