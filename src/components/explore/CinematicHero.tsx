@@ -99,80 +99,27 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
         >
           {(() => {
             const list = slideMedia[i];
-            return list.map((m, mi) => {
-              const isActiveMedia = i === active && mi === mediaIdx;
-              const showFirstAlways = i !== active && mi === 0; // keep first frame for inactive slides
-              const visible = isActiveMedia || showFirstAlways;
-              return (
-                <div
-                  key={`${s.name}-m-${mi}`}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-out ${
-                    visible ? "opacity-100" : "opacity-0"
-                  }`}
-                  aria-hidden={!visible}
-                >
-                  {/* Blurred full-bleed backdrop */}
-                  {m.type === "image" ? (
-                    <img
-                      src={m.url}
-                      alt=""
-                      aria-hidden
-                      className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
-                    />
-                  ) : (
-                    <img
-                      src={m.poster ?? s.imageUrl}
-                      alt=""
-                      aria-hidden
-                      className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
-                    />
-                  )}
+            // Main portrait always uses the FIRST media item — stable hero anchor.
+            const m = list[0];
+            return (
+              <div className="absolute inset-0">
+                {/* Blurred full-bleed backdrop */}
+                <img
+                  src={m.type === "image" ? m.url : (m.poster ?? s.imageUrl)}
+                  alt=""
+                  aria-hidden
+                  className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
+                />
 
-                  {/* Sharp 13:19 portrait, anchored right (desktop) */}
-                  <div className="absolute inset-y-0 right-0 hidden md:block">
-                    <div className="relative h-full" style={{ aspectRatio: "13 / 19" }}>
-                      {m.type === "image" ? (
-                        <img
-                          src={m.url}
-                          alt={s.name}
-                          className="h-full w-full object-cover"
-                          loading={i === 0 && mi === 0 ? "eager" : "lazy"}
-                        />
-                      ) : (
-                        <video
-                          src={m.url}
-                          poster={m.poster}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          className="h-full w-full object-cover"
-                        />
-                      )}
-                      <div
-                        className="pointer-events-none absolute inset-y-0 left-0 w-24"
-                        style={{
-                          background:
-                            "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
-                        }}
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
-                        style={{
-                          background:
-                            "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
-                        }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Mobile centered */}
-                  <div className="absolute inset-0 md:hidden">
+                {/* Sharp 13:19 portrait, anchored right (desktop) */}
+                <div className="absolute inset-y-0 right-0 hidden md:block">
+                  <div className="relative h-full" style={{ aspectRatio: "13 / 19" }}>
                     {m.type === "image" ? (
                       <img
                         src={m.url}
                         alt={s.name}
-                        className="h-full w-full object-cover object-center"
+                        className="h-full w-full object-cover"
+                        loading={i === 0 ? "eager" : "lazy"}
                       />
                     ) : (
                       <video
@@ -182,13 +129,48 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                         muted
                         loop
                         playsInline
-                        className="h-full w-full object-cover object-center"
+                        className="h-full w-full object-cover"
                       />
                     )}
+                    <div
+                      className="pointer-events-none absolute inset-y-0 left-0 w-24"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
+                      }}
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
+                      }}
+                    />
                   </div>
                 </div>
-              );
-            });
+
+                {/* Mobile centered */}
+                <div className="absolute inset-0 md:hidden">
+                  {m.type === "image" ? (
+                    <img
+                      src={m.url}
+                      alt={s.name}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  ) : (
+                    <video
+                      src={m.url}
+                      poster={m.poster}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="h-full w-full object-cover object-center"
+                    />
+                  )}
+                </div>
+              </div>
+            );
           })()}
 
           {/* Readability gradient — darkens text side only, lets backdrop breathe */}
@@ -273,6 +255,28 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
         </div>
       </div>
 
+      {/* Filmstrip — only when the active slide has 2+ media items */}
+      {(() => {
+        const list = slideMedia[active];
+        if (!list || list.length < 2) return null;
+        const slotCount = Math.min(3, list.length - 1);
+        return (
+          <div
+            key={`strip-${active}`}
+            className="pointer-events-none absolute bottom-20 right-6 z-20 hidden items-end gap-3 md:flex"
+          >
+            {Array.from({ length: slotCount }).map((_, slotI) => (
+              <FilmstripCard
+                key={slotI}
+                media={list}
+                slotIndex={slotI}
+                paused={paused}
+              />
+            ))}
+          </div>
+        );
+      })()}
+
       {/* Arrows */}
       <button
         onClick={() => go(active - 1)}
@@ -313,6 +317,71 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
         ))}
       </div>
     </section>
+  );
+};
+
+/**
+ * Small card on the right side of the hero that crossfades through the
+ * character's media gallery on its own staggered timer. Each slot starts at a
+ * different media index so cards never show the same image at once.
+ */
+const FilmstripCard = ({
+  media,
+  slotIndex,
+  paused,
+}: {
+  media: HeroMedia[];
+  slotIndex: number;
+  paused: boolean;
+}) => {
+  // Skip the first item (it's already the main hero portrait) and offset by slot
+  const pool = media.length > 1 ? media.slice(1) : media;
+  const [idx, setIdx] = useState(slotIndex % pool.length);
+
+  useEffect(() => {
+    if (paused || pool.length <= 1) return;
+    const id = window.setInterval(() => {
+      setIdx((i) => (i + 1) % pool.length);
+    }, 4200 + slotIndex * 600);
+    return () => window.clearInterval(id);
+  }, [paused, pool.length, slotIndex]);
+
+  return (
+    <div
+      className="pointer-events-auto relative overflow-hidden rounded-xl border border-white/10 shadow-2xl ring-1 ring-black/20 transition-transform hover:scale-[1.04]"
+      style={{ width: "120px", aspectRatio: "13 / 19" }}
+    >
+      {pool.map((m, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+            i === idx ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {m.type === "image" ? (
+            <img src={m.url} alt="" className="h-full w-full object-cover" loading="lazy" />
+          ) : (
+            <video
+              src={m.url}
+              poster={m.poster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover"
+            />
+          )}
+        </div>
+      ))}
+      {/* Soft top sheen */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-1/3"
+        style={{
+          background:
+            "linear-gradient(180deg, hsl(0 0% 0% / 0.25) 0%, transparent 100%)",
+        }}
+      />
+    </div>
   );
 };
 
