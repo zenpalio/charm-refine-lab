@@ -60,14 +60,13 @@ const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
           }`}
           aria-hidden={i !== active}
         >
-          {/* Blurred full-bleed extension of the portrait */}
+          {/* Blurred full-bleed extension of the portrait — bright & saturated */}
           <img
             src={s.imageUrl}
             alt=""
             aria-hidden
-            className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl saturate-125 opacity-70"
+            className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
           />
-          <div className="absolute inset-0 bg-background/40" />
 
           {/* Sharp 13:19 portrait, anchored right, full hero height */}
           <div className="absolute inset-y-0 right-0 hidden md:block">
@@ -78,17 +77,17 @@ const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
                 className="h-full w-full object-cover"
                 loading={i === 0 ? "eager" : "lazy"}
               />
-              {/* Soft left edge fade so portrait blends into backdrop */}
+              {/* Subtle narrow left blend — no black slab */}
               <div
-                className="absolute inset-y-0 left-0 w-1/3"
+                className="pointer-events-none absolute inset-y-0 left-0 w-24"
                 style={{
                   background:
-                    "linear-gradient(90deg, hsl(var(--background)) 0%, transparent 100%)",
+                    "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
                 }}
               />
               {/* Bottom fade into next sections */}
               <div
-                className="absolute inset-x-0 bottom-0 h-1/3"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
                 style={{
                   background:
                     "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
@@ -97,23 +96,32 @@ const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
             </div>
           </div>
 
-          {/* Mobile: portrait centered & faded */}
+          {/* Mobile: portrait centered */}
           <div className="absolute inset-0 md:hidden">
             <img
               src={s.imageUrl}
               alt={s.name}
-              className="h-full w-full object-cover object-center opacity-90"
+              className="h-full w-full object-cover object-center"
             />
           </div>
 
-          {/* Cinematic left-to-right + bottom-up gradient over everything */}
+          {/* Readability gradient — darkens text side only, lets backdrop breathe */}
           <div
-            className="absolute inset-0"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, hsl(var(--background)) 0%, hsl(var(--background) / 0.85) 35%, hsl(var(--background) / 0.2) 70%, transparent 100%)",
+                "linear-gradient(90deg, hsl(var(--background) / 0.92) 0%, hsl(var(--background) / 0.7) 25%, hsl(var(--background) / 0.25) 55%, transparent 75%)",
             }}
           />
+          {/* Bottom-up vignette into rows */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-48"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
+            }}
+          />
+
           <div
             className="absolute inset-x-0 bottom-0 h-40"
             style={{
