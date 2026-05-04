@@ -377,28 +377,35 @@ const Explore = () => {
 
           <section className="mt-4">
             <SectionTitle title="Start creating" />
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {createTools.map((t) => {
                 const Icon = t.Icon;
                 return (
                   <button
                     key={t.title}
-                    className={`group relative flex aspect-[4/3] flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-br ${t.gradient} p-4 text-left transition-transform hover:-translate-y-1`}
+                    className="group relative flex h-[120px] items-stretch overflow-hidden rounded-2xl bg-grey-dark-1 text-left transition-transform hover:-translate-y-0.5"
                   >
-                    <img
-                      src={img(t.seed, 480, 360)}
-                      alt=""
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay"
-                    />
-                    <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-white/20 backdrop-blur">
-                      <Icon className="h-4 w-4 text-white" />
+                    {/* Left: gradient art block */}
+                    <div
+                      className={`relative h-full w-[140px] shrink-0 overflow-hidden bg-gradient-to-br ${t.gradient}`}
+                    >
+                      <img
+                        src={img(t.seed, 320, 240)}
+                        alt=""
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-overlay"
+                      />
+                      <div className="relative flex h-full w-full items-center justify-center">
+                        <Icon className="h-7 w-7 text-white drop-shadow" />
+                      </div>
                     </div>
-                    <div className="relative flex items-end justify-between gap-2">
-                      <span className="text-sm font-bold leading-tight text-white">
+
+                    {/* Right: title + arrow */}
+                    <div className="flex flex-1 items-center justify-between gap-3 px-5">
+                      <span className="text-base font-bold leading-tight text-white">
                         {t.title}
                       </span>
-                      <div className="flex h-[31px] w-[31px] items-center justify-center rounded-full bg-grey-dark-2 transition-colors group-hover:bg-grey-dark-2/80">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-grey-dark-2 transition-colors group-hover:bg-grey-dark-3">
                         <ArrowUpRight className="h-4 w-4 text-white" />
                       </div>
                     </div>
