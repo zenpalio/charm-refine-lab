@@ -425,29 +425,25 @@ const Explore = () => {
       <main ref={mainRef} className="relative flex w-full flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Sticky top bar — slides away on scroll down, returns on scroll up */}
         <header
-          className={`pointer-events-none fixed inset-x-0 top-0 z-30 flex min-h-[62px] items-center justify-between px-6 py-4 transition-transform duration-300 ease-out ${
+          className={`pointer-events-none fixed inset-x-0 top-0 z-30 flex min-h-[62px] items-center justify-between px-6 py-4 bg-gradient-to-b from-background/40 via-background/15 to-transparent transition-transform duration-300 ease-out ${
             headerHidden ? "-translate-y-full" : "translate-y-0"
           }`}
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0) 100%)",
-          }}
         >
           <div className="pointer-events-auto flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="flex h-9 w-9 items-center justify-center text-white/90 transition-opacity hover:opacity-70"
+              className="flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
           </div>
           <button
-            className="pointer-events-auto relative flex h-9 w-9 items-center justify-center text-white/90 transition-opacity hover:opacity-70"
+            className="pointer-events-auto relative flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
             aria-label="Notifications"
           >
             <Bell className="h-5 w-5" strokeWidth={1.5} />
-            <span className="absolute right-1 top-1 flex h-[12px] min-w-[12px] items-center justify-center rounded-full bg-[#2E70E8] px-[2px] text-[9px] font-semibold leading-[12px] text-white">
+            <span className="absolute right-1 top-1 flex h-[12px] min-w-[12px] items-center justify-center rounded-full bg-primary px-[2px] text-[9px] font-semibold leading-[12px] text-primary-foreground">
               14
             </span>
           </button>
