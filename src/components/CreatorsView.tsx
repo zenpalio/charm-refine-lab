@@ -10,6 +10,7 @@ import {
   BookOpen,
   Users,
   Heart,
+  Menu,
 } from "lucide-react"
 import AuraIcon from "./AuraIcon"
 import { type BadgeTier } from "./BadgeCard"
@@ -89,6 +90,7 @@ export interface CreatorsViewProps {
   creators: CreatorsViewCreator[]
   labels: CreatorsViewLabels
   onBack: () => void
+  onMenu?: () => void
   className?: string
 }
 
@@ -96,6 +98,7 @@ export function CreatorsView({
   creators,
   labels,
   onBack,
+  onMenu,
   className,
 }: CreatorsViewProps) {
   const [search, setSearch] = useState("")
@@ -187,13 +190,20 @@ export function CreatorsView({
                 setSearch("")
                 setSearchOpen(false)
                 setSearchActive(false)
+              } else if (onMenu) {
+                onMenu()
               } else {
                 onBack()
               }
             }}
             className="p-1.5 rounded-full hover:bg-muted transition-colors"
+            aria-label={onMenu && !searchOpen && !searchActive ? "Open menu" : "Back"}
           >
-            <ArrowLeft className="w-4 h-4 text-foreground" />
+            {onMenu && !searchOpen && !searchActive ? (
+              <Menu className="w-5 h-5 text-foreground" strokeWidth={1.5} />
+            ) : (
+              <ArrowLeft className="w-4 h-4 text-foreground" />
+            )}
           </button>
 
           {searchOpen || searchActive ? (
