@@ -433,6 +433,16 @@ const Explore = () => {
             </HScroll>
           </section>
 
+          {/* Featured stories */}
+          <section className="mt-4">
+            <SectionTitle title="Featured stories" action="See all" />
+            <HScroll>
+              {featuredStories.map((s) => (
+                <StoryContentCard key={s.id} {...s} />
+              ))}
+            </HScroll>
+          </section>
+
           {/* Top trending videos */}
           <section className="mt-4">
             <SectionTitle title="Top trending videos" action="See all" />
