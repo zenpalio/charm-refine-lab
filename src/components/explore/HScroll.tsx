@@ -16,14 +16,14 @@ const HScroll = ({ children }: HScrollProps) => {
     <div className="group/scroll relative">
       <button
         onClick={() => scroll("left")}
-        className="absolute left-0 top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur transition-opacity hover:bg-black/80 group-hover/scroll:opacity-100 md:flex"
+        className="absolute left-0 top-1/2 z-30 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur transition-opacity hover:bg-black/80 group-hover/scroll:opacity-100 md:flex"
         aria-label="Scroll left"
       >
         <ChevronLeft className="h-5 w-5" />
       </button>
       <button
         onClick={() => scroll("right")}
-        className="absolute right-0 top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur transition-opacity hover:bg-black/80 group-hover/scroll:opacity-100 md:flex"
+        className="absolute right-0 top-1/2 z-30 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur transition-opacity hover:bg-black/80 group-hover/scroll:opacity-100 md:flex"
         aria-label="Scroll right"
       >
         <ChevronRight className="h-5 w-5" />
