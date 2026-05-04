@@ -6,6 +6,7 @@ import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHer
 import CreatorRankCard from "@/components/explore/CreatorRankCard";
 import StoryContentCard from "@/components/explore/StoryContentCard";
 import FloatingToolsFAB from "@/components/explore/FloatingToolsFAB";
+import SideNav from "@/components/SideNav";
 import { type BadgeTier } from "@/components/BadgeCard";
 
 // ---- Mock data ----
