@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Settings, Info, Globe, Users, Heart, Menu } from "lucide-react";
 import SideNav from "../components/SideNav";
 import AuraIcon from "../components/AuraIcon";
@@ -218,6 +218,20 @@ const shopBadges = [
 const Profile = () => {
   const [previewTier, setPreviewTier] = useState<BadgeTier>("legend");
   const [navOpen, setNavOpen] = useState(false);
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 80) setHeaderHidden(false);
+      else if (y > lastScrollY.current + 4) setHeaderHidden(true);
+      else if (y < lastScrollY.current - 4) setHeaderHidden(false);
+      lastScrollY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const [selectedActivity, setSelectedActivity] = useState<typeof activityBadges[0] | null>(null);
   const [completedActivities, setCompletedActivities] = useState<Set<string>>(new Set(activityBadges.filter(b => b.completed).map(b => b.name)));
   const [claimedActivities, setClaimedActivities] = useState<Set<string>>(new Set());
@@ -241,7 +255,9 @@ const Profile = () => {
       <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
       <button
         onClick={() => setNavOpen(true)}
-        className="fixed left-4 top-4 z-40 flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
+        className={`fixed left-4 top-4 z-40 flex h-9 w-9 items-center justify-center text-foreground/90 transition-all duration-300 ease-out hover:opacity-70 ${
+          headerHidden ? "-translate-y-[150%] opacity-0" : "translate-y-0 opacity-100"
+        }`}
         aria-label="Open menu"
       >
         <Menu className="h-5 w-5" strokeWidth={1.5} />
