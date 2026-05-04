@@ -40,12 +40,16 @@ const CreatorRankCard = ({
       {/* Large outlined ranking numeral behind avatar — neutral */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -left-2 -bottom-6 select-none font-black leading-none"
+        className="pointer-events-none absolute left-1 -bottom-4 select-none leading-none"
         style={{
-          fontSize: "150px",
+          fontFamily:
+            "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+          fontSize: "140px",
+          fontWeight: 800,
           color: "transparent",
-          WebkitTextStroke: "2px hsl(var(--muted-foreground) / 0.28)",
-          fontVariantNumeric: "tabular-nums",
+          WebkitTextStroke: "1.5px hsl(var(--muted-foreground) / 0.32)",
+          fontVariantNumeric: "lining-nums proportional-nums",
+          letterSpacing: "-0.04em",
           zIndex: 0,
         }}
       >
