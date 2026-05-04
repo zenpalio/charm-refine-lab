@@ -205,40 +205,29 @@ const Explore = () => {
   return (
     <div className="relative flex h-svh w-full overflow-hidden bg-background font-onest text-foreground">
       <main className="relative flex w-full flex-1 flex-col overflow-y-auto overflow-x-hidden">
-        {/* Hero gradient backdrop */}
-        <div
-          className="pointer-events-none absolute left-0 top-0 z-0 h-[800px] w-full"
-          style={{
-            background:
-              "linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(245,84,44,0.20) 68.27%, rgba(248,113,113,0.15) 86.54%)",
-            backdropFilter: "blur(20px)",
-          }}
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(15,15,15,0.4) 0.27%, rgba(15,15,15,0.4) 0.28%, #0F0F0F 77.44%)",
-            }}
-          />
-        </div>
-
-        <div className="relative z-10 mx-auto flex w-full max-w-[1119px] flex-col gap-5 px-4 pb-16 pt-4">
-          {/* Page header */}
-          <header className="flex min-h-[62px] w-full items-center justify-between">
-            <h1 className="text-2xl font-bold leading-[31px] text-white">
+        {/* Floating top bar over hero */}
+        <header className="pointer-events-none absolute inset-x-0 top-0 z-30 flex min-h-[62px] w-full items-center justify-between px-6 py-4">
+          <div className="pointer-events-auto flex items-center gap-3">
+            <h1 className="text-lg font-bold leading-none text-white drop-shadow-md md:text-xl">
               Welcome back, Arthur <span>🩷</span>
             </h1>
-            <button
-              className="relative flex h-[30px] w-[30px] items-center justify-center rounded-full bg-grey-dark-1 hover:bg-grey-dark-2 transition-colors"
-              aria-label="Notifications"
-            >
-              <Bell className="h-4 w-4 text-grey-light-2" />
-              <span className="absolute -right-1 -top-1 flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[#2E70E8] px-[2px] text-[10px] font-semibold leading-[14px] text-white">
-                14
-              </span>
-            </button>
-          </header>
+          </div>
+          <button
+            className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur transition-colors hover:bg-black/70"
+            aria-label="Notifications"
+          >
+            <Bell className="h-4 w-4 text-white" />
+            <span className="absolute -right-1 -top-1 flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[#2E70E8] px-[2px] text-[10px] font-semibold leading-[14px] text-white">
+              14
+            </span>
+          </button>
+        </header>
+
+        {/* Cinematic hero (full-bleed) */}
+        <CinematicHero slides={heroSlides} />
+
+        {/* Edge-to-edge content rows */}
+        <div className="relative z-10 -mt-12 flex w-full flex-col gap-6 px-4 pb-16 md:px-8 lg:px-12">
 
           {/* Your babes */}
           <section>
