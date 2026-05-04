@@ -30,16 +30,7 @@ const BabeCard = ({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
-        {/* Top-right menu (stats variant) */}
-        {showStats && (
-          <button
-            onClick={(e) => e.stopPropagation()}
-            className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white/90 backdrop-blur-sm hover:bg-black/70"
-            aria-label="More"
-          >
-            <MoreHorizontal className="h-4 w-4" />
-          </button>
-        )}
+        {/* Top-right menu removed (admin only) */}
 
         {/* Compact variant: message badge top-right */}
         {!showStats && messageCount !== 0 && messageCount !== "0" && (
