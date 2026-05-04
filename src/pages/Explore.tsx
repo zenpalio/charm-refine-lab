@@ -2,6 +2,8 @@ import { Bell, Sparkles, Video, Image as ImageIcon, ArrowUpRight, Play } from "l
 import BabeCard from "@/components/explore/BabeCard";
 import HScroll from "@/components/explore/HScroll";
 import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHero";
+import CreatorRankCard from "@/components/explore/CreatorRankCard";
+import { type BadgeTier } from "@/components/BadgeCard";
 
 // ---- Mock data ----
 const img = (seed: string, w = 400, h = 533) =>
@@ -131,6 +133,32 @@ const heroSlides: HeroSlide[] = [
   },
 ];
 
+
+const topCreators: { rank: number; name: string; avatarSeed: string; tier: BadgeTier; verified?: boolean }[] = [
+  { rank: 1, name: "Big Daddy", avatarSeed: "creator-bigdaddy", tier: "immortal", verified: true },
+  { rank: 2, name: "VelvetHeat", avatarSeed: "creator-velvet", tier: "mythic", verified: true },
+  { rank: 3, name: "DarkFantasy", avatarSeed: "creator-darkfantasy", tier: "grandmaster", verified: true },
+  { rank: 4, name: "ErosForge", avatarSeed: "creator-eros", tier: "elite", verified: true },
+  { rank: 5, name: "NightOwl", avatarSeed: "creator-nightowl", tier: "elite" },
+  { rank: 6, name: "SilkRoad", avatarSeed: "creator-silk", tier: "legend" },
+  { rank: 7, name: "MoonChaser", avatarSeed: "creator-moon", tier: "legend" },
+  { rank: 8, name: "Sandwiches", avatarSeed: "creator-sand", tier: "master" },
+  { rank: 9, name: "PixelPriest", avatarSeed: "creator-pixel", tier: "master" },
+  { rank: 10, name: "Sirlight", avatarSeed: "creator-sirlight", tier: "master" },
+];
+
+const risingCreators: { rank: number; name: string; avatarSeed: string; tier: BadgeTier; verified?: boolean }[] = [
+  { rank: 1, name: "@phenix_giraffe_BDSM", avatarSeed: "rising-phenix", tier: "elite" },
+  { rank: 2, name: "@energetic_giraffe_3754", avatarSeed: "rising-energetic", tier: "legend" },
+  { rank: 3, name: "@marvelous_ibis", avatarSeed: "rising-ibis", tier: "legend" },
+  { rank: 4, name: "@respectful_leopard_9203", avatarSeed: "rising-leopard", tier: "master" },
+  { rank: 5, name: "@gentle_horse_1142", avatarSeed: "rising-horse", tier: "master" },
+  { rank: 6, name: "@quiet_owl_88", avatarSeed: "rising-owl", tier: "master" },
+  { rank: 7, name: "@cosmic_fox", avatarSeed: "rising-fox", tier: "newbie" },
+  { rank: 8, name: "@velvet_raven", avatarSeed: "rising-raven", tier: "newbie" },
+  { rank: 9, name: "@ember_wolf", avatarSeed: "rising-wolf", tier: "newbie" },
+  { rank: 10, name: "@silver_lynx", avatarSeed: "rising-lynx", tier: "newbie" },
+];
 
 const createTools = [
   {
@@ -311,7 +339,42 @@ const Explore = () => {
             </HScroll>
           </section>
 
+          {/* Top creators */}
+          <section className="mt-4">
+            <SectionTitle title="Top creators" action="See all" />
+            <HScroll>
+              {topCreators.map((c) => (
+                <CreatorRankCard
+                  key={c.rank}
+                  rank={c.rank}
+                  name={c.name}
+                  tier={c.tier}
+                  verified={c.verified}
+                  avatarUrl={`https://picsum.photos/seed/${encodeURIComponent(c.avatarSeed)}/160/160`}
+                />
+              ))}
+            </HScroll>
+          </section>
+
+          {/* Rising creators */}
+          <section className="mt-4">
+            <SectionTitle title="Rising creators this week" action="See all" />
+            <HScroll>
+              {risingCreators.map((c) => (
+                <CreatorRankCard
+                  key={c.rank}
+                  rank={c.rank}
+                  name={c.name}
+                  tier={c.tier}
+                  verified={c.verified}
+                  avatarUrl={`https://picsum.photos/seed/${encodeURIComponent(c.avatarSeed)}/160/160`}
+                />
+              ))}
+            </HScroll>
+          </section>
+
           {/* Start creating */}
+
           <section className="mt-4">
             <SectionTitle title="Start creating" />
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
