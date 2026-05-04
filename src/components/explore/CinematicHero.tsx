@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, MessageSquare, Play, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, MessageSquare, Play, User } from "lucide-react";
 
 export type HeroMedia =
   | { type: "image"; url: string }
@@ -249,7 +249,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
               Chat now
             </button>
             <button className="hidden h-11 items-center gap-2 rounded-full bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-white/20 md:inline-flex">
-              <Plus className="h-4 w-4" />
+              <User className="h-4 w-4" />
               View profile
             </button>
           </div>
