@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Menu } from "lucide-react";
 import SideNav from "../components/SideNav";
 import { type BadgeTier } from "../components/BadgeCard";
 import {
@@ -85,11 +86,17 @@ const Creators = () => {
   return (
     <>
       <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
+      <button
+        onClick={() => setNavOpen(true)}
+        className="fixed left-4 top-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-card/70 backdrop-blur-md border border-border/40 text-foreground/90 hover:bg-card transition-colors shadow-sm"
+        aria-label="Open menu"
+      >
+        <Menu className="h-5 w-5" strokeWidth={1.5} />
+      </button>
       <CreatorsView
         creators={mockCreators}
         labels={creatorsPageLabels}
         onBack={() => navigate(-1)}
-        onMenu={() => setNavOpen(true)}
       />
     </>
   );
