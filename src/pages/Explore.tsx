@@ -419,11 +419,11 @@ const Explore = () => {
             </h1>
           </div>
           <button
-            className="pointer-events-auto relative flex h-9 w-9 items-center justify-center rounded-full bg-black/40 backdrop-blur transition-colors hover:bg-black/70"
+            className="pointer-events-auto relative flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur transition-colors hover:bg-black/70"
             aria-label="Notifications"
           >
-            <Bell className="h-4 w-4 text-white" />
-            <span className="absolute -right-1 -top-1 flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-[#2E70E8] px-[2px] text-[10px] font-semibold leading-[14px] text-white">
+            <Bell className="h-[14px] w-[14px] text-white" />
+            <span className="absolute -right-0.5 -top-0.5 flex h-[12px] min-w-[12px] items-center justify-center rounded-full bg-[#2E70E8] px-[2px] text-[9px] font-semibold leading-[12px] text-white">
               14
             </span>
           </button>
