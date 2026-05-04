@@ -1,11 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, MessageSquare, Play, Plus } from "lucide-react";
+
+export type HeroMedia =
+  | { type: "image"; url: string }
+  | { type: "video"; url: string; poster?: string };
 
 export interface HeroSlide {
   name: string;
   tagline: string;
   description: string;
   imageUrl: string;
+  /** Optional gallery of additional images/videos cycled within the slide */
+  media?: HeroMedia[];
   tags?: string[];
   meta?: { messages?: string; likes?: string };
 }
@@ -13,6 +19,8 @@ export interface HeroSlide {
 interface Props {
   slides: HeroSlide[];
   intervalMs?: number;
+  /** How long each media item within a slide stays before crossfading */
+  mediaIntervalMs?: number;
 }
 
 const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
