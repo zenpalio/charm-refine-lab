@@ -590,17 +590,17 @@ const Explore = () => {
                       <Icon className="h-5 w-5 text-white" />
                     </div>
 
-                    {/* Title + subtitle */}
-                    <div className="relative">
-                      <h3 className="text-base font-bold leading-tight text-white">
-                        {t.title}
-                      </h3>
-                      <p className="mt-1 text-xs text-grey-light-3">{t.subtitle}</p>
-                    </div>
-
-                    {/* Arrow CTA */}
-                    <div className="absolute bottom-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
-                      <ChevronRight className="h-4 w-4 text-current" />
+                    {/* Title + subtitle + arrow */}
+                    <div className="relative flex items-end justify-between gap-3">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-base font-bold leading-tight text-white">
+                          {t.title}
+                        </h3>
+                        <p className="mt-1 text-xs text-grey-light-3">{t.subtitle}</p>
+                      </div>
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 backdrop-blur transition-all group-hover:bg-white group-hover:text-black">
+                        <ChevronRight className="h-4 w-4 text-current" />
+                      </div>
                     </div>
                   </button>
                 );
