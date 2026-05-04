@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Settings, Info, Globe, Users, Heart } from "lucide-react";
+import { Settings, Info, Globe, Users, Heart, Menu } from "lucide-react";
+import SideNav from "../components/SideNav";
 import AuraIcon from "../components/AuraIcon";
 import TierRingCanvas from "../components/TierRingCanvas";
 import BadgeCategory from "../components/BadgeCategory";
@@ -216,6 +217,7 @@ const shopBadges = [
 
 const Profile = () => {
   const [previewTier, setPreviewTier] = useState<BadgeTier>("legend");
+  const [navOpen, setNavOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState<typeof activityBadges[0] | null>(null);
   const [completedActivities, setCompletedActivities] = useState<Set<string>>(new Set(activityBadges.filter(b => b.completed).map(b => b.name)));
   const [claimedActivities, setClaimedActivities] = useState<Set<string>>(new Set());
@@ -236,7 +238,17 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-8 sm:pt-12 pb-4 sm:pb-6">
+      <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 sm:pt-6 pb-4 sm:pb-6">
+        <div className="flex justify-start mb-2">
+          <button
+            onClick={() => setNavOpen(true)}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-foreground/90 hover:bg-muted transition-colors"
+            aria-label="Open menu"
+          >
+            <Menu className="h-5 w-5" strokeWidth={1.5} />
+          </button>
+        </div>
 
         <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>

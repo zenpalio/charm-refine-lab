@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SideNav from "../components/SideNav";
 import { type BadgeTier } from "../components/BadgeCard";
 import {
   CreatorsView,
@@ -78,13 +80,18 @@ const mockCreators: CreatorsViewCreator[] = Array.from({ length: 30 }, (_, i) =>
 
 const Creators = () => {
   const navigate = useNavigate();
+  const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <CreatorsView
-      creators={mockCreators}
-      labels={creatorsPageLabels}
-      onBack={() => navigate(-1)}
-    />
+    <>
+      <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
+      <CreatorsView
+        creators={mockCreators}
+        labels={creatorsPageLabels}
+        onBack={() => navigate(-1)}
+        onMenu={() => setNavOpen(true)}
+      />
+    </>
   );
 };
 
