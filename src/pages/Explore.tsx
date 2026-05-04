@@ -577,7 +577,7 @@ const Explore = () => {
             <SectionTitle title="Start creating" />
             {(() => {
               const cardClass =
-                "group relative flex h-[180px] w-full shrink-0 flex-col justify-between overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-white/10";
+                "group relative flex w-full shrink-0 flex-col gap-3 overflow-hidden rounded-2xl border border-white/5 bg-grey-dark-1 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-white/10";
               const renderCard = (t: (typeof createTools)[number]) => {
                 const Icon = t.Icon;
                 return (
@@ -586,14 +586,14 @@ const Explore = () => {
                     <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/15 blur-2xl transition-opacity duration-300 group-hover:bg-primary/25" />
 
                     {/* Icon badge */}
-                    <div className="relative flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                    <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
                       <Icon className="h-5 w-5 text-white" />
                     </div>
 
                     {/* Title + subtitle + arrow */}
                     <div className="relative flex items-end justify-between gap-3">
                       <div className="min-w-0 flex-1">
-                        <h3 className="line-clamp-2 min-h-[2.5rem] text-base font-bold leading-tight text-white">
+                        <h3 className="line-clamp-2 text-base font-bold leading-tight text-white">
                           {t.title}
                         </h3>
                         <p className="mt-1 line-clamp-2 text-xs text-grey-light-3">{t.subtitle}</p>
