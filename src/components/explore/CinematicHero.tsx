@@ -1,11 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, MessageSquare, Play, Plus } from "lucide-react";
+
+export type HeroMedia =
+  | { type: "image"; url: string }
+  | { type: "video"; url: string; poster?: string };
 
 export interface HeroSlide {
   name: string;
   tagline: string;
   description: string;
   imageUrl: string;
+  /** Optional gallery of additional images/videos cycled within the slide */
+  media?: HeroMedia[];
   tags?: string[];
   meta?: { messages?: string; likes?: string };
 }
@@ -13,15 +19,46 @@ export interface HeroSlide {
 interface Props {
   slides: HeroSlide[];
   intervalMs?: number;
+  /** How long each media item within a slide stays before crossfading */
+  mediaIntervalMs?: number;
 }
 
-const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
+const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Props) => {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const startRef = useRef<number>(performance.now());
   const [progress, setProgress] = useState(0);
 
-  // Auto-rotate with progress
+  // Build a normalized media list per slide (always at least the imageUrl)
+  const slideMedia = useMemo<HeroMedia[][]>(
+    () =>
+      slides.map((s) =>
+        s.media && s.media.length > 0
+          ? s.media
+          : [{ type: "image", url: s.imageUrl }],
+      ),
+    [slides],
+  );
+
+  // Sub-index for cycling media within the active slide
+  const [mediaIdx, setMediaIdx] = useState(0);
+
+  // Reset media index when slide changes
+  useEffect(() => {
+    setMediaIdx(0);
+  }, [active]);
+
+  // Auto-cycle media within the active slide
+  useEffect(() => {
+    const list = slideMedia[active];
+    if (!list || list.length <= 1 || paused) return;
+    const id = window.setInterval(() => {
+      setMediaIdx((i) => (i + 1) % list.length);
+    }, mediaIntervalMs);
+    return () => window.clearInterval(id);
+  }, [active, paused, slideMedia, mediaIntervalMs]);
+
+  // Auto-rotate slides with progress
   useEffect(() => {
     if (paused) return;
     startRef.current = performance.now();
@@ -60,50 +97,99 @@ const CinematicHero = ({ slides, intervalMs = 7000 }: Props) => {
           }`}
           aria-hidden={i !== active}
         >
-          {/* Blurred full-bleed extension of the portrait — bright & saturated */}
-          <img
-            src={s.imageUrl}
-            alt=""
-            aria-hidden
-            className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
-          />
+          {(() => {
+            const list = slideMedia[i];
+            return list.map((m, mi) => {
+              const isActiveMedia = i === active && mi === mediaIdx;
+              const showFirstAlways = i !== active && mi === 0; // keep first frame for inactive slides
+              const visible = isActiveMedia || showFirstAlways;
+              return (
+                <div
+                  key={`${s.name}-m-${mi}`}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+                    visible ? "opacity-100" : "opacity-0"
+                  }`}
+                  aria-hidden={!visible}
+                >
+                  {/* Blurred full-bleed backdrop */}
+                  {m.type === "image" ? (
+                    <img
+                      src={m.url}
+                      alt=""
+                      aria-hidden
+                      className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
+                    />
+                  ) : (
+                    <img
+                      src={m.poster ?? s.imageUrl}
+                      alt=""
+                      aria-hidden
+                      className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-150"
+                    />
+                  )}
 
-          {/* Sharp 13:19 portrait, anchored right, full hero height */}
-          <div className="absolute inset-y-0 right-0 hidden md:block">
-            <div className="relative h-full" style={{ aspectRatio: "13 / 19" }}>
-              <img
-                src={s.imageUrl}
-                alt={s.name}
-                className="h-full w-full object-cover"
-                loading={i === 0 ? "eager" : "lazy"}
-              />
-              {/* Subtle narrow left blend — no black slab */}
-              <div
-                className="pointer-events-none absolute inset-y-0 left-0 w-24"
-                style={{
-                  background:
-                    "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
-                }}
-              />
-              {/* Bottom fade into next sections */}
-              <div
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
-                style={{
-                  background:
-                    "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
-                }}
-              />
-            </div>
-          </div>
+                  {/* Sharp 13:19 portrait, anchored right (desktop) */}
+                  <div className="absolute inset-y-0 right-0 hidden md:block">
+                    <div className="relative h-full" style={{ aspectRatio: "13 / 19" }}>
+                      {m.type === "image" ? (
+                        <img
+                          src={m.url}
+                          alt={s.name}
+                          className="h-full w-full object-cover"
+                          loading={i === 0 && mi === 0 ? "eager" : "lazy"}
+                        />
+                      ) : (
+                        <video
+                          src={m.url}
+                          poster={m.poster}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                      <div
+                        className="pointer-events-none absolute inset-y-0 left-0 w-24"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, hsl(var(--background) / 0.5) 0%, transparent 100%)",
+                        }}
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%)",
+                        }}
+                      />
+                    </div>
+                  </div>
 
-          {/* Mobile: portrait centered */}
-          <div className="absolute inset-0 md:hidden">
-            <img
-              src={s.imageUrl}
-              alt={s.name}
-              className="h-full w-full object-cover object-center"
-            />
-          </div>
+                  {/* Mobile centered */}
+                  <div className="absolute inset-0 md:hidden">
+                    {m.type === "image" ? (
+                      <img
+                        src={m.url}
+                        alt={s.name}
+                        className="h-full w-full object-cover object-center"
+                      />
+                    ) : (
+                      <video
+                        src={m.url}
+                        poster={m.poster}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="h-full w-full object-cover object-center"
+                      />
+                    )}
+                  </div>
+                </div>
+              );
+            });
+          })()}
 
           {/* Readability gradient — darkens text side only, lets backdrop breathe */}
           <div

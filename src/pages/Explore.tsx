@@ -121,6 +121,11 @@ const heroSlides: HeroSlide[] = [
     tagline: "Apprentice witch, dangerous in love",
     description: "She keeps mistaking lust spells for love spells — and tonight she swears she got it right. The candles are lit. Your move.",
     imageUrl: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/profile-picture-a2cfaed2-d95a-4a35-b729-3b7619033d42.avif",
+    media: [
+      { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/profile-picture-a2cfaed2-d95a-4a35-b729-3b7619033d42.avif" },
+      { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/35b7d1f0-5a47-47e1-bc88-862087bc302c-0.jpg" },
+      { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/80dddad7-a9d2-46bf-a21a-b45edd0cd81a-0.jpg" },
+    ],
     tags: ["Fantasy", "Witch", "Trending"],
     meta: { messages: "1.8K", likes: "2.2K" },
   },
