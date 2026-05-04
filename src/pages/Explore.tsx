@@ -4,6 +4,7 @@ import BabeCard from "@/components/explore/BabeCard";
 import HScroll from "@/components/explore/HScroll";
 import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHero";
 import CreatorRankCard from "@/components/explore/CreatorRankCard";
+import StoryContentCard from "@/components/explore/StoryContentCard";
 import { type BadgeTier } from "@/components/BadgeCard";
 
 // ---- Mock data ----
