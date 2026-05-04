@@ -315,6 +315,7 @@ const HeroPanel = ({
   paused,
   slotIndex,
   withLeftFade = false,
+  withRightFade = false,
 }: {
   media: HeroMedia[];
   name: string;
@@ -322,6 +323,7 @@ const HeroPanel = ({
   paused: boolean;
   slotIndex: number;
   withLeftFade?: boolean;
+  withRightFade?: boolean;
 }) => {
   const [idx, setIdx] = useState(0);
 
