@@ -280,43 +280,34 @@ const createTools = [
     title: "Create Custom Babe",
     subtitle: "Design your dream character",
     href: "/explore/create-babe",
-    gradient: "from-fuchsia-600 via-pink-600 to-rose-500",
     Icon: Sparkles,
-    seed: "create-babe",
   },
   {
     title: "Video Generator",
     subtitle: "Bring scenes to life",
     href: "/explore/video-generator",
-    gradient: "from-rose-600 via-red-500 to-orange-500",
     Icon: Video,
-    seed: "video-gen",
   },
   {
     title: "Image Generator",
     subtitle: "Render any moment",
     href: "/explore/image-generator",
-    gradient: "from-blue-700 via-blue-600 to-cyan-500",
     Icon: ImageIcon,
-    seed: "image-gen",
   },
   {
     title: "Story Creator",
     subtitle: "Write episodic adventures",
     href: "/explore/story-creator",
-    gradient: "from-violet-700 via-purple-600 to-indigo-500",
     Icon: BookOpen,
-    seed: "story-creator",
   },
   {
     title: "Create Template Babe",
     subtitle: "Start from a preset",
     href: "/explore/create-template",
-    gradient: "from-emerald-700 via-green-600 to-teal-500",
     Icon: Sparkles,
-    seed: "template-babe",
   },
 ];
+
 
 
 // ---- Section header ----
