@@ -55,6 +55,22 @@ const videoCategories = [
   "Truelook", "Dreammix", "Cartoon", "Darkfantasy", "Anthro", "Female",
 ];
 
+const trendingTags = [
+  "Blowjob", "Cowgirl", "Creampie", "Cumshot", "Doggy Style", "Deepthroat",
+  "Facials", "Footjob", "Handjob", "Kissing", "Masturbation", "Mating Press",
+  "Missionary", "Pissing", "Bukkake", "Boob Bounce", "Breast Play", "Fingering",
+];
+
+const babeCategories = [
+  "Realistic", "Anime", "Hentai", "Caucasian", "Asian", "Latina",
+  "Ebony", "Goth", "MILF", "Teen 18+", "Cosplay", "Fantasy",
+];
+
+const newReleaseTags = [
+  "New today", "This week", "Rising stars", "Editor's pick",
+  "Most chatted", "Most liked", "Trending now", "Hidden gems",
+];
+
 const trendingVideos = [
   { id: "v1", likes: "2.1K" },
   { id: "v2", likes: "1.8K" },
@@ -64,6 +80,29 @@ const trendingVideos = [
   { id: "v6", likes: "640" },
   { id: "v7", likes: "523" },
 ];
+
+const trendingBabes = [
+  { name: "Juliana", description: "Brazilian samba instructor whose hips never lie and never quit...", messageCount: "3.2K", likeCount: "412" },
+  { name: "Natalie", description: "Your boss's daughter who keeps texting you after the office party...", messageCount: "2.8K", likeCount: "388" },
+  { name: "Elyndra", description: "Elven scout who tracked your scent across three kingdoms to find you...", messageCount: "1.9K", likeCount: "266" },
+  { name: "Beckki", description: "Egirl streamer who only goes live for her favorite supporter...", messageCount: "4.1K", likeCount: "521" },
+  { name: "Madeline", description: "French pastry chef teaching you to knead, slowly and thoroughly...", messageCount: "2.3K", likeCount: "190" },
+  { name: "Celeste", description: "Astronomy student who sees constellations in the freckles on your back...", messageCount: "1.6K", likeCount: "144" },
+  { name: "Pocahontas", description: "Wild spirit of the woods who doesn't believe in clothes or apologies...", messageCount: "3.7K", likeCount: "402" },
+  { name: "Princess Demetria", description: "Royal heir slumming it in your one-bedroom apartment for the weekend...", messageCount: "2.0K", likeCount: "229" },
+];
+
+const newBabes = [
+  { name: "Vexa", description: "Cyberpunk netrunner jacking into your dreams uninvited...", messageCount: "412", likeCount: "38" },
+  { name: "Hikari", description: "Shrine maiden bored of incense and ready for trouble...", messageCount: "289", likeCount: "44" },
+  { name: "Sable", description: "Vampire countess who needs more than just your blood tonight...", messageCount: "611", likeCount: "82" },
+  { name: "Iris", description: "Florist with a greenhouse and a very interesting orchid collection...", messageCount: "204", likeCount: "30" },
+  { name: "Cleo", description: "Curator of the museum's private after-hours exhibits...", messageCount: "356", likeCount: "51" },
+  { name: "Marisol", description: "Beach lifeguard who saved you and now she's collecting interest...", messageCount: "488", likeCount: "67" },
+  { name: "Tess", description: "Mechanic who'll fix your bike and break your resolve in one afternoon...", messageCount: "133", likeCount: "21" },
+  { name: "Yumi", description: "Idol on hiatus, hiding out in your spare room and out of costume...", messageCount: "722", likeCount: "104" },
+];
+
 
 
 const createTools = [
@@ -110,6 +149,23 @@ const SectionTitle = ({ title, action }: { title: string; action?: string }) => 
   </div>
 );
 
+// ---- Tag pill row ----
+const TagRow = ({ tags }: { tags: string[] }) => (
+  <div className="mb-3">
+    <HScroll>
+      {tags.map((t) => (
+        <button
+          key={t}
+          className="inline-flex h-[41px] shrink-0 items-center justify-center whitespace-nowrap rounded-[5px] bg-grey-dark-1 px-[16px] text-sm font-medium text-[#F2F2F2] transition-colors hover:bg-grey-dark-3 hover:text-white"
+        >
+          <span className="normal-case">{t}</span>
+        </button>
+      ))}
+    </HScroll>
+  </div>
+);
+
+
 const Explore = () => {
   return (
     <div className="relative flex h-svh w-full overflow-hidden bg-background font-onest text-foreground">
@@ -152,6 +208,7 @@ const Explore = () => {
           {/* Your babes */}
           <section>
             <SectionTitle title="Your babes are waiting" action="See all" />
+            <TagRow tags={babeCategories} />
             <HScroll>
               {yourBabes.map((b, i) => (
                 <BabeCard key={i} {...b} imageUrl={img(`babe-${b.name}-${i}`)} />
@@ -162,72 +219,81 @@ const Explore = () => {
           {/* Top trending videos */}
           <section className="mt-4">
             <SectionTitle title="Top trending videos" action="See all" />
+            <TagRow tags={videoCategories} />
             <HScroll>
-              {videoCategories.map((c) => (
-                <button
-                  key={c}
-                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
+              {trendingVideos.map((v) => (
+                <div
+                  key={v.id}
+                  className="group relative w-[180px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
                 >
-                  {c}
-                </button>
-              ))}
-            </HScroll>
-            <div className="mt-3">
-              <HScroll>
-                {trendingVideos.map((v) => (
-                  <div
-                    key={v.id}
-                    className="group relative w-[180px] shrink-0 overflow-hidden rounded-2xl bg-grey-dark-1"
-                  >
-                    <div className="relative aspect-[13/19] w-full overflow-hidden">
-                      <img
-                        src={img(`vid-${v.id}`, 260, 380)}
-                        alt=""
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
-                          <Play className="h-5 w-5 fill-black text-black" />
-                        </div>
-                      </div>
-                      <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
-                        ❤ {v.likes}
+                  <div className="relative aspect-[13/19] w-full overflow-hidden">
+                    <img
+                      src={img(`vid-${v.id}`, 260, 380)}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur">
+                        <Play className="h-5 w-5 fill-black text-black" />
                       </div>
                     </div>
+                    <div className="absolute bottom-2 right-2 rounded-md bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur">
+                      ❤ {v.likes}
+                    </div>
                   </div>
-                ))}
-              </HScroll>
-            </div>
+                </div>
+              ))}
+            </HScroll>
           </section>
 
           {/* Your following */}
           <section className="mt-4">
             <SectionTitle title="Your following" action="See all" />
+            <TagRow tags={followingUsernames} />
             <HScroll>
-              {followingUsernames.map((u) => (
-                <button
-                  key={u}
-                  className="h-9 shrink-0 rounded-full bg-grey-dark-1 px-4 text-sm font-medium text-grey-light-2 hover:bg-grey-dark-2 hover:text-white transition-colors"
-                >
-                  {u}
-                </button>
+              {yourFollowing.map((b, i) => (
+                <BabeCard
+                  key={i}
+                  {...b}
+                  variant="stats"
+                  imageUrl={img(`follow-${b.name}-${i}`)}
+                />
               ))}
             </HScroll>
-            <div className="mt-3">
-              <HScroll>
-                {yourFollowing.map((b, i) => (
-                  <BabeCard
-                    key={i}
-                    {...b}
-                    variant="stats"
-                    imageUrl={img(`follow-${b.name}-${i}`)}
-                  />
-                ))}
-              </HScroll>
-            </div>
           </section>
 
+          {/* Trending this week */}
+          <section className="mt-4">
+            <SectionTitle title="Check out this week trending babes" action="See all" />
+            <TagRow tags={trendingTags} />
+            <HScroll>
+              {trendingBabes.map((b, i) => (
+                <BabeCard
+                  key={i}
+                  {...b}
+                  variant="stats"
+                  imageUrl={img(`trend-${b.name}-${i}`)}
+                />
+              ))}
+            </HScroll>
+          </section>
+
+          {/* New releases */}
+          <section className="mt-4">
+            <SectionTitle title="New releases" action="See all" />
+            <TagRow tags={newReleaseTags} />
+            <HScroll>
+              {newBabes.map((b, i) => (
+                <BabeCard
+                  key={i}
+                  {...b}
+                  variant="stats"
+                  imageUrl={img(`new-${b.name}-${i}`)}
+                />
+              ))}
+            </HScroll>
+          </section>
 
           {/* Start creating */}
           <section className="mt-4">
