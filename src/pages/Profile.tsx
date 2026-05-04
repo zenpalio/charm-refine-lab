@@ -239,16 +239,14 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-background">
       <SideNav open={navOpen} onClose={() => setNavOpen(false)} />
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-4 sm:pt-6 pb-4 sm:pb-6">
-        <div className="flex justify-start mb-2">
-          <button
-            onClick={() => setNavOpen(true)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-foreground/90 hover:bg-muted transition-colors"
-            aria-label="Open menu"
-          >
-            <Menu className="h-5 w-5" strokeWidth={1.5} />
-          </button>
-        </div>
+      <button
+        onClick={() => setNavOpen(true)}
+        className="fixed left-4 top-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-card/70 backdrop-blur-md border border-border/40 text-foreground/90 hover:bg-card transition-colors shadow-sm"
+        aria-label="Open menu"
+      >
+        <Menu className="h-5 w-5" strokeWidth={1.5} />
+      </button>
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pt-8 sm:pt-12 pb-4 sm:pb-6">
 
         <div className="relative flex flex-col items-center mb-6">
           <div className="relative mb-3 w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" style={{ overflow: 'visible', margin: '12px auto' }}>
