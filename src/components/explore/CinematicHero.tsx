@@ -174,68 +174,96 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
             const isStory = s.layout === "story";
 
             if (isStory) {
-              const src = m.type === "image" ? m.url : (m.poster ?? s.imageUrl);
+              const list = slideMedia[i];
+              const covers = list.length > 0 ? list : [{ type: "image" as const, url: s.imageUrl }];
+              const c0 = covers[0];
+              const c1 = covers[1] ?? covers[0];
+              const c2 = covers[2] ?? covers[0];
+              const src0 = c0.type === "image" ? c0.url : (c0.poster ?? s.imageUrl);
+              const src1 = c1.type === "image" ? c1.url : (c1.poster ?? s.imageUrl);
+              const src2 = c2.type === "image" ? c2.url : (c2.poster ?? s.imageUrl);
               return (
                 <div className="absolute inset-0">
-                  {/* Warm parchment/library backdrop */}
+                  {/* Moody backdrop */}
                   <img
-                    src={src}
+                    src={src0}
                     alt=""
                     aria-hidden
-                    className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-50 opacity-50"
+                    className="absolute inset-0 h-full w-full scale-125 object-cover blur-3xl saturate-125 opacity-60"
                   />
                   <div
                     className="absolute inset-0"
                     style={{
                       background:
-                        "radial-gradient(ellipse at 70% 40%, hsl(28 60% 20% / 0.55) 0%, hsl(20 40% 8% / 0.85) 60%, hsl(0 0% 0% / 0.95) 100%)",
+                        "radial-gradient(ellipse at 70% 45%, hsl(320 50% 25% / 0.55) 0%, hsl(260 35% 10% / 0.85) 55%, hsl(0 0% 0% / 0.95) 100%)",
                     }}
                   />
-                  {/* Book cover panel — portrait, tilted, with spine and page edges */}
-                  <div className="absolute inset-y-0 right-0 hidden items-center justify-center pr-12 md:flex">
-                    <div
-                      className="relative h-[70%] aspect-[2/3] rotate-[-3deg] transition-transform"
-                      style={{
-                        boxShadow:
-                          "0 30px 60px -15px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)",
-                      }}
-                    >
-                      {/* Page edges (right side stack) */}
-                      <div className="absolute -right-1.5 inset-y-2 w-1.5 rounded-r bg-gradient-to-b from-amber-100/60 via-amber-200/40 to-amber-100/60" />
-                      <div className="absolute -right-2.5 inset-y-3 w-1 rounded-r bg-amber-100/30" />
-                      {/* Spine */}
-                      <div className="absolute left-0 inset-y-0 w-2 rounded-l bg-gradient-to-b from-black/70 via-black/40 to-black/70" />
-                      {/* Cover image */}
-                      <img
-                        src={src}
-                        alt={s.name}
-                        className="h-full w-full rounded-sm object-cover"
-                        loading={i === 0 ? "eager" : "lazy"}
-                      />
-                      {/* Cover overlay: title plate */}
-                      <div className="absolute inset-x-0 bottom-0 p-4">
-                        <div className="rounded-sm border border-amber-200/30 bg-black/60 px-3 py-2 backdrop-blur-sm">
-                          <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-amber-200/80">
-                            A VelvetHeat Story
+
+                  {/* Desktop: fanned scene-card stack */}
+                  <div className="absolute inset-y-0 right-0 hidden items-center justify-center pr-16 md:flex">
+                    <div className="relative h-[68%] aspect-[3/4]">
+                      <div
+                        className="absolute inset-0 -translate-x-16 -rotate-[10deg] rounded-xl overflow-hidden ring-1 ring-white/10"
+                        style={{ boxShadow: "0 25px 50px -15px rgba(0,0,0,0.7)" }}
+                      >
+                        <img src={src2} alt="" className="h-full w-full object-cover opacity-90" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      </div>
+                      <div
+                        className="absolute inset-0 translate-x-12 -translate-y-4 rotate-[6deg] rounded-xl overflow-hidden ring-1 ring-white/10"
+                        style={{ boxShadow: "0 25px 50px -15px rgba(0,0,0,0.7)" }}
+                      >
+                        <img src={src1} alt="" className="h-full w-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      </div>
+                      <div
+                        className="absolute inset-0 rounded-xl overflow-hidden ring-1 ring-white/15"
+                        style={{ boxShadow: "0 35px 60px -15px rgba(0,0,0,0.8)" }}
+                      >
+                        <img src={src0} alt={s.name} className="h-full w-full object-cover" loading={i === 0 ? "eager" : "lazy"} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                        <div className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur ring-1 ring-white/15">
+                          <BookOpen className="h-3 w-3 text-primary" />
+                          Interactive Story
+                        </div>
+                        <div className="absolute inset-x-0 bottom-0 p-4">
+                          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                            Chapter 1 · 12 chapters
                           </div>
-                          <div className="mt-0.5 font-serif text-sm font-bold leading-tight text-white">
+                          <div className="mt-1 text-base font-bold leading-tight text-white line-clamp-2">
                             {s.name}
+                          </div>
+                          <div className="mt-2.5 flex flex-wrap gap-1.5">
+                            <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/85 backdrop-blur ring-1 ring-white/10">
+                              → Pick up the phone
+                            </span>
+                            <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/85 backdrop-blur ring-1 ring-white/10">
+                              → Let it ring
+                            </span>
                           </div>
                         </div>
                       </div>
-                      {/* Top corner ribbon */}
-                      <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-sm bg-amber-400/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black shadow">
-                        <BookOpen className="h-2.5 w-2.5" />
-                        Chapter 1
-                      </div>
                     </div>
                   </div>
-                  {/* Mobile: show book cover centered */}
+
+                  {/* Mobile */}
                   <div className="absolute inset-0 flex items-center justify-center md:hidden">
-                    <div className="relative h-[55%] aspect-[2/3] rotate-[-3deg]" style={{ boxShadow: "0 20px 40px -10px rgba(0,0,0,0.7)" }}>
-                      <img src={src} alt={s.name} className="h-full w-full rounded-sm object-cover" />
-                      <div className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-sm bg-amber-400/90 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-black">
-                        <BookOpen className="h-2.5 w-2.5" /> Chapter 1
+                    <div className="relative h-[55%] aspect-[3/4]">
+                      <div
+                        className="absolute inset-0 -translate-x-6 -rotate-[8deg] rounded-xl overflow-hidden ring-1 ring-white/10"
+                        style={{ boxShadow: "0 20px 40px -10px rgba(0,0,0,0.7)" }}
+                      >
+                        <img src={src1} alt="" className="h-full w-full object-cover opacity-90" />
+                      </div>
+                      <div
+                        className="absolute inset-0 rounded-xl overflow-hidden ring-1 ring-white/15"
+                        style={{ boxShadow: "0 25px 50px -10px rgba(0,0,0,0.8)" }}
+                      >
+                        <img src={src0} alt={s.name} className="h-full w-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                        <div className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white ring-1 ring-white/15">
+                          <BookOpen className="h-2.5 w-2.5 text-primary" /> Interactive Story
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -385,10 +413,10 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           )}
 
           {slide.layout === "story" && slide.storyMeta && (
-            <div className="flex flex-wrap items-center gap-4 text-xs text-amber-200/90">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-white/80">
               {slide.storyMeta.chapters != null && (
                 <span className="flex items-center gap-1.5">
-                  <BookOpen className="h-3.5 w-3.5" />
+                  <BookOpen className="h-3.5 w-3.5 text-primary" />
                   {slide.storyMeta.chapters} chapters
                 </span>
               )}
@@ -397,7 +425,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
               )}
               {slide.storyMeta.rating != null && (
                 <span className="flex items-center gap-1">
-                  <Star className="h-3.5 w-3.5 fill-amber-300 text-amber-300" />
+                  <Star className="h-3.5 w-3.5 fill-white text-white" />
                   {slide.storyMeta.rating.toFixed(1)}
                 </span>
               )}
@@ -419,7 +447,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <button className={`inline-flex h-11 items-center gap-2 rounded-full px-6 text-sm font-bold transition-transform hover:scale-[1.03] ${
               slide.layout === "story"
-                ? "bg-amber-300 text-black"
+                ? "bg-primary text-primary-foreground"
                 : "bg-white text-black"
             }`}>
               {slide.layout === "story" ? (

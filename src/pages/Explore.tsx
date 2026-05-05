@@ -258,11 +258,17 @@ const heroSlides: HeroSlide[] = [
     tagline: "An interactive story by VelvetHeat",
     description: "She left a voicemail you weren't supposed to hear. Choose how the night unfolds in this 12-chapter branching story.",
     imageUrl: bannerStory,
+    media: [
+      { type: "image", url: bannerStory },
+      { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/c4bc02f2-4213-4bdd-b782-1dc4a44d4687/profile-picture-707144ba-b868-4cb5-9e78-3df93aa818d3.avif" },
+      { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/dae34bfb-4650-4e1a-a3fd-fd87785473d1/35b7d1f0-5a47-47e1-bc88-862087bc302c-0.jpg" },
+      { type: "image", url: "https://prod-bckp.fra1.cdn.digitaloceanspaces.com/mybabes-prod/e8fe5e83-dc55-424d-930c-d0b16eaa6e75/profile-picture-77b22208-141b-4809-93d8-7186e4b6a3ec.avif" },
+    ],
     tags: ["Interactive", "Branching", "12 Chapters"],
     badge: "New story",
     cta: "Start reading",
     layout: "story",
-    accent: "hsl(28 90% 55%)",
+    accent: "hsl(320 70% 55%)",
     storyMeta: { chapters: 12, episodes: 4, rating: 4.8 },
   },
 ];
