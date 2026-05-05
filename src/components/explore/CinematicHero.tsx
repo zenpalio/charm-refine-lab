@@ -447,7 +447,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <button className={`inline-flex h-11 items-center gap-2 rounded-full px-6 text-sm font-bold transition-transform hover:scale-[1.03] ${
               slide.layout === "story"
-                ? "bg-amber-300 text-black"
+                ? "bg-primary text-primary-foreground"
                 : "bg-white text-black"
             }`}>
               {slide.layout === "story" ? (
