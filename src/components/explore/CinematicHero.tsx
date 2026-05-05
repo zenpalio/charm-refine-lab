@@ -413,10 +413,10 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
           )}
 
           {slide.layout === "story" && slide.storyMeta && (
-            <div className="flex flex-wrap items-center gap-4 text-xs text-amber-200/90">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-white/80">
               {slide.storyMeta.chapters != null && (
                 <span className="flex items-center gap-1.5">
-                  <BookOpen className="h-3.5 w-3.5" />
+                  <BookOpen className="h-3.5 w-3.5 text-primary" />
                   {slide.storyMeta.chapters} chapters
                 </span>
               )}
@@ -425,7 +425,7 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
               )}
               {slide.storyMeta.rating != null && (
                 <span className="flex items-center gap-1">
-                  <Star className="h-3.5 w-3.5 fill-amber-300 text-amber-300" />
+                  <Star className="h-3.5 w-3.5 fill-white text-white" />
                   {slide.storyMeta.rating.toFixed(1)}
                 </span>
               )}
