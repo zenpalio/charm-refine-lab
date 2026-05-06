@@ -580,15 +580,41 @@ const Explore = () => {
             </HScroll>
           </section>
 
-          {/* Promo banner — New feature */}
-          <PromoBanner
-            eyebrow="New"
-            title="Story Creator is here — write your own episodes"
-            description="Branch your plot, cast any babe, and publish episodic adventures the community can play through."
-            cta="Try it now"
-            imageUrl={bannerFeature}
-            accent="hsl(320 70% 55%)"
-          />
+          {/* What's new — news row */}
+          <section className="mt-4">
+            <SectionTitle title="What's new" action="See all" />
+            <HScroll>
+              {[
+                { tag: "Feature", date: "May 5", title: "Story Creator is live", description: "Write your own branching episodes and publish them to the community." },
+                { tag: "Update", date: "May 3", title: "Faster video generation", description: "Render times cut in half on all Premium plans this week." },
+                { tag: "Babe drop", date: "May 2", title: "10 new fantasy babes", description: "Elven scouts, vampire countesses, and shrine maidens just landed." },
+                { tag: "Community", date: "Apr 30", title: "Creator payouts opened", description: "Top 100 creators can now cash out earnings directly from their dashboard." },
+                { tag: "Event", date: "Apr 28", title: "Spring writing contest", description: "Submit a story by May 20 for a chance at 3 months Premium." },
+              ].map((n, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="group flex w-[300px] shrink-0 flex-col gap-2 rounded-2xl border border-white/[0.06] bg-grey-dark-1/60 p-4 transition-colors hover:border-white/10 hover:bg-grey-dark-1"
+                >
+                  <div className="flex items-center gap-2 text-[11px] font-medium">
+                    <span className="rounded-full bg-primary/15 px-2 py-0.5 text-primary">{n.tag}</span>
+                    <span className="text-grey-light-4">{n.date}</span>
+                  </div>
+                  <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-white">
+                    {n.title}
+                  </h3>
+                  <p className="line-clamp-2 text-xs leading-snug text-grey-light-3">
+                    {n.description}
+                  </p>
+                  <div className="mt-auto flex items-center gap-1 pt-1 text-xs font-medium text-grey-light-3 transition-colors group-hover:text-white">
+                    <span>Read more</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </div>
+                </a>
+              ))}
+            </HScroll>
+          </section>
+
 
           {/* New releases */}
           <section className="mt-4">
