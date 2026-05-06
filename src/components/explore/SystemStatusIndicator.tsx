@@ -45,7 +45,7 @@ export default function SystemStatusIndicator() {
           className="pointer-events-auto relative flex h-8 w-8 items-center justify-center transition-opacity hover:opacity-75"
           aria-label={`System status: ${statusLabel[overall]}`}
         >
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-system-red text-[13px] font-bold leading-none text-destructive-foreground shadow-private">
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[hsl(42_92%_52%)] text-[13px] font-bold leading-none text-black shadow-private">
             !
           </span>
         </button>
