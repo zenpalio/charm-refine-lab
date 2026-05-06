@@ -581,6 +581,16 @@ const Explore = () => {
             </HScroll>
           </section>
 
+          {/* Promo banner — New feature */}
+          <PromoBanner
+            eyebrow="New"
+            title="Story Creator is here — write your own episodes"
+            description="Branch your plot, cast any babe, and publish episodic adventures the community can play through."
+            cta="Try it now"
+            imageUrl={bannerFeature}
+            accent="hsl(320 70% 55%)"
+          />
+
           {/* New releases */}
           <section className="mt-4">
             <SectionTitle title="New releases" action="See all" />
