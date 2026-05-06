@@ -464,7 +464,17 @@ const Explore = () => {
             </HScroll>
           </section>
 
-          {/* Top trending videos */}
+          {/* Promo banner — Premium */}
+          <PromoBanner
+            eyebrow="Premium"
+            title="Unlock unlimited chats & uncensored scenes"
+            description="Skip the queues, generate longer videos, and get exclusive babes only Premium members can meet."
+            cta="Go Premium"
+            imageUrl={bannerPremium}
+            accent="hsl(213 100% 50%)"
+          />
+
+
           <section className="mt-4">
             <SectionTitle title="Top trending videos" action="See all" />
             <TagRow tags={videoCategories} />
