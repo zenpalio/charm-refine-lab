@@ -466,11 +466,10 @@ const Explore = () => {
 
           {/* Promo banner — Premium */}
           <PromoBanner
-            eyebrow="Premium"
-            title="Unlock unlimited chats & uncensored scenes"
-            description="Skip the queues, generate longer videos, and get exclusive babes only Premium members can meet."
-            cta="Go Premium"
-            imageUrl={bannerPremium}
+            icon={Crown}
+            title="Go Premium"
+            description="Unlimited chats, longer videos, and exclusive babes — without the queue."
+            cta="Upgrade"
             accent="hsl(213 100% 50%)"
           />
 
