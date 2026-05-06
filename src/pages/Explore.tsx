@@ -7,6 +7,7 @@ import CreatorRankCard from "@/components/explore/CreatorRankCard";
 import StoryContentCard from "@/components/explore/StoryContentCard";
 import FloatingToolsFAB from "@/components/explore/FloatingToolsFAB";
 import SystemStatusIndicator from "@/components/explore/SystemStatusIndicator";
+import PromoBanner from "@/components/explore/PromoBanner";
 import SideNav from "@/components/SideNav";
 import { type BadgeTier } from "@/components/BadgeCard";
 import bannerPremium from "@/assets/hero/banner-premium.jpg";
@@ -463,7 +464,17 @@ const Explore = () => {
             </HScroll>
           </section>
 
-          {/* Top trending videos */}
+          {/* Promo banner — Premium */}
+          <PromoBanner
+            eyebrow="Premium"
+            title="Unlock unlimited chats & uncensored scenes"
+            description="Skip the queues, generate longer videos, and get exclusive babes only Premium members can meet."
+            cta="Go Premium"
+            imageUrl={bannerPremium}
+            accent="hsl(213 100% 50%)"
+          />
+
+
           <section className="mt-4">
             <SectionTitle title="Top trending videos" action="See all" />
             <TagRow tags={videoCategories} />
@@ -569,6 +580,16 @@ const Explore = () => {
               ))}
             </HScroll>
           </section>
+
+          {/* Promo banner — New feature */}
+          <PromoBanner
+            eyebrow="New"
+            title="Story Creator is here — write your own episodes"
+            description="Branch your plot, cast any babe, and publish episodic adventures the community can play through."
+            cta="Try it now"
+            imageUrl={bannerFeature}
+            accent="hsl(320 70% 55%)"
+          />
 
           {/* New releases */}
           <section className="mt-4">
