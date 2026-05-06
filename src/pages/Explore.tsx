@@ -6,6 +6,7 @@ import CinematicHero, { type HeroSlide } from "@/components/explore/CinematicHer
 import CreatorRankCard from "@/components/explore/CreatorRankCard";
 import StoryContentCard from "@/components/explore/StoryContentCard";
 import FloatingToolsFAB from "@/components/explore/FloatingToolsFAB";
+import SystemStatusIndicator from "@/components/explore/SystemStatusIndicator";
 import SideNav from "@/components/SideNav";
 import { type BadgeTier } from "@/components/BadgeCard";
 import bannerPremium from "@/assets/hero/banner-premium.jpg";
@@ -421,15 +422,18 @@ const Explore = () => {
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
           </div>
-          <button
-            className="pointer-events-auto relative flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
-            aria-label="Notifications"
-          >
-            <Bell className="h-5 w-5" strokeWidth={1.5} />
-            <span className="absolute right-1 top-1 flex h-[12px] min-w-[12px] items-center justify-center rounded-full bg-primary px-[2px] text-[9px] font-semibold leading-[12px] text-primary-foreground">
-              14
-            </span>
-          </button>
+          <div className="pointer-events-auto flex items-center gap-1">
+            <SystemStatusIndicator />
+            <button
+              className="relative flex h-9 w-9 items-center justify-center text-foreground/90 transition-opacity hover:opacity-70"
+              aria-label="Notifications"
+            >
+              <Bell className="h-5 w-5" strokeWidth={1.5} />
+              <span className="absolute right-1 top-1 flex h-[12px] min-w-[12px] items-center justify-center rounded-full bg-primary px-[2px] text-[9px] font-semibold leading-[12px] text-primary-foreground">
+                14
+              </span>
+            </button>
+          </div>
         </header>
 
         {/* Cinematic hero (full-bleed) */}
