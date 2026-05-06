@@ -17,6 +17,19 @@ const isHighTier = (tier: BadgeTier) =>
 const resolveSrc = (image: string | { src: string }) =>
   typeof image === "string" ? image : image.src;
 
+const RankBackdrop = ({ rank }: { rank: number }) => (
+  <span
+    aria-hidden
+    className="pointer-events-none absolute -left-1 -bottom-5 z-0 select-none font-black leading-none text-foreground/[0.055]"
+    style={{
+      fontSize: rank >= 10 ? 118 : 142,
+      fontVariantNumeric: "tabular-nums",
+    }}
+  >
+    {rank}
+  </span>
+);
+
 export interface CreatorRankCardProps {
   rank: number;
   name: string;
@@ -37,30 +50,7 @@ const CreatorRankCard = ({
 
   return (
     <button className="group relative flex w-[300px] shrink-0 items-center gap-4 overflow-hidden rounded-2xl bg-grey-dark-1 pl-5 pr-4 py-3 text-left transition-colors hover:bg-grey-dark-2">
-      {/* Large outlined ranking numeral behind avatar — neutral */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute left-1 -bottom-4 select-none"
-        width="120"
-        height="140"
-        viewBox="0 0 120 140"
-        style={{ zIndex: 0 }}
-      >
-        <text
-          x="0"
-          y="125"
-          fontFamily="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
-          fontSize="140"
-          fontWeight={800}
-          letterSpacing="-5"
-          fill="none"
-          stroke="hsl(var(--muted-foreground) / 0.32)"
-          strokeWidth={1.5}
-          style={{ paintOrder: "stroke" }}
-        >
-          {rank}
-        </text>
-      </svg>
+      <RankBackdrop rank={rank} />
 
       {/* Avatar with badge in bottom-right */}
       <div
