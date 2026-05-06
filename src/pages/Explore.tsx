@@ -7,6 +7,7 @@ import CreatorRankCard from "@/components/explore/CreatorRankCard";
 import StoryContentCard from "@/components/explore/StoryContentCard";
 import FloatingToolsFAB from "@/components/explore/FloatingToolsFAB";
 import SystemStatusIndicator from "@/components/explore/SystemStatusIndicator";
+import PromoBanner from "@/components/explore/PromoBanner";
 import SideNav from "@/components/SideNav";
 import { type BadgeTier } from "@/components/BadgeCard";
 import bannerPremium from "@/assets/hero/banner-premium.jpg";
