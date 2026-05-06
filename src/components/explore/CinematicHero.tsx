@@ -247,10 +247,10 @@ const CinematicHero = ({ slides, intervalMs = 7000, mediaIntervalMs = 3500 }: Pr
                   </div>
 
                   {/* Mobile */}
-                  <div className="absolute inset-0 flex items-center justify-center md:hidden">
-                    <div className="relative h-[55%] aspect-[3/4]">
+                  <div className="absolute inset-0 flex items-center justify-center px-10 md:hidden">
+                    <div className="relative h-[48%] max-h-[260px] aspect-[3/4]">
                       <div
-                        className="absolute inset-0 -translate-x-6 -rotate-[8deg] rounded-xl overflow-hidden ring-1 ring-white/10"
+                        className="absolute inset-0 -translate-x-4 -rotate-[8deg] rounded-xl overflow-hidden ring-1 ring-white/10"
                         style={{ boxShadow: "0 20px 40px -10px rgba(0,0,0,0.7)" }}
                       >
                         <img src={src1} alt="" className="h-full w-full object-cover opacity-90" />
