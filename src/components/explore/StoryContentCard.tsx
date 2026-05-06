@@ -28,7 +28,7 @@ const StoryContentCard = ({
   return (
     <div
       onClick={onClick}
-      className="group relative w-[460px] shrink-0 aspect-[5/3] rounded-xl overflow-hidden bg-card border border-border/50 cursor-pointer"
+      className="group relative w-[calc(100vw-2rem)] max-w-[460px] shrink-0 aspect-[5/3] rounded-xl overflow-hidden bg-card border border-border/50 cursor-pointer md:w-[460px]"
     >
       {/* Cover image */}
       {src ? (
