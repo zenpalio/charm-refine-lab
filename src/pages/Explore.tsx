@@ -9,6 +9,14 @@ import FloatingToolsFAB from "@/components/explore/FloatingToolsFAB";
 import SystemStatusIndicator from "@/components/explore/SystemStatusIndicator";
 import PromoBanner from "@/components/explore/PromoBanner";
 import SideNav from "@/components/SideNav";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { type BadgeTier } from "@/components/BadgeCard";
 import bannerPremium from "@/assets/hero/banner-premium.jpg";
 import bannerFeature from "@/assets/hero/banner-feature.jpg";
@@ -333,6 +341,24 @@ const createTools = [
     href: "/explore/create-template",
     Icon: Sparkles,
   },
+];
+
+const whatsNewItems = [
+  {
+    tag: "Feature",
+    date: "May 5",
+    title: "Story Creator is live",
+    description: "Write your own branching episodes and publish them to the community.",
+    featureDetails: [
+      "Build multi-scene stories with branching choices.",
+      "Attach characters, cover art, and episode metadata.",
+      "Publish drafts when they are ready for the community.",
+    ],
+  },
+  { tag: "Update", date: "May 3", title: "Faster video generation", description: "Render times cut in half on all Premium plans this week." },
+  { tag: "Babe drop", date: "May 2", title: "10 new fantasy babes", description: "Elven scouts, vampire countesses, and shrine maidens just landed." },
+  { tag: "Community", date: "Apr 30", title: "Creator payouts opened", description: "Top 100 creators can now cash out earnings directly from their dashboard." },
+  { tag: "Event", date: "Apr 28", title: "Spring writing contest", description: "Submit a story by May 20 for a chance at 3 months Premium." },
 ];
 
 
