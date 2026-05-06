@@ -7,22 +7,25 @@ interface CreatorCardProps {
   rank?: number;
 }
 
+const RankBackdrop = ({ rank }: { rank: number }) => (
+  <span
+    aria-hidden
+    className="select-none font-black leading-none text-foreground/[0.055]"
+    style={{
+      fontSize: rank >= 10 ? 84 : 100,
+      fontVariantNumeric: "tabular-nums",
+      marginRight: "-20px",
+      zIndex: 0,
+    }}
+  >
+    {rank}
+  </span>
+);
+
 const CreatorCard = ({ name, avatarUrl, verified = false, rank }: CreatorCardProps) => {
   return (
     <div className="flex-shrink-0 flex items-end">
-      {rank !== undefined && (
-        <span
-          className="text-[100px] font-black leading-none select-none"
-          style={{
-            color: "transparent",
-            WebkitTextStroke: "2px hsl(var(--muted-foreground) / 0.3)",
-            marginRight: "-20px",
-            zIndex: 0,
-          }}
-        >
-          {rank}
-        </span>
-      )}
+      {rank !== undefined && <RankBackdrop rank={rank} />}
       <div className="relative flex items-center gap-4 bg-card rounded-2xl px-5 py-4 min-w-[240px] cursor-pointer hover:bg-card/80 transition-colors group z-10">
         <div className="relative">
           <div className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-muted-foreground/30">
